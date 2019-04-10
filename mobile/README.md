@@ -1,12 +1,39 @@
-## Requirements
+# SapaWarga Mobile App
 
-- Node 8.13+
-- Npm 6+
-- Ionic CLI 4.5
+## Build Image and Run Container
 
-## Installing
+Go to `mobile` subdirectory
 
+```bash
+$ cd mobile
 ```
-$ npm install
-$ ionic serve -l
+
+Build and run container
+
+```bash
+$ docker-compose up -d
+```
+
+Go inside the container
+
+```bash
+$ docker exec -it mobile_app_1 bash
+```
+
+## Run in Browser
+
+Inside the container, run
+
+```bash
+$ npm run start
+```
+
+Open your browser on http://localhost:4200
+
+## Build APK
+
+Inside the container, run
+
+```bash
+$ ionic cordova build android --prod
 ```

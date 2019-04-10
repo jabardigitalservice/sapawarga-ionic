@@ -1,34 +1,33 @@
-FROM node:10.1-alpine as build
+#################################
+# Development
+#################################
+FROM beevelop/ionic:latest as build
 
 # Create app folder
 RUN mkdir /app
 WORKDIR /app
 
-# Add path
-ENV PATH /app/node_modules/.bin:$PATH
+# # Add configuration files
+# COPY image-files/ /
+# RUN chmod 700 /usr/local/bin/docker-entrypoint-dev.sh
+# RUN chmod +x /etc/profile.d/gradle.sh
 
-# Copy package*.json to app folder
-COPY package.json package-lock.json /app/
+# # Install gradle
+# RUN wget https://services.gradle.org/distributions/gradle-5.0-bin.zip -P /tmp
+# RUN unzip -d /opt/gradle /tmp/gradle-*.zip
+# RUN /etc/profile.d/gradle.sh
 
-# Install app dependencies
-RUN npm set progress=false
+COPY . .
+
+# install dependency
 RUN npm install
 
-# Copy all files to app folder
-COPY . /app
+# Accept android license
+RUN mkdir "$ANDROID_HOME/licenses"
+RUN echo -e "\n24333f8a63b6825ea9c5514f83c2829b004d1fee" > "$ANDROID_HOME/licenses/android-sdk-license"
 
-# Build the app
-RUN ionic cordova build android --prod
+# Expose port 4200
+EXPOSE 4200
 
-# Add configuration files
-COPY image-files/ /
-RUN chmod 700 /usr/local/bin/docker-entrypoint.sh
-
-# Add path
-ENV PATH /usr/local/bin:$PATH
-
-# Expose port 80
-EXPOSE 8100
-
-# Run entry point
-CMD ["ionic", "run", "serve"]
+# ENTRYPOINT ["docker-entrypoint-dev.sh"]
+CMD ["tail", "-f", "/dev/null"]
