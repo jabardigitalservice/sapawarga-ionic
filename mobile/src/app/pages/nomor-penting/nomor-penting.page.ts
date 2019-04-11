@@ -235,6 +235,7 @@ export class NomorPentingPage implements OnInit {
 
     // handle if data empty
     if (!event) {
+      this.dataNomorPenting = [];
       this.getNomorPenting();
       return;
     }
