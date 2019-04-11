@@ -106,6 +106,7 @@ export class NomorPentingPage implements OnInit {
 
     this.nomorPentingService.filterNomorPenting(type, id).subscribe(
       res => {
+        this.dataNomorPenting = [];
         if (res['data']['items'].length) {
           this.dataNomorPenting = res['data']['items'];
         } else {
@@ -234,6 +235,7 @@ export class NomorPentingPage implements OnInit {
 
     // handle if data empty
     if (!event) {
+      this.getNomorPenting();
       return;
     }
 
