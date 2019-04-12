@@ -113,7 +113,7 @@ export class HomeResultsPage {
         this.launchApp(layananUrl);
         break;
       case 'Info lelang':
-        this.launchApp(layananUrl);
+        this.launchweb(layananUrl);
         break;
       case 'Nomor penting':
         this.goNomorPenting();
