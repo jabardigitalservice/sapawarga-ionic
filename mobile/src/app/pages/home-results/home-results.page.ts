@@ -3,6 +3,7 @@ import { NavController, Platform, LoadingController } from '@ionic/angular';
 
 import { Pages } from '../../interfaces/pages';
 import { ProfileService } from 'src/app/services/profile.service';
+import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 
 @Component({
   selector: 'app-home-results',
@@ -34,7 +35,8 @@ export class HomeResultsPage {
     public navCtrl: NavController,
     private platform: Platform,
     private profileService: ProfileService,
-    public loadingCtrl: LoadingController
+    public loadingCtrl: LoadingController,
+    private inAppBrowser: InAppBrowser
   ) {
     this.appPages = [
       {
@@ -105,7 +107,7 @@ export class HomeResultsPage {
         this.launchApp(layananUrl);
         break;
       case 'Perizinan':
-        this.launchApp(layananUrl);
+        this.launchweb(layananUrl);
         break;
       case 'Info harga':
         this.launchApp(layananUrl);
@@ -138,6 +140,14 @@ export class HomeResultsPage {
         }
       );
     }
+  }
+
+  // open browser
+  private launchweb(webUrl: string) {
+    // check if the platform is ios or android, else open the web url
+    this.platform.ready().then(() => {
+      this.inAppBrowser.create(webUrl, '_system');
+    });
   }
 
   async getDataProfile() {
