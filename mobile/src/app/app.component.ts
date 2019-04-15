@@ -30,11 +30,10 @@ export class AppComponent {
     this.platform
       .ready()
       .then(() => {
-        this.statusBar.styleDefault();
+        this.statusBar.styleBlackTranslucent();
         this.splashScreen.hide();
 
         this.authService.authenticationState.subscribe(state => {
-          console.log(`login ${state}`);
           if (state) {
             this.navCtrl.navigateRoot('/');
           } else {
