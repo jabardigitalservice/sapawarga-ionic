@@ -55,6 +55,8 @@ export class TokenInterceptor implements HttpInterceptor {
             console.log('Login failed');
           } else {
             this.router.navigate(['login']);
+            // clear locastorage
+            localStorage.clear();
           }
           this.showToast(error.error.data.name, error.error.data.message);
           this.router.navigate(['login']);
