@@ -109,7 +109,13 @@
       "com.lampa.startapp": {},
       "mx.ferreyra.callnumber": {},
       "cordova-sms-plugin": {},
-      "call-number": {}
+      "call-number": {},
+      "cordova-plugin-googlemaps": {
+        "API_KEY_FOR_ANDROID": "",
+        "API_KEY_FOR_IOS": "",
+        "PLAY_SERVICES_VERSION": "15.0.1",
+        "ANDROID_SUPPORT_V4_VERSION": "27.+"
+      }
     }
   }
 }
