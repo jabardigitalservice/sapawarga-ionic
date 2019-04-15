@@ -31,7 +31,8 @@ const routes: Routes = [
     path: 'nomor-penting/:id',
     loadChildren:
       './pages/detail-nomor-penting/detail-nomor-penting.module#DetailNomorPentingPageModule'
-  }
+  },
+  { path: 'map-locations', loadChildren: './pages/map-locations/map-locations.module#MapLocationsPageModule' }
 ];
 
 @NgModule({

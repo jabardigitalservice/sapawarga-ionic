@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import {
   LoadingController,
   ToastController,
@@ -21,7 +21,8 @@ export class DetailNomorPentingPage implements OnInit {
     private nomorPentingService: NomorPentingService,
     private loadingCtrl: LoadingController,
     private toastCtrl: ToastController,
-    private navCtrl: NavController
+    private navCtrl: NavController,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -54,8 +55,19 @@ export class DetailNomorPentingPage implements OnInit {
     );
   }
 
-  goToMap(lat: number, long: number) {
-    // console.log(`${lat}, ${long}`);
+  goToMap(title: string, lat: number, long: number) {
+    if (lat && long) {
+      let navigationExtras: NavigationExtras = {
+        state: {
+          latlng: {
+            lat: lat,
+            lng: long
+          },
+          title: title
+        }
+      };
+      this.router.navigate(['map-locations'], navigationExtras);
+    }
   }
 
   async showToast(msg: string) {
