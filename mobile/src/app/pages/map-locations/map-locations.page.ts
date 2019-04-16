@@ -7,8 +7,9 @@ import {
   GoogleMapOptions,
   GoogleMapsAnimation
 } from '@ionic-native/google-maps';
-import { Platform } from '@ionic/angular';
+import { Platform, ToastController, AlertController } from '@ionic/angular';
 import { Diagnostic } from '@ionic-native/diagnostic/ngx';
+import { OpenNativeSettings } from '@ionic-native/open-native-settings/ngx';
 @Component({
   selector: 'app-map-locations',
   templateUrl: './map-locations.page.html',
@@ -22,7 +23,9 @@ export class MapLocationsPage implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private platform: Platform,
-    private diagnostic: Diagnostic
+    private diagnostic: Diagnostic,
+    private openNativeSettings: OpenNativeSettings,
+    public alertController: AlertController
   ) {
     this.route.queryParams.subscribe(params => {
       if (this.router.getCurrentNavigation().extras.state) {
@@ -39,31 +42,23 @@ export class MapLocationsPage implements OnInit {
   async ngOnInit() {
     // Since ngOnInit() is executed before `deviceready` event,
     // you have to wait the event.
-    await this.platform.ready();
-    await this.loadMap();
+    // await this.platform.ready();
+    // await this.loadMap();
   }
 
   isLocationAvailable() {
     this.diagnostic
-      .isLocationEnabled()
+      .isGpsLocationEnabled()
       .then(isAvailable => {
-        alert(isAvailable);
-        //     this._GEO.getCurrentPosition()
-        //     .then((data : any) =>
-        //     {
-        //   this.isLocationEnabled 	= true;
-        //   this.latitude 		        = data.coords.latitude;
-        //   this.longitude		        = data.coords.longitude;
-
-        //     })
-        //     .catch((error : any) =>
-        //     {
-        //    console.log('Error getting location', error);
-        // });
+        if (isAvailable === true) {
+          this.loadMap();
+        } else {
+          this.presentAlertConfirm(
+            'Untuk melanjutkan, mohon untuk mengaktifkan gps anda'
+          );
+        }
       })
-      .catch((error: any) => {
-        alert('Location is:error');
-      });
+      .catch((error: any) => {});
   }
 
   loadMap() {
@@ -86,8 +81,37 @@ export class MapLocationsPage implements OnInit {
     let marker: Marker = this.map.addMarkerSync({
       title: this.title,
       icon: 'blue',
+      disableAutoPan: true,
       animation: GoogleMapsAnimation.BOUNCE,
       position: this.latlong
     });
+  }
+
+  async presentAlertConfirm(msg: string) {
+    const alert = await this.alertController.create({
+      message: msg,
+      buttons: [
+        {
+          text: 'Batalkan',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: blah => {
+            console.log('Confirm Cancel: blah');
+          }
+        },
+        {
+          text: 'Ok',
+          handler: () => {
+            this.openSetting();
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
+  openSetting() {
+    this.openNativeSettings.open('location');
   }
 }
