@@ -343,6 +343,13 @@
   dependencies:
     "@types/cordova" latest
 
+"@ionic-native/diagnostic@^5.4.0":
+  version "5.4.0"
+  resolved "https://registry.yarnpkg.com/@ionic-native/diagnostic/-/diagnostic-5.4.0.tgz#0f7da17f0cc9785c85770299c5f35c5e3c862db1"
+  integrity sha512-pdbYET3Ud6gyP7SG6CfotXrGfMnA1cQe8k/Ov0I7H+srbJYraZEmTFSn2RIJ0+lVS6o1zMYMkR1Kkw0AVQsi6Q==
+  dependencies:
+    "@types/cordova" latest
+
 "@ionic-native/file-transfer@^5.3.0":
   version "5.4.0"
   resolved "https://registry.yarnpkg.com/@ionic-native/file-transfer/-/file-transfer-5.4.0.tgz#efb6acfbf63206000945626244e268dc863443dd"
@@ -1859,7 +1866,7 @@ colors@1.1.2:
   resolved "https://registry.yarnpkg.com/colors/-/colors-1.1.2.tgz#168a4701756b6a7f51a12ce0c97bfa28c084ed63"
   integrity sha1-FopHAXVran9RoSzgyXv6KMCE7WM=
 
-colors@^1.1.0:
+colors@^1.1.0, colors@^1.1.2:
   version "1.3.3"
   resolved "https://registry.yarnpkg.com/colors/-/colors-1.3.3.tgz#39e005d546afe01e01f9c4ca8fa50f686a01205d"
   integrity sha512-mmGt/1pZqYRjMxB1axhTo16/snVZ5krrKkcmMeVKxzECMMXoCgnvTPp10QgHfcbQZw8Dq2jMNG6je4JlWU0gWg==
@@ -2094,7 +2101,7 @@ cordova-plugin-file@^6.0.1:
   resolved "https://registry.yarnpkg.com/cordova-plugin-file/-/cordova-plugin-file-6.0.1.tgz#49606b8c15a5688d4728f92e4a7325a061de07f5"
   integrity sha1-SWBrjBWlaI1HKPkuSnMloGHeB/U=
 
-cordova-plugin-googlemaps@2.5.3:
+cordova-plugin-googlemaps@^2.5.3:
   version "2.5.3"
   resolved "https://registry.yarnpkg.com/cordova-plugin-googlemaps/-/cordova-plugin-googlemaps-2.5.3.tgz#bbc9e9b5f093c57242648d30a6cc43bccc8809f0"
   integrity sha512-x2nMn3cVBTpfuMh9g/+vuQzY+ob8tURrcBrUgjeoeF9CrokMKf4ioff1NDQEIGaWtxZPzo21cz5JLFfcllxxLA==
@@ -2143,6 +2150,15 @@ cordova-sms-plugin@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/cordova-sms-plugin/-/cordova-sms-plugin-1.0.0.tgz#d5f6825696df02ad88b1447902377ccf2b0bb80b"
   integrity sha512-DdRf1zdJkwC9BJ3fVg2yx/faoW5eOscg6oFIWODfOIBu5AQ1oV6+gsGTO5pHVLBzlt5V8U9zG9PwhR1IbnW/EQ==
+
+cordova.plugins.diagnostic@4.0.12:
+  version "4.0.12"
+  resolved "https://registry.yarnpkg.com/cordova.plugins.diagnostic/-/cordova.plugins.diagnostic-4.0.12.tgz#25a6ec0a1bed8f8d4eb61b217dce1189d10ee70f"
+  integrity sha512-GOMY92LPibmI8IbqooGhzIw1SJjbdlqtZ4LUaIXzqP+T381B+WDLDUkxcmJc60M8Nryw77lH+jX5izfadixwKQ==
+  dependencies:
+    colors "^1.1.2"
+    elementtree "^0.1.6"
+    minimist "1.2.0"
 
 core-js@^2.2.0, core-js@^2.4.0, core-js@^2.5.4:
   version "2.6.5"
@@ -2569,6 +2585,13 @@ elementtree@0.1.6:
   integrity sha1-KsTEbqMFFsjEy9teOsdBjlkt4gw=
   dependencies:
     sax "0.3.5"
+
+elementtree@^0.1.6:
+  version "0.1.7"
+  resolved "https://registry.yarnpkg.com/elementtree/-/elementtree-0.1.7.tgz#9ac91be6e52fb6e6244c4e54a4ac3ed8ae8e29c0"
+  integrity sha1-mskb5uUvtuYkTE5UpKw+2K6OKcA=
+  dependencies:
+    sax "1.1.4"
 
 elliptic@^6.0.0:
   version "6.4.1"
@@ -4775,7 +4798,7 @@ minimist@0.0.8:
   resolved "https://registry.yarnpkg.com/minimist/-/minimist-0.0.8.tgz#857fcabfc3397d2625b8228262e86aa7a011b05d"
   integrity sha1-hX/Kv8M5fSYluCKCYuhqp6ARsF0=
 
-minimist@^1.1.3, minimist@^1.2.0:
+minimist@1.2.0, minimist@^1.1.3, minimist@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/minimist/-/minimist-1.2.0.tgz#a35008b20f41383eec1fb914f4cd5df79a264284"
   integrity sha1-o1AIsg9BOD7sH7kU9M1d95omQoQ=
@@ -6182,7 +6205,7 @@ run-queue@^1.0.0, run-queue@^1.0.3:
   dependencies:
     aproba "^1.1.1"
 
-rxjs@6.3.3, rxjs@~6.3.3:
+rxjs@6.3.3:
   version "6.3.3"
   resolved "https://registry.yarnpkg.com/rxjs/-/rxjs-6.3.3.tgz#3c6a7fa420e844a81390fb1158a9ec614f4bad55"
   integrity sha512-JTWmoY9tWCs7zvIk/CvRjhjGaOd+OVBM987mxFo+OW66cGpdKjZcpmc74ES1sB//7Kl/PAe8+wEakuhG4pcgOw==
@@ -6251,6 +6274,11 @@ sax@0.5.x:
   version "0.5.8"
   resolved "https://registry.yarnpkg.com/sax/-/sax-0.5.8.tgz#d472db228eb331c2506b0e8c15524adb939d12c1"
   integrity sha1-1HLbIo6zMcJQaw6MFVJK25OdEsE=
+
+sax@1.1.4:
+  version "1.1.4"
+  resolved "https://registry.yarnpkg.com/sax/-/sax-1.1.4.tgz#74b6d33c9ae1e001510f179a91168588f1aedaa9"
+  integrity sha1-dLbTPJrh4AFRDxeakRaFiPGu2qk=
 
 sax@>=0.6.0, sax@^1.2.4:
   version "1.2.4"

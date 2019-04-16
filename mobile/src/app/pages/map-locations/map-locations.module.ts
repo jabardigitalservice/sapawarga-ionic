@@ -7,6 +7,9 @@ import { IonicModule } from '@ionic/angular';
 
 import { MapLocationsPage } from './map-locations.page';
 
+// plugin
+import { Diagnostic } from '@ionic-native/diagnostic/ngx';
+
 const routes: Routes = [
   {
     path: '',
@@ -21,6 +24,7 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes)
   ],
+  providers: [Diagnostic],
   declarations: [MapLocationsPage]
 })
 export class MapLocationsPageModule {}

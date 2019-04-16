@@ -8,6 +8,7 @@ import {
   GoogleMapsAnimation
 } from '@ionic-native/google-maps';
 import { Platform } from '@ionic/angular';
+import { Diagnostic } from '@ionic-native/diagnostic/ngx';
 @Component({
   selector: 'app-map-locations',
   templateUrl: './map-locations.page.html',
@@ -20,13 +21,18 @@ export class MapLocationsPage implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private platform: Platform
+    private platform: Platform,
+    private diagnostic: Diagnostic
   ) {
     this.route.queryParams.subscribe(params => {
       if (this.router.getCurrentNavigation().extras.state) {
         this.latlong = this.router.getCurrentNavigation().extras.state.latlng;
         this.title = this.router.getCurrentNavigation().extras.state.title;
       }
+    });
+
+    this.platform.ready().then(() => {
+      this.isLocationAvailable();
     });
   }
 
@@ -35,6 +41,29 @@ export class MapLocationsPage implements OnInit {
     // you have to wait the event.
     await this.platform.ready();
     await this.loadMap();
+  }
+
+  isLocationAvailable() {
+    this.diagnostic
+      .isLocationEnabled()
+      .then(isAvailable => {
+        alert(isAvailable);
+        //     this._GEO.getCurrentPosition()
+        //     .then((data : any) =>
+        //     {
+        //   this.isLocationEnabled 	= true;
+        //   this.latitude 		        = data.coords.latitude;
+        //   this.longitude		        = data.coords.longitude;
+
+        //     })
+        //     .catch((error : any) =>
+        //     {
+        //    console.log('Error getting location', error);
+        // });
+      })
+      .catch((error: any) => {
+        alert('Location is:error');
+      });
   }
 
   loadMap() {
