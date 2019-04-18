@@ -16,7 +16,7 @@ build_debug:
     - cd mobile
     - docker-compose up -d --build
     - docker exec mobile_app_1 npm run build-clean:android:prod
-    - if [ -e platforms/android/app/build/outputs/apk/debug/app-debug.apk ]; then exit 1; fi
+    - if ! [[ -e platforms/android/app/build/outputs/apk/debug/app-debug.apk ]]; then exit 1; fi
   only:
     - gitlab-ci
   artifacts:
