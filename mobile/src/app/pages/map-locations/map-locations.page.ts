@@ -7,7 +7,14 @@ import {
   GoogleMapOptions,
   GoogleMapsAnimation
 } from '@ionic-native/google-maps';
-import { Platform } from '@ionic/angular';
+import {
+  Platform,
+  ToastController,
+  AlertController,
+  NavController
+} from '@ionic/angular';
+import { Diagnostic } from '@ionic-native/diagnostic/ngx';
+import { OpenNativeSettings } from '@ionic-native/open-native-settings/ngx';
 @Component({
   selector: 'app-map-locations',
   templateUrl: './map-locations.page.html',
@@ -20,7 +27,11 @@ export class MapLocationsPage implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private platform: Platform
+    private platform: Platform,
+    private diagnostic: Diagnostic,
+    private openNativeSettings: OpenNativeSettings,
+    public alertController: AlertController,
+    private navCtrl: NavController
   ) {
     this.route.queryParams.subscribe(params => {
       if (this.router.getCurrentNavigation().extras.state) {
@@ -28,16 +39,33 @@ export class MapLocationsPage implements OnInit {
         this.title = this.router.getCurrentNavigation().extras.state.title;
       }
     });
+
+    // executed before `deviceready` event
+    this.platform.ready().then(() => {
+      // check is available GPS
+      this.isLocationAvailable();
+    });
   }
 
-  async ngOnInit() {
-    // Since ngOnInit() is executed before `deviceready` event,
-    // you have to wait the event.
-    await this.platform.ready();
-    await this.loadMap();
+  ngOnInit() {}
+
+  isLocationAvailable() {
+    this.diagnostic
+      .isGpsLocationEnabled()
+      .then(isAvailable => {
+        if (isAvailable === true) {
+          this.loadMap();
+        } else {
+          this.presentAlertConfirm(
+            'Untuk melanjutkan, mohon untuk mengaktifkan gps anda'
+          );
+        }
+      })
+      .catch((error: any) => {});
   }
 
   loadMap() {
+    // load map
     let options: GoogleMapOptions = {
       center: this.latlong,
       camera: {
@@ -54,11 +82,43 @@ export class MapLocationsPage implements OnInit {
     };
     this.map = GoogleMaps.create('map_canvas', options);
 
+    // add marker
     let marker: Marker = this.map.addMarkerSync({
       title: this.title,
       icon: 'blue',
+      disableAutoPan: true,
       animation: GoogleMapsAnimation.BOUNCE,
       position: this.latlong
     });
+  }
+
+  async presentAlertConfirm(msg: string) {
+    const alert = await this.alertController.create({
+      message: msg,
+      buttons: [
+        {
+          text: 'Batalkan',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {
+            this.navCtrl.back();
+          }
+        },
+        {
+          text: 'Ok',
+          handler: () => {
+            this.openSetting();
+            this.navCtrl.back();
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
+  // open native GPS setting
+  openSetting() {
+    this.openNativeSettings.open('location');
   }
 }

@@ -8,6 +8,10 @@ Go to `mobile` subdirectory
 $ cd mobile
 ```
 
+## Before use this App
+
+Please replace (API Key Google Map) in config.xml and package.json files with your API keys.
+
 Build and run container
 
 ```bash
