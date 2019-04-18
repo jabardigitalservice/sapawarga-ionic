@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-back-button routerLink="/tabs/akun"></ion-back-button>
     </ion-buttons>
-    <ion-title color="dark">Akun Saya</ion-title>
+    <ion-title color="dark">Edit Akun</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -31,23 +31,85 @@
 
               <ion-item>
                 <ion-label color="dark" position="stacked">Nama:</ion-label>
-                <ion-input type="text" formControlName="name" placeholder="Masukkan nama anda"></ion-input>
+                <ion-input type="text" formControlName="name" [ngClass]="{ 'is-invalid': submitted && f.name.errors }"
+                  placeholder="Masukkan nama anda"></ion-input>
               </ion-item>
+              <div *ngIf="submitted && !!f.name.errors" class="invalid-feedback">
+                <p ion-text class="text08" *ngIf="!!f.name.errors.required">
+                  <ion-text color="danger">
+                    Nama harus diisi
+                  </ion-text>
+                </p>
+                <p ion-text class="text08" *ngIf="!!f.name.errors.maxlength">
+                  <ion-text color="danger">
+                    Nama yang anda inputkan lebih dari 255 karakter
+                  </ion-text>
+                </p>
+                <p ion-text class="text08" *ngIf="!!f.name.errors.minlength">
+                  <ion-text color="danger">
+                    Nama harus terdiri dari 4 karakter atau lebih
+                  </ion-text>
+                </p>
+              </div>
 
               <ion-item>
                 <ion-label color="dark" position="stacked">Email:</ion-label>
-                <ion-input type="email" formControlName="email" placeholder="Masukkan email anda"></ion-input>
+                <ion-input type="email" formControlName="email"
+                  [ngClass]="{ 'is-invalid': submitted && f.email.errors }" placeholder="Masukkan email anda">
+                </ion-input>
               </ion-item>
+              <div *ngIf="submitted && !!f.email.errors" class="invalid-feedback">
+                <p ion-text class="text08" *ngIf="!!f.email.errors.required">
+                  <ion-text color="danger">
+                    Email harus diisi
+                  </ion-text>
+                </p>
+                <p ion-text class="text08" *ngIf="!!f.email.errors.email">
+                  <ion-text color="danger">
+                    Format email yang anda masukkan salah. Email hanya boleh menggunakan alphanumeric, underscore, titik
+                    dan @
+                  </ion-text>
+                </p>
+              </div>
 
               <ion-item>
                 <ion-label color="dark" position="stacked">Telp:</ion-label>
                 <ion-input type="tel" formControlName="phone" placeholder="Masukkan nomor telepon anda"></ion-input>
               </ion-item>
+              <div *ngIf="submitted && !!f.phone.errors" class="invalid-feedback">
+                <p ion-text class="text08" *ngIf="!!f.phone.errors.required">
+                  <ion-text color="danger">
+                    Nomor telepon harus diisi
+                  </ion-text>
+                </p>
+                <p ion-text class="text08" *ngIf="!!f.phone.errors.minlength">
+                  <ion-text color="danger">
+                    Nomor telepon yang anda masukkan salah. Nomor telepon harus terdiri 3 sampai 13 nomor
+                  </ion-text>
+                </p>
+                <p ion-text class="text08" *ngIf="!!f.phone.errors.maxlength">
+                  <ion-text color="danger">
+                    Nomor telepon yang anda masukkan salah. Nomor telepon harus terdiri 3 sampai 13 nomor
+                  </ion-text>
+                </p>
+              </div>
 
               <ion-item>
                 <ion-label color="dark" position="stacked">Alamat:</ion-label>
                 <ion-input type="text" formControlName="address" placeholder="Masukkan alamat anda"></ion-input>
               </ion-item>
+              <div *ngIf="submitted && !!f.phone.errors" class="invalid-feedback">
+                <p ion-text class="text08" *ngIf="!!f.phone.errors.required">
+                  <ion-text color="danger">
+                    Alamat harus diisi
+                  </ion-text>
+                </p>
+                <p ion-text class="text08" *ngIf="!!f.phone.errors.maxlength">
+                  <ion-text color="danger">
+                    Alamat yang anda inputkan lebih dari 255 karakter
+                  </ion-text>
+                </p>
+              </div>
 
               <ion-item *ngIf="dataKabkota">
                 <ion-label>Kab/Kota:</ion-label>
@@ -76,6 +138,21 @@
                   </ion-select-option>
                 </ion-select>
               </ion-item>
+              <ion-item>
+                <ion-label color="dark" position="stacked">RW:</ion-label>
+                <ion-input type="text" formControlName="rw" placeholder="-"></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label color="dark" position="stacked">RT:</ion-label>
+                <ion-input type="number" formControlName="rt" placeholder="-"></ion-input>
+              </ion-item>
+              <div *ngIf="submitted && !!f.rt.errors" class="invalid-feedback">
+                <p ion-text class="text08" *ngIf="!!f.rt.errors.maxlength">
+                  <ion-text color="danger">
+                    Alamat yang anda inputkan lebih dari 3 karakter
+                  </ion-text>
+                </p>
+              </div>
 
               <ion-item>
                 <ion-label color="dark" position="stacked">Role:</ion-label>
@@ -106,8 +183,8 @@
                 <ion-input type="text" formControlName="twitter" placeholder="Masukkan akun Twitter Anda"></ion-input>
               </ion-item>
             </ion-list>
-            <ion-button class="ion-margin-top" size="medium" expand="full" color="dark" type="submit"
-              [disabled]="!onEditForm.valid">Simpan perubahan</ion-button>
+            <ion-button class="ion-margin-top" size="medium" expand="full" color="dark" type="submit">Simpan perubahan
+            </ion-button>
           </form>
         </ion-col>
       </ion-row>

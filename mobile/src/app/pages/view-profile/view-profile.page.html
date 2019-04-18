@@ -16,7 +16,8 @@
   </ion-refresher>
   <ion-card no-margin *ngIf="dataProfile">
     <ion-card-content class="bg-profile">
-      <img class="profile-image" src="assets/img/user.png" />
+      <img class="profile-image" *ngIf="!dataProfile.photo_url" src="assets/img/user.png" />
+      <img class="profile-image" *ngIf="dataProfile.photo_url" [src]="dataProfile.photo_url" />
       <h1 class="fw500">{{ dataProfile.name }}</h1>
 
       <div class="sosial-media">
@@ -95,7 +96,7 @@
         </ion-col>
         <ion-col>
           <div class="profile-data">
-            <ion-label>{{ dataProfile.rw }}</ion-label>
+            <ion-label>{{ convertNumber(dataProfile.rw) }}</ion-label>
           </div>
         </ion-col>
       </ion-row>

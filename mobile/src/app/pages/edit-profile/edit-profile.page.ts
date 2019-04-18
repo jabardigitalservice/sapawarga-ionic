@@ -29,6 +29,7 @@ const TOKEN_KEY = 'auth-token';
 })
 export class EditProfilePage implements OnInit {
   onEditForm: FormGroup;
+  submitted = false;
   dataProfile: Profile;
   dataKabkota: Areas;
   dataKecamatan: Areas;
@@ -54,14 +55,25 @@ export class EditProfilePage implements OnInit {
   ngOnInit() {
     // defined directive form
     this.onEditForm = this.formBuilder.group({
-      name: ['', Validators.required],
-      email: ['', Validators.required],
-      phone: ['', Validators.required],
-      address: ['', Validators.required],
+      name: [
+        '',
+        [
+          Validators.required,
+          Validators.maxLength(255),
+          Validators.minLength(4)
+        ]
+      ],
+      email: ['', [Validators.required, Validators.email]],
+      phone: [
+        '',
+        [Validators.required, Validators.minLength(3), Validators.maxLength(12)]
+      ],
+      address: ['', [Validators.required, Validators.maxLength(255)]],
       kabkota_id: ['', Validators.required],
       kec_id: ['', Validators.required],
       kel_id: ['', Validators.required],
-      rw: ['', Validators.required],
+      rw: [{ value: '', disabled: true }],
+      rt: ['', [Validators.required, Validators.maxLength(3)]],
       role: [{ value: '', disabled: true }],
       instagram: [''],
       facebook: [''],
@@ -71,6 +83,11 @@ export class EditProfilePage implements OnInit {
     // get query param from view profile
     this.route.queryParamMap.subscribe(params => {
       this.dataProfile = params['params'];
+
+      if (this.dataProfile.photo_url) {
+        // get image
+        this.image = this.dataProfile.photo_url;
+      }
     });
 
     // update data from query param to form input
@@ -82,7 +99,7 @@ export class EditProfilePage implements OnInit {
       kabkota_id: this.dataProfile.kabkota_id,
       kec_id: this.dataProfile.kec_id,
       kel_id: this.dataProfile.kel_id,
-      rw: this.dataProfile.rw,
+      rw: this.convertNumber(this.dataProfile.rw),
       role: this.dataProfile.role,
       instagram: this.dataProfile.instagram,
       facebook: this.dataProfile.facebook,
@@ -116,6 +133,18 @@ export class EditProfilePage implements OnInit {
   }
 
   async onFormSubmit(form: NgForm) {
+    this.submitted = true;
+    // check form if invalid
+    if (this.onEditForm.invalid) {
+      return;
+    }
+
+    // check internet
+    if (!navigator.onLine) {
+      this.showToast('Tidak ada koneksi internet');
+      return;
+    }
+
     const loader = await this.loadingCtrl.create({
       duration: 10000
     });
@@ -240,7 +269,7 @@ export class EditProfilePage implements OnInit {
   // get native camera / gallery
   getImage(sourceType: number) {
     const options: CameraOptions = {
-      quality: 100,
+      quality: 40,
       destinationType: this.camera.DestinationType.FILE_URI,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE,
@@ -251,7 +280,6 @@ export class EditProfilePage implements OnInit {
     this.camera.getPicture(options).then(
       imageData => {
         this.imageData = imageData;
-        this.image = (<any>window).Ionic.WebView.convertFileSrc(imageData);
         this.uploadImage(imageData);
       },
       err => {
@@ -285,21 +313,26 @@ export class EditProfilePage implements OnInit {
     };
 
     fileTransfer
-      .upload(imageData, `${environment.API_URL}/user/photo`, options)
+      .upload(imageData, `${environment.API_URL}/user/me/photo`, options)
       .then(
         data => {
+          console.log(data);
           let response = JSON.parse(data.response);
           // success
           loading.dismiss();
+          console.log(response);
           if (response['success'] === true) {
             this.showToast('Foto berhasil disimpan');
+            this.image = response['data']['photo_url'];
           } else {
-            this.showToast('File terlalu besar');
+            this.showToast(
+              'Foto profile yang diupload melebihi batas max. file'
+            );
           }
         },
         err => {
           loading.dismiss();
-          this.showToast('File terlalu besar');
+          this.showToast('Foto profile yang diupload melebihi batas max. file');
         }
       );
   }
@@ -309,5 +342,12 @@ export class EditProfilePage implements OnInit {
       duration: 2000
     });
     toast.present();
+  }
+
+  convertNumber(value) {
+    let str = '' + value;
+    let pad = '000';
+    let ans = pad.substring(0, pad.length - str.length) + str;
+    return ans;
   }
 }
