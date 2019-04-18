@@ -20,4 +20,4 @@ build_debug:
     - gitlab-ci
   artifacts:
     paths:
-      - /app/platforms/android/app/build/outputs/apk/debug/app-debug.apk
+      - platforms/android/app/build/outputs/apk/debug/app-debug.apk
