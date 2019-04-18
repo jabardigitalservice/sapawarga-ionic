@@ -171,4 +171,11 @@ export class ViewProfilePage implements OnInit {
     });
     toast.present();
   }
+
+  convertNumber(value) {
+    let str = '' + value;
+    let pad = '000';
+    let ans = pad.substring(0, pad.length - str.length) + str;
+    return ans;
+  }
 }
