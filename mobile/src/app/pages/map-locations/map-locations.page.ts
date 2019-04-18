@@ -7,7 +7,12 @@ import {
   GoogleMapOptions,
   GoogleMapsAnimation
 } from '@ionic-native/google-maps';
-import { Platform, ToastController, AlertController } from '@ionic/angular';
+import {
+  Platform,
+  ToastController,
+  AlertController,
+  NavController
+} from '@ionic/angular';
 import { Diagnostic } from '@ionic-native/diagnostic/ngx';
 import { OpenNativeSettings } from '@ionic-native/open-native-settings/ngx';
 @Component({
@@ -25,7 +30,8 @@ export class MapLocationsPage implements OnInit {
     private platform: Platform,
     private diagnostic: Diagnostic,
     private openNativeSettings: OpenNativeSettings,
-    public alertController: AlertController
+    public alertController: AlertController,
+    private navCtrl: NavController
   ) {
     this.route.queryParams.subscribe(params => {
       if (this.router.getCurrentNavigation().extras.state) {
@@ -34,17 +40,14 @@ export class MapLocationsPage implements OnInit {
       }
     });
 
+    // executed before `deviceready` event
     this.platform.ready().then(() => {
+      // check is available GPS
       this.isLocationAvailable();
     });
   }
 
-  async ngOnInit() {
-    // Since ngOnInit() is executed before `deviceready` event,
-    // you have to wait the event.
-    // await this.platform.ready();
-    // await this.loadMap();
-  }
+  ngOnInit() {}
 
   isLocationAvailable() {
     this.diagnostic
@@ -62,6 +65,7 @@ export class MapLocationsPage implements OnInit {
   }
 
   loadMap() {
+    // load map
     let options: GoogleMapOptions = {
       center: this.latlong,
       camera: {
@@ -78,6 +82,7 @@ export class MapLocationsPage implements OnInit {
     };
     this.map = GoogleMaps.create('map_canvas', options);
 
+    // add marker
     let marker: Marker = this.map.addMarkerSync({
       title: this.title,
       icon: 'blue',
@@ -95,14 +100,15 @@ export class MapLocationsPage implements OnInit {
           text: 'Batalkan',
           role: 'cancel',
           cssClass: 'secondary',
-          handler: blah => {
-            console.log('Confirm Cancel: blah');
+          handler: () => {
+            this.navCtrl.back();
           }
         },
         {
           text: 'Ok',
           handler: () => {
             this.openSetting();
+            this.navCtrl.back();
           }
         }
       ]
@@ -111,6 +117,7 @@ export class MapLocationsPage implements OnInit {
     await alert.present();
   }
 
+  // open native GPS setting
   openSetting() {
     this.openNativeSettings.open('location');
   }
