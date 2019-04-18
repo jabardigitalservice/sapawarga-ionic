@@ -22,7 +22,6 @@ export class MenuNavbarComponent implements OnInit {
     private popover: PopoverController,
     public alertController: AlertController
   ) {
-    // console.log(this.navParams.get('dataUser'));
   }
 
   ngOnInit() {}
@@ -42,7 +41,6 @@ export class MenuNavbarComponent implements OnInit {
   }
 
   async confirmLogout() {
-    console.log('sdfsdf');
     const alert = await this.alertController.create({
       message: 'Apakah anda yakin ingin keluar dari aplikasi Sapawarga?',
       buttons: [
