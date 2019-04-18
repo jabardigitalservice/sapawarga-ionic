@@ -5,12 +5,15 @@ image: docker:latest
 services:
   - docker:dind
 
-build-master:
+before_script:
+  - apk add --no-cache py-pip python-dev libffi-dev openssl-dev gcc libc-dev make
+  - pip install docker-compose
+
+build:
   stage: build
   script:
     - cd mobile
-    - apk add --no-cache py-pip python-dev libffi-dev openssl-dev gcc libc-dev make
-    - pip install docker-compose
     - docker-compose up -d --build
+    - docker exec mobile_app_1 rm -r platforms && ionic cordova build android --prod
   only:
     - gitlab-ci
