@@ -7,7 +7,8 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --host 0.0.0.0 --port 4200",
-    "build": "ng build",
+    "build:android:prod": "ionic cordova build android --prod",
+    "build-clean:android:prod": "rm -r platforms && ionic cordova build android --prod",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
