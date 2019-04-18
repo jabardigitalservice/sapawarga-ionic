@@ -14,6 +14,6 @@ build:
   script:
     - cd mobile
     - docker-compose up -d --build
-    - docker exec mobile_app_1 rm -r platforms && ionic cordova build android --prod
+    - docker exec mobile_app_1 rm -rf platforms && ionic cordova build android --prod
   only:
     - gitlab-ci
