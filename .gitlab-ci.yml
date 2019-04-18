@@ -9,6 +9,8 @@ build-master:
   stage: build
   script:
     - cd mobile
+    - apk add --no-cache py-pip python-dev libffi-dev openssl-dev gcc libc-dev make
+    - pip install docker-compose
     - docker-compose up -d --build
   only:
     - gitlab-ci
