@@ -147,6 +147,11 @@
                 <ion-input type="number" formControlName="rt" placeholder="-"></ion-input>
               </ion-item>
               <div *ngIf="submitted && !!f.rt.errors" class="invalid-feedback">
+                <p ion-text class="text08" *ngIf="!!f.rt.errors.required">
+                  <ion-text color="danger">
+                    RT harus diisi
+                  </ion-text>
+                </p>
                 <p ion-text class="text08" *ngIf="!!f.rt.errors.maxlength">
                   <ion-text color="danger">
                     Alamat yang anda inputkan lebih dari 3 karakter
