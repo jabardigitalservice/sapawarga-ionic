@@ -17,6 +17,10 @@ Build and run container
 ```bash
 $ docker-compose up -d
 ```
+or, to force rebuild, run
+```bash
+$ docker-compose up -d --build
+```
 
 Go inside the container
 
