@@ -21,13 +21,12 @@ export class MenuNavbarComponent implements OnInit {
     private router: Router,
     private popover: PopoverController,
     public alertController: AlertController
-  ) {
-  }
+  ) {}
 
   ngOnInit() {}
 
   logout() {
-    // calll service logout to clear local storage
+    // call service logout to clear local storage
     this.authService.logout();
     this.navCtrl.navigateRoot('/login');
     this.popover.dismiss();
@@ -48,7 +47,9 @@ export class MenuNavbarComponent implements OnInit {
           text: 'Batalkan',
           role: 'cancel',
           cssClass: 'secondary',
-          handler: () => {}
+          handler: () => {
+            this.popover.dismiss();
+          }
         },
         {
           text: 'Ok',
