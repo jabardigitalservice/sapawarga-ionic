@@ -33,11 +33,19 @@ export class ViewProfilePage implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.getDataProfile(null);
+    if (!navigator.onLine) {
+      return;
+    } else {
+      this.getDataProfile(null);
+    }
   }
 
   ionViewDidEnter() {
-    this.getDataProfile(null);
+    if (!navigator.onLine) {
+      return;
+    } else {
+      this.getDataProfile(null);
+    }
   }
 
   // pass in the app name and the name of the user/page
@@ -122,6 +130,9 @@ export class ViewProfilePage implements OnInit {
     this.profileService.getProfile().subscribe(
       res => {
         this.dataProfile = res['data'];
+
+        // save to local storage
+        localStorage.setItem('PROFILE', JSON.stringify(res['data']));
         loader.dismiss();
         if (
           !this.dataProfile.twitter ||
@@ -139,6 +150,12 @@ export class ViewProfilePage implements OnInit {
   }
 
   doRefresh(event) {
+    // offline
+    if (!navigator.onLine) {
+      this.showToast('Tidak ada koneksi internet');
+      event.target.complete();
+      return;
+    }
     this.getDataProfile('loading');
     // event.target.complete();
     setTimeout(() => {
@@ -177,5 +194,16 @@ export class ViewProfilePage implements OnInit {
     let pad = '000';
     let ans = pad.substring(0, pad.length - str.length) + str;
     return ans;
+  }
+
+  checkInternet() {
+    // check internet
+    if (!navigator.onLine) {
+      // offline
+      return true;
+    } else {
+      // online
+      return false;
+    }
   }
 }
