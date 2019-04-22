@@ -34,7 +34,8 @@ export class ViewProfilePage implements OnInit {
 
   ngOnInit() {
     if (!navigator.onLine) {
-      return;
+      // get data profile from local storage
+      this.dataProfile = this.profileService.getLocalProfile();
     } else {
       this.getDataProfile(null);
     }
@@ -42,7 +43,8 @@ export class ViewProfilePage implements OnInit {
 
   ionViewDidEnter() {
     if (!navigator.onLine) {
-      return;
+      // get data profile from local storage
+      this.dataProfile = this.profileService.getLocalProfile();
     } else {
       this.getDataProfile(null);
     }
@@ -132,7 +134,7 @@ export class ViewProfilePage implements OnInit {
         this.dataProfile = res['data'];
 
         // save to local storage
-        localStorage.setItem('PROFILE', JSON.stringify(res['data']));
+        this.profileService.saveProfile(res['data']);
         loader.dismiss();
         if (
           !this.dataProfile.twitter ||

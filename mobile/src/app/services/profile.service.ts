@@ -9,6 +9,7 @@ import { catchError } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
 import { Profile } from '../interfaces/profile';
 
+const PROFILE = 'PROFILE';
 @Injectable({
   providedIn: 'root'
 })
@@ -42,10 +43,23 @@ export class ProfileService {
         'Content-Type': 'multipart/form-data'
       })
     };
-    // console.log(dataUser);
     return this.http
       .post(`${environment.API_URL}/user/photo`, input, HttpOptions)
       .pipe(catchError(this.handleError));
+  }
+
+  // save data into local storage
+  saveProfile(data: object) {
+    localStorage.setItem(PROFILE, JSON.stringify(data));
+  }
+
+  // save data into local storage
+  getLocalProfile() {
+    if (localStorage.getItem(PROFILE)) {
+      return JSON.parse(localStorage.getItem(PROFILE));
+    } else {
+      return;
+    }
   }
 
   private handleError(error: HttpErrorResponse) {
