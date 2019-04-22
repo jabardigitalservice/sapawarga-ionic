@@ -61,7 +61,8 @@ export class EditProfilePage implements OnInit {
         [
           Validators.required,
           Validators.maxLength(255),
-          Validators.minLength(4)
+          Validators.minLength(4),
+          Validators.pattern(/^[A-Za-z]+$/)
         ]
       ],
       username: [
@@ -74,9 +75,9 @@ export class EditProfilePage implements OnInit {
         [Validators.required, Validators.minLength(3), Validators.maxLength(12)]
       ],
       address: ['', [Validators.required, Validators.maxLength(255)]],
-      kabkota_id: ['', Validators.required],
-      kec_id: ['', Validators.required],
-      kel_id: ['', Validators.required],
+      kabkota_id: { value: '', disabled: true },
+      kec_id: { value: '', disabled: true },
+      kel_id: { value: '', disabled: true },
       rw: [{ value: '', disabled: true }],
       rt: ['', [Validators.required, Validators.max(3)]],
       role: [{ value: '', disabled: true }],
@@ -188,6 +189,7 @@ export class EditProfilePage implements OnInit {
       res => {
         if (res.status === 200) {
           this.showToast('Data berhasil tersimpan');
+          this.navCtrl.navigateForward('view-profile');
         } else {
           this.showToast('Data gagal tersimpan');
         }
@@ -393,5 +395,9 @@ export class EditProfilePage implements OnInit {
     let pad = '000';
     let ans = pad.substring(0, pad.length - str.length) + str;
     return ans;
+  }
+
+  backViewProfile() {
+    this.navCtrl.navigateForward('view-profile');
   }
 }
