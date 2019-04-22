@@ -1,5 +1,10 @@
 import { Component } from '@angular/core';
-import { NavController, Platform, LoadingController } from '@ionic/angular';
+import {
+  NavController,
+  Platform,
+  LoadingController,
+  ActionSheetController
+} from '@ionic/angular';
 
 import { Pages } from '../../interfaces/pages';
 import { ProfileService } from 'src/app/services/profile.service';
@@ -36,7 +41,8 @@ export class HomeResultsPage {
     private platform: Platform,
     private profileService: ProfileService,
     public loadingCtrl: LoadingController,
-    private inAppBrowser: InAppBrowser
+    private inAppBrowser: InAppBrowser,
+    public actionSheetController: ActionSheetController
   ) {
     this.appPages = [
       {
@@ -81,7 +87,7 @@ export class HomeResultsPage {
       },
       {
         title: 'Lapor',
-        url: '',
+        url: 'lapor.go.id',
         icon: 'assets/icon/SW-LAPOR.png'
       },
       {
@@ -118,6 +124,9 @@ export class HomeResultsPage {
       case 'Nomor penting':
         this.goNomorPenting();
         break;
+      case 'Lapor':
+        this.openLapor(layananUrl);
+        break;
       default:
         break;
     }
@@ -148,6 +157,28 @@ export class HomeResultsPage {
     this.platform.ready().then(() => {
       this.inAppBrowser.create(webUrl, '_system');
     });
+  }
+
+  async openLapor(layananUrl: string) {
+    const actionSheet = await this.actionSheetController.create({
+      header: 'Lapor',
+      buttons: [
+        {
+          text: 'Lapor',
+          role: 'destructive',
+          icon: 'megaphone',
+          handler: () => {
+            this.launchweb(layananUrl);
+          }
+        },
+        {
+          text: 'Qlue',
+          icon: 'megaphone',
+          handler: () => {}
+        }
+      ]
+    });
+    await actionSheet.present();
   }
 
   async getDataProfile() {
