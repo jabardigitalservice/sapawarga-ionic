@@ -11,6 +11,8 @@ stages:
   - build
 
 build_debug:
+  only:
+    - master
   stage: build
   script:
     - cd mobile
