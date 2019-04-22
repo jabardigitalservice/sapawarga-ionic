@@ -38,6 +38,7 @@ export class EditProfilePage implements OnInit {
   imageData: any;
   image: any;
   imageFileName: any;
+  role_user: string;
 
   constructor(
     private route: ActivatedRoute,
@@ -63,6 +64,10 @@ export class EditProfilePage implements OnInit {
           Validators.minLength(4)
         ]
       ],
+      username: [
+        '',
+        [Validators.required, Validators.maxLength(14), Validators.minLength(4)]
+      ],
       email: ['', [Validators.required, Validators.email]],
       phone: [
         '',
@@ -73,7 +78,7 @@ export class EditProfilePage implements OnInit {
       kec_id: ['', Validators.required],
       kel_id: ['', Validators.required],
       rw: [{ value: '', disabled: true }],
-      rt: ['', [Validators.required, Validators.maxLength(3)]],
+      rt: ['', [Validators.required, Validators.max(3)]],
       role: [{ value: '', disabled: true }],
       instagram: [''],
       facebook: [''],
@@ -84,14 +89,43 @@ export class EditProfilePage implements OnInit {
     this.route.queryParamMap.subscribe(params => {
       this.dataProfile = params['params'];
 
+      // save state image
       if (this.dataProfile.photo_url) {
         // get image
         this.image = this.dataProfile.photo_url;
+      }
+
+      // mapping berdasarkan role_id
+      switch (this.dataProfile.role_id) {
+        case 'user':
+          this.role_user = 'Pengguna';
+          break;
+        case 'staffRW':
+          this.role_user = 'RW';
+          break;
+        case 'staffKel':
+          this.role_user = 'Staf Kelurahan';
+          break;
+        case 'staffKec':
+          this.role_user = 'Staf Kecamatan';
+          break;
+        case 'staffKabkota':
+          this.role_user = 'Staf Kabupaten/Kota';
+          break;
+        case 'staffProv':
+          this.role_user = 'Staf Provinsi';
+          break;
+        case 'admin':
+          this.role_user = 'Administrator';
+          break;
+        default:
+          break;
       }
     });
 
     // update data from query param to form input
     this.onEditForm.patchValue({
+      username: this.dataProfile.username,
       name: this.dataProfile.name,
       email: this.dataProfile.email,
       phone: this.dataProfile.phone,
@@ -100,7 +134,8 @@ export class EditProfilePage implements OnInit {
       kec_id: this.dataProfile.kec_id,
       kel_id: this.dataProfile.kel_id,
       rw: this.convertNumber(this.dataProfile.rw),
-      role: this.dataProfile.role,
+      rt: this.convertNumber(this.dataProfile.rt),
+      role: this.role_user,
       instagram: this.dataProfile.instagram,
       facebook: this.dataProfile.facebook,
       twitter: this.dataProfile.twitter
@@ -151,7 +186,7 @@ export class EditProfilePage implements OnInit {
     loader.present();
     this.profileService.editProfile(form).subscribe(
       res => {
-        if (res.success === true) {
+        if (res.status === 200) {
           this.showToast('Data berhasil tersimpan');
         } else {
           this.showToast('Data gagal tersimpan');
@@ -160,9 +195,22 @@ export class EditProfilePage implements OnInit {
       },
       err => {
         loader.dismiss();
-        this.showToast(
-          'Data gagal tersimpan periksa kembali koneksi internet anda'
-        );
+        // check if status 422
+        if (err.status === 422) {
+          // get data from server
+          let data = err.data;
+          // check unvalid email / username
+          if (data.email[0]) {
+            this.showToast(data.email[0]);
+          } else if (data.username[0]) {
+            alert('masuk');
+            this.showToast(data.username[0]);
+          }
+        } else {
+          this.showToast(
+            'Data gagal tersimpan periksa kembali koneksi internet anda'
+          );
+        }
       }
     );
   }
@@ -282,9 +330,7 @@ export class EditProfilePage implements OnInit {
         this.imageData = imageData;
         this.uploadImage(imageData);
       },
-      err => {
-        console.log(err);
-      }
+      err => {}
     );
   }
 
@@ -316,11 +362,9 @@ export class EditProfilePage implements OnInit {
       .upload(imageData, `${environment.API_URL}/user/me/photo`, options)
       .then(
         data => {
-          console.log(data);
           let response = JSON.parse(data.response);
           // success
           loading.dismiss();
-          console.log(response);
           if (response['success'] === true) {
             this.showToast('Foto berhasil disimpan');
             this.image = response['data']['photo_url'];
