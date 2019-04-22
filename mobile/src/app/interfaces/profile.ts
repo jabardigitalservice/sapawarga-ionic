@@ -13,7 +13,7 @@ export interface Profile {
   kabkota: Kabkota;
   rw: number;
   photo_url: string;
-  role: string;
+  role_id: string;
   facebook: string;
   instagram: string;
   twitter: string;
