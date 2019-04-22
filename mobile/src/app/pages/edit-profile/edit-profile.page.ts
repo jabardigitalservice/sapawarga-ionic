@@ -78,7 +78,7 @@ export class EditProfilePage implements OnInit {
       kec_id: ['', Validators.required],
       kel_id: ['', Validators.required],
       rw: [{ value: '', disabled: true }],
-      rt: ['', [Validators.required, Validators.maxLength(3)]],
+      rt: ['', [Validators.required, Validators.max(3)]],
       role: [{ value: '', disabled: true }],
       instagram: [''],
       facebook: [''],
@@ -134,6 +134,7 @@ export class EditProfilePage implements OnInit {
       kec_id: this.dataProfile.kec_id,
       kel_id: this.dataProfile.kel_id,
       rw: this.convertNumber(this.dataProfile.rw),
+      rt: this.convertNumber(this.dataProfile.rt),
       role: this.role_user,
       instagram: this.dataProfile.instagram,
       facebook: this.dataProfile.facebook,
@@ -194,16 +195,15 @@ export class EditProfilePage implements OnInit {
       },
       err => {
         loader.dismiss();
-        console.log(err);
         // check if status 422
         if (err.status === 422) {
           // get data from server
           let data = err.data;
-          console.log(data.username[0]);
           // check unvalid email / username
           if (data.email[0]) {
             this.showToast(data.email[0]);
           } else if (data.username[0]) {
+            alert('masuk');
             this.showToast(data.username[0]);
           }
         } else {
@@ -330,9 +330,7 @@ export class EditProfilePage implements OnInit {
         this.imageData = imageData;
         this.uploadImage(imageData);
       },
-      err => {
-        console.log(err);
-      }
+      err => {}
     );
   }
 
@@ -364,11 +362,9 @@ export class EditProfilePage implements OnInit {
       .upload(imageData, `${environment.API_URL}/user/me/photo`, options)
       .then(
         data => {
-          console.log(data);
           let response = JSON.parse(data.response);
           // success
           loading.dismiss();
-          console.log(response);
           if (response['success'] === true) {
             this.showToast('Foto berhasil disimpan');
             this.image = response['data']['photo_url'];

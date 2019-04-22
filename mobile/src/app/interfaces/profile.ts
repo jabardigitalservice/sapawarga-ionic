@@ -12,6 +12,7 @@ export interface Profile {
   kabkota_id: number;
   kabkota: Kabkota;
   rw: number;
+  rt: number;
   photo_url: string;
   role_id: string;
   facebook: string;
