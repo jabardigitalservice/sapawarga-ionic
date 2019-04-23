@@ -20,6 +20,8 @@
     <preference name="AutoHideSplashScreen" value="false" />
     <preference name="FadeSplashScreen" value="true" />
     <preference name="ShowSplashScreen" value="true" />
+    <preference name="GOOGLE_MAPS_ANDROID_API_KEY" value="%GOOGLE_MAPS_ANDROID_API_KEY% />
+    <preference name="GOOGLE_MAPS_IOS_API_KEY" value="****" />
     <platform name="android">
         <allow-intent href="market:*" />
         <icon density="ldpi" src="resources/android/icon/drawable-ldpi-icon.png" />
