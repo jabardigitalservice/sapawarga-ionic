@@ -4,6 +4,8 @@ services:
   - docker:dind
 
 before_script:
+  - echo $GOOGLE_MAPS_ANDROID_API_KEY
+  - cat mobile/config.xml
   - apk add --no-cache py-pip python-dev libffi-dev openssl-dev gcc libc-dev make
   - pip install docker-compose
 
