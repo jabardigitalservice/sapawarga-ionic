@@ -5,7 +5,7 @@ services:
 
 before_script:
   - echo $GOOGLE_MAPS_ANDROID_API_KEY
-  - while read a ; do echo ${a//%GOOGLE_MAPS_ANDROID_API_KEY%/$GOOGLE_MAPS_ANDROID_API_KEY} ; done < mobile/config.xml > mobile/config.xml.t ; mv mobile/config.xml{.t,}
+  - while read a ; do echo ${a//%GOOGLE_MAPS_ANDROID_API_KEY%/$GOOGLE_MAPS_ANDROID_API_KEY} ; done < mobile/config.xml > mobile/config.xml.t ; mv mobile/config.xml.t mobile/config.xml
   - cat mobile/config.xml
   - apk add --no-cache py-pip python-dev libffi-dev openssl-dev gcc libc-dev make
   - pip install docker-compose
