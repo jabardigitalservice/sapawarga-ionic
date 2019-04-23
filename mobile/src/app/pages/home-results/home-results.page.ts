@@ -87,7 +87,7 @@ export class HomeResultsPage {
       },
       {
         title: 'Lapor',
-        url: 'lapor.go.id',
+        url: 'https://www.lapor.go.id',
         icon: 'assets/icon/SW-LAPOR.png'
       },
       {
@@ -164,15 +164,15 @@ export class HomeResultsPage {
       header: 'Lapor',
       buttons: [
         {
-          text: 'Lapor',
+          text: 'Lapor via Website',
           role: 'destructive',
-          icon: 'megaphone',
+          icon: 'custom-sfdfd',
           handler: () => {
             this.launchweb(layananUrl);
           }
         },
         {
-          text: 'Qlue',
+          text: 'Lapor via Qlue',
           icon: 'megaphone',
           handler: () => {}
         }
