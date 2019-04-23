@@ -30,31 +30,6 @@
               </ion-list-header>
 
               <ion-item>
-                <ion-label color="dark" position="stacked">Nama Pengguna:</ion-label>
-                <ion-input type="text" formControlName="username"
-                  [ngClass]="{ 'is-invalid': submitted && f.username.errors }" (keydown.space)="$event.preventDefault()"
-                  placeholder="Masukkan nama pengguna anda">
-                </ion-input>
-              </ion-item>
-              <div *ngIf="submitted && !!f.username.errors" class="invalid-feedback">
-                <p ion-text class="text08" *ngIf="!!f.username.errors.required">
-                  <ion-text color="danger">
-                    nama pengguna harus diisi
-                  </ion-text>
-                </p>
-                <p ion-text class="text08" *ngIf="!!f.username.errors.maxlength">
-                  <ion-text color="danger">
-                    nama pengguna yang anda inputkan lebih dari 14 karakter
-                  </ion-text>
-                </p>
-                <p ion-text class="text08" *ngIf="!!f.username.errors.minlength">
-                  <ion-text color="danger">
-                    nama pengguna harus terdiri dari 4 karakter atau lebih
-                  </ion-text>
-                </p>
-              </div>
-
-              <ion-item>
                 <ion-label color="dark" position="stacked">Nama:</ion-label>
                 <ion-input type="text" formControlName="name" [ngClass]="{ 'is-invalid': submitted && f.name.errors }"
                   placeholder="Masukkan nama anda"></ion-input>
@@ -78,6 +53,31 @@
                 <p ion-text class="text08" *ngIf="!!f.name.errors.pattern">
                   <ion-text color="danger">
                     Isian yang diinputkan tidak sesuai
+                  </ion-text>
+                </p>
+              </div>
+
+              <ion-item>
+                <ion-label color="dark" position="stacked">Nama Pengguna:</ion-label>
+                <ion-input type="text" formControlName="username"
+                  [ngClass]="{ 'is-invalid': submitted && f.username.errors }" (keydown.space)="$event.preventDefault()"
+                  placeholder="Masukkan nama pengguna anda">
+                </ion-input>
+              </ion-item>
+              <div *ngIf="submitted && !!f.username.errors" class="invalid-feedback">
+                <p ion-text class="text08" *ngIf="!!f.username.errors.required">
+                  <ion-text color="danger">
+                    nama pengguna harus diisi
+                  </ion-text>
+                </p>
+                <p ion-text class="text08" *ngIf="!!f.username.errors.maxlength">
+                  <ion-text color="danger">
+                    nama pengguna yang anda inputkan lebih dari 14 karakter
+                  </ion-text>
+                </p>
+                <p ion-text class="text08" *ngIf="!!f.username.errors.minlength">
+                  <ion-text color="danger">
+                    nama pengguna harus terdiri dari 4 karakter atau lebih
                   </ion-text>
                 </p>
               </div>
@@ -128,13 +128,13 @@
                 <ion-label color="dark" position="stacked">Alamat:</ion-label>
                 <ion-input type="text" formControlName="address" placeholder="Masukkan alamat anda"></ion-input>
               </ion-item>
-              <div *ngIf="submitted && !!f.phone.errors" class="invalid-feedback">
-                <p ion-text class="text08" *ngIf="!!f.phone.errors.required">
+              <div *ngIf="submitted && !!f.address.errors" class="invalid-feedback">
+                <p ion-text class="text08" *ngIf="!!f.address.errors.required">
                   <ion-text color="danger">
                     Alamat harus diisi
                   </ion-text>
                 </p>
-                <p ion-text class="text08" *ngIf="!!f.phone.errors.maxlength">
+                <p ion-text class="text08" *ngIf="!!f.address.errors.maxlength">
                   <ion-text color="danger">
                     Alamat yang anda inputkan lebih dari 255 karakter
                   </ion-text>
@@ -176,6 +176,18 @@
                 <ion-label color="dark" position="stacked">RT:</ion-label>
                 <ion-input type="number" formControlName="rt" placeholder="-"></ion-input>
               </ion-item>
+              <div *ngIf="submitted && !!f.rt.errors" class="invalid-feedback">
+                <p ion-text class="text08" *ngIf="!!f.rt.errors.required">
+                  <ion-text color="danger">
+                    RT harus diisi
+                  </ion-text>
+                </p>
+                <p ion-text class="text08" *ngIf="!!f.rt.errors.max">
+                  <ion-text color="danger">
+                    RT yang anda masukkan salah. RT harus terdiri 3
+                  </ion-text>
+                </p>
+              </div>
 
               <ion-item>
                 <ion-label color="dark" position="stacked">Role:</ion-label>
@@ -189,7 +201,6 @@
               </ion-list-header>
 
               <ion-item>
-                <!-- <ion-label color="dark" position="stacked">Instagram:</ion-label> -->
                 <ion-label color="dark" position="stacked">Instagram: (contoh: <b>user234</b>)</ion-label>
                 <ion-input type="text" formControlName="instagram" placeholder="masukkan akun instagram anda">
                 </ion-input>
@@ -198,8 +209,16 @@
               <ion-item>
                 <ion-label color="dark" position="stacked">Facebook: (contoh: <b>https://facebook.com/user234</b>)
                 </ion-label>
-                <ion-input type="text" formControlName="facebook" placeholder="Masukkan akun facebook Anda"></ion-input>
+                <ion-input type="text" formControlName="facebook" (ngModelChange)="onChangeFB()"
+                  placeholder="Masukkan akun facebook Anda"></ion-input>
               </ion-item>
+              <div *ngIf="submitted && !fb_validator" class="invalid-feedback">
+                <p ion-text class="text08">
+                  <ion-text color="danger">
+                    Isian yang diinputkan tidak sesuai
+                  </ion-text>
+                </p>
+              </div>
 
               <ion-item>
                 <ion-label color="dark" position="stacked">Twitter: (contoh: <b>user234</b>)</ion-label>
