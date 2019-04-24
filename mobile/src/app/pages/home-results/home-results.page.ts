@@ -81,7 +81,7 @@ export class HomeResultsPage {
       },
       {
         title: 'Lapor',
-        url: 'https://www.lapor.go.id',
+        url: '',
         icon: 'assets/icon/SW-LAPOR.png'
       },
       {
