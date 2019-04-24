@@ -1,10 +1,5 @@
 import { Component } from '@angular/core';
-import {
-  NavController,
-  Platform,
-  LoadingController,
-  ActionSheetController
-} from '@ionic/angular';
+import { NavController, Platform, LoadingController } from '@ionic/angular';
 
 import { Pages } from '../../interfaces/pages';
 import { ProfileService } from 'src/app/services/profile.service';
@@ -41,8 +36,7 @@ export class HomeResultsPage {
     private platform: Platform,
     private profileService: ProfileService,
     public loadingCtrl: LoadingController,
-    private inAppBrowser: InAppBrowser,
-    public actionSheetController: ActionSheetController
+    private inAppBrowser: InAppBrowser
   ) {
     this.appPages = [
       {
@@ -121,7 +115,6 @@ export class HomeResultsPage {
         this.goNomorPenting();
         break;
       case 'Lapor':
-        // this.openLapor(layananUrl);
         this.goLapor();
         break;
       default:
@@ -160,28 +153,6 @@ export class HomeResultsPage {
     this.platform.ready().then(() => {
       this.inAppBrowser.create(webUrl, '_system');
     });
-  }
-
-  async openLapor(layananUrl: string) {
-    const actionSheet = await this.actionSheetController.create({
-      header: 'Lapor',
-      buttons: [
-        {
-          text: 'Lapor via Website',
-          role: 'destructive',
-          icon: 'hand',
-          handler: () => {
-            this.launchweb(layananUrl);
-          }
-        },
-        {
-          text: 'Lapor via Qlue',
-          icon: 'hand',
-          handler: () => {}
-        }
-      ]
-    });
-    await actionSheet.present();
   }
 
   async getDataProfile() {
