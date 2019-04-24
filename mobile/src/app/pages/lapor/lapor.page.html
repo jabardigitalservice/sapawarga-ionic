@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-toolbar color="light">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Lapor</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding color="light">
+
+  <!-- <ion-list>
+    <ion-item lines="full" *ngFor="let content of contentsLapor" (click)="selectLapor(content.nameInit, content.url)">
+      <ion-thumbnail slot="start">
+        <img [src]="content.logo">
+      </ion-thumbnail>
+      <ion-label>
+        <ion-text color="dark">
+          <h2 class="title-lapor">{{ content.name }}</h2>
+        </ion-text>
+        <p color="light" text-wrap text-justify>{{ content.description }}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list> -->
+
+
+  <ion-card class="card-lapor" *ngFor="let content of contentsLapor"
+    (click)="selectLapor(content.nameInit, content.url)">
+
+    <!-- <img class="img-lapor" [src]="content.logo" /> -->
+    <ion-item>
+      <!-- <ion-icon name="pin" slot="start"></ion-icon> -->
+      <ion-thumbnail slot="start">
+        <img [src]="content.logo">
+      </ion-thumbnail>
+      <ion-label>{{ content.name }}</ion-label>
+      <!-- <ion-button fill="outline" slot="end">View</ion-button> -->
+    </ion-item>
+
+    <ion-card-content text-justify>
+      {{ content.description }}
+    </ion-card-content>
+  </ion-card>
+</ion-content>
