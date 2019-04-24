@@ -39,6 +39,7 @@ export class EditProfilePage implements OnInit {
   image: any;
   imageFileName: any;
   role_user: string;
+  fb_validator = true;
 
   constructor(
     private route: ActivatedRoute,
@@ -61,7 +62,8 @@ export class EditProfilePage implements OnInit {
         [
           Validators.required,
           Validators.maxLength(255),
-          Validators.minLength(4)
+          Validators.minLength(4),
+          Validators.pattern(/^[A-Za-z ]+$/)
         ]
       ],
       username: [
@@ -74,17 +76,19 @@ export class EditProfilePage implements OnInit {
         [Validators.required, Validators.minLength(3), Validators.maxLength(12)]
       ],
       address: ['', [Validators.required, Validators.maxLength(255)]],
-      kabkota_id: ['', Validators.required],
-      kec_id: ['', Validators.required],
-      kel_id: ['', Validators.required],
+      kabkota_id: { value: '', disabled: true },
+      kec_id: { value: '', disabled: true },
+      kel_id: { value: '', disabled: true },
       rw: [{ value: '', disabled: true }],
-      rt: ['', [Validators.required, Validators.max(3)]],
+      rt: ['', [Validators.required, Validators.max(999)]],
       role: [{ value: '', disabled: true }],
       instagram: [''],
       facebook: [''],
       twitter: ['']
     });
+  }
 
+  ionViewDidEnter() {
     // get query param from view profile
     this.route.queryParamMap.subscribe(params => {
       this.dataProfile = params['params'];
@@ -146,8 +150,6 @@ export class EditProfilePage implements OnInit {
     this.getKelurahan(this.dataProfile.kec_id);
   }
 
-  ionViewDidEnter() {}
-
   // detect form onchange
   onChanges(type: string) {
     switch (type) {
@@ -162,6 +164,24 @@ export class EditProfilePage implements OnInit {
     }
   }
 
+  // validate facebook
+  onChangeFB() {
+    if (this.f.facebook.value.length === 21) {
+      if (this.f.facebook.value === 'https://facebook.com/') {
+        this.fb_validator = true;
+      } else if (this.f.facebook.value !== 'https://facebook.com/') {
+        this.fb_validator = false;
+      }
+    } else if (
+      this.f.facebook.value.length > 1 &&
+      this.f.facebook.value.length < 21
+    ) {
+      this.fb_validator = false;
+    } else if (this.f.facebook.value.length === 0) {
+      this.fb_validator = true;
+    }
+  }
+
   // convenience getter for easy access to form fields
   get f() {
     return this.onEditForm.controls;
@@ -171,6 +191,18 @@ export class EditProfilePage implements OnInit {
     this.submitted = true;
     // check form if invalid
     if (this.onEditForm.invalid) {
+      return;
+    }
+
+    // check fb only https://facebook.com/
+    if (this.f.facebook.value === 'https://facebook.com/') {
+        this.fb_validator = false;
+      return;
+    }
+
+    // check fb if not valid
+    if (!this.fb_validator) {
+        this.fb_validator = false;
       return;
     }
 
@@ -188,6 +220,7 @@ export class EditProfilePage implements OnInit {
       res => {
         if (res.status === 200) {
           this.showToast('Data berhasil tersimpan');
+          this.navCtrl.navigateForward('view-profile');
         } else {
           this.showToast('Data gagal tersimpan');
         }
@@ -200,10 +233,11 @@ export class EditProfilePage implements OnInit {
           // get data from server
           let data = err.data;
           // check unvalid email / username
-          if (data.email[0]) {
+          if (data.username && data.email) {
+            this.showToast(`${data.email[0]} & ${data.username[0]}`);
+          } else if (data.email && !data.username) {
             this.showToast(data.email[0]);
-          } else if (data.username[0]) {
-            alert('masuk');
+          } else if (data.username && !data.email) {
             this.showToast(data.username[0]);
           }
         } else {
@@ -213,26 +247,6 @@ export class EditProfilePage implements OnInit {
         }
       }
     );
-  }
-
-  async sendData() {
-    const loader = await this.loadingCtrl.create({
-      duration: 2000
-    });
-
-    loader.present();
-    loader.onWillDismiss().then(async l => {
-      const toast = await this.toastCtrl.create({
-        showCloseButton: true,
-        cssClass: 'bg-profile',
-        message: 'Your Data was Edited!',
-        duration: 3000,
-        position: 'bottom'
-      });
-
-      toast.present();
-      this.navCtrl.navigateForward('/home-results');
-    });
   }
 
   // get data kab/kota
@@ -383,7 +397,7 @@ export class EditProfilePage implements OnInit {
   async showToast(msg: string) {
     const toast = await this.toastCtrl.create({
       message: msg,
-      duration: 2000
+      duration: 3000
     });
     toast.present();
   }
@@ -393,5 +407,9 @@ export class EditProfilePage implements OnInit {
     let pad = '000';
     let ans = pad.substring(0, pad.length - str.length) + str;
     return ans;
+  }
+
+  backViewProfile() {
+    this.navCtrl.navigateForward('view-profile');
   }
 }

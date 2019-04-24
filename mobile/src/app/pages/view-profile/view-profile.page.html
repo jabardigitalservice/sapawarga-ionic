@@ -108,7 +108,7 @@
         </ion-col>
         <ion-col>
           <div class="profile-data">
-            <ion-label>{{ convertNumber(dataProfile.rt) }}</ion-label>
+            <ion-label *ngIf="dataProfile.rt">{{ convertNumber(dataProfile.rt) }}</ion-label>
           </div>
         </ion-col>
       </ion-row>
