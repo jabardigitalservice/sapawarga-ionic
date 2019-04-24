@@ -39,7 +39,7 @@ export class EditProfilePage implements OnInit {
   image: any;
   imageFileName: any;
   role_user: string;
-  fb_validator: boolean;
+  fb_validator = true;
 
   constructor(
     private route: ActivatedRoute,
@@ -196,11 +196,13 @@ export class EditProfilePage implements OnInit {
 
     // check fb only https://facebook.com/
     if (this.f.facebook.value === 'https://facebook.com/') {
+        this.fb_validator = false;
       return;
     }
 
     // check fb if not valid
     if (!this.fb_validator) {
+        this.fb_validator = false;
       return;
     }
 
