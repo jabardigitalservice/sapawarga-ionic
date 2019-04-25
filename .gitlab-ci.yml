@@ -4,6 +4,9 @@ services:
   - docker:dind
 
 before_script:
+  - cp mobile/.env-sample mobile/.env
+  - while read a ; do echo ${a//%GOOGLE_MAPS_ANDROID_API_KEY%/$GOOGLE_MAPS_ANDROID_API_KEY} ; done < mobile/.env > mobile/.env.t ; mv mobile/.env.t mobile/.env
+  - cat mobile/.env
   - apk add --no-cache py-pip python-dev libffi-dev openssl-dev gcc libc-dev make
   - pip install docker-compose
 
@@ -11,8 +14,6 @@ stages:
   - build
 
 build_debug:
-  only:
-    - master
   stage: build
   script:
     - cd mobile

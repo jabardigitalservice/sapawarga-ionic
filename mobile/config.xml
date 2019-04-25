@@ -20,6 +20,8 @@
     <preference name="AutoHideSplashScreen" value="false" />
     <preference name="FadeSplashScreen" value="true" />
     <preference name="ShowSplashScreen" value="true" />
+    <preference name="GOOGLE_MAPS_ANDROID_API_KEY" value="%GOOGLE_MAPS_ANDROID_API_KEY%" />
+    <preference name="GOOGLE_MAPS_IOS_API_KEY" value="****" />
     <platform name="android">
         <allow-intent href="market:*" />
         <icon density="ldpi" src="resources/android/icon/drawable-ldpi-icon.png" />
@@ -94,7 +96,7 @@
     <plugin name="mx.ferreyra.callnumber" spec="~0.0.2" />
     <plugin name="cordova-sms-plugin" spec="1.0.0" />
     <plugin name="cordova-plugin-googlemaps" spec="2.5.3">
-        <variable name="API_KEY_FOR_ANDROID" value="" />
+        <variable name="API_KEY_FOR_ANDROID" value="%GOOGLE_MAPS_ANDROID_API_KEY%" />
         <variable name="API_KEY_FOR_IOS" value="" />
         <variable name="PLAY_SERVICES_VERSION" value="15.0.1" />
         <variable name="ANDROID_SUPPORT_V4_VERSION" value="27.+" />
