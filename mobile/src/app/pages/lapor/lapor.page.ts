@@ -20,9 +20,10 @@ export class LaporPage implements OnInit {
     {
       nameInit: 'qlue',
       name: 'Lapor via Qlue',
-      url: '',
-      logo: '',
-      description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit.'
+      url: 'org.qluein.android',
+      logo: 'assets/icon/lapor-qlue.jpg',
+      description:
+        'Qlue adalah aplikasi media sosial untuk melaporkan permasalahan kota kepada pemerintah, pihak swasta ataupun saling berbagi informasi sesama warga di lingkungan sekitarmu demi terciptanya Smart City.'
     }
   ];
 
@@ -36,7 +37,7 @@ export class LaporPage implements OnInit {
         this.launchweb(url);
         break;
       case 'qlue':
-        this.launchweb(url);
+        this.launchApp(url);
         break;
       default:
         break;
@@ -49,5 +50,20 @@ export class LaporPage implements OnInit {
     this.platform.ready().then(() => {
       this.inAppBrowser.create(url, '_system');
     });
+  }
+
+  // call function launchApp to open external app
+  private launchApp(appUrl: string) {
+    // check if the platform is ios or android, else open the web url
+    if (this.platform.is('android')) {
+      let appId = appUrl;
+      let appStarter = (window as any).startApp.set({ application: appId });
+      appStarter.start(
+        function(msg) {},
+        function(err) {
+          window.open(`market://details?id=${appId}`, '_system');
+        }
+      );
+    }
   }
 }
