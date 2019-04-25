@@ -32,7 +32,12 @@ const routes: Routes = [
     loadChildren:
       './pages/detail-nomor-penting/detail-nomor-penting.module#DetailNomorPentingPageModule'
   },
-  { path: 'map-locations', loadChildren: './pages/map-locations/map-locations.module#MapLocationsPageModule' }
+  {
+    path: 'map-locations',
+    loadChildren:
+      './pages/map-locations/map-locations.module#MapLocationsPageModule'
+  },
+  { path: 'lapor', loadChildren: './pages/lapor/lapor.module#LaporPageModule' }
 ];
 
 @NgModule({

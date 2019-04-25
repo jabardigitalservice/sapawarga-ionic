@@ -96,10 +96,6 @@ export class HomeResultsPage {
     }
   }
 
-  settings() {
-    this.navCtrl.navigateForward('settings');
-  }
-
   // Go to layanan
   goToLayanan(app: string, layananUrl: string) {
     switch (app) {
@@ -118,13 +114,22 @@ export class HomeResultsPage {
       case 'Nomor penting':
         this.goNomorPenting();
         break;
+      case 'Lapor':
+        this.goLapor();
+        break;
       default:
         break;
     }
   }
 
+  // open page nomor penting
   goNomorPenting() {
     this.navCtrl.navigateForward('nomor-penting');
+  }
+
+  // open page lapor
+  goLapor() {
+    this.navCtrl.navigateForward('lapor');
   }
 
   // call function launchApp to open external app
