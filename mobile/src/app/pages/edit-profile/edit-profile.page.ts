@@ -89,7 +89,10 @@ export class EditProfilePage implements OnInit {
       role: [{ value: '', disabled: true }],
       instagram: [''],
       facebook: [''],
-      twitter: ['']
+      twitter: [''],
+      photo_url: [''],
+      lat: [''],
+      lon: ['']
     });
   }
 
@@ -147,7 +150,8 @@ export class EditProfilePage implements OnInit {
       role: this.role_user,
       instagram: this.dataProfile.instagram,
       facebook: this.dataProfile.facebook,
-      twitter: this.dataProfile.twitter
+      twitter: this.dataProfile.twitter,
+      photo_url: this.dataProfile.photo_url
     });
 
     this.getKabKota();
