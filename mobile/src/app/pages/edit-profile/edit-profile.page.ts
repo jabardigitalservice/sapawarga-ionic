@@ -229,7 +229,7 @@ export class EditProfilePage implements OnInit {
       res => {
         if (res.status === 200) {
           this.showToast('Data berhasil tersimpan');
-          this.navCtrl.navigateForward('view-profile');
+          this.navCtrl.navigateForward('/tabs/akun');
         } else {
           this.showToast('Data gagal tersimpan');
         }
@@ -421,6 +421,6 @@ export class EditProfilePage implements OnInit {
   }
 
   backViewProfile() {
-    this.navCtrl.navigateForward('view-profile');
+    this.navCtrl.navigateForward('/tabs/akun');
   }
 }
