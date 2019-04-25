@@ -15,7 +15,7 @@ export class LaporPage implements OnInit {
       url: 'https://www.lapor.go.id',
       logo: 'assets/icon/lapor-icon.jpg',
       description:
-        'LAPOR! merupakan kepanjangan dari Layanan Aspirasi dan Pengaduan Online Rakyat. Pengaduan serta aspirasi tersebut akan diteruskan kepada Presiden atau kementerian maupun lembaga terkait. Aplikasi LAPOR! telah terhubung dengan 81 kementerian dan lembaga, lima pemerintah daerah, dan 44 Badan Usaha Milik Negara dengan total lebih dari 800 unit kerja dalam kesatuan sistem.'
+        'LAPOR! merupakan kepanjangan dari Layanan Aspirasi dan Pengaduan Online Rakyat, layanan ini melayani pengaduan dan aspirasi yang disampaikan pada pemerintah maupun lembaga terkait.'
     },
     {
       nameInit: 'qlue',
