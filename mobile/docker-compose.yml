@@ -5,6 +5,8 @@ services:
       context: .
       dockerfile: Dockerfile
     image: jdsteam/sapawarga_mobile:1.0
+    env_file:
+      - .env
     ports:
       - 4200:4200
     volumes:
