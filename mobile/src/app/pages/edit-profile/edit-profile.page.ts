@@ -41,6 +41,11 @@ export class EditProfilePage implements OnInit {
   role_user: string;
   fb_validator = true;
 
+  msg_server = {
+    username: null,
+    email: null
+  };
+
   constructor(
     private route: ActivatedRoute,
     public navCtrl: NavController,
@@ -196,13 +201,13 @@ export class EditProfilePage implements OnInit {
 
     // check fb only https://facebook.com/
     if (this.f.facebook.value === 'https://facebook.com/') {
-        this.fb_validator = false;
+      this.fb_validator = false;
       return;
     }
 
     // check fb if not valid
     if (!this.fb_validator) {
-        this.fb_validator = false;
+      this.fb_validator = false;
       return;
     }
 
@@ -236,9 +241,11 @@ export class EditProfilePage implements OnInit {
           if (data.username && data.email) {
             this.showToast(`${data.email[0]} & ${data.username[0]}`);
           } else if (data.email && !data.username) {
-            this.showToast(data.email[0]);
+            this.msg_server.email = data.email[0];
+            this.f.email.setErrors({ notValid: true });
           } else if (data.username && !data.email) {
-            this.showToast(data.username[0]);
+            this.msg_server.username = data.username[0];
+            this.f.username.setErrors({ notValid: true });
           }
         } else {
           this.showToast(

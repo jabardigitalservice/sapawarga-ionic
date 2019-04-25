@@ -23,7 +23,7 @@
     <ion-grid fixed no-padding>
       <ion-row>
         <ion-col size="12" padding>
-          <form [formGroup]="onEditForm" (ngSubmit)="onFormSubmit(onEditForm.value)">
+          <form [formGroup]="onEditForm" (ngSubmit)="onFormSubmit(onEditForm.getRawValue())">
             <ion-list margin-bottom>
               <ion-list-header color="light">
                 <ion-label class="fw700">Profil</ion-label>
@@ -80,6 +80,11 @@
                     nama pengguna harus terdiri dari 4 karakter atau lebih
                   </ion-text>
                 </p>
+                <p ion-text class="text08" *ngIf="msg_server.username && !!f.username.errors.notValid">
+                  <ion-text color="danger">
+                    {{ msg_server.username }}
+                  </ion-text>
+                </p>
               </div>
 
               <ion-item>
@@ -98,6 +103,11 @@
                   <ion-text color="danger">
                     Format email yang anda masukkan salah. Email hanya boleh menggunakan alphanumeric, underscore, titik
                     dan @
+                  </ion-text>
+                </p>
+                <p ion-text class="text08" *ngIf="msg_server.email && !!f.email.errors.notValid">
+                  <ion-text color="danger">
+                    {{ msg_server.email }}
                   </ion-text>
                 </p>
               </div>
@@ -170,11 +180,11 @@
               </ion-item>
               <ion-item>
                 <ion-label color="dark" position="stacked">RW:</ion-label>
-                <ion-input type="text" formControlName="rw" placeholder="-"></ion-input>
+                <ion-input type="text" formControlName="rw" placeholder="Masukan RW"></ion-input>
               </ion-item>
               <ion-item>
                 <ion-label color="dark" position="stacked">RT:</ion-label>
-                <ion-input type="number" formControlName="rt" placeholder="-"></ion-input>
+                <ion-input type="number" formControlName="rt" placeholder="Masukan RT"></ion-input>
               </ion-item>
               <div *ngIf="submitted && !!f.rt.errors" class="invalid-feedback">
                 <p ion-text class="text08" *ngIf="!!f.rt.errors.required">
@@ -191,7 +201,7 @@
 
               <ion-item>
                 <ion-label color="dark" position="stacked">Role:</ion-label>
-                <ion-input type="text" formControlName="role" placeholder="-"></ion-input>
+                <ion-input type="text" formControlName="role"></ion-input>
               </ion-item>
             </ion-list>
 
