@@ -393,6 +393,7 @@ export class EditProfilePage implements OnInit {
           if (response['success'] === true) {
             this.showToast('Foto berhasil disimpan');
             this.image = response['data']['photo_url'];
+            this.f.photo_url.setValue(this.image);
           } else {
             this.showToast(
               'Foto profile yang diupload melebihi batas max. file'
