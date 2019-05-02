@@ -11,7 +11,7 @@
       <ion-item no-padding class="animated fadeInUp">
         <ion-label position="floating" id="username">
           <ion-icon name="person" item-start color="dark"></ion-icon>
-          Nama Pengguna
+          Username
         </ion-label>
         <ion-input color="dark" type="text" formControlName="username"
           [ngClass]="{ 'is-invalid': submitted && f.username.errors }" (keydown.space)="$event.preventDefault()"
@@ -21,12 +21,12 @@
       <div *ngIf="submitted && !!f.username.errors" class="invalid-feedback">
         <p ion-text class="text08" *ngIf="!!f.username.errors.required">
           <ion-text color="danger">
-            Nama Pengguna harus diisi
+            Username harus diisi
           </ion-text>
         </p>
         <p ion-text class="text08" *ngIf="!!f.username.errors.minlength">
           <ion-text color="danger">
-            Nama Pengguna minimal 4 karakter
+            Username minimal 4 karakter
           </ion-text>
         </p>
       </div>

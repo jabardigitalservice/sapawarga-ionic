@@ -159,6 +159,12 @@ export class EditProfilePage implements OnInit {
     this.getKelurahan(this.dataProfile.kec_id);
   }
 
+  //Called when view is left
+  ionViewWillLeave() {
+    // Unregister the custom back button action for this page
+    this.navCtrl.navigateForward('/tabs/akun');
+  }
+
   // detect form onchange
   onChanges(type: string) {
     switch (type) {
