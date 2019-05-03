@@ -184,15 +184,22 @@
               </ion-item>
               <ion-item>
                 <ion-label color="dark" position="stacked">RT:</ion-label>
-                <ion-input type="number" formControlName="rt" placeholder="Masukan RT"></ion-input>
+                <ion-input type="text" formControlName="rt" placeholder="Masukan RT"></ion-input>
               </ion-item>
               <div *ngIf="submitted && !!f.rt.errors" class="invalid-feedback">
+                <p ion-text class="text08" *ngIf="!!f.rt.errors.pattern">
+                  <ion-text color="danger">
+                    RT hanya boleh menggunakan angka
+                  </ion-text>
+                </p>
+
                 <p ion-text class="text08" *ngIf="!!f.rt.errors.required">
                   <ion-text color="danger">
                     RT harus diisi
                   </ion-text>
                 </p>
-                <p ion-text class="text08" *ngIf="!!f.rt.errors.max">
+
+                <p ion-text class="text08" *ngIf="!!f.rt.errors.maxlength">
                   <ion-text color="danger">
                     RT yang anda masukkan salah. RT harus terdiri 3 karakter
                   </ion-text>
