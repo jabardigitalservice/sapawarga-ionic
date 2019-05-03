@@ -89,7 +89,10 @@ export class EditProfilePage implements OnInit {
       role: [{ value: '', disabled: true }],
       instagram: [''],
       facebook: [''],
-      twitter: ['']
+      twitter: [''],
+      photo_url: [''],
+      lat: [''],
+      lon: ['']
     });
   }
 
@@ -147,12 +150,19 @@ export class EditProfilePage implements OnInit {
       role: this.role_user,
       instagram: this.dataProfile.instagram,
       facebook: this.dataProfile.facebook,
-      twitter: this.dataProfile.twitter
+      twitter: this.dataProfile.twitter,
+      photo_url: this.dataProfile.photo_url
     });
 
     this.getKabKota();
     this.getKecamatan(this.dataProfile.kabkota_id);
     this.getKelurahan(this.dataProfile.kec_id);
+  }
+
+  //Called when view is left
+  ionViewWillLeave() {
+    // Unregister the custom back button action for this page
+    this.navCtrl.navigateForward('/tabs/akun');
   }
 
   // detect form onchange
@@ -225,7 +235,7 @@ export class EditProfilePage implements OnInit {
       res => {
         if (res.status === 200) {
           this.showToast('Data berhasil tersimpan');
-          this.navCtrl.navigateForward('view-profile');
+          this.navCtrl.navigateForward('/tabs/akun');
         } else {
           this.showToast('Data gagal tersimpan');
         }
@@ -389,6 +399,7 @@ export class EditProfilePage implements OnInit {
           if (response['success'] === true) {
             this.showToast('Foto berhasil disimpan');
             this.image = response['data']['photo_url'];
+            this.f.photo_url.setValue(this.image);
           } else {
             this.showToast(
               'Foto profile yang diupload melebihi batas max. file'
@@ -417,6 +428,6 @@ export class EditProfilePage implements OnInit {
   }
 
   backViewProfile() {
-    this.navCtrl.navigateForward('view-profile');
+    this.navCtrl.navigateForward('/tabs/akun');
   }
 }
