@@ -28,6 +28,8 @@ export class NomorPentingPage implements OnInit {
 
   openSearch = false;
 
+  currentContent = 'telepon';
+
   constructor(
     private nomorPentingService: NomorPentingService,
     public loadingCtrl: LoadingController,
@@ -260,6 +262,20 @@ export class NomorPentingPage implements OnInit {
 
   goToDetail(id: number) {
     this.router.navigate(['/nomor-penting', id]);
+  }
+
+  segmentChanged(event: string) {
+    switch (event) {
+      case 'telepon':
+        this.currentContent = 'telepon';
+        this.getNomorPenting();
+        break;
+      case 'lokasi':
+        this.currentContent = 'lokasi';
+        break;
+      default:
+        break;
+    }
   }
 
   // check count phone
