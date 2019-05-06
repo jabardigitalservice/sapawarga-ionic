@@ -187,21 +187,10 @@
                 <ion-input type="text" formControlName="rt" placeholder="Masukan RT"></ion-input>
               </ion-item>
               <div *ngIf="submitted && !!f.rt.errors" class="invalid-feedback">
-                <p ion-text class="text08" *ngIf="!!f.rt.errors.pattern">
+                <p ion-text class="text08"
+                  *ngIf="!!f.rt.errors.pattern || !!f.rt.errors.required || !!f.rt.errors.maxlength">
                   <ion-text color="danger">
-                    RT hanya boleh menggunakan angka
-                  </ion-text>
-                </p>
-
-                <p ion-text class="text08" *ngIf="!!f.rt.errors.required">
-                  <ion-text color="danger">
-                    RT harus diisi
-                  </ion-text>
-                </p>
-
-                <p ion-text class="text08" *ngIf="!!f.rt.errors.maxlength">
-                  <ion-text color="danger">
-                    RT yang anda masukkan salah. RT harus terdiri 3 karakter
+                    Data input tidak sesuai
                   </ion-text>
                 </p>
               </div>
