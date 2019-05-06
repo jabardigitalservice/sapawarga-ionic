@@ -73,7 +73,11 @@ export class EditProfilePage implements OnInit {
       ],
       username: [
         '',
-        [Validators.required, Validators.maxLength(14), Validators.minLength(4)]
+        [
+          Validators.required,
+          Validators.maxLength(255),
+          Validators.minLength(4)
+        ]
       ],
       email: ['', [Validators.required, Validators.email]],
       phone: [
@@ -94,9 +98,9 @@ export class EditProfilePage implements OnInit {
         ]
       ],
       role: [{ value: '', disabled: true }],
-      instagram: [''],
+      instagram: ['', [Validators.pattern(/^[a-z0-9_.]+$/)]],
       facebook: [''],
-      twitter: [''],
+      twitter: ['', [Validators.pattern(/^[a-z0-9_.]+$/)]],
       lat: [''],
       lon: ['']
     });
