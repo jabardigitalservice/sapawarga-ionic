@@ -26,6 +26,8 @@
     </ion-segment-button>
   </ion-segment>
 
+  <div id="map_nearby"></div>
+
   <!-- list telepon -->
   <div *ngIf="currentContent === 'telepon'">
     <ion-item>
@@ -80,6 +82,6 @@
 
   <div *ngIf="currentContent === 'lokasi'">
     <div class="ion-text-center ion-margin-top" *ngIf="dataEmpty">Data tidak ditemukan</div>
-    <div id="map_canvas"></div>
+    <!-- <div id="map_nearby"></div> -->
   </div>
 </ion-content>

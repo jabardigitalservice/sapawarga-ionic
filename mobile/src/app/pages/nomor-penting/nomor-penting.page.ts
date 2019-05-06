@@ -10,6 +10,13 @@ import { NomorPenting } from '../../interfaces/nomor-penting';
 import { CallNumber } from '@ionic-native/call-number/ngx';
 import { SMS } from '@ionic-native/sms/ngx';
 import { Router } from '@angular/router';
+import {
+  GoogleMaps,
+  GoogleMap,
+  Marker,
+  GoogleMapsAnimation,
+  GoogleMapOptions
+} from '@ionic-native/google-maps';
 
 @Component({
   selector: 'app-nomor-penting',
@@ -30,6 +37,7 @@ export class NomorPentingPage implements OnInit {
   openSearch = false;
 
   currentContent = 'telepon';
+  map: GoogleMap;
 
   constructor(
     private nomorPentingService: NomorPentingService,
@@ -50,6 +58,7 @@ export class NomorPentingPage implements OnInit {
 
   ngOnInit() {
     this.getNomorPenting();
+    this.loadMap();
   }
 
   // get data nomor penting
@@ -112,6 +121,7 @@ export class NomorPentingPage implements OnInit {
           if (res['data']['items'].length) {
             this.dataEmpty = false;
             this.dataLokasiTerdekat = res['data']['items'];
+            this.loadMap();
           } else {
             this.dataEmpty = true;
           }
@@ -165,6 +175,52 @@ export class NomorPentingPage implements OnInit {
     let idArea = dataArea[1];
 
     this.filterNomorPenting(typeArea, idArea);
+  }
+
+  loadMap() {
+    let options: GoogleMapOptions = {
+      center: {
+        lat: 43.0741704,
+        lng: -89.3809802
+      },
+      camera: {
+        target: {
+          lat: 43.0741704,
+          lng: -89.3809802
+        },
+        zoom: 13
+      },
+      controls: {
+        compass: true,
+        myLocation: true,
+        myLocationButton: true,
+        mapToolbar: true,
+        zoom: true
+      }
+    };
+    this.map = GoogleMaps.create('map_nearby', options);
+
+    // add marker
+    let marker: Marker = this.map.addMarkerSync({
+      title: 'aaa',
+      icon: 'blue',
+      animation: GoogleMapsAnimation.BOUNCE,
+      position: {
+        lat: 43.0741704,
+        lng: -89.3809802
+      }
+    });
+
+    // this.map = GoogleMaps.create('map_nearby', {
+    //   camera: {
+    //     target: {
+    //       lat: 43.0741704,
+    //       lng: -89.3809802
+    //     },
+    //     zoom: 18,
+    //     tilt: 30
+    //   }
+    // });
   }
 
   // open action sheet open phone number
