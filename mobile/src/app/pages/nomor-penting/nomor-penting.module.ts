@@ -10,6 +10,8 @@ import { NomorPentingPage } from './nomor-penting.page';
 // plugin
 import { CallNumber } from '@ionic-native/call-number/ngx';
 import { SMS } from '@ionic-native/sms/ngx';
+import { Diagnostic } from '@ionic-native/diagnostic/ngx';
+import { OpenNativeSettings } from '@ionic-native/open-native-settings/ngx';
 
 const routes: Routes = [
   {
@@ -25,7 +27,7 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes)
   ],
-  providers: [CallNumber, SMS],
+  providers: [CallNumber, SMS, Diagnostic, OpenNativeSettings],
   declarations: [NomorPentingPage]
 })
 export class NomorPentingPageModule {}

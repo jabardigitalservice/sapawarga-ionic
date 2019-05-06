@@ -79,6 +79,7 @@
   <!-- lokasi -->
 
   <div *ngIf="currentContent === 'lokasi'">
-    <h1>lokasi</h1>
+    <div class="ion-text-center ion-margin-top" *ngIf="dataEmpty">Data tidak ditemukan</div>
+    <div id="map_canvas"></div>
   </div>
 </ion-content>

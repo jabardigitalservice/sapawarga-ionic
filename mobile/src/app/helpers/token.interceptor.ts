@@ -9,12 +9,14 @@ import {
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
-import { Router } from '@angular/router';
-import { ToastController } from '@ionic/angular';
+import { ToastController, NavController } from '@ionic/angular';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
-  constructor(private router: Router, private toastCtrl: ToastController) {}
+  constructor(
+    private navCtrl: NavController,
+    private toastCtrl: ToastController
+  ) {}
 
   intercept(
     request: HttpRequest<any>,
@@ -54,12 +56,12 @@ export class TokenInterceptor implements HttpInterceptor {
           if (error.error.success === false) {
             console.log('Login failed');
           } else {
-            this.router.navigate(['login']);
+            this.navCtrl.navigateRoot(['login']);
             // clear locastorage
             localStorage.clear();
           }
           this.showToast(error.error.data.name, error.error.data.message);
-          this.router.navigate(['login']);
+          this.navCtrl.navigateRoot(['login']);
           // clear locastorage
           localStorage.clear();
         }
