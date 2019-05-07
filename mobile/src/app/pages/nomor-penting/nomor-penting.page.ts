@@ -10,13 +10,6 @@ import { NomorPenting } from '../../interfaces/nomor-penting';
 import { CallNumber } from '@ionic-native/call-number/ngx';
 import { SMS } from '@ionic-native/sms/ngx';
 import { Router } from '@angular/router';
-import {
-  GoogleMaps,
-  GoogleMap,
-  Marker,
-  GoogleMapsAnimation,
-  GoogleMapOptions
-} from '@ionic-native/google-maps';
 
 @Component({
   selector: 'app-nomor-penting',
@@ -37,7 +30,6 @@ export class NomorPentingPage implements OnInit {
   openSearch = false;
 
   currentContent = 'telepon';
-  map: GoogleMap;
 
   constructor(
     private nomorPentingService: NomorPentingService,
@@ -58,7 +50,13 @@ export class NomorPentingPage implements OnInit {
 
   ngOnInit() {
     this.getNomorPenting();
-    this.loadMap();
+    // this.loadMap();
+  }
+
+  //Called when view is left
+  ionViewWillLeave() {
+    // Unregister the custom back button action for this page
+    this.currentContent = 'telepon';
   }
 
   // get data nomor penting
@@ -121,7 +119,8 @@ export class NomorPentingPage implements OnInit {
           if (res['data']['items'].length) {
             this.dataEmpty = false;
             this.dataLokasiTerdekat = res['data']['items'];
-            this.loadMap();
+            console.log(this.dataLokasiTerdekat);
+            // this.loadMap();
           } else {
             this.dataEmpty = true;
           }
@@ -175,52 +174,6 @@ export class NomorPentingPage implements OnInit {
     let idArea = dataArea[1];
 
     this.filterNomorPenting(typeArea, idArea);
-  }
-
-  loadMap() {
-    let options: GoogleMapOptions = {
-      center: {
-        lat: 43.0741704,
-        lng: -89.3809802
-      },
-      camera: {
-        target: {
-          lat: 43.0741704,
-          lng: -89.3809802
-        },
-        zoom: 13
-      },
-      controls: {
-        compass: true,
-        myLocation: true,
-        myLocationButton: true,
-        mapToolbar: true,
-        zoom: true
-      }
-    };
-    this.map = GoogleMaps.create('map_nearby', options);
-
-    // add marker
-    let marker: Marker = this.map.addMarkerSync({
-      title: 'aaa',
-      icon: 'blue',
-      animation: GoogleMapsAnimation.BOUNCE,
-      position: {
-        lat: 43.0741704,
-        lng: -89.3809802
-      }
-    });
-
-    // this.map = GoogleMaps.create('map_nearby', {
-    //   camera: {
-    //     target: {
-    //       lat: 43.0741704,
-    //       lng: -89.3809802
-    //     },
-    //     zoom: 18,
-    //     tilt: 30
-    //   }
-    // });
   }
 
   // open action sheet open phone number
@@ -354,13 +307,10 @@ export class NomorPentingPage implements OnInit {
 
   segmentChanged(event: string) {
     switch (event) {
-      case 'telepon':
-        this.currentContent = 'telepon';
-        this.getNomorPenting();
-        break;
       case 'lokasi':
         this.currentContent = 'lokasi';
-        this.getLocationsNearby();
+        // this.getLocationsNearby();
+        this.router.navigate(['list-map-nomor-penting']);
         break;
       default:
         break;

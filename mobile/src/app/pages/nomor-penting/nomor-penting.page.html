@@ -26,10 +26,8 @@
     </ion-segment-button>
   </ion-segment>
 
-  <div id="map_nearby"></div>
-
   <!-- list telepon -->
-  <div *ngIf="currentContent === 'telepon'">
+  <div>
     <ion-item>
       <ion-label>Filter</ion-label>
       <ion-select (ionChange)="filterAreas($event.detail.value)">
@@ -76,12 +74,5 @@
       <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Sedang mengambil data...">
       </ion-infinite-scroll-content>
     </ion-infinite-scroll>
-  </div>
-
-  <!-- lokasi -->
-
-  <div *ngIf="currentContent === 'lokasi'">
-    <div class="ion-text-center ion-margin-top" *ngIf="dataEmpty">Data tidak ditemukan</div>
-    <!-- <div id="map_nearby"></div> -->
   </div>
 </ion-content>

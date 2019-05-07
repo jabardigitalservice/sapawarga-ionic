@@ -1,0 +1,19 @@
+<ion-header>
+  <ion-toolbar color="light">
+    <ion-title>Nomor Telepon Penting</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- Disabled Segment -->
+  <ion-segment (ionChange)="segmentChanged($event.detail.value)" color="success">
+    <ion-segment-button value="telepon">
+      <ion-label>List Telepon</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="lokasi" checked>
+      <ion-label>Lokasi Anda</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+  <div class="ion-text-center ion-margin-top" *ngIf="dataEmpty">Data tidak ditemukan</div>
+  <div id="map_canvas" style="height: 100%; width: 100%;"></div>
+</ion-content>

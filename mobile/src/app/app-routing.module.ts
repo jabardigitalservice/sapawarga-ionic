@@ -37,7 +37,12 @@ const routes: Routes = [
     loadChildren:
       './pages/map-locations/map-locations.module#MapLocationsPageModule'
   },
-  { path: 'lapor', loadChildren: './pages/lapor/lapor.module#LaporPageModule' }
+  { path: 'lapor', loadChildren: './pages/lapor/lapor.module#LaporPageModule' },
+  {
+    path: 'list-map-nomor-penting',
+    loadChildren:
+      './pages/list-map-nomor-penting/list-map-nomor-penting.module#ListMapNomorPentingPageModule'
+  }
 ];
 
 @NgModule({
