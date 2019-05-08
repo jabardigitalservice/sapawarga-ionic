@@ -119,8 +119,6 @@ export class NomorPentingPage implements OnInit {
           if (res['data']['items'].length) {
             this.dataEmpty = false;
             this.dataLokasiTerdekat = res['data']['items'];
-            console.log(this.dataLokasiTerdekat);
-            // this.loadMap();
           } else {
             this.dataEmpty = true;
           }
@@ -305,16 +303,8 @@ export class NomorPentingPage implements OnInit {
     this.router.navigate(['/nomor-penting', id]);
   }
 
-  segmentChanged(event: string) {
-    switch (event) {
-      case 'lokasi':
-        this.currentContent = 'lokasi';
-        // this.getLocationsNearby();
-        this.router.navigate(['list-map-nomor-penting']);
-        break;
-      default:
-        break;
-    }
+  goToNearby() {
+    this.router.navigate(['list-map-nomor-penting']);
   }
 
   // check count phone

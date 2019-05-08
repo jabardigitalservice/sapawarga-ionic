@@ -6,6 +6,9 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { ListMapNomorPentingPage } from './list-map-nomor-penting.page';
+
+// plugin
+import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { Diagnostic } from '@ionic-native/diagnostic/ngx';
 import { OpenNativeSettings } from '@ionic-native/open-native-settings/ngx';
 
@@ -23,7 +26,7 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes)
   ],
-  providers: [Diagnostic, OpenNativeSettings],
+  providers: [Geolocation, Diagnostic, OpenNativeSettings],
   declarations: [ListMapNomorPentingPage]
 })
 export class ListMapNomorPentingPageModule {}

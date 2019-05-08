@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
+import { Geolocation } from '@ionic-native/geolocation/ngx';
 import {
   GoogleMaps,
   GoogleMap,
+  GoogleMapsAnimation,
+  ILatLng,
+  BaseArrayClass,
   Marker,
-  GoogleMapOptions,
-  GoogleMapsAnimation
+  GoogleMapsEvent
 } from '@ionic-native/google-maps';
 import {
   Platform,
@@ -32,13 +35,14 @@ export class ListMapNomorPentingPage implements OnInit {
   dataLokasiTerdekat: NomorPenting[];
   constructor(
     private platform: Platform,
+    private geolocation: Geolocation,
     private diagnostic: Diagnostic,
-    private openNativeSettings: OpenNativeSettings,
     private nomorPentingService: NomorPentingService,
+    private router: Router,
+    private openNativeSettings: OpenNativeSettings,
     public loadingCtrl: LoadingController,
     public alertController: AlertController,
-    private navCtrl: NavController,
-    private router: Router
+    private navCtrl: NavController
   ) {}
 
   async ngOnInit() {
@@ -53,8 +57,19 @@ export class ListMapNomorPentingPage implements OnInit {
       .isGpsLocationEnabled()
       .then(isAvailable => {
         if (isAvailable === true) {
-          this.loadMap();
-          this.getLocationsNearby();
+          // get location user
+          this.geolocation
+            .getCurrentPosition()
+            .then(resp => {
+              // call API with params coords user
+              this.getLocationsNearby(
+                resp.coords.latitude,
+                resp.coords.longitude
+              );
+            })
+            .catch(error => {
+              this.navCtrl.back();
+            });
         } else {
           this.presentAlertConfirm(
             'Untuk melanjutkan, mohon untuk mengaktifkan gps anda'
@@ -66,29 +81,17 @@ export class ListMapNomorPentingPage implements OnInit {
       });
   }
 
-  loadMap() {
-    // this.map = GoogleMaps.create('map_canvas', {
-    //   camera: {
-    //     target: {
-    //       lat: 43.0741704,
-    //       lng: -89.3809802
-    //     },
-    //     zoom: 18,
-    //     tilt: 30
-    //   }
-    // });
+  loadMap(markers: object) {
+    let POINTS: BaseArrayClass<any> = new BaseArrayClass<any>(markers);
 
-    let options: GoogleMapOptions = {
-      center: {
-        lat: 43.0741704,
-        lng: -89.3809802
-      },
+    let bounds: ILatLng[] = POINTS.map((data: any, idx: number) => {
+      return data.position;
+    });
+
+    this.map = GoogleMaps.create('map_canvas', {
       camera: {
-        target: {
-          lat: 43.0741704,
-          lng: -89.3809802
-        },
-        zoom: 13
+        target: bounds,
+        zoom: 18
       },
       controls: {
         compass: true,
@@ -97,8 +100,15 @@ export class ListMapNomorPentingPage implements OnInit {
         mapToolbar: true,
         zoom: true
       }
-    };
-    this.map = GoogleMaps.create('map_canvas', options);
+    });
+    POINTS.forEach((data: any) => {
+      let marker: Marker = this.map.addMarkerSync(data);
+      marker.on(GoogleMapsEvent.INFO_CLICK).subscribe(data => {
+        // get data marker
+        let marker: Marker = <Marker>data[1];
+        this.router.navigate(['/nomor-penting', marker.get('id')]);
+      });
+    });
   }
 
   async presentAlertConfirm(msg: string) {
@@ -131,18 +141,9 @@ export class ListMapNomorPentingPage implements OnInit {
     this.openNativeSettings.open('location');
   }
 
-  segmentChanged(value: string) {
-    switch (value) {
-      case 'telepon':
-        this.router.navigate(['nomor-penting']);
-        break;
-      default:
-        break;
-    }
-  }
-
   // get data lokasi terdekat
-  async getLocationsNearby() {
+  async getLocationsNearby(latitude: number, longitude: number) {
+    let markers = [];
     // check internet
     if (!navigator.onLine) {
       alert('Tidak ada jaringan internet');
@@ -155,14 +156,15 @@ export class ListMapNomorPentingPage implements OnInit {
     loader.present();
 
     this.nomorPentingService
-      .getNomorPentingByNearby(-6.902474, 107.618803)
+      .getNomorPentingByNearby(latitude, longitude)
       .subscribe(
         res => {
           if (res['data']['items'].length) {
             this.dataEmpty = false;
             this.dataLokasiTerdekat = res['data']['items'];
-            console.log(this.dataLokasiTerdekat);
-            // this.loadMap();
+            markers = this.createMarkers(this.dataLokasiTerdekat);
+            // call map
+            this.loadMap(markers);
           } else {
             this.dataEmpty = true;
           }
@@ -172,5 +174,25 @@ export class ListMapNomorPentingPage implements OnInit {
           loader.dismiss();
         }
       );
+  }
+
+  // create dynamic markers
+  createMarkers(data: object) {
+    let markers = [];
+    for (let index in data) {
+      if (data) {
+        let marker = {
+          id: data[index].id,
+          position: {
+            lat: data[index].latitude,
+            lng: data[index].longitude
+          },
+          animation: GoogleMapsAnimation.BOUNCE,
+          title: data[index].name
+        };
+        markers.push(marker);
+      }
+    }
+    return markers;
   }
 }
