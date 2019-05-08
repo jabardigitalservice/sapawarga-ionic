@@ -73,7 +73,11 @@ export class EditProfilePage implements OnInit {
       ],
       username: [
         '',
-        [Validators.required, Validators.maxLength(14), Validators.minLength(4)]
+        [
+          Validators.required,
+          Validators.maxLength(255),
+          Validators.minLength(4)
+        ]
       ],
       email: ['', [Validators.required, Validators.email]],
       phone: [
@@ -85,12 +89,18 @@ export class EditProfilePage implements OnInit {
       kec_id: { value: '', disabled: true },
       kel_id: { value: '', disabled: true },
       rw: [{ value: '', disabled: true }],
-      rt: ['', [Validators.required, Validators.max(999)]],
+      rt: [
+        '',
+        [
+          Validators.pattern(/^[0-9]+$/),
+          Validators.required,
+          Validators.maxLength(3)
+        ]
+      ],
       role: [{ value: '', disabled: true }],
-      instagram: [''],
+      instagram: ['', [Validators.pattern(/^[a-z0-9_.]+$/)]],
       facebook: [''],
-      twitter: [''],
-      photo_url: [''],
+      twitter: ['', [Validators.pattern(/^[a-z0-9_.]+$/)]],
       lat: [''],
       lon: ['']
     });
@@ -150,8 +160,7 @@ export class EditProfilePage implements OnInit {
       role: this.role_user,
       instagram: this.dataProfile.instagram,
       facebook: this.dataProfile.facebook,
-      twitter: this.dataProfile.twitter,
-      photo_url: this.dataProfile.photo_url
+      twitter: this.dataProfile.twitter
     });
 
     this.getKabKota();
@@ -399,7 +408,6 @@ export class EditProfilePage implements OnInit {
           if (response['success'] === true) {
             this.showToast('Foto berhasil disimpan');
             this.image = response['data']['photo_url'];
-            this.f.photo_url.setValue(this.image);
           } else {
             this.showToast(
               'Foto profile yang diupload melebihi batas max. file'

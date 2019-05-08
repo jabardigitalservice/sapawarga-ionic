@@ -72,7 +72,7 @@
                 </p>
                 <p ion-text class="text08" *ngIf="!!f.username.errors.maxlength">
                   <ion-text color="danger">
-                    Username yang anda inputkan lebih dari 14 karakter
+                    Username yang anda inputkan lebih dari 255 karakter
                   </ion-text>
                 </p>
                 <p ion-text class="text08" *ngIf="!!f.username.errors.minlength">
@@ -184,17 +184,13 @@
               </ion-item>
               <ion-item>
                 <ion-label color="dark" position="stacked">RT:</ion-label>
-                <ion-input type="number" formControlName="rt" placeholder="Masukan RT"></ion-input>
+                <ion-input type="text" formControlName="rt" placeholder="Masukan RT"></ion-input>
               </ion-item>
               <div *ngIf="submitted && !!f.rt.errors" class="invalid-feedback">
-                <p ion-text class="text08" *ngIf="!!f.rt.errors.required">
+                <p ion-text class="text08"
+                  *ngIf="!!f.rt.errors.pattern || !!f.rt.errors.required || !!f.rt.errors.maxlength">
                   <ion-text color="danger">
-                    RT harus diisi
-                  </ion-text>
-                </p>
-                <p ion-text class="text08" *ngIf="!!f.rt.errors.max">
-                  <ion-text color="danger">
-                    RT yang anda masukkan salah. RT harus terdiri 3 karakter
+                    Data input tidak sesuai
                   </ion-text>
                 </p>
               </div>
@@ -215,6 +211,13 @@
                 <ion-input type="text" formControlName="instagram" placeholder="masukkan akun instagram anda">
                 </ion-input>
               </ion-item>
+              <div *ngIf="submitted && !!f.instagram.errors" class="invalid-feedback">
+                <p ion-text class="text08" *ngIf="!!f.instagram.errors.pattern">
+                  <ion-text color="danger">
+                    Isian yang diinputkan tidak sesuai
+                  </ion-text>
+                </p>
+              </div>
 
               <ion-item>
                 <ion-label color="dark" position="stacked">Facebook: (contoh: <b>https://facebook.com/user234</b>)
@@ -234,6 +237,13 @@
                 <ion-label color="dark" position="stacked">Twitter: (contoh: <b>user234</b>)</ion-label>
                 <ion-input type="text" formControlName="twitter" placeholder="Masukkan akun Twitter Anda"></ion-input>
               </ion-item>
+              <div *ngIf="submitted && !!f.twitter.errors" class="invalid-feedback">
+                <p ion-text class="text08" *ngIf="!!f.twitter.errors.pattern">
+                  <ion-text color="danger">
+                    Isian yang diinputkan tidak sesuai
+                  </ion-text>
+                </p>
+              </div>
             </ion-list>
             <ion-button class="ion-margin-top" size="medium" expand="full" color="dark" type="submit">Simpan perubahan
             </ion-button>
