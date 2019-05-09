@@ -85,8 +85,6 @@ export class MapLocationsPage implements OnInit {
     // add marker
     let marker: Marker = this.map.addMarkerSync({
       title: this.title,
-      icon: 'blue',
-      disableAutoPan: true,
       animation: GoogleMapsAnimation.BOUNCE,
       position: this.latlong
     });

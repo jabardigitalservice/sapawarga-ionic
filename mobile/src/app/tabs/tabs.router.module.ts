@@ -18,11 +18,12 @@ const routes: Routes = [
         ]
       },
       {
-        path: 'tab2',
+        path: 'broadcasts',
         children: [
           {
             path: '',
-            loadChildren: '../pages/about/about.module#AboutPageModule'
+            loadChildren:
+              '../pages/broadcasts/broadcasts.module#BroadcastsPageModule'
           }
         ]
       },
