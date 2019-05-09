@@ -1,0 +1,13 @@
+<ion-header>
+  <ion-toolbar color="light">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Lokasi Terdekat</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="ion-text-center ion-margin-top" *ngIf="dataEmpty">Data tidak ditemukan</div>
+  <div id="map_canvas" style="height: 100%; width: 100%;"></div>
+</ion-content>

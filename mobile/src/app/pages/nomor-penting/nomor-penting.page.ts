@@ -20,6 +20,7 @@ export class NomorPentingPage implements OnInit {
   currentPage = 1;
   maximumPages: number;
   dataNomorPenting: NomorPenting[];
+  dataLokasiTerdekat: NomorPenting[];
   phone_numbers = [];
   kabkota_id: number;
   kecamatan_id: number;
@@ -27,6 +28,8 @@ export class NomorPentingPage implements OnInit {
   dataEmpty = false;
 
   openSearch = false;
+
+  currentContent = 'telepon';
 
   constructor(
     private nomorPentingService: NomorPentingService,
@@ -47,6 +50,13 @@ export class NomorPentingPage implements OnInit {
 
   ngOnInit() {
     this.getNomorPenting();
+    // this.loadMap();
+  }
+
+  //Called when view is left
+  ionViewWillLeave() {
+    // Unregister the custom back button action for this page
+    this.currentContent = 'telepon';
   }
 
   // get data nomor penting
@@ -87,6 +97,37 @@ export class NomorPentingPage implements OnInit {
         loader.dismiss();
       }
     );
+  }
+
+  // get data lokasi terdekat
+  async getLocationsNearby() {
+    // check internet
+    if (!navigator.onLine) {
+      alert('Tidak ada jaringan internet');
+      return;
+    }
+
+    const loader = await this.loadingCtrl.create({
+      duration: 10000
+    });
+    loader.present();
+
+    this.nomorPentingService
+      .getNomorPentingByNearby(-6.902474, 107.618803)
+      .subscribe(
+        res => {
+          if (res['data']['items'].length) {
+            this.dataEmpty = false;
+            this.dataLokasiTerdekat = res['data']['items'];
+          } else {
+            this.dataEmpty = true;
+          }
+          loader.dismiss();
+        },
+        err => {
+          loader.dismiss();
+        }
+      );
   }
 
   // get data nomor penting
@@ -260,6 +301,10 @@ export class NomorPentingPage implements OnInit {
 
   goToDetail(id: number) {
     this.router.navigate(['/nomor-penting', id]);
+  }
+
+  goToNearby() {
+    this.router.navigate(['list-map-nomor-penting']);
   }
 
   // check count phone

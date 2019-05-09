@@ -18,6 +18,19 @@ export class NomorPentingService {
       .pipe(catchError(this.handleError));
   }
 
+  getNomorPentingByNearby(
+    latitude: number,
+    longitude: number
+  ): Observable<NomorPenting[]> {
+    return this.http
+      .get<NomorPenting[]>(
+        `${
+          environment.API_URL
+        }/phone-books?latitude=${latitude}&longitude=${longitude}`
+      )
+      .pipe(catchError(this.handleError));
+  }
+
   filterNomorPenting(type: string, id: number): Observable<NomorPenting[]> {
     return this.http
       .get<NomorPenting[]>(`${environment.API_URL}/phone-books?${type}=${id}`)

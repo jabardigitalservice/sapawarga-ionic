@@ -5,18 +5,17 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
 
-import { NomorPentingPage } from './nomor-penting.page';
+import { ListMapNomorPentingPage } from './list-map-nomor-penting.page';
 
 // plugin
-import { CallNumber } from '@ionic-native/call-number/ngx';
-import { SMS } from '@ionic-native/sms/ngx';
+import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { Diagnostic } from '@ionic-native/diagnostic/ngx';
 import { OpenNativeSettings } from '@ionic-native/open-native-settings/ngx';
 
 const routes: Routes = [
   {
     path: '',
-    component: NomorPentingPage
+    component: ListMapNomorPentingPage
   }
 ];
 
@@ -27,7 +26,7 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes)
   ],
-  providers: [CallNumber, SMS, Diagnostic, OpenNativeSettings],
-  declarations: [NomorPentingPage]
+  providers: [Geolocation, Diagnostic, OpenNativeSettings],
+  declarations: [ListMapNomorPentingPage]
 })
-export class NomorPentingPageModule {}
+export class ListMapNomorPentingPageModule {}
