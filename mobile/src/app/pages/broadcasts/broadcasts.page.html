@@ -7,19 +7,20 @@
 <ion-content>
   <ion-searchbar debounce="500" placeholder="Cari" padding></ion-searchbar>
 
-  <ion-card>
+  <ion-card class="dark-read" *ngFor="let broadcast of dataBroadcast">
     <ion-card-header>
-      <ion-card-subtitle>Dari Gubernur</ion-card-subtitle>
-      <ion-card-title>[ Sosialisasi ]</ion-card-title>
+      <ion-card-subtitle color="dark">Dari: {{ broadcast.author.name }}</ion-card-subtitle>
+      <ion-card-title>[ {{ broadcast.category.name }} ]</ion-card-title>
     </ion-card-header>
 
     <ion-card-content>
-      <ion-label text-wrap>Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse quas mollitia debitis,
-        reiciendis totam
-        iure
-        laboriosam ipsam nostrum nemo, nisi odit id unde qui ipsum aliquam sequi sint accusamus dolores?</ion-label><br>
-      <ion-label>10:00 PM</ion-label>
+      <div class="ion-text-center" *ngIf="dataEmpty">Data tidak ditemukan</div>
 
+      <div class="ion-text-justify">
+        <ion-label class="ion-text-justify">{{ broadcast.description }}</ion-label>
+        <br>
+        <ion-label>{{ broadcast.updated_at * 1000 | date:'shortTime'}}</ion-label>
+      </div>
     </ion-card-content>
   </ion-card>
 </ion-content>
