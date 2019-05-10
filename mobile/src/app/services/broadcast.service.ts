@@ -5,6 +5,7 @@ import { Broadcast } from '../interfaces/broadcast';
 import { catchError } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 
+const BROADCAST_KEY = 'broadcast';
 @Injectable({
   providedIn: 'root'
 })
@@ -15,6 +16,11 @@ export class BroadcastService {
     return this.http
       .get<Broadcast[]>(`${environment.API_URL}/broadcasts`)
       .pipe(catchError(this.handleError));
+  }
+
+  // save token into local storage
+  saveBroadcast(data: string) {
+    localStorage.setItem(BROADCAST_KEY, data);
   }
 
   private handleError(error: HttpErrorResponse) {

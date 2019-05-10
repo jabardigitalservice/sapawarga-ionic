@@ -10,6 +10,7 @@ import { Broadcast } from '../../interfaces/broadcast';
 })
 export class BroadcastsPage implements OnInit {
   dataBroadcast: Broadcast[];
+  dataRead = [];
   dataEmpty = false;
   currentPage = 1;
   maximumPages: number;
@@ -55,5 +56,21 @@ export class BroadcastsPage implements OnInit {
         loader.dismiss();
       }
     );
+  }
+
+  goDetail(id: number) {
+    if (this.checkRead(id) === false) {
+      let data = {
+        id: id,
+        read: true
+      };
+      this.dataRead.push(data);
+    }
+    console.log(this.dataRead);
+  }
+
+  // check count phone
+  checkRead(id: number) {
+    return this.dataRead.filter(x => x.id === id).length > 0;
   }
 }
