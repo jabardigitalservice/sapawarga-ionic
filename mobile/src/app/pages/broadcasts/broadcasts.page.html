@@ -7,20 +7,28 @@
 <ion-content>
   <ion-searchbar debounce="500" placeholder="Cari" padding></ion-searchbar>
 
-  <ion-card *ngFor="let broadcast of dataBroadcast" [className]="checkRead(broadcast.id) ? '' : 'dark-read'"
-    (click)="goDetail(broadcast.id)">
+  <ion-card
+    *ngFor="let broadcast of dataBroadcast"
+    (click)="goDetail(broadcast.id)"
+  >
     <ion-card-header>
-      <ion-card-subtitle color="dark">Dari: {{ broadcast.author.name }}</ion-card-subtitle>
+      <ion-card-subtitle color="dark"
+        >Dari: {{ broadcast.author.name }}</ion-card-subtitle
+      >
       <ion-card-title>[ {{ broadcast.category.name }} ]</ion-card-title>
     </ion-card-header>
 
     <ion-card-content>
       <div class="ion-text-center" *ngIf="dataEmpty">Data tidak ditemukan</div>
 
-      <div class="ion-text-justify">
-        <ion-label class="ion-text-justify">{{ broadcast.description }}</ion-label>
-        <br>
-        <ion-label>{{ broadcast.updated_at * 1000 | date:'shortTime'}}</ion-label>
+      <div class="ion-text-justify dark-read">
+        <ion-label class="ion-text-justify">{{
+          broadcast.description
+        }}</ion-label>
+        <br />
+        <ion-label>{{
+          broadcast.updated_at * 1000 | date: 'shortTime'
+        }}</ion-label>
       </div>
     </ion-card-content>
   </ion-card>

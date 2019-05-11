@@ -65,8 +65,8 @@ export class BroadcastsPage implements OnInit {
         read: true
       };
       this.dataRead.push(data);
+      console.log(this.dataRead);
     }
-    console.log(this.dataRead);
   }
 
   // check count phone
