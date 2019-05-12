@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { BroadcastService } from '../../services/broadcast.service';
 import { LoadingController } from '@ionic/angular';
 import { Broadcast } from '../../interfaces/broadcast';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-broadcasts',
@@ -17,8 +18,11 @@ export class BroadcastsPage implements OnInit {
 
   constructor(
     private broadcastService: BroadcastService,
-    public loadingCtrl: LoadingController
-  ) {}
+    public loadingCtrl: LoadingController,
+    private router: Router
+  ) {
+    this.dataRead = this.broadcastService.getlocalBroadcast() || [];
+  }
 
   ngOnInit() {}
 
@@ -26,7 +30,7 @@ export class BroadcastsPage implements OnInit {
     this.getNomorBroadcasts();
   }
 
-  // get data nomor penting
+  // get data broadcasts
   async getNomorBroadcasts() {
     // check internet
     if (!navigator.onLine) {
@@ -58,18 +62,24 @@ export class BroadcastsPage implements OnInit {
     );
   }
 
+  // go to detail broadcast with param id
   goDetail(id: number) {
+    console.log(this.broadcastService.getlocalBroadcast());
+
+    // add to list dataRead
     if (this.checkRead(id) === false) {
-      let data = {
+      const data = {
         id: id,
         read: true
       };
       this.dataRead.push(data);
-      console.log(this.dataRead);
+      // to dataRead to local storage
+      this.broadcastService.saveBroadcast(JSON.stringify(this.dataRead));
     }
+    this.router.navigate(['/broadcast', id]);
   }
 
-  // check count phone
+  // check if data isRead/UnRead
   checkRead(id: number) {
     return this.dataRead.filter(x => x.id === id).length > 0;
   }

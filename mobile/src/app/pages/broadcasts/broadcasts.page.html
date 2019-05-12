@@ -1,27 +1,37 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>broadcasts</ion-title>
+    <ion-title>Pesan</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <ion-searchbar debounce="500" placeholder="Cari" padding></ion-searchbar>
 
+  <div class="ion-text-center" *ngIf="dataEmpty">Tidak ada pesan broadcast</div>
+
   <ion-card
     *ngFor="let broadcast of dataBroadcast"
     (click)="goDetail(broadcast.id)"
   >
     <ion-card-header>
-      <ion-card-subtitle color="dark"
+      <ion-card-subtitle
+        class="dark-read"
+        [ngClass]="{ 'dark-read': !checkRead(broadcast.id) }"
         >Dari: {{ broadcast.author.name }}</ion-card-subtitle
       >
-      <ion-card-title>[ {{ broadcast.category.name }} ]</ion-card-title>
+      <ion-card-title [ngClass]="{ 'dark-read': !checkRead(broadcast.id) }"
+        >[ {{ broadcast.category.name }} ]</ion-card-title
+      >
     </ion-card-header>
 
     <ion-card-content>
-      <div class="ion-text-center" *ngIf="dataEmpty">Data tidak ditemukan</div>
-
-      <div class="ion-text-justify dark-read">
+      <div
+        [className]="
+          checkRead(broadcast.id)
+            ? 'ion-text-justify'
+            : 'ion-text-justify dark-read'
+        "
+      >
         <ion-label class="ion-text-justify">{{
           broadcast.description
         }}</ion-label>
@@ -29,6 +39,7 @@
         <ion-label>{{
           broadcast.updated_at * 1000 | date: 'shortTime'
         }}</ion-label>
+        <ion-label>{{ checkRead(broadcast.id) }}</ion-label>
       </div>
     </ion-card-content>
   </ion-card>

@@ -23,6 +23,11 @@ export class BroadcastService {
     localStorage.setItem(BROADCAST_KEY, data);
   }
 
+  // save token into local storage
+  getlocalBroadcast() {
+    return JSON.parse(localStorage.getItem(BROADCAST_KEY));
+  }
+
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
       // A client-side or network error occurred. Handle it accordingly.
