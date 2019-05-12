@@ -18,7 +18,8 @@
       <h1 class="fw500">{{ dataProfile.name }}</h1>
 
       <div class="sosial-media">
-        <img src="assets/icon/facebook.png" (click)="goToSosialMedia('facebook', 'test', dataProfile.facebook)" />
+        <img src="assets/icon/facebook.png"
+          (click)="goToSosialMedia('facebook', dataProfile.facebook, dataProfile.facebook)" />
         <img src="assets/icon/instagram.png" (click)="goToSosialMedia('instagram', dataProfile.instagram)" />
         <img src="assets/icon/twitter.png" (click)="goToSosialMedia('twitter', dataProfile.twitter)" />
       </div>
