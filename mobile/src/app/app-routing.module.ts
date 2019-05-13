@@ -54,16 +54,13 @@ const routes: Routes = [
   },
   {
     path: 'aspirasi/:id',
-    loadChildren: './pages/aspirasi-detail/aspirasi-detail.module#AspirasiDetailPageModule'
+    loadChildren:
+      './pages/aspirasi-detail/aspirasi-detail.module#AspirasiDetailPageModule'
   },
   {
     path: 'administrasi',
     loadChildren:
       './pages/administrasi/administrasi.module#AdministrasiPageModule'
-  },
-  {
-    path: 'bantuan',
-    loadChildren: './pages/bantuan/bantuan.module#BantuanPageModule'
   },
   {
     path: 'survey',
@@ -76,7 +73,7 @@ const routes: Routes = [
   {
     path: 'notifikasi',
     loadChildren: './pages/notifikasi/notifikasi.module#NotifikasiPageModule'
-  },
+  }
 ];
 
 @NgModule({
