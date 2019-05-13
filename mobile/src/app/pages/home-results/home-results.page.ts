@@ -117,6 +117,9 @@ export class HomeResultsPage {
       case 'Lapor':
         this.goLapor();
         break;
+      case 'Administrasi':
+        this.goAdministrasi();
+        break;
       default:
         break;
     }
@@ -130,6 +133,10 @@ export class HomeResultsPage {
   // open page lapor
   goLapor() {
     this.navCtrl.navigateForward('lapor');
+  }
+
+  goAdministrasi() {
+    this.navCtrl.navigateForward('administrasi');
   }
 
   // call function launchApp to open external app
