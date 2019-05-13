@@ -15,7 +15,11 @@
       <ion-card-title>{{ record['title'] }}</ion-card-title>
     </ion-card-header>
 
-    <ion-card-content>
+    <ion-card-content style="padding-top: 0">
+      <div style="margin: 15px 0">
+        {{ record['kabkota']['name'] }}, {{ record['kecamatan']['name'] }}, {{ record['kelurahan']['name'] }}
+      </div>
+
       <div>
         <ion-label class="ion-text-justify">{{ record['description'] }}</ion-label>
       </div>
