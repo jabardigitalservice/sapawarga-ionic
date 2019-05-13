@@ -47,6 +47,31 @@ const routes: Routes = [
     path: 'broadcast/:id',
     loadChildren:
       './pages/broadcast-detail/broadcast-detail.module#BroadcastDetailPageModule'
+  },
+  {
+    path: 'aspirasi',
+    loadChildren: './pages/aspirasi/aspirasi.module#AspirasiPageModule'
+  },
+  {
+    path: 'administrasi',
+    loadChildren:
+      './pages/administrasi/administrasi.module#AdministrasiPageModule'
+  },
+  {
+    path: 'bantuan',
+    loadChildren: './pages/bantuan/bantuan.module#BantuanPageModule'
+  },
+  {
+    path: 'survey',
+    loadChildren: './pages/survey/survey.module#SurveyPageModule'
+  },
+  {
+    path: 'polling',
+    loadChildren: './pages/polling/polling.module#PollingPageModule'
+  },
+  {
+    path: 'notifikasi',
+    loadChildren: './pages/notifikasi/notifikasi.module#NotifikasiPageModule'
   }
 ];
 
