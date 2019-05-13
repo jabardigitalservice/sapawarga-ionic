@@ -15,21 +15,26 @@ export class LaporPage implements OnInit {
       url: 'https://www.lapor.go.id',
       logo: 'assets/icon/lapor-icon.jpg',
       description:
-        'Aspirasi dan aduan pengawasan pembangunan dan pelayanan publik.'
+        // tslint:disable-next-line:max-line-length
+        'Sarana aspirasi dan pengaduan berbasis media sosial bertujuan agar masyarakat dapat berpartisipasi untuk pengawasan program dan kinerja pemerintah dalam penyelenggaraan pembangunan dan pelayanan publik.'
     },
     {
       nameInit: 'qlue',
       name: 'Lapor via Qlue',
       url: 'org.qluein.android',
       logo: 'assets/icon/lapor-qlue.jpg',
-      description: 'Aduan permasalahan di lingkungan sekitar.'
+      description:
+        // tslint:disable-next-line:max-line-length
+        'Aplikasi media sosial untuk melaporkan permasalahan kota kepada pemerintah, pihak swasta ataupun saling berbagi informasi sesama warga di lingkungan sekitar. Anda bisa membuat laporan berupa keluhan atau masukan untuk pemerintah dan swasta.'
     },
     {
       nameInit: 'jqr',
       name: 'Lapor via Jabar Quick Respon',
       url: 'https://jabarqr.id',
       logo: 'assets/icon/jqr.png',
-      description: 'Aduan kemanusiaan bagi masyarakat Jawa Barat.'
+      description:
+        // tslint:disable-next-line:max-line-length
+        'Layanan aduan kemanusiaan bagi masyarakat Jawa Barat yang akan diterima oleh tim Jabar Quick Response dan diseleksi berdasarkan skala prioritas masalah. Laporan yang dikirim dapat berupa aduan atau permintaan bantuan kemanusiaan.'
     }
   ];
 
