@@ -120,6 +120,9 @@ export class HomeResultsPage {
       case 'Administrasi':
         this.goAdministrasi();
         break;
+      case 'Aspirasi':
+        this.goAspirasi();
+        break;
       default:
         break;
     }
@@ -137,6 +140,14 @@ export class HomeResultsPage {
 
   goAdministrasi() {
     this.navCtrl.navigateForward('administrasi');
+  }
+
+  goAspirasi() {
+    this.navCtrl.navigateForward('aspirasi');
+  }
+
+  goNotifikasi() {
+    this.navCtrl.navigateForward('notifikasi');
   }
 
   // call function launchApp to open external app
