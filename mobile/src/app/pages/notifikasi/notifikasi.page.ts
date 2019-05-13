@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import records from '../../../assets/data/notifikasi';
 
 @Component({
   selector: 'app-notifikasi',
@@ -6,8 +7,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./notifikasi.page.scss']
 })
 export class NotifikasiPage implements OnInit {
-  constructor() {}
+  records: [];
 
+  constructor() {
+    this.records = records;
+  }
   ngOnInit() {}
 
   goToDetail() {
