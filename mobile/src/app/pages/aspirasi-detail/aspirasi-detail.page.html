@@ -1,5 +1,8 @@
 <ion-header>
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
     <ion-title>Detail Aspirasi</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -15,6 +18,10 @@
     <ion-card-content>
       <div>
         <ion-label class="ion-text-justify">{{ record['description'] }}</ion-label>
+      </div>
+
+      <div style="margin: 15px 0">
+        <ion-icon name="heart" color="danger"></ion-icon> 10 orang menyukai ini.
       </div>
     </ion-card-content>
   </ion-card>
