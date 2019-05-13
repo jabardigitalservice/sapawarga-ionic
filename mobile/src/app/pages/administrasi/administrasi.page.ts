@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-administrasi',
@@ -8,25 +9,36 @@ import { Component, OnInit } from '@angular/core';
 export class AdministrasiPage {
   content = [
     {
+      id: 1,
       data: 'Syarat Pembuatan Kartu Keluarga'
     },
     {
+      id: 2,
       data: 'Syarat Pembuatan KTP'
     },
     {
+      id: 3,
       data: 'Syarat Pembuatan Akte Kelahiran'
     },
     {
+      id: 4,
       data: 'Syarat Pembuatan SKCK'
     },
     {
+      id: 5,
       data: 'Syarat Pembuatan Surat Kematian'
     },
   ]
 
-  constructor() { }
+  constructor(
+    private router: Router
+  ) { }
 
   ngOnInit() {
+  }
+
+  goToDetail(id: number) {
+    this.router.navigate(['/administrasi', id]);
   }
 
 }

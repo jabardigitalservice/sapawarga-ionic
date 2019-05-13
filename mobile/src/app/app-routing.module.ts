@@ -72,7 +72,8 @@ const routes: Routes = [
   {
     path: 'notifikasi',
     loadChildren: './pages/notifikasi/notifikasi.module#NotifikasiPageModule'
-  }
+  },
+  { path: 'administrasi/:id', loadChildren: './pages/administrasi-detail/administrasi-detail.module#AdministrasiDetailPageModule' }
 ];
 
 @NgModule({
