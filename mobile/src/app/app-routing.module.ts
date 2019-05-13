@@ -52,7 +52,10 @@ const routes: Routes = [
     path: 'aspirasi',
     loadChildren: './pages/aspirasi/aspirasi.module#AspirasiPageModule'
   },
-  { path: 'aspirasi/:id', loadChildren: './pages/aspirasi-detail/aspirasi-detail.module#AspirasiDetailPageModule' },
+  {
+    path: 'aspirasi/:id',
+    loadChildren: './pages/aspirasi-detail/aspirasi-detail.module#AspirasiDetailPageModule'
+  },
   {
     path: 'administrasi',
     loadChildren:
