@@ -5,7 +5,7 @@
 </ion-header>
 
 <ion-content>
-  <ion-card *ngFor="let record of records">
+  <ion-card *ngFor="let record of records" (click)="goDetail(record['id'])">
     <ion-card-header>
       <ion-card-subtitle class="dark-read">{{ record['category']['name'] }}</ion-card-subtitle>
       <ion-card-title>{{ record['title'] }}</ion-card-title>

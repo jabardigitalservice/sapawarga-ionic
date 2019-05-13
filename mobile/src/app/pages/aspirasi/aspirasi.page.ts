@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import records from '../../../assets/aspirasi-list';
+import { Router } from '@angular/router';
+
+import records from '../../../assets/data/aspirasi-list';
 
 @Component({
   selector: 'app-aspirasi',
@@ -9,7 +11,9 @@ import records from '../../../assets/aspirasi-list';
 export class AspirasiPage implements OnInit {
   records: [];
 
-  constructor() {
+  constructor(
+      private router: Router
+  ) {
     this.records = records;
   }
 
@@ -18,5 +22,10 @@ export class AspirasiPage implements OnInit {
 
   ionViewDidEnter() {
     console.log(this.records);
+  }
+
+  // go to detail broadcast with param id
+  goDetail(id: number) {
+    this.router.navigate(['/aspirasi', id]);
   }
 }

@@ -52,6 +52,7 @@ const routes: Routes = [
     path: 'aspirasi',
     loadChildren: './pages/aspirasi/aspirasi.module#AspirasiPageModule'
   },
+  { path: 'aspirasi/:id', loadChildren: './pages/aspirasi-detail/aspirasi-detail.module#AspirasiDetailPageModule' },
   {
     path: 'administrasi',
     loadChildren:
@@ -72,7 +73,7 @@ const routes: Routes = [
   {
     path: 'notifikasi',
     loadChildren: './pages/notifikasi/notifikasi.module#NotifikasiPageModule'
-  }
+  },
 ];
 
 @NgModule({
