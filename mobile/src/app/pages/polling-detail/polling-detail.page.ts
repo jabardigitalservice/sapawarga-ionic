@@ -1,14 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-polling',
-  templateUrl: './polling.page.html',
-  styleUrls: ['./polling.page.scss']
+  selector: 'app-polling-detail',
+  templateUrl: './polling-detail.page.html',
+  styleUrls: ['./polling-detail.page.scss']
 })
-export class PollingPage implements OnInit {
+export class PollingDetailPage implements OnInit {
   public items: any = [];
-  constructor(private router: Router) {
+
+  constructor(private route: ActivatedRoute) {
     this.items = [
       {
         id: 1,
@@ -69,9 +70,12 @@ export class PollingPage implements OnInit {
     ];
   }
 
-  ngOnInit() {}
-
-  goDetail(data: number) {
-    this.router.navigate(['/polling', data]);
+  id: number;
+  ngOnInit() {
+    // get id detail instansion
+    this.route.params.subscribe(params => {
+      this.id = params['id'];
+      console.log(this.id);
+    });
   }
 }
