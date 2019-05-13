@@ -132,6 +132,10 @@ export class HomeResultsPage {
     this.navCtrl.navigateForward('lapor');
   }
 
+  goNotifikasi() {
+    this.navCtrl.navigateForward('notifikasi');
+  }
+
   // call function launchApp to open external app
   private launchApp(appUrl: string) {
     // check if the platform is ios or android, else open the web url
