@@ -15,15 +15,21 @@ export class LaporPage implements OnInit {
       url: 'https://www.lapor.go.id',
       logo: 'assets/icon/lapor-icon.jpg',
       description:
-        'LAPOR! merupakan kepanjangan dari Layanan Aspirasi dan Pengaduan Online Rakyat, layanan ini melayani pengaduan dan aspirasi yang disampaikan pada pemerintah maupun lembaga terkait.'
+        'Aspirasi dan aduan pengawasan pembangunan dan pelayanan publik.'
     },
     {
       nameInit: 'qlue',
       name: 'Lapor via Qlue',
       url: 'org.qluein.android',
       logo: 'assets/icon/lapor-qlue.jpg',
-      description:
-        'Qlue adalah aplikasi media sosial untuk melaporkan permasalahan kota kepada pemerintah, pihak swasta ataupun saling berbagi informasi sesama warga di lingkungan sekitarmu demi terciptanya Smart City.'
+      description: 'Aduan permasalahan di lingkungan sekitar.'
+    },
+    {
+      nameInit: 'jqr',
+      name: 'Lapor via Jabar Quick Respon',
+      url: 'https://jabarqr.id',
+      logo: 'assets/icon/jqr.png',
+      description: 'Aduan kemanusiaan bagi masyarakat Jawa Barat.'
     }
   ];
 
@@ -38,6 +44,9 @@ export class LaporPage implements OnInit {
         break;
       case 'qlue':
         this.launchApp(url);
+        break;
+      case 'jqr':
+        this.launchweb(url);
         break;
       default:
         break;
