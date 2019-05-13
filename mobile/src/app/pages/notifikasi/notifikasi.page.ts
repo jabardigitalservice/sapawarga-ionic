@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NavController } from '@ionic/angular';
 import records from '../../../assets/data/notifikasi';
 
 @Component({
@@ -9,12 +10,12 @@ import records from '../../../assets/data/notifikasi';
 export class NotifikasiPage implements OnInit {
   records: [];
 
-  constructor() {
+  constructor(public navCtrl: NavController) {
     this.records = records;
   }
   ngOnInit() {}
 
-  goToDetail() {
-    console.log('masuk');
+  goToDetail(target) {
+    this.navCtrl.navigateForward(target);
   }
 }

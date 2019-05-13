@@ -2,7 +2,7 @@ export default
 [
     {
         "title": "Tambahkan akun media sosial di profil Anda.",
-        "target": "edit-profile"
+        "target": "view-profile"
     },
     {
         "title": "Bingung cari nomor telepon RS terdekat? Temukan di sini.",
