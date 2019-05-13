@@ -1,11 +1,12 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>aspirasi</ion-title>
+    <ion-title>Aspirasi</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <ion-card *ngFor="let record of records" (click)="goDetail(record['id'])">
+    <img src="https://picsum.photos/600/300?id={{ record['id'] }}" />
     <ion-card-header>
       <ion-card-subtitle class="dark-read">{{ record['category']['name'] }}</ion-card-subtitle>
       <ion-card-title>{{ record['title'] }}</ion-card-title>
@@ -13,9 +14,7 @@
 
     <ion-card-content>
       <div>
-        <ion-label class="ion-text-justify">{{ record['description'] }}</ion-label>
-        <br />
-        <ion-label>{{ record['updated_at'] * 1000 | date: 'shortTime' }}</ion-label>
+        <ion-label class="ion-text-justify">{{ record['description'].substring(0, 200) }}</ion-label>
       </div>
     </ion-card-content>
   </ion-card>

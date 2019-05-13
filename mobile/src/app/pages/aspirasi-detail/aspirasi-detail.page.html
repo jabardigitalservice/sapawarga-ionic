@@ -1,13 +1,21 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>aspirasiDetail</ion-title>
+    <ion-title>Detail Aspirasi</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <img src="https://picsum.photos/600/300?id={{ record['id'] }}" />
   <ion-card>
+    <ion-card-header>
+      <ion-card-subtitle class="dark-read">{{ record['category']['name'] }}</ion-card-subtitle>
+      <ion-card-title>{{ record['title'] }}</ion-card-title>
+    </ion-card-header>
+
     <ion-card-content>
-      {{ record['title'] }}
+      <div>
+        <ion-label class="ion-text-justify">{{ record['description'] }}</ion-label>
+      </div>
     </ion-card-content>
   </ion-card>
 </ion-content>
