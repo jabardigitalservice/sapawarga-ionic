@@ -4,6 +4,19 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
-  <h1>asdsad</h1>
+<ion-content>
+  <ion-title padding>Pertanyaan yang sering diajukan</ion-title>
+  <ion-card (click)="expandItem(item)" *ngFor="let item of items">
+    <ion-card-header>
+      <ion-text class="text-dark">
+        <h5>{{ item.title }}</h5>
+      </ion-text>
+    </ion-card-header>
+
+    <ion-card-content>
+      <app-expandable [expanded]="item.expanded">
+        <div [innerHTML]="item.description"></div>
+      </app-expandable>
+    </ion-card-content>
+  </ion-card>
 </ion-content>
