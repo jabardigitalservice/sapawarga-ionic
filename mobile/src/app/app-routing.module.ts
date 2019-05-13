@@ -42,6 +42,11 @@ const routes: Routes = [
     path: 'list-map-nomor-penting',
     loadChildren:
       './pages/list-map-nomor-penting/list-map-nomor-penting.module#ListMapNomorPentingPageModule'
+  },
+  {
+    path: 'broadcast/:id',
+    loadChildren:
+      './pages/broadcast-detail/broadcast-detail.module#BroadcastDetailPageModule'
   }
 ];
 
