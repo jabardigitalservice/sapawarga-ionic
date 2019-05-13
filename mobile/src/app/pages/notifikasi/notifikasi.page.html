@@ -11,7 +11,7 @@
   <ion-list>
     <ion-item *ngFor="let record of records" (click)="goToDetail(record['target'])">
       <ion-avatar item-start class="ion-margin-end">
-        <img src="../../../assets/icon/SW-E-samsat.png" />
+        <img src="{{record['image_url']}}" />
       </ion-avatar>
       <ion-label item-end>{{ record['title'] }}</ion-label>
     </ion-item>
