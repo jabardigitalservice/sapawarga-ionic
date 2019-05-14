@@ -1,15 +1,17 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>bantuan</ion-title>
+    <ion-title>Bantuan</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-title padding>Pertanyaan yang sering diajukan</ion-title>
+  <ion-text class="text-dark">
+    <h5 padding>Pertanyaan yang sering diajukan</h5>
+  </ion-text>
   <ion-card (click)="expandItem(item)" *ngFor="let item of items">
     <ion-card-header>
       <ion-text class="text-dark">
-        <h5>{{ item.title }}</h5>
+        <h6>{{ item.title }}</h6>
       </ion-text>
     </ion-card-header>
 
