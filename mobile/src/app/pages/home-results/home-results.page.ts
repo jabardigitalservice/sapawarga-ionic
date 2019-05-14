@@ -123,6 +123,9 @@ export class HomeResultsPage {
       case 'Polling':
         this.goPolling();
         break;
+      case 'Survey':
+        this.goSurvey();
+        break;
       default:
         break;
     }
@@ -148,6 +151,10 @@ export class HomeResultsPage {
 
   goPolling() {
     this.navCtrl.navigateForward('polling');
+  }
+
+  goSurvey() {
+    this.navCtrl.navigateForward('survey');
   }
 
   // call function launchApp to open external app
