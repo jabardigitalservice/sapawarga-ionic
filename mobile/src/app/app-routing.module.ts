@@ -73,6 +73,11 @@ const routes: Routes = [
   {
     path: 'notifikasi',
     loadChildren: './pages/notifikasi/notifikasi.module#NotifikasiPageModule'
+  },
+  {
+    path: 'polling/:id',
+    loadChildren:
+      './pages/polling-detail/polling-detail.module#PollingDetailPageModule'
   }
 ];
 
