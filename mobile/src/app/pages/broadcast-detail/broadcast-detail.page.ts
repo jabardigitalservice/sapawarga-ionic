@@ -45,7 +45,6 @@ export class BroadcastDetailPage implements OnInit {
     this.broadcastService.getDetailBroadCast(this.idBroadcast).subscribe(
       res => {
         this.dataBroadcast = res['data'];
-        console.log(this.dataBroadcast);
         loader.dismiss();
       },
       err => {

@@ -10,7 +10,11 @@
 <ion-content padding *ngIf="dataBroadcast">
   <ion-card>
     <ion-card-header>
-      <ion-card-subtitle class="dark-read">{{ dataBroadcast['category']['name'] }}</ion-card-subtitle>
+      <ion-card-subtitle class="dark-read">Dari: {{ dataBroadcast['author']['name'] }}</ion-card-subtitle>
+      <ion-card-subtitle>{{
+          dataBroadcast.updated_at * 1000 | date: 'shortTime'
+        }}</ion-card-subtitle>
+      <ion-card-subtitle class="dark-read">[ {{ dataBroadcast['category']['name'] }} ]</ion-card-subtitle>
       <ion-card-title>{{ dataBroadcast['title'] }}</ion-card-title>
     </ion-card-header>
 
