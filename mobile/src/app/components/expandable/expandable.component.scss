@@ -1,0 +1,9 @@
+.expand-wrapper {
+  transition: height 0.4s ease-in-out;
+  overflow: hidden;
+  height: auto;
+}
+
+.collapsed {
+  height: 0 !important;
+}

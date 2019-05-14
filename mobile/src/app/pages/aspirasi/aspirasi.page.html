@@ -9,7 +9,7 @@
 
 <ion-content>
   <ion-card *ngFor="let record of records" (click)="goDetail(record['id'])">
-    <img src="https://picsum.photos/600/300?id={{ record['id'] }}" />
+    <img src="{{ record['photo'] }}" />
     <ion-card-header>
       <ion-card-subtitle class="dark-read">{{ record['category']['name'] }}</ion-card-subtitle>
       <ion-card-title>{{ record['title'] }}</ion-card-title>
@@ -20,7 +20,7 @@
         {{ record['kabkota']['name'] }}, {{ record['kecamatan']['name'] }}, {{ record['kelurahan']['name'] }}
       </div>
       <div>
-        <ion-icon name="heart" color="danger"></ion-icon> 10 orang menyukai ini.
+        <ion-icon name="heart" color="danger"></ion-icon> 150 orang menyukai ini.
       </div>
     </ion-card-content>
   </ion-card>

@@ -41,11 +41,15 @@ ion-item {
 
 .bg-profile {
   // background-image: linear-gradient(135deg, var(--ion-color-dark), var(--ion-color-primary))
-  background-image: var(--ion-color-light)
+  background-image: var(--ion-color-light);
 }
 
 .bg-main {
-  background-image: linear-gradient(-135deg, var(--ion-color-medium), var(--ion-color-light))
+  background-image: linear-gradient(
+    -135deg,
+    var(--ion-color-medium),
+    var(--ion-color-light)
+  );
 }
 
 // Helpers //
@@ -63,7 +67,7 @@ ion-item {
 }
 
 .text08 {
-  font-size: .8rem;
+  font-size: 0.8rem;
 }
 
 .text1 {
@@ -99,13 +103,12 @@ ion-item {
 }
 
 .text-dark {
-  color: var(--ion-color-dark);
+  color: var(--ion-color-medium-contrast);
 }
 
 // menu //
 // Menu user profile
 ion-toolbar.user-profile {
-
   .user-avatar {
     width: 68px;
     height: 68px;
@@ -119,20 +122,28 @@ ion-toolbar.user-profile {
 // Custom toolbar (overriding Shadow DOM)
 ion-toolbar {
   &.ion-color-primary {
-    --ion-color-base: linear-gradient(135deg, var(--ion-color-dark), var(--ion-color-primary)) !important;
+    --ion-color-base: linear-gradient(
+      135deg,
+      var(--ion-color-dark),
+      var(--ion-color-primary)
+    ) !important;
   }
 }
 
 // Android card shadow
 ion-card {
   &.sc-ion-card-md-h {
-    box-shadow: 0 2px 4px rgba(var(--ion-color-dark-rgb), .24);
+    box-shadow: 0 2px 4px rgba(var(--ion-color-dark-rgb), 0.24);
   }
 }
 
 // style for auth pages
 .auth-page {
-  background-image: linear-gradient(135deg, var(--ion-color-dark), var(--ion-color-primary));
+  background-image: linear-gradient(
+    135deg,
+    var(--ion-color-dark),
+    var(--ion-color-primary)
+  );
 
   .grid {
     padding: 0;
@@ -143,7 +154,6 @@ ion-card {
   }
 
   .btn-group {
-
     .button-ios,
     .button-md {
       border-radius: 0;
@@ -166,7 +176,7 @@ ion-card {
       min-height: 125px;
       margin: 20px auto 8px;
       border-radius: 10%;
-      background: url("./assets/icon/logo.png") no-repeat;
+      background: url('./assets/icon/logo.png') no-repeat;
       background-size: 100%;
     }
 
@@ -197,7 +207,6 @@ ion-card {
       }
     }
   }
-
 }
 
 // Custom Menu styles (overriding Shadow DOM)
@@ -205,7 +214,11 @@ ion-menu {
   ion-header {
     ion-toolbar {
       &.ion-color-dark {
-        --ion-color-base: linear-gradient(135deg, var(--ion-color-dark), var(--ion-color-primary)) !important;
+        --ion-color-base: linear-gradient(
+          135deg,
+          var(--ion-color-dark),
+          var(--ion-color-primary)
+        ) !important;
       }
     }
   }
