@@ -63,10 +63,6 @@ const routes: Routes = [
       './pages/administrasi/administrasi.module#AdministrasiPageModule'
   },
   {
-    path: 'bantuan',
-    loadChildren: './pages/bantuan/bantuan.module#BantuanPageModule'
-  },
-  {
     path: 'survey',
     loadChildren: './pages/survey/survey.module#SurveyPageModule'
   },

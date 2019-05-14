@@ -38,6 +38,15 @@ const routes: Routes = [
         ]
       },
       {
+        path: 'bantuan',
+        children: [
+          {
+            path: '',
+            loadChildren: '../pages/bantuan/bantuan.module#BantuanPageModule'
+          }
+        ]
+      },
+      {
         path: '',
         redirectTo: '/tabs/home',
         pathMatch: 'full'
