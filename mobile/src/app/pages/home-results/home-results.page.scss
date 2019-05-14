@@ -1,47 +1,50 @@
 :host {
-    ion-content {
-        --background: var(--ion-color-light);
+  ion-content {
+    --background: var(--ion-color-light);
+  }
+
+  ion-item {
+    border-radius: 0;
+    border-bottom: 1px solid var(--ion-color-medium);
+  }
+
+  ion-card {
+    &.no-radius {
+      border-radius: 0;
     }
+  }
 
-    ion-item {
-        border-radius: 0;
-        border-bottom: 1px solid var(--ion-color-medium);
+  ion-toolbar {
+    ion-searchbar {
+      display: inline-block;
+      width: 100%;
     }
+  }
 
-    ion-card {
-        &.no-radius {
-            border-radius: 0;
-        }
-    }
+  ion-col {
+    padding-left: unset;
+    padding-top: 10px;
+    padding-bottom: unset;
+    padding-right: unset;
+  }
+}
 
-    ion-toolbar {
-        ion-searchbar {
-            display: inline-block;
-            width: 100%;
-
-        }
-
-    }
-
-    ion-col {
-        padding-left: unset;
-        padding-top: unset;
-        padding-bottom: unset;
-        padding-right: unset;
-    }
+.color-grey {
+  color: #767676;
 }
 
 .logo-app {
-    height: 45px;
+  height: 45px;
 }
 
 .icon-img {
-    max-width: 88%;
+  max-width: 70%;
+  border-radius: 8px;
+  box-shadow: 0 3px 4px rgba(var(--ion-color-dark-rgb), 0.25);
 }
 
-
 .label-menu {
-    display: block;
-    font-size: 13px;
-    margin-bottom: 10px;
+  display: block;
+  font-size: 13px;
+  margin-bottom: 10px;
 }

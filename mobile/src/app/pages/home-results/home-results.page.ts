@@ -50,6 +50,16 @@ export class HomeResultsPage {
         icon: 'assets/icon/SW-IJIN.png'
       },
       {
+        title: 'Administrasi',
+        url: '',
+        icon: 'assets/icon/SW-ADMINISTRASI.png'
+      },
+      {
+        title: 'Nomor penting',
+        url: '',
+        icon: 'assets/icon/SW-NOPENTING.png'
+      },
+      {
         title: 'Info harga',
         url: 'id.bigio.priangan',
         icon: 'assets/icon/SW-Info-harga.png'
@@ -60,26 +70,6 @@ export class HomeResultsPage {
         icon: 'assets/icon/SW-LELANG.png'
       },
       {
-        title: 'Survey',
-        url: '',
-        icon: 'assets/icon/SW-SURVEY.png'
-      },
-      {
-        title: 'Polling',
-        url: '',
-        icon: 'assets/icon/SW-POLLING.png'
-      },
-      {
-        title: 'Nomor penting',
-        url: '',
-        icon: 'assets/icon/SW-NOPENTING.png'
-      },
-      {
-        title: 'Administrasi',
-        url: '',
-        icon: 'assets/icon/SW-ADMINISTRASI.png'
-      },
-      {
         title: 'Lapor',
         url: '',
         icon: 'assets/icon/SW-LAPOR.png'
@@ -88,6 +78,16 @@ export class HomeResultsPage {
         title: 'Aspirasi',
         url: '',
         icon: 'assets/icon/SW-ASPIRASI.png'
+      },
+      {
+        title: 'Survey',
+        url: '',
+        icon: 'assets/icon/SW-SURVEY.png'
+      },
+      {
+        title: 'Polling',
+        url: '',
+        icon: 'assets/icon/SW-POLLING.png'
       }
     ];
 
