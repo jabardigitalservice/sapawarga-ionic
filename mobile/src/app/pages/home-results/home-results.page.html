@@ -4,8 +4,9 @@
       <img [src]="logoApp" class="logo-app" />
     </ion-buttons>
     <ion-buttons slot="end">
-      <ion-button shape="round" color="dark">
+      <ion-button shape="round" color="dark" (click)="goNotifikasi()">
         <ion-icon name="notifications"></ion-icon>
+        <ion-badge color="danger">5</ion-badge>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
