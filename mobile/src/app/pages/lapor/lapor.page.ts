@@ -15,7 +15,8 @@ export class LaporPage implements OnInit {
       url: 'https://www.lapor.go.id',
       logo: 'assets/icon/lapor-icon.jpg',
       description:
-        'LAPOR! merupakan kepanjangan dari Layanan Aspirasi dan Pengaduan Online Rakyat, layanan ini melayani pengaduan dan aspirasi yang disampaikan pada pemerintah maupun lembaga terkait.'
+        // tslint:disable-next-line:max-line-length
+        'Sarana aspirasi dan pengaduan berbasis media sosial bertujuan agar masyarakat dapat berpartisipasi untuk pengawasan program dan kinerja pemerintah dalam penyelenggaraan pembangunan dan pelayanan publik.'
     },
     {
       nameInit: 'qlue',
@@ -23,7 +24,17 @@ export class LaporPage implements OnInit {
       url: 'org.qluein.android',
       logo: 'assets/icon/lapor-qlue.jpg',
       description:
-        'Qlue adalah aplikasi media sosial untuk melaporkan permasalahan kota kepada pemerintah, pihak swasta ataupun saling berbagi informasi sesama warga di lingkungan sekitarmu demi terciptanya Smart City.'
+        // tslint:disable-next-line:max-line-length
+        'Aplikasi media sosial untuk melaporkan permasalahan kota kepada pemerintah, pihak swasta ataupun saling berbagi informasi sesama warga di lingkungan sekitar. Anda bisa membuat laporan berupa keluhan atau masukan untuk pemerintah dan swasta.'
+    },
+    {
+      nameInit: 'jqr',
+      name: 'Lapor via Jabar Quick Respon',
+      url: 'https://jabarqr.id',
+      logo: 'assets/icon/jqr.png',
+      description:
+        // tslint:disable-next-line:max-line-length
+        'Layanan aduan kemanusiaan bagi masyarakat Jawa Barat yang akan diterima oleh tim Jabar Quick Response dan diseleksi berdasarkan skala prioritas masalah. Laporan yang dikirim dapat berupa aduan atau permintaan bantuan kemanusiaan.'
     }
   ];
 
@@ -38,6 +49,9 @@ export class LaporPage implements OnInit {
         break;
       case 'qlue':
         this.launchApp(url);
+        break;
+      case 'jqr':
+        this.launchweb(url);
         break;
       default:
         break;

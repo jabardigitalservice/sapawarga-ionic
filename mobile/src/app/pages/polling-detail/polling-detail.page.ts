@@ -1,14 +1,20 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
+import { ToastController, NavController } from '@ionic/angular';
 
 @Component({
-  selector: 'app-polling',
-  templateUrl: './polling.page.html',
-  styleUrls: ['./polling.page.scss']
+  selector: 'app-polling-detail',
+  templateUrl: './polling-detail.page.html',
+  styleUrls: ['./polling-detail.page.scss']
 })
-export class PollingPage implements OnInit {
+export class PollingDetailPage implements OnInit {
   public items: any = [];
-  constructor(private router: Router) {
+
+  constructor(
+    private route: ActivatedRoute,
+    public toastCtrl: ToastController,
+    private navCtrl: NavController
+  ) {
     this.items = [
       {
         id: 1,
@@ -69,9 +75,27 @@ export class PollingPage implements OnInit {
     ];
   }
 
-  ngOnInit() {}
+  id: number;
+  ngOnInit() {
+    // get id detail instansion
+    this.route.params.subscribe(params => {
+      this.id = params['id'];
+      console.log(this.id);
+    });
+  }
 
-  goDetail(data: number) {
-    this.router.navigate(['/polling', data]);
+  submitPolling() {
+    const message =
+      'Terima kasih atas partisipasi anda dalam pengisian polling ini';
+    this.showToast(message);
+    this.navCtrl.back();
+  }
+
+  async showToast(msg: string) {
+    const toast = await this.toastCtrl.create({
+      message: msg,
+      duration: 3000
+    });
+    toast.present();
   }
 }

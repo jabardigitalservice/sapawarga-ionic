@@ -21,10 +21,10 @@ export class AspirasiPage implements OnInit {
   }
 
   ionViewDidEnter() {
-    console.log(this.records);
+    //
   }
 
-  // go to detail broadcast with param id
+  // go to detail with param id
   goDetail(id: number) {
     this.router.navigate(['/aspirasi', id]);
   }

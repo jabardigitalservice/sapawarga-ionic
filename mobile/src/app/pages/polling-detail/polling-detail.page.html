@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>polling</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-list>
+      <ion-radio-group>
+        <ion-list-header>
+          <ion-label>{{ items[id].title }}</ion-label>
+        </ion-list-header>
+
+        <ion-item *ngFor="let polling of items[id].pollings">
+          <ion-label>{{ polling.name }}</ion-label>
+          <ion-radio
+            slot="start"
+            [value]="polling.id"
+            color="success"
+          ></ion-radio>
+        </ion-item>
+      </ion-radio-group>
+      <div text-center>
+        <ion-button color="success" (click)="submitPolling()">Submit</ion-button>
+      </div>
+    </ion-list>
+  </ion-card>
+</ion-content>

@@ -126,6 +126,12 @@ export class HomeResultsPage {
       case 'Aspirasi':
         this.goAspirasi();
         break;
+      case 'Polling':
+        this.goPolling();
+        break;
+      case 'Survey':
+        this.goSurvey();
+        break;
       default:
         break;
     }
@@ -147,6 +153,14 @@ export class HomeResultsPage {
 
   goNotifikasi() {
     this.navCtrl.navigateForward('notifikasi');
+  }
+
+  goPolling() {
+    this.navCtrl.navigateForward('polling');
+  }
+
+  goSurvey() {
+    this.navCtrl.navigateForward('survey');
   }
 
   goAdministrasi() {
