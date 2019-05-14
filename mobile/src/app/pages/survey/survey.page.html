@@ -1,9 +1,21 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>survey</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Survey</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content>
+  <ion-card *ngFor="let record of records" (click)="goDetail(record['id'])">
+    <img src="{{ record['photo'] }}" />
+    <ion-card-header>
+      <ion-card-title>{{ record['title'] }}</ion-card-title>
+    </ion-card-header>
 
+    <ion-card-content style="padding-top: 0">
+
+    </ion-card-content>
+  </ion-card>
 </ion-content>

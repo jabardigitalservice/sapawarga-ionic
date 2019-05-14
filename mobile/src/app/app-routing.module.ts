@@ -67,7 +67,7 @@ const routes: Routes = [
     loadChildren: './pages/survey/survey.module#SurveyPageModule'
   },
   {
-    path: 'survey-detail',
+    path: 'survey/:id',
     loadChildren: './pages/survey-detail/survey-detail.module#SurveyDetailPageModule'
   },
   {
