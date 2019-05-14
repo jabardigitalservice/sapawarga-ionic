@@ -2,6 +2,7 @@ export default [
     {
         "id": 1,
         "title": "Survey Pengguna",
+        "description": "Survey ini digunakan untuk mengetahui latar belakang pengguna",
         "form": {
             "fields": [
                 {
@@ -54,7 +55,7 @@ export default [
                 },
                 {
                     "name": "internet_usage",
-                    "type": "select",
+                    "type": "radio",
                     "label": "Saya biasanya menggunakan Internet untuk",
                     "options": [
                         {
