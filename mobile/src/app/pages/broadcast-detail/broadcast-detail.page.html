@@ -7,4 +7,21 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content padding> </ion-content>
+<ion-content padding *ngIf="dataBroadcast">
+  <ion-card>
+    <ion-card-header>
+      <ion-card-subtitle class="dark-read">{{ dataBroadcast['category']['name'] }}</ion-card-subtitle>
+      <ion-card-title>{{ dataBroadcast['title'] }}</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content style="padding-top: 0">
+      <!-- <div style="margin: 15px 0">
+        {{ dataBroadcast['kabkota']['name'] }}, {{ dataBroadcast['kecamatan']['name'] }}, {{ dataBroadcast['kelurahan']['name'] }}
+      </div> -->
+
+      <div>
+        <ion-label class="ion-text-justify">{{ dataBroadcast['description'] }}</ion-label>
+      </div>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
