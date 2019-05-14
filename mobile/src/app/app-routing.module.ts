@@ -67,6 +67,10 @@ const routes: Routes = [
     loadChildren: './pages/survey/survey.module#SurveyPageModule'
   },
   {
+    path: 'survey/:id',
+    loadChildren: './pages/survey-detail/survey-detail.module#SurveyDetailPageModule'
+  },
+  {
     path: 'polling',
     loadChildren: './pages/polling/polling.module#PollingPageModule'
   },
@@ -78,7 +82,7 @@ const routes: Routes = [
     path: 'polling/:id',
     loadChildren:
       './pages/polling-detail/polling-detail.module#PollingDetailPageModule'
-  }
+  },
 ];
 
 @NgModule({
