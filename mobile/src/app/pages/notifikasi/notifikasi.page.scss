@@ -2,4 +2,12 @@
   ion-avatar {
     --border-radius: unset !important;
   }
+
+  img {
+    max-width: unset !important;
+  }
+}
+
+.icon-img {
+  width: 40px !important;
 }
