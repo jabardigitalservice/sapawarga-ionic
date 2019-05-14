@@ -5,7 +5,7 @@ import records from '../../../assets/data/administrasi';
 @Component({
   selector: 'app-administrasi',
   templateUrl: './administrasi.page.html',
-  styleUrls: ['./administrasi.page.scss'],
+  styleUrls: ['./administrasi.page.scss']
 })
 export class AdministrasiPage {
   records: [];
@@ -19,5 +19,4 @@ export class AdministrasiPage {
   goToDetail(id: number) {
     this.router.navigate(['/administrasi', id]);
   }
-
 }
