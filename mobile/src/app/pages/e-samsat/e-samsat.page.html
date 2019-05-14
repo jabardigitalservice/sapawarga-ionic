@@ -11,7 +11,7 @@
   <ion-card
     class="card-lapor"
     *ngFor="let content of items"
-    (click)="launchApp(content.url)"
+    (click)="selectLapor(content.nameInit, content.url)"
   >
     <ion-item>
       <ion-thumbnail slot="start">

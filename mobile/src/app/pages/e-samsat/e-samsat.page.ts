@@ -35,14 +35,14 @@ export class ESamsatPage implements OnInit {
 
   selectLapor(name: string, url: string) {
     switch (name) {
-      case 'lapor':
+      case 'tokopedia':
         this.launchweb(url);
         break;
-      case 'qlue':
+      case 'bukalapak':
+        this.launchweb(url);
+        break;
+      case 'sambara':
         this.launchApp(url);
-        break;
-      case 'jqr':
-        this.launchweb(url);
         break;
       default:
         break;
