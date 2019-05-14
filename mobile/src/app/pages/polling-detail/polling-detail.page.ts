@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { ToastController, NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-polling-detail',
@@ -9,7 +10,11 @@ import { ActivatedRoute } from '@angular/router';
 export class PollingDetailPage implements OnInit {
   public items: any = [];
 
-  constructor(private route: ActivatedRoute) {
+  constructor(
+    private route: ActivatedRoute,
+    public toastCtrl: ToastController,
+    private navCtrl: NavController
+  ) {
     this.items = [
       {
         id: 1,
@@ -77,5 +82,20 @@ export class PollingDetailPage implements OnInit {
       this.id = params['id'];
       console.log(this.id);
     });
+  }
+
+  submitPolling() {
+    const message =
+      'Terima kasih atas partisipasi anda dalam pengisian polling ini';
+    this.showToast(message);
+    this.navCtrl.back();
+  }
+
+  async showToast(msg: string) {
+    const toast = await this.toastCtrl.create({
+      message: msg,
+      duration: 3000
+    });
+    toast.present();
   }
 }
