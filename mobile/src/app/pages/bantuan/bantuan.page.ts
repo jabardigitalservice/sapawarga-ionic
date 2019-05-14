@@ -22,7 +22,7 @@ export class BantuanPage implements OnInit {
         expanded: false
       },
       {
-        title: 'Bagaiamana cara melihat detail lokasi pada nomor penting? ',
+        title: 'Bagaimana cara melihat detail lokasi pada nomor penting? ',
         description:
           '<p>Jawab :<br />Untuk melihat detail lokasi instansi pada nomor penting, bisa mengikuti langkah berikut :<br />a. Pilih menu Nomor Penting<br />b. Pilih Nomor yang ingin dilihat detailnya.<br />c. Tap Icon Lokasi.<br />d. Untuk melihat icon lokasi anda harus menyalakan GPS terlebih dahulu, Jika GPS belum diaktifkan maka akan muncul pesan konfirmasi untuk menyalakan GPS.</p>',
         expanded: false
