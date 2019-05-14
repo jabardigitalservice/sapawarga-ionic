@@ -1,15 +1,22 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import records from '../../../assets/data/administrasi';
 
 @Component({
   selector: 'app-administrasi',
   templateUrl: './administrasi.page.html',
-  styleUrls: ['./administrasi.page.scss'],
+  styleUrls: ['./administrasi.page.scss']
 })
-export class AdministrasiPage implements OnInit {
+export class AdministrasiPage {
+  records: [];
 
-  constructor() { }
+  constructor(
+    private router: Router
+  ) {
+    this.records = records;
+   }
 
-  ngOnInit() {
+  goToDetail(id: number) {
+    this.router.navigate(['/administrasi', id]);
   }
-
 }

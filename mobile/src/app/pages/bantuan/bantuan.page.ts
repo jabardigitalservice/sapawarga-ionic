@@ -12,31 +12,31 @@ export class BantuanPage implements OnInit {
       {
         title: 'Bagaimana caranya masuk ke akun Sapawarga saya?',
         description:
-          '<p>Jawab :<br />Sudah punya akun Sapawarga? Langsung masuk ke akun Sapawarga buat nikmatin semua layanannya, ikuti langkah berikut ya:<br />a. Buka aplikasi sapawarga<br />b. Masukkan username dan password yang telah diberikan.<br />c. Pilih tombol Masuk</p>',
+          '<p>Jawab :</p> <p>Sudah punya akun? Segera masuk ke akun Sapawarga untuk nikmati semua layanannya! Ikuti langkah berikut:</p> <p>1. Buka aplikasi Sapawarga</p> <p>2. Masukkan username dan password yang telah diberikan</p> <p>3. Pilih tombol Masuk</p>',
         expanded: false
       },
       {
         title: 'Bagaimana cara melihat nomor penting di sekitar lokasi saya?',
         description:
-          '<p>Jawab :<br />Kamu dapat melihat lokasi instansi yang nomornya terdapat pada nomor penting di sekitar kamu. <br />Caranya adalah :<br />a. Sebelum menggunakan menu ini, sebaiknya aktifkan dulu GPS pada handphone.<br />b. Pilih menu Nomor Penting<br />c. Pilih Icon Lokasi yang terdapat di samping icon search.</p>',
+          '<p>Jawab :</p> <p>Anda dapat menemukan nomor-nomor instansi penting yang lokasinya ada di sekitar Anda. Caranya:</p> <p>1. Sebelum menggunakan menu ini, sebaiknya aktifkan dulu GPS pada handphone Anda.</p> <p>2. Pilih menu Nomor Penting</p> <p>3. Pilih ikon Lokasi yang terdapat di samping ikon Search</p>',
         expanded: false
       },
       {
-        title: 'Bagaiamana cara melihat detail lokasi pada nomor penting? ',
+        title: 'Bagaimana cara melihat detail lokasi pada nomor penting? ',
         description:
-          '<p>Jawab :<br />Untuk melihat detail lokasi instansi pada nomor penting, bisa mengikuti langkah berikut :<br />a. Pilih menu Nomor Penting<br />b. Pilih Nomor yang ingin dilihat detailnya.<br />c. Tap Icon Lokasi.<br />d. Untuk melihat icon lokasi anda harus menyalakan GPS terlebih dahulu, Jika GPS belum diaktifkan maka akan muncul pesan konfirmasi untuk menyalakan GPS.</p>',
+          '<p>Jawab :</p> <p>Untuk melihat detail lokasi instansi yang terdaftar di fitur Nomor Penting, ikuti langkah berikut:</p> <p>1. Pilih menu Nomor Penting</p> <p>2. Pilih nomor yang Anda ingin dilihat detailnya</p> <p>3. Tap ikon Lokasi.</p> <p>4. Untuk melihat ikon Lokasi, Anda harus menyalakan GPS terlebih dahulu. Jika GPS belum diaktifkan maka akan muncul pesan konfirmasi untuk menyalakan GPS.</p>',
         expanded: false
       },
       {
-        title: 'Bagaimana cara mengupdate profile akun saya?',
+        title: 'Bagaimana cara memperbarui profil akun saya?  ',
         description:
-          '<p>Jawab :<br />Untuk mengupdate profile akun, caranya adalah :<br />a. Piliih menu akun<br />b. Pilih option menu<br />c. Pilih menu edit akun</p>',
+          '<p>Jawab :</p> <p>Untuk memperbarui profil akun, caranya:</p> <p>1. Piliih menu Akun</p> <p>2. Pilih opsi Menu</p> <p>3. Pilih menu Edit akun</p>',
         expanded: false
       },
       {
-        title: 'Bagaimana cara mengupdate aspirasi yang sudah dibuat?',
+        title: 'Bagaimana cara memperbarui aspirasi yang sudah dibuat?',
         description:
-          '<p>Aspirasi yang telah dibuat dapat diupdate atau diedit jika statusnya adalah draft. Caranya adalah :<br />a. Pilih menu aspirasi<br />b. Pilih menu aspirasi pribadi<br />c. Pilih aspirasi yang ingin di update (status aspirasi draft).</p>',
+          '<p>Jawab :</p> <p>Aspirasi yang telah dibuat dapat diperbarui atau diperbaiki jika statusnya adalah Draft. Caranya:</p> <p>1. Pilih menu Aspirasi</p> <p>2. Pilih menu Aspirasi pribadi</p> <p>3. Pilih aspirasi yang ingin diperbaiki (status aspirasi draft).</p>',
         expanded: false
       }
     ];

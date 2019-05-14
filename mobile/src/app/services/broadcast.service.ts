@@ -18,6 +18,12 @@ export class BroadcastService {
       .pipe(catchError(this.handleError));
   }
 
+  getDetailBroadCast(id: number): Observable<Broadcast> {
+    return this.http
+      .get<Broadcast>(`${environment.API_URL}/broadcasts/${id}`)
+      .pipe(catchError(this.handleError));
+  }
+
   // save token into local storage
   saveBroadcast(data: string) {
     localStorage.setItem(BROADCAST_KEY, data);

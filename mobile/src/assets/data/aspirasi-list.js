@@ -1,22 +1,23 @@
 export default [
     {
         "id": 1,
-        "title": "Tolong perbaikan jalan berlubang",
-        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+        "title": "Jalan Rusak Cikundul, Sukabumi.",
+        "description": "Bapak Gubernur dan jajarannya yang terhormat.\n" +
+            "Bagaimana kejelasannya tentang rencana perbaikan di jalan utama Cikundul, Lembursitu, Sukabumi. Sudah 4 tahun kami kesulitan akibat akses jalan yang rusak dan sudah memakan beberapa korban yang terjatuh dari motor. Kami dari warga RW 02 Kelurahan Cikundul berharap agar jalan utama Cikundul dapat segera diperbaiki.",
         "kabkota_id": 22,
         "kabkota": {
             "id": 22,
-            "name": "Kota Bandung"
+            "name": "Kota/Kab. Sukabumi"
         },
         "kec_id": 446,
         "kecamatan": {
             "id": 446,
-            "name": "Bandung Wetan"
+            "name": "Kec. Lembursitu"
         },
         "kel_id": 6082,
         "kelurahan": {
             "id": 6082,
-            "name": "Cicaheum"
+            "name": "Kel. Cikundul"
         },
         "status": 10,
         "status_label": "Dipublikasikan",
@@ -41,6 +42,7 @@ export default [
             "id": 3,
             "name": "Infrastruktur"
         },
+        "photo": "assets/img/aspirasi/aspirasi1.jpg",
         "attachments": [
             {
                 "type": "photo",
@@ -68,22 +70,22 @@ export default [
     },
     {
         "id": 2,
-        "title": "Pungli pada penerimaan siswa baru SMA Negeri Maju Jaya",
-        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+        "title": "Jembatan Desa Warudoyong - Sukamulya, Cianjur.",
+        "description": "Yang terhormat Bapak Gubernur, mohon bantuannya untuk segera dapat dilakukan perbaikan pada jembatan yang menghubungkan Desa Warudoyong dan Desa Sukamulya. Saat ini kondisi jembatan sudah sangat memprihatinkan sedangkan jembatan ini merupakan jembatan yang digunakan sehari-hari oleh warga. Saya khawatir jika digunakan terus menerus dalam kondisi demikian akan mengakibatkan warga yang celaka atau amit-amit menimbulkan korban jiwa.",
         "kabkota_id": 22,
         "kabkota": {
             "id": 22,
-            "name": "Kota Bandung"
+            "name": "Kota/Kab. Cianjur"
         },
         "kec_id": 446,
         "kecamatan": {
             "id": 446,
-            "name": "Bandung Wetan"
+            "name": "Kec. Sukamulya"
         },
         "kel_id": 6082,
         "kelurahan": {
             "id": 6082,
-            "name": "Cicaheum"
+            "name": "Desa Warudoyong"
         },
         "status": 10,
         "status_label": "Dipublikasikan",
@@ -108,6 +110,7 @@ export default [
             "id": 3,
             "name": "Infrastruktur"
         },
+        "photo": "assets/img/aspirasi/aspirasi2.jpg",
         "attachments": [
             {
                 "type": "photo",
@@ -135,22 +138,23 @@ export default [
     },
     {
         "id": 3,
-        "title": "Internet Wifi lambat di Desa kami",
-        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+        "title": "Janji Listrik Kampung Cibugin",
+        "description": "Yth. Bapak Kepala Desa Cikidang, kapan listrik akan masuk ke wilayah kami (RW08 Kampung Cibugin)? \n" +
+            "Kami sangat berharap Kampung kami mendapat penerangan listrik agar kampung Cibugin tidak gelap gulita sehingga anak-anak kami dapat belajar di malam hari.",
         "kabkota_id": 22,
         "kabkota": {
             "id": 22,
-            "name": "Kota Bandung"
+            "name": "Kota/kab. Sukabumi"
         },
         "kec_id": 446,
         "kecamatan": {
             "id": 446,
-            "name": "Bandung Wetan"
+            "name": "Kecamatan Cikidang"
         },
         "kel_id": 6082,
         "kelurahan": {
             "id": 6082,
-            "name": "Cicaheum"
+            "name": "Desa Cikidang"
         },
         "status": 10,
         "status_label": "Dipublikasikan",
@@ -175,6 +179,7 @@ export default [
             "id": 3,
             "name": "Infrastruktur"
         },
+        "photo": "assets/img/aspirasi/aspirasi3.jpg",
         "attachments": [
             {
                 "type": "photo",
@@ -200,138 +205,4 @@ export default [
         "created_at": 1554076800,
         "updated_at": 1554076800
     },
-    {
-        "id": 4,
-        "title": "Listrik sering padam di kampung digital Ciletuh",
-        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-        "kabkota_id": 22,
-        "kabkota": {
-            "id": 22,
-            "name": "Kota Bandung"
-        },
-        "kec_id": 446,
-        "kecamatan": {
-            "id": 446,
-            "name": "Bandung Wetan"
-        },
-        "kel_id": 6082,
-        "kelurahan": {
-            "id": 6082,
-            "name": "Cicaheum"
-        },
-        "status": 10,
-        "status_label": "Dipublikasikan",
-        "likes_counts": 10,
-        "likes_users": [
-            {
-                "id": 1,
-                "name": "User A"
-            },
-            {
-                "id": 2,
-                "name": "User B"
-            }
-        ],
-        "author_id": 3,
-        "author": {
-            "id": 1,
-            "name": "Muhammad Rahmat Irfan"
-        },
-        "category_id": 3,
-        "category": {
-            "id": 3,
-            "name": "Infrastruktur"
-        },
-        "attachments": [
-            {
-                "type": "photo",
-                "description": "Lorem ipsum",
-                "url": "https://dummyimage.com/wsxga"
-            },
-            {
-                "type": "photo",
-                "description": "Lorem ipsum",
-                "url": "https://dummyimage.com/wsxga"
-            },
-            {
-                "type": "photo",
-                "description": "Lorem ipsum",
-                "url": "https://dummyimage.com/wsxga"
-            },
-            {
-                "type": "photo",
-                "description": "Lorem ipsum",
-                "url": "https://dummyimage.com/wsxga"
-            }
-        ],
-        "created_at": 1554076800,
-        "updated_at": 1554076800
-    },
-    {
-        "id": 5,
-        "title": "Rawan kejahatan pada malam hari",
-        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-        "kabkota_id": 22,
-        "kabkota": {
-            "id": 22,
-            "name": "Kota Bandung"
-        },
-        "kec_id": 446,
-        "kecamatan": {
-            "id": 446,
-            "name": "Bandung Wetan"
-        },
-        "kel_id": 6082,
-        "kelurahan": {
-            "id": 6082,
-            "name": "Cicaheum"
-        },
-        "status": 10,
-        "status_label": "Dipublikasikan",
-        "likes_counts": 10,
-        "likes_users": [
-            {
-                "id": 1,
-                "name": "User A"
-            },
-            {
-                "id": 2,
-                "name": "User B"
-            }
-        ],
-        "author_id": 3,
-        "author": {
-            "id": 1,
-            "name": "Muhammad Rahmat Irfan"
-        },
-        "category_id": 3,
-        "category": {
-            "id": 3,
-            "name": "Infrastruktur"
-        },
-        "attachments": [
-            {
-                "type": "photo",
-                "description": "Lorem ipsum",
-                "url": "https://dummyimage.com/wsxga"
-            },
-            {
-                "type": "photo",
-                "description": "Lorem ipsum",
-                "url": "https://dummyimage.com/wsxga"
-            },
-            {
-                "type": "photo",
-                "description": "Lorem ipsum",
-                "url": "https://dummyimage.com/wsxga"
-            },
-            {
-                "type": "photo",
-                "description": "Lorem ipsum",
-                "url": "https://dummyimage.com/wsxga"
-            }
-        ],
-        "created_at": 1554076800,
-        "updated_at": 1554076800
-    }
 ];

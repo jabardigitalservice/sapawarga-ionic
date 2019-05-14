@@ -41,13 +41,23 @@ export class HomeResultsPage {
     this.appPages = [
       {
         title: 'E-samsat',
-        url: 'id.go.bapenda.sambara',
+        url: '',
         icon: 'assets/icon/SW-E-samsat.png'
       },
       {
         title: 'Perizinan',
         url: 'https://dpmptsp.jabarprov.go.id/sicantik/main/pendaftaranbaru ',
         icon: 'assets/icon/SW-IJIN.png'
+      },
+      {
+        title: 'Administrasi',
+        url: '',
+        icon: 'assets/icon/SW-ADMINISTRASI.png'
+      },
+      {
+        title: 'Nomor penting',
+        url: '',
+        icon: 'assets/icon/SW-NOPENTING.png'
       },
       {
         title: 'Info harga',
@@ -60,26 +70,6 @@ export class HomeResultsPage {
         icon: 'assets/icon/SW-LELANG.png'
       },
       {
-        title: 'Survey',
-        url: '',
-        icon: 'assets/icon/SW-SURVEY.png'
-      },
-      {
-        title: 'Polling',
-        url: '',
-        icon: 'assets/icon/SW-POLLING.png'
-      },
-      {
-        title: 'Nomor penting',
-        url: '',
-        icon: 'assets/icon/SW-NOPENTING.png'
-      },
-      {
-        title: 'Administrasi',
-        url: '',
-        icon: 'assets/icon/SW-ADMINISTRASI.png'
-      },
-      {
         title: 'Lapor',
         url: '',
         icon: 'assets/icon/SW-LAPOR.png'
@@ -88,6 +78,16 @@ export class HomeResultsPage {
         title: 'Aspirasi',
         url: '',
         icon: 'assets/icon/SW-ASPIRASI.png'
+      },
+      {
+        title: 'Survey',
+        url: '',
+        icon: 'assets/icon/SW-SURVEY.png'
+      },
+      {
+        title: 'Polling',
+        url: '',
+        icon: 'assets/icon/SW-POLLING.png'
       }
     ];
 
@@ -100,7 +100,7 @@ export class HomeResultsPage {
   goToLayanan(app: string, layananUrl: string) {
     switch (app) {
       case 'E-samsat':
-        this.launchApp(layananUrl);
+        this.goSamsat();
         break;
       case 'Perizinan':
         this.launchweb(layananUrl);
@@ -120,8 +120,17 @@ export class HomeResultsPage {
       case 'Aspirasi':
         this.goAspirasi();
         break;
+      case 'Administrasi':
+        this.goAdministrasi();
+        break;
+      case 'Aspirasi':
+        this.goAspirasi();
+        break;
       case 'Polling':
         this.goPolling();
+        break;
+      case 'Survey':
+        this.goSurvey();
         break;
       default:
         break;
@@ -146,8 +155,20 @@ export class HomeResultsPage {
     this.navCtrl.navigateForward('notifikasi');
   }
 
+  goSamsat() {
+    this.navCtrl.navigateForward('e-samsat');
+  }
+
   goPolling() {
     this.navCtrl.navigateForward('polling');
+  }
+
+  goSurvey() {
+    this.navCtrl.navigateForward('survey');
+  }
+
+  goAdministrasi() {
+    this.navCtrl.navigateForward('administrasi');
   }
 
   // call function launchApp to open external app
