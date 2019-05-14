@@ -4,9 +4,9 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-administrasi',
   templateUrl: './administrasi.page.html',
-  styleUrls: ['./administrasi.page.scss'],
+  styleUrls: ['./administrasi.page.scss']
 })
-export class AdministrasiPage {
+export class AdministrasiPage implements OnInit {
   content = [
     {
       id: 1,
@@ -27,18 +27,14 @@ export class AdministrasiPage {
     {
       id: 5,
       data: 'Syarat Pembuatan Surat Kematian'
-    },
-  ]
+    }
+  ];
 
-  constructor(
-    private router: Router
-  ) { }
+  constructor(private router: Router) {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   goToDetail(id: number) {
     this.router.navigate(['/administrasi', id]);
   }
-
 }
