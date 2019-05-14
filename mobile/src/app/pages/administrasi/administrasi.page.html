@@ -8,11 +8,11 @@
 </ion-header>
 
 <ion-content>
-  <ion-card class="bg-white" *ngFor="let administration of content">
+  <ion-card class="bg-white" *ngFor="let administration of records">
     <div class="ion-margin-top d-inline-f icon-administrasi" (click)="goToDetail(administration.id)">
       <ion-icon name="paper" size="large"></ion-icon>
       <div class="content-administrasi">
-        <p>{{ administration.data }}</p>
+        <p>{{ administration.title }}</p>
       </div>
   </div>
   </ion-card>
