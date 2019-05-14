@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-toolbar color="light">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>E-Samsat</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content color="light">
+  <ion-card
+    class="card-lapor"
+    *ngFor="let content of items"
+    (click)="launchApp(content.url)"
+  >
+    <ion-item>
+      <ion-thumbnail slot="start">
+        <img [src]="content.logo" />
+      </ion-thumbnail>
+      <ion-text>{{ content.name }}</ion-text>
+    </ion-item>
+  </ion-card>
+</ion-content>

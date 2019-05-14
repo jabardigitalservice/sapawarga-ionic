@@ -100,7 +100,7 @@ export class HomeResultsPage {
   goToLayanan(app: string, layananUrl: string) {
     switch (app) {
       case 'E-samsat':
-        this.launchApp(layananUrl);
+        this.goSamsat();
         break;
       case 'Perizinan':
         this.launchweb(layananUrl);
@@ -153,6 +153,10 @@ export class HomeResultsPage {
 
   goNotifikasi() {
     this.navCtrl.navigateForward('notifikasi');
+  }
+
+  goSamsat() {
+    this.navCtrl.navigateForward('e-samsat');
   }
 
   goPolling() {

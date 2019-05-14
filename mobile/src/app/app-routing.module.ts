@@ -68,7 +68,8 @@ const routes: Routes = [
   },
   {
     path: 'survey/:id',
-    loadChildren: './pages/survey-detail/survey-detail.module#SurveyDetailPageModule'
+    loadChildren:
+      './pages/survey-detail/survey-detail.module#SurveyDetailPageModule'
   },
   {
     path: 'polling',
@@ -83,7 +84,15 @@ const routes: Routes = [
     loadChildren:
       './pages/polling-detail/polling-detail.module#PollingDetailPageModule'
   },
-  { path: 'administrasi/:id', loadChildren: './pages/administrasi-detail/administrasi-detail.module#AdministrasiDetailPageModule' }
+  {
+    path: 'administrasi/:id',
+    loadChildren:
+      './pages/administrasi-detail/administrasi-detail.module#AdministrasiDetailPageModule'
+  },
+  {
+    path: 'e-samsat',
+    loadChildren: './pages/e-samsat/e-samsat.module#ESamsatPageModule'
+  }
 ];
 
 @NgModule({
