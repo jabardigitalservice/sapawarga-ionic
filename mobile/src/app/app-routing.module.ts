@@ -54,7 +54,8 @@ const routes: Routes = [
   },
   {
     path: 'aspirasi/:id',
-    loadChildren: './pages/aspirasi-detail/aspirasi-detail.module#AspirasiDetailPageModule'
+    loadChildren:
+      './pages/aspirasi-detail/aspirasi-detail.module#AspirasiDetailPageModule'
   },
   {
     path: 'administrasi',
@@ -77,6 +78,11 @@ const routes: Routes = [
     path: 'notifikasi',
     loadChildren: './pages/notifikasi/notifikasi.module#NotifikasiPageModule'
   },
+  {
+    path: 'polling/:id',
+    loadChildren:
+      './pages/polling-detail/polling-detail.module#PollingDetailPageModule'
+  }
 ];
 
 @NgModule({

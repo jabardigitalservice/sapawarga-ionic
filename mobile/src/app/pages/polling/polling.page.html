@@ -1,9 +1,22 @@
 <ion-header>
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
     <ion-title>polling</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
-
+<ion-content>
+  <ion-card *ngFor="let item of items; let i = index">
+    <ion-item>
+      <ion-text
+        ><p>{{ item.title }}</p>
+        <ion-note>{{ item.votes }} Votes</ion-note></ion-text
+      >
+      <ion-button fill="solid" slot="end" color="success" (click)="goDetail(i)"
+        >View</ion-button
+      >
+    </ion-item>
+  </ion-card>
 </ion-content>
