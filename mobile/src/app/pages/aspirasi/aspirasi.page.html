@@ -9,7 +9,7 @@
 
 <ion-content>
   <ion-card *ngFor="let record of records" (click)="goDetail(record['id'])">
-    <img src="https://picsum.photos/600/300?id={{ record['id'] }}" />
+    <img src="{{ record['photo'] }}" />
     <ion-card-header>
       <ion-card-subtitle class="dark-read">{{ record['category']['name'] }}</ion-card-subtitle>
       <ion-card-title>{{ record['title'] }}</ion-card-title>
