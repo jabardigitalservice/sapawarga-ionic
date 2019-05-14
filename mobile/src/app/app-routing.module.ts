@@ -83,6 +83,7 @@ const routes: Routes = [
     loadChildren:
       './pages/polling-detail/polling-detail.module#PollingDetailPageModule'
   },
+  { path: 'administrasi/:id', loadChildren: './pages/administrasi-detail/administrasi-detail.module#AdministrasiDetailPageModule' }
 ];
 
 @NgModule({

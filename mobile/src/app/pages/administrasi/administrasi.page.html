@@ -1,9 +1,19 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>administrasi</ion-title>
+  <ion-toolbar color="light">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Administrasi</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
-
+<ion-content>
+  <ion-card class="bg-white" *ngFor="let administration of records">
+    <div class="ion-margin-top d-inline-f icon-administrasi" (click)="goToDetail(administration.id)">
+      <ion-icon name="paper" size="large"></ion-icon>
+      <div class="content-administrasi">
+        <p>{{ administration.title }}</p>
+      </div>
+  </div>
+  </ion-card>
 </ion-content>

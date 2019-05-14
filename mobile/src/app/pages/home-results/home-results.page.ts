@@ -120,6 +120,12 @@ export class HomeResultsPage {
       case 'Aspirasi':
         this.goAspirasi();
         break;
+      case 'Administrasi':
+        this.goAdministrasi();
+        break;
+      case 'Aspirasi':
+        this.goAspirasi();
+        break;
       case 'Polling':
         this.goPolling();
         break;
@@ -155,6 +161,10 @@ export class HomeResultsPage {
 
   goSurvey() {
     this.navCtrl.navigateForward('survey');
+  }
+
+  goAdministrasi() {
+    this.navCtrl.navigateForward('administrasi');
   }
 
   // call function launchApp to open external app

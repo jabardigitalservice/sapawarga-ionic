@@ -1,0 +1,57 @@
+:host {
+    ion-content {
+      --background: var(--ion-color-light);
+    }
+  
+    ion-item {
+      border-radius: 0;
+    }
+  
+    ion-card {
+      &.no-radius {
+        border-radius: 0;
+      }
+
+    }
+  
+    ion-toolbar {
+      ion-searchbar {
+        display: inline-block;
+        width: 100%;
+      }
+    }
+  
+    .item-interactive,
+    .item-lines-full {
+      --border-width: 0 0 0 0 !important;
+    }
+  }
+  
+  .content-administrasi {
+    display: inline-grid;
+
+    p {
+        color: black;
+        padding-left: 10px;
+        font-size: 16px;
+        margin-top: 10px;
+    }
+  }
+  
+  .mt-10 {
+    margin-top: 10px;
+  }
+  
+  .txt-subtitle {
+    margin-bottom: 12px;
+  }
+  
+  .icon-administrasi {
+    margin-left: 10px;
+    margin-bottom: 5px;
+    color:#009d56;
+  }
+  
+  .margin-5x {
+    margin-bottom: 5px;
+  }
