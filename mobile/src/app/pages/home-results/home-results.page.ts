@@ -41,7 +41,7 @@ export class HomeResultsPage {
     this.appPages = [
       {
         title: 'E-samsat',
-        url: 'id.go.bapenda.sambara',
+        url: '',
         icon: 'assets/icon/SW-E-samsat.png'
       },
       {

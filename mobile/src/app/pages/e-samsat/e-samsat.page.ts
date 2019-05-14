@@ -49,7 +49,7 @@ export class ESamsatPage implements OnInit {
     }
   }
 
-  // direct to service lapor
+  // direct to service E-samsat
   launchweb(url: string) {
     // check if the platform is ios or android, else open the web url
     this.platform.ready().then(() => {
