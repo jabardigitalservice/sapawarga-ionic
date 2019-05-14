@@ -117,6 +117,9 @@ export class HomeResultsPage {
       case 'Lapor':
         this.goLapor();
         break;
+      case 'Aspirasi':
+        this.goAspirasi();
+        break;
       case 'Administrasi':
         this.goAdministrasi();
         break;
@@ -133,6 +136,14 @@ export class HomeResultsPage {
   // open page lapor
   goLapor() {
     this.navCtrl.navigateForward('lapor');
+  }
+
+  goAspirasi() {
+    this.navCtrl.navigateForward('aspirasi');
+  }
+
+  goNotifikasi() {
+    this.navCtrl.navigateForward('notifikasi');
   }
 
   goAdministrasi() {
