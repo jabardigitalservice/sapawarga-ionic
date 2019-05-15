@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="default_web_client_id" translatable="false">211260761806-tfjs6sso58gfpkh8oevk1cceedir9t3a.apps.googleusercontent.com</string>
+    <string name="firebase_database_url" translatable="false">https://sapawarga-app.firebaseio.com</string>
+    <string name="gcm_defaultSenderId" translatable="false">211260761806</string>
+    <string name="google_api_key" translatable="false">AIzaSyAC5rPNkJs9ewzQyDZSi-BALgXbJbCoVKY</string>
+    <string name="google_app_id" translatable="false">1:211260761806:android:9a6b11d61ee90ef4</string>
+    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyAC5rPNkJs9ewzQyDZSi-BALgXbJbCoVKY</string>
+    <string name="google_storage_bucket" translatable="false">sapawarga-app.appspot.com</string>
+    <string name="project_id" translatable="false">sapawarga-app</string>
+</resources>
