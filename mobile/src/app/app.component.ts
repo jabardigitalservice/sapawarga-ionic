@@ -35,14 +35,6 @@ export class AppComponent {
         this.statusBar.styleBlackTranslucent();
         this.splashScreen.hide();
 
-        this.fcm.getToken().then(token => {
-          console.log(token);
-        });
-
-        this.fcm.onTokenRefresh().subscribe(token => {
-          console.log(token);
-        });
-
         this.fcm.onNotification().subscribe(data => {
           console.log(data);
           if (data.wasTapped) {
