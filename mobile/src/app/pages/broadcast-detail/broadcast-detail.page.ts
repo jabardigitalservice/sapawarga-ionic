@@ -14,7 +14,6 @@ import { BroadcastService } from '../../services/broadcast.service';
   styleUrls: ['./broadcast-detail.page.scss']
 })
 export class BroadcastDetailPage implements OnInit {
-  idBroadcast: number;
   dataBroadcast: Broadcast;
   constructor(
     private navCtrl: NavController,
@@ -25,36 +24,39 @@ export class BroadcastDetailPage implements OnInit {
   ) {}
 
   ngOnInit() {
+    // this.route.queryParamMap.subscribe(params => {
+    //   this.dataProfile = params['params'];
     // get id detail Broadcast
-    this.route.params.subscribe(params => {
-      this.idBroadcast = params['id'];
+    this.route.queryParamMap.subscribe(params => {
+      this.dataBroadcast = params['params'];
     });
 
-    if (this.idBroadcast) {
-      this.getDetaiBroadcast();
-    }
+    console.log(this.dataBroadcast);
+    // if (this.dataBroadcast.id > 0) {
+    //   this.getDetaiBroadcast();
+    // }
   }
 
   // get data nomor penting
-  async getDetaiBroadcast() {
-    const loader = await this.loadingCtrl.create({
-      duration: 10000
-    });
-    loader.present();
+  // async getDetaiBroadcast() {
+  //   const loader = await this.loadingCtrl.create({
+  //     duration: 10000
+  //   });
+  //   loader.present();
 
-    this.broadcastService.getDetailBroadCast(this.idBroadcast).subscribe(
-      res => {
-        this.dataBroadcast = res['data'];
-        loader.dismiss();
-      },
-      err => {
-        loader.dismiss();
-        this.showToast(err.data.message);
-        // jika data not found
-        this.navCtrl.back();
-      }
-    );
-  }
+  //   this.broadcastService.getDetailBroadCast(this.idBroadcast).subscribe(
+  //     res => {
+  //       this.dataBroadcast = res['data'];
+  //       loader.dismiss();
+  //     },
+  //     err => {
+  //       loader.dismiss();
+  //       this.showToast(err.data.message);
+  //       // jika data not found
+  //       this.navCtrl.back();
+  //     }
+  //   );
+  // }
 
   // Called when view is left
   ionViewWillLeave() {
