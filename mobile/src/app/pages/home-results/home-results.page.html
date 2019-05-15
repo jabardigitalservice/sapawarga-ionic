@@ -5,7 +5,7 @@
     </ion-buttons>
     <ion-buttons slot="end">
       <ion-button shape="round" color="dark" (click)="goNotifikasi()">
-        <ion-icon name="notifications"></ion-icon>
+        <ion-icon name="notifications" class="color-grey"></ion-icon>
         <ion-badge color="danger">5</ion-badge>
       </ion-button>
     </ion-buttons>
@@ -21,21 +21,8 @@
     </ion-slides>
   </ion-card>
 
-  <ion-item lines="none" class="ion-margin-start ion-margin-end">
-    <ion-label>
-      <h2 no-margin class="fw500 no-margin">
-        <ion-text color="dark">Layanan Terpadu</ion-text>
-      </h2>
-    </ion-label>
-  </ion-item>
-
   <ion-row text-center small class="text-dark">
-    <ion-col
-      size="3"
-      class="mt-1 ion-no-padding"
-      no-padding
-      *ngFor="let page of appPages"
-    >
+    <ion-col size="3" class="mt-1" no-padding *ngFor="let page of appPages">
       <img
         class="icon-img"
         [src]="page.icon"

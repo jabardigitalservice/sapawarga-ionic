@@ -54,7 +54,8 @@ const routes: Routes = [
   },
   {
     path: 'aspirasi/:id',
-    loadChildren: './pages/aspirasi-detail/aspirasi-detail.module#AspirasiDetailPageModule'
+    loadChildren:
+      './pages/aspirasi-detail/aspirasi-detail.module#AspirasiDetailPageModule'
   },
   {
     path: 'administrasi',
@@ -62,12 +63,13 @@ const routes: Routes = [
       './pages/administrasi/administrasi.module#AdministrasiPageModule'
   },
   {
-    path: 'bantuan',
-    loadChildren: './pages/bantuan/bantuan.module#BantuanPageModule'
-  },
-  {
     path: 'survey',
     loadChildren: './pages/survey/survey.module#SurveyPageModule'
+  },
+  {
+    path: 'survey/:id',
+    loadChildren:
+      './pages/survey-detail/survey-detail.module#SurveyDetailPageModule'
   },
   {
     path: 'polling',
@@ -77,6 +79,20 @@ const routes: Routes = [
     path: 'notifikasi',
     loadChildren: './pages/notifikasi/notifikasi.module#NotifikasiPageModule'
   },
+  {
+    path: 'polling/:id',
+    loadChildren:
+      './pages/polling-detail/polling-detail.module#PollingDetailPageModule'
+  },
+  {
+    path: 'administrasi/:id',
+    loadChildren:
+      './pages/administrasi-detail/administrasi-detail.module#AdministrasiDetailPageModule'
+  },
+  {
+    path: 'e-samsat',
+    loadChildren: './pages/e-samsat/e-samsat.module#ESamsatPageModule'
+  }
 ];
 
 @NgModule({

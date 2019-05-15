@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Detail Survey</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <h3>{{ record['title'] }}</h3>
+  <p>{{ record['description'] }}</p>
+
+  <div *ngFor="let field of record['form']['fields']">
+    <ion-item *ngIf="field['type'] === 'text'">
+      <ion-label position="floating">{{ field['label'] }}</ion-label>
+      <ion-input></ion-input>
+    </ion-item>
+
+    <div *ngIf="field['type'] === 'radio'" style="margin-top: 30px">
+      <ion-list>
+        <ion-radio-group>
+          <ion-list-header>
+            {{ field['label'] }}
+          </ion-list-header>
+
+          <ion-item *ngFor="let option of field['options']">
+            <ion-label>{{ option['label'] }}</ion-label>
+            <ion-radio value="{{ option['value'] }}"></ion-radio>
+          </ion-item>
+        </ion-radio-group>
+      </ion-list>
+    </div>
+  </div>
+
+  <ion-button expand="block" color="success" (click)="submit()">Kirim</ion-button>
+
+</ion-content>
