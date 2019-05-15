@@ -6,6 +6,7 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 import { Pages } from './interfaces/pages';
 import { AuthService } from './services/auth.service';
+import { FCM } from '@ionic-native/fcm/ngx';
 
 @Component({
   selector: 'app-root',
@@ -21,7 +22,8 @@ export class AppComponent {
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
     public navCtrl: NavController,
-    private authService: AuthService
+    private authService: AuthService,
+    private fcm: FCM
   ) {
     this.initializeApp();
   }
@@ -32,6 +34,23 @@ export class AppComponent {
       .then(() => {
         this.statusBar.styleBlackTranslucent();
         this.splashScreen.hide();
+
+        this.fcm.getToken().then(token => {
+          console.log(token);
+        });
+
+        this.fcm.onTokenRefresh().subscribe(token => {
+          console.log(token);
+        });
+
+        this.fcm.onNotification().subscribe(data => {
+          console.log(data);
+          if (data.wasTapped) {
+            console.log('Received in background');
+          } else {
+            console.log('Received in foreground');
+          }
+        });
 
         this.authService.authenticationState.subscribe(state => {
           if (state) {

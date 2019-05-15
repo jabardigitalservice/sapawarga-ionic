@@ -19,6 +19,7 @@ import { TokenInterceptor } from './helpers/token.interceptor';
 import { MenuNavbarComponent } from './components/menu-navbar/menu-navbar.component';
 
 // plugin
+import { FCM } from '@ionic-native/fcm/ngx';
 import { Camera } from '@ionic-native/camera/ngx';
 import { File } from '@ionic-native/file/ngx';
 import {
@@ -39,6 +40,7 @@ import {
   providers: [
     StatusBar,
     SplashScreen,
+    FCM,
     Network,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     {
