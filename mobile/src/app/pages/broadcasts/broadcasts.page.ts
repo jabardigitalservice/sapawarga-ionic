@@ -34,7 +34,10 @@ export class BroadcastsPage implements OnInit {
   async getNomorBroadcasts() {
     // check internet
     if (!navigator.onLine) {
-      alert('Tidak ada jaringan internet');
+      // get local
+      this.dataBroadcast = JSON.parse(
+        this.broadcastService.getLocalBroadcast()
+      );
       return;
     }
 
@@ -49,6 +52,8 @@ export class BroadcastsPage implements OnInit {
       res => {
         if (res['data']['items'].length) {
           this.dataBroadcast = res['data']['items'];
+          // save to local
+          this.broadcastService.saveLocalBroadcast(this.dataBroadcast);
         } else {
           this.dataEmpty = true;
         }
