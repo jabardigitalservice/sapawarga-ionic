@@ -43,15 +43,6 @@ export class AppComponent {
           console.log(token);
         });
 
-        this.fcm.onNotification().subscribe(data => {
-          console.log(data);
-          if (data.wasTapped) {
-            console.log('Received in background');
-          } else {
-            console.log('Received in foreground');
-          }
-        });
-
         this.authService.authenticationState.subscribe(state => {
           if (state) {
             this.navCtrl.navigateRoot('/');
