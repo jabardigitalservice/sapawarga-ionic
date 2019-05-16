@@ -68,20 +68,28 @@ export class BroadcastsPage implements OnInit {
   }
 
   // go to detail broadcast with param id
-  goDetail(id: number) {
-    console.log(this.broadcastService.getlocalBroadcast());
-
+  goDetail(broadcast: Broadcast) {
     // add to list dataRead
-    if (this.checkRead(id) === false) {
+    if (this.checkRead(broadcast.id) === false) {
       const data = {
-        id: id,
+        id: broadcast.id,
         read: true
       };
       this.dataRead.push(data);
       // to dataRead to local storage
       this.broadcastService.saveBroadcast(JSON.stringify(this.dataRead));
     }
-    this.router.navigate(['/broadcast', id]);
+    // console.log(broadcast);
+    this.router.navigate(['/broadcast', broadcast.id], {
+      queryParams: {
+        id: broadcast.id,
+        author: broadcast.author.name,
+        title: broadcast.title,
+        category_name: broadcast.category.name,
+        description: broadcast.description,
+        updated_at: broadcast.updated_at
+      }
+    });
   }
 
   // check if data isRead/UnRead

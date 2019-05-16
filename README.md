@@ -10,7 +10,12 @@ $ cd mobile
 
 ## Before use this App
 
-Please replace (API Key Google Map) in config.xml and package.json files with your API keys.
+Copy `.env-sample` to `.env` and input with your Google Map API Key
+
+```bash
+cp .env-sample .env
+nano .env
+```
 
 Build and run container
 
@@ -25,7 +30,7 @@ $ docker-compose up -d --build
 Go inside the container
 
 ```bash
-$ docker exec -it mobile_app_1 bash
+$ docker-compose exec app bash
 ```
 
 ## Run in Browser
