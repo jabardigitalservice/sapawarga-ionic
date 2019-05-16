@@ -11,6 +11,7 @@ import { AuthService } from './../../services/auth.service';
 import { Router } from '@angular/router';
 import { environment } from '../../../environments/environment';
 import { Network } from '@ionic-native/network/ngx';
+import { FCM } from '@ionic-native/fcm/ngx';
 
 @Component({
   selector: 'app-login',
@@ -24,6 +25,7 @@ export class LoginPage implements OnInit {
   // show password
   type: string = 'password';
   passwordShown: boolean = false;
+  token_fcm: string;
   // public onlineOffline: boolean = navigator.onLine;
 
   public app_version = environment.VERSION_APP;
@@ -36,7 +38,8 @@ export class LoginPage implements OnInit {
     private formBuilder: FormBuilder,
     private auth: AuthService,
     public router: Router,
-    private network: Network
+    private network: Network,
+    private fcm: FCM
   ) {}
 
   public showPassword() {
@@ -57,7 +60,13 @@ export class LoginPage implements OnInit {
   ngOnInit() {
     this.onLoginForm = this.formBuilder.group({
       username: ['', [Validators.required, Validators.minLength(4)]],
-      password: ['', [Validators.required, Validators.minLength(6)]]
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      push_token: ['']
+    });
+
+    // get FCM token
+    this.fcm.getToken().then(token => {
+      this.f.push_token.setValue(token);
     });
   }
 
