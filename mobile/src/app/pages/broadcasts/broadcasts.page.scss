@@ -3,6 +3,10 @@
     --color: var(--ion-color-step-550, #737373);
     font-size: medium;
   }
+
+  ion-card-subtitle {
+    margin-bottom: 8px !important;
+  }
 }
 
 .dark-read {

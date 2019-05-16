@@ -23,9 +23,9 @@
       <ion-card-subtitle [ngClass]="{ 'dark-read': !checkRead(broadcast.id) }"
         >[ {{ broadcast['category']['name'] }} ]</ion-card-subtitle
       >
-      <ion-card-title [ngClass]="{ 'dark-read': !checkRead(broadcast.id) }">{{
+      <ion-text [ngClass]="{ 'dark-read': !checkRead(broadcast.id) }">{{
         broadcast.title
-      }}</ion-card-title>
+      }}</ion-text>
     </ion-card-header>
   </ion-card>
 </ion-content>
