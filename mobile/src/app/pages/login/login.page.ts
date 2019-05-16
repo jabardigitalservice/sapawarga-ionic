@@ -61,12 +61,12 @@ export class LoginPage implements OnInit {
     this.onLoginForm = this.formBuilder.group({
       username: ['', [Validators.required, Validators.minLength(4)]],
       password: ['', [Validators.required, Validators.minLength(6)]],
-      fcm_token: ['']
+      push_token: ['']
     });
 
     // get FCM token
     this.fcm.getToken().then(token => {
-      this.f.fcm_token.setValue(token);
+      this.f.push_token.setValue(token);
     });
   }
 
