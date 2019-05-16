@@ -9,7 +9,7 @@
 
   <ion-card
     *ngFor="let broadcast of dataBroadcast"
-    (click)="goDetail(broadcast.id)"
+    (click)="goDetail(broadcast)"
   >
     <ion-card-header>
       <ion-card-subtitle
@@ -18,12 +18,14 @@
         >Dari: {{ broadcast.author.name }}</ion-card-subtitle
       >
       <ion-card-subtitle>{{
-          broadcast.updated_at * 1000 | date: 'MMM d, y h:mm a'
-        }}</ion-card-subtitle>
-      <ion-card-subtitle [ngClass]="{ 'dark-read': !checkRead(broadcast.id) }">[ {{ broadcast['category']['name'] }} ]</ion-card-subtitle>
-      <ion-card-title [ngClass]="{ 'dark-read': !checkRead(broadcast.id) }"
-        >{{ broadcast.title }}</ion-card-title
+        broadcast.updated_at * 1000 | date: 'MMM d, y h:mm a'
+      }}</ion-card-subtitle>
+      <ion-card-subtitle [ngClass]="{ 'dark-read': !checkRead(broadcast.id) }"
+        >[ {{ broadcast['category']['name'] }} ]</ion-card-subtitle
       >
+      <ion-card-title [ngClass]="{ 'dark-read': !checkRead(broadcast.id) }">{{
+        broadcast.title
+      }}</ion-card-title>
     </ion-card-header>
   </ion-card>
 </ion-content>
