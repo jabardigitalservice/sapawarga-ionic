@@ -2,6 +2,10 @@
   ion-card-title {
     --color: var(--ion-color-step-550, #737373);
   }
+
+  ion-card-subtitle {
+    margin-bottom: 8px !important;
+  }
 }
 
 .dark-read {
