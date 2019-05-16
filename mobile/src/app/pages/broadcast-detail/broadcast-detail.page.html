@@ -13,13 +13,13 @@
   <ion-card>
     <ion-card-header>
       <ion-card-subtitle class="dark-read"
-        >Dari: {{ dataBroadcast['author']['name'] }}</ion-card-subtitle
+        >Dari: {{ dataBroadcast['author'] }}</ion-card-subtitle
       >
       <ion-card-subtitle>{{
         dataBroadcast.updated_at * 1000 | date: 'MMM d, y h:mm a'
       }}</ion-card-subtitle>
       <ion-card-subtitle class="dark-read"
-        >[ {{ dataBroadcast['category']['name'] }} ]</ion-card-subtitle
+        >[ {{ dataBroadcast['category_name'] }} ]</ion-card-subtitle
       >
       <ion-card-title>{{ dataBroadcast['title'] }}</ion-card-title>
     </ion-card-header>
