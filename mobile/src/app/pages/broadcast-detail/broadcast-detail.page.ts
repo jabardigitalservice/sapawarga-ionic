@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {
   NavController,
   LoadingController,
-  ToastController
+  ToastController,
+  Platform
 } from '@ionic/angular';
 import { ActivatedRoute } from '@angular/router';
 import { Broadcast } from '../../interfaces/broadcast';
@@ -21,8 +22,11 @@ export class BroadcastDetailPage implements OnInit {
     private route: ActivatedRoute,
     private broadcastService: BroadcastService,
     public loadingCtrl: LoadingController,
-    public toastCtrl: ToastController
-  ) {}
+    public toastCtrl: ToastController,
+    private platform: Platform
+  ) {
+    this.backbuttonEvent();
+  }
 
   ngOnInit() {
     // get id detail Broadcast
@@ -33,6 +37,13 @@ export class BroadcastDetailPage implements OnInit {
     if (this.idBroadcast) {
       this.getDetaiBroadcast();
     }
+  }
+
+  backbuttonEvent() {
+    // this.platform.backButton.subscribe(() => {
+    //   alert('masuk');
+    //   this.navCtrl.navigateForward('/tabs/broadcasts');
+    // });
   }
 
   // get data nomor penting
