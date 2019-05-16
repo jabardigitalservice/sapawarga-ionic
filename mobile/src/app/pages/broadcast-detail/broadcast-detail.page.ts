@@ -24,39 +24,11 @@ export class BroadcastDetailPage implements OnInit {
   ) {}
 
   ngOnInit() {
-    // this.route.queryParamMap.subscribe(params => {
-    //   this.dataProfile = params['params'];
-    // get id detail Broadcast
+    // get data detail Broadcast
     this.route.queryParamMap.subscribe(params => {
       this.dataBroadcast = params['params'];
     });
-
-    console.log(this.dataBroadcast);
-    // if (this.dataBroadcast.id > 0) {
-    //   this.getDetaiBroadcast();
-    // }
   }
-
-  // get data nomor penting
-  // async getDetaiBroadcast() {
-  //   const loader = await this.loadingCtrl.create({
-  //     duration: 10000
-  //   });
-  //   loader.present();
-
-  //   this.broadcastService.getDetailBroadCast(this.idBroadcast).subscribe(
-  //     res => {
-  //       this.dataBroadcast = res['data'];
-  //       loader.dismiss();
-  //     },
-  //     err => {
-  //       loader.dismiss();
-  //       this.showToast(err.data.message);
-  //       // jika data not found
-  //       this.navCtrl.back();
-  //     }
-  //   );
-  // }
 
   // Called when view is left
   ionViewWillLeave() {
