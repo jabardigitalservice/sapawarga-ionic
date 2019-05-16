@@ -2,12 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import {
   NavController,
   LoadingController,
-  ToastController,
-  Platform
+  ToastController
 } from '@ionic/angular';
 import { ActivatedRoute } from '@angular/router';
 import { Broadcast } from '../../interfaces/broadcast';
-import { BroadcastService } from '../../services/broadcast.service';
 
 @Component({
   selector: 'app-broadcast-detail',
@@ -19,13 +17,9 @@ export class BroadcastDetailPage implements OnInit {
   constructor(
     private navCtrl: NavController,
     private route: ActivatedRoute,
-    private broadcastService: BroadcastService,
     public loadingCtrl: LoadingController,
-    public toastCtrl: ToastController,
-    private platform: Platform
-  ) {
-    this.backbuttonEvent();
-  }
+    public toastCtrl: ToastController
+  ) {}
 
   ngOnInit() {
     // get data detail Broadcast
@@ -37,11 +31,20 @@ export class BroadcastDetailPage implements OnInit {
   // Called when view is left
   ionViewWillLeave() {
     // Unregister the custom back button action for this page
-    this.navCtrl.navigateForward('/tabs/broadcasts');
+    if (!this.dataBroadcast['push_notification']) {
+      this.navCtrl.navigateForward('/tabs/broadcasts');
+    } else {
+      this.navCtrl.navigateRoot('/tabs/broadcasts');
+    }
   }
 
   backButton() {
-    this.navCtrl.navigateForward('/tabs/broadcasts');
+    // check navigate before, from push notification or not
+    if (!this.dataBroadcast['push_notification']) {
+      this.navCtrl.navigateForward('/tabs/broadcasts');
+    } else {
+      this.navCtrl.navigateRoot('/tabs/broadcasts');
+    }
   }
 
   async showToast(msg: string) {
