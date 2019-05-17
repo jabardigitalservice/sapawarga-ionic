@@ -6,6 +6,7 @@ import { catchError } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 
 const BROADCAST_KEY = 'broadcast';
+const BROADCAST = 'broadcast-data';
 @Injectable({
   providedIn: 'root'
 })
@@ -32,6 +33,18 @@ export class BroadcastService {
   // save token into local storage
   getlocalBroadcast() {
     return JSON.parse(localStorage.getItem(BROADCAST_KEY));
+  }
+
+  // save Broadcast into local storage
+  saveLocalBroadcast(data: object) {
+    localStorage.setItem(BROADCAST, JSON.stringify(data));
+  }
+
+  // get Broadcast into local storage
+  getLocalBroadcast() {
+    return localStorage.getItem(BROADCAST)
+      ? localStorage.getItem(BROADCAST)
+      : '';
   }
 
   private handleError(error: HttpErrorResponse) {

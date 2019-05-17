@@ -7,6 +7,7 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { Pages } from './interfaces/pages';
 import { AuthService } from './services/auth.service';
 import { FCM } from '@ionic-native/fcm/ngx';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -23,7 +24,8 @@ export class AppComponent {
     private statusBar: StatusBar,
     public navCtrl: NavController,
     private authService: AuthService,
-    private fcm: FCM
+    private fcm: FCM,
+    private router: Router
   ) {
     this.initializeApp();
   }
@@ -39,8 +41,14 @@ export class AppComponent {
           console.log(data);
           if (data.wasTapped) {
             console.log('Received in background');
+            this.router.navigate([data.target, data.title], {
+              queryParams: data
+            });
           } else {
             console.log('Received in foreground');
+            this.router.navigate([data.target, data.title], {
+              queryParams: data
+            });
           }
         });
 
