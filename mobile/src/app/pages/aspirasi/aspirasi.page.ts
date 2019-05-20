@@ -99,11 +99,18 @@ export class AspirasiPage implements OnInit {
 
   doLike(id: number) {
     console.log(id);
+
+    this.aspirasiService.likeAspirasi(id).subscribe(
+      res => {
+        console.log(res);
+      },
+      err => {}
+    );
   }
 
-  // check if data isRead/UnRead
-  checklike(id: number) {
-    return this.dataAspirasi.filter(x => x.likes_users.id === id).length > 0;
+  // check if data isLove/UnLove
+  checklike(data_likes: any, id: number) {
+    return data_likes.filter(x => x.id === id).length > 0;
   }
 
   async showToast(msg: string) {

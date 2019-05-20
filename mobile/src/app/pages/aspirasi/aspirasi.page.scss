@@ -1,10 +1,18 @@
 :host {
-    ion-card-header {
-        padding-bottom: unset !important;
-    }
+  ion-card-header {
+    padding-bottom: unset !important;
+  }
 }
 
 .icon-heart {
-    margin-top: 3px;
-    font-size: 25px;
+  margin-top: 3px;
+  font-size: 25px;
+}
+
+.liked {
+  --color: var(--ion-color-danger);
+}
+
+.unliked {
+  --color: var(--ion-color-medium);
 }

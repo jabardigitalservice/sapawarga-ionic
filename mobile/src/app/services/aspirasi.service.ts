@@ -25,6 +25,12 @@ export class AspirasiService {
       .pipe(catchError(this.handleError));
   }
 
+  likeAspirasi(id: number): Observable<any> {
+    return this.http
+      .post(`${environment.API_URL}/aspirasi/likes/${id}`, {})
+      .pipe(catchError(this.handleError));
+  }
+
   // save Aspirasi into local storage
   saveLocalAspirasi(data: object) {
     localStorage.setItem(ASPIRASI, JSON.stringify(data));
