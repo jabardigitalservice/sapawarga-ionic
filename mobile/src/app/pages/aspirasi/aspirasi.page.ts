@@ -97,6 +97,15 @@ export class AspirasiPage implements OnInit {
     }, 2000);
   }
 
+  doLike(id: number) {
+    console.log(id);
+  }
+
+  // check if data isRead/UnRead
+  checklike(id: number) {
+    return this.dataAspirasi.filter(x => x.likes_users.id === id).length > 0;
+  }
+
   async showToast(msg: string) {
     const toast = await this.toastCtrl.create({
       message: msg,
