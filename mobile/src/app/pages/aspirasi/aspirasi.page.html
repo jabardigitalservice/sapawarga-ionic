@@ -33,7 +33,7 @@
       <div class="d-inline-f">
         <ion-icon
           name="heart"
-          [color]="checklike(aspirasi.likes_users, 1) ? 'danger' : 'medium'"
+          [color]="checklike(aspirasi.likes_users) ? 'danger' : 'medium'"
           class="icon-heart"
           (click)="doLike(aspirasi.id)"
         ></ion-icon>

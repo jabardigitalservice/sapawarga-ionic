@@ -13,6 +13,7 @@ import { Aspirasi } from '../../interfaces/aspirasi';
 })
 export class AspirasiPage implements OnInit {
   records: [];
+  idUser: number;
   dataAspirasi: Aspirasi[];
   dataRead = [];
   dataEmpty = false;
@@ -29,6 +30,7 @@ export class AspirasiPage implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.idUser = JSON.parse(localStorage.getItem('PROFILE')).id;
     setTimeout(() => {
       this.dataAspirasi = [];
       this.getListAspirasi();
@@ -109,8 +111,8 @@ export class AspirasiPage implements OnInit {
   }
 
   // check if data isLove/UnLove
-  checklike(data_likes: any, id: number) {
-    return data_likes.filter(x => x.id === id).length > 0;
+  checklike(data_likes: any) {
+    return data_likes.filter(x => x.id === this.idUser).length > 0;
   }
 
   async showToast(msg: string) {
