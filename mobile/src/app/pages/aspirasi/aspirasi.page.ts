@@ -100,7 +100,7 @@ export class AspirasiPage implements OnInit {
       let index = this.dataLikes.findIndex(x => x.id === id);
       this.dataLikes.splice(index, 1);
     } else {
-      // save to state
+      // save data to state
       this.savestateLikes(id);
     }
 
@@ -115,10 +115,6 @@ export class AspirasiPage implements OnInit {
   // check user he ever likes
   checklike(data_likes: any) {
     return data_likes.filter(x => x.id === this.idUser).length > 0;
-  }
-
-  hapus() {
-    this.dataLikes.splice(0, 1);
   }
 
   // check if data like/non

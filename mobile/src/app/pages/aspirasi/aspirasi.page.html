@@ -42,11 +42,15 @@
           (click)="doLike(aspirasi.id, checkStateLike(aspirasi.id))"
         ></ion-icon>
         <p style="margin: 5px;">
-          {{ aspirasi.likes_users.length }} orang menyukai ini.
+          {{
+            checkStateLike(aspirasi.id)
+              ? aspirasi.likes_counts + 1
+              : aspirasi.likes_counts
+          }}
+          orang menyukai ini.
         </p>
       </div>
     </ion-card-content>
-    <button (click)="hapus()">pus</button>
   </ion-card>
 
   <!-- Skeleton screen -->
