@@ -8,20 +8,96 @@
 </ion-header>
 
 <ion-content>
-  <ion-card *ngFor="let record of records" (click)="goDetail(record['id'])">
-    <img src="{{ record['photo'] }}" />
+  <div class="ion-text-center" *ngIf="dataEmpty">Tidak ada Aspirasi</div>
+
+  <!-- Data to display after skeleton screen -->
+  <ion-card
+    *ngFor="let aspirasi of dataAspirasi"
+    (click)="goDetail(aspirasi.id)"
+  >
+    <img src="{{ aspirasi.attachments[0].url }}" />
     <ion-card-header>
-      <ion-card-subtitle class="dark-read">{{ record['category']['name'] }}</ion-card-subtitle>
-      <ion-card-title>{{ record['title'] }}</ion-card-title>
+      <ion-card-subtitle class="dark-read">{{
+        aspirasi.category.name
+      }}</ion-card-subtitle>
+      <ion-card-title>{{ aspirasi.title }}</ion-card-title>
     </ion-card-header>
 
     <ion-card-content style="padding-top: 0">
       <div style="margin: 15px 0">
-        {{ record['kabkota']['name'] }}, {{ record['kecamatan']['name'] }}, {{ record['kelurahan']['name'] }}
+        {{ aspirasi.kabkota.name }}, {{ aspirasi.kecamatan.name }},
+        {{ aspirasi.kelurahan.name }}
       </div>
       <div>
-        <ion-icon name="heart" color="danger"></ion-icon> 150 orang menyukai ini.
+        <ion-icon name="heart" color="danger"></ion-icon>
+        {{ aspirasi.likes_users.length }} orang menyukai ini.
       </div>
     </ion-card-content>
   </ion-card>
+
+  <!-- Skeleton screen -->
+  <div *ngIf="!dataAspirasi">
+    <ion-card>
+      <ion-thumbnail slot="start" style="width: 100%; height: 160px;">
+        <ion-skeleton-text animated></ion-skeleton-text>
+      </ion-thumbnail>
+      <ion-card-header>
+        <ion-card-subtitle class="dark-read"
+          ><ion-skeleton-text animated style="width: 40%"></ion-skeleton-text
+        ></ion-card-subtitle>
+        <ion-card-title
+          ><ion-skeleton-text animated style="width: 90%"></ion-skeleton-text
+          ><ion-skeleton-text animated style="width: 80%"></ion-skeleton-text
+        ></ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content style="padding-top: 0">
+        <div style="margin: 15px 0">
+          <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+          <ion-skeleton-text animated style="width: 30%"></ion-skeleton-text>
+        </div>
+        <div>
+          <ion-skeleton-text animated style="width: 40%"></ion-skeleton-text>
+        </div>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card>
+      <ion-thumbnail slot="start" style="width: 100%; height: 160px;">
+        <ion-skeleton-text animated></ion-skeleton-text>
+      </ion-thumbnail>
+      <ion-card-header>
+        <ion-card-subtitle class="dark-read"
+          ><ion-skeleton-text animated style="width: 40%"></ion-skeleton-text
+        ></ion-card-subtitle>
+        <ion-card-title
+          ><ion-skeleton-text animated style="width: 90%"></ion-skeleton-text
+          ><ion-skeleton-text animated style="width: 80%"></ion-skeleton-text
+        ></ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content style="padding-top: 0">
+        <div style="margin: 15px 0">
+          <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+          <ion-skeleton-text animated style="width: 30%"></ion-skeleton-text>
+        </div>
+        <div>
+          <ion-skeleton-text animated style="width: 40%"></ion-skeleton-text>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <!-- infinite scroll -->
+  <ion-infinite-scroll
+    threshold="100px"
+    (ionInfinite)="doInfinite($event)"
+    *ngIf="dataAspirasi"
+  >
+    <ion-infinite-scroll-content
+      loadingSpinner="bubbles"
+      loadingText="Sedang mengambil data..."
+    >
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 </ion-content>
