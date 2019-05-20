@@ -33,15 +33,20 @@
       <div class="d-inline-f">
         <ion-icon
           name="heart"
-          [color]="checklike(aspirasi.likes_users) ? 'danger' : 'medium'"
+          [color]="
+            checklike(aspirasi.likes_users) || checkStateLike(aspirasi.id)
+              ? 'danger'
+              : 'medium'
+          "
           class="icon-heart"
-          (click)="doLike(aspirasi.id)"
+          (click)="doLike(aspirasi.id, checkStateLike(aspirasi.id))"
         ></ion-icon>
         <p style="margin: 5px;">
           {{ aspirasi.likes_users.length }} orang menyukai ini.
         </p>
       </div>
     </ion-card-content>
+    <button (click)="hapus()">pus</button>
   </ion-card>
 
   <!-- Skeleton screen -->
