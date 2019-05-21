@@ -19,6 +19,12 @@ export class AspirasiService {
       .pipe(catchError(this.handleError));
   }
 
+  getMyListAspirasi(page: number): Observable<Aspirasi[]> {
+    return this.http
+      .get<Aspirasi[]>(`${environment.API_MOCK}/aspirasi/me?page=${page}`)
+      .pipe(catchError(this.handleError));
+  }
+
   getDetailAspirasi(id: number): Observable<Aspirasi> {
     return this.http
       .get<Aspirasi>(`${environment.API_MOCK}/aspirasi/${id}`)

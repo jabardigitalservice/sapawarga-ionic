@@ -3,12 +3,7 @@
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <ion-title>Aspirasi</ion-title>
-    <ion-buttons slot="end" (click)="goMyAspirasi()">
-      <ion-button shape="round" color="dark">
-        <ion-icon name="bookmarks"></ion-icon>
-      </ion-button>
-    </ion-buttons>
+    <ion-title>aspirasi-user</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -35,27 +30,16 @@
         {{ aspirasi.kabkota.name }}, {{ aspirasi.kecamatan.name }},
         {{ aspirasi.kelurahan.name }}
       </div>
-      <div class="d-inline-f">
-        <ion-icon
-          name="heart"
-          [color]="
-            checklike(aspirasi.likes_users) || checkStateLike(aspirasi.id)
-              ? 'danger'
-              : 'medium'
-          "
-          class="icon-heart"
-          (click)="doLike(aspirasi.id, checkStateLike(aspirasi.id))"
-        ></ion-icon>
+      <!-- <div class="d-inline-f" slot="end">
         <p *ngIf="aspirasi.likes_counts" style="margin: 5px;">
-          {{
-            checkStateLike(aspirasi.id)
-              ? aspirasi.likes_counts + 1
-              : aspirasi.likes_counts
-          }}
-          orang menyukai ini.
+          1 orang menyukai ini.
         </p>
-      </div>
+      </div> -->
     </ion-card-content>
+    <ion-item>
+      <!-- <ion-icon name="walk" slot="start"></ion-icon> -->
+      <ion-text slot="end" class="font-footer"><p>Draft</p></ion-text>
+    </ion-item>
   </ion-card>
 
   <!-- Skeleton screen -->
@@ -111,16 +95,10 @@
     </ion-card>
   </div>
 
-  <!-- infinite scroll -->
-  <ion-infinite-scroll
-    threshold="100px"
-    (ionInfinite)="doInfinite($event)"
-    *ngIf="dataAspirasi"
-  >
-    <ion-infinite-scroll-content
-      loadingSpinner="bubbles"
-      loadingText="Sedang mengambil data..."
-    >
-    </ion-infinite-scroll-content>
-  </ion-infinite-scroll>
+  <!-- fab placed to the bottom end -->
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button color="success">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>

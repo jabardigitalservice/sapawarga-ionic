@@ -1,0 +1,15 @@
+:host {
+  ion-card-header {
+    padding-bottom: unset !important;
+  }
+
+  ion-item {
+    --inner-border-width: 1px 0px 0px 0;
+    --padding-start: 0px;
+  }
+}
+
+.font-footer {
+  font-size: 14px;
+  --color: var(--ion-color-step-550, #737373);
+}
