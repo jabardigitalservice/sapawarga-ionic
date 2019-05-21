@@ -18,7 +18,9 @@
   <!-- Data to display after skeleton screen -->
   <ion-card *ngFor="let aspirasi of dataAspirasi">
     <img
-      src="{{ aspirasi.attachments[0].url }}"
+      src="{{
+        aspirasi.attachments[0].url ? aspirasi.attachments[0].url : defaut_img
+      }}"
       (click)="goDetail(aspirasi.id)"
     />
     <ion-card-header>

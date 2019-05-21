@@ -15,19 +15,19 @@ export class AspirasiService {
 
   getListAspirasi(page: number): Observable<Aspirasi[]> {
     return this.http
-      .get<Aspirasi[]>(`${environment.API_MOCK}/aspirasi?page=${page}`)
+      .get<Aspirasi[]>(`${environment.API_URL}/aspirasi?page=${page}`)
       .pipe(catchError(this.handleError));
   }
 
   getMyListAspirasi(page: number): Observable<Aspirasi[]> {
     return this.http
-      .get<Aspirasi[]>(`${environment.API_MOCK}/aspirasi/me?page=${page}`)
+      .get<Aspirasi[]>(`${environment.API_URL}/aspirasi/me?page=${page}`)
       .pipe(catchError(this.handleError));
   }
 
   getDetailAspirasi(id: number): Observable<Aspirasi> {
     return this.http
-      .get<Aspirasi>(`${environment.API_MOCK}/aspirasi/${id}`)
+      .get<Aspirasi>(`${environment.API_URL}/aspirasi/${id}`)
       .pipe(catchError(this.handleError));
   }
 

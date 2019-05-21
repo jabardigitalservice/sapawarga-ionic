@@ -17,6 +17,8 @@ export class AspirasiPage implements OnInit {
   maximumPages: number;
   dataLikes = [];
 
+  defaut_img = 'assets/img/placeholder_image.png';
+
   constructor(
     private aspirasiService: AspirasiService,
     public loadingCtrl: LoadingController,
