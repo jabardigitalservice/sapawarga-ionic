@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
-
-import records from '../../../assets/data/aspirasi-list';
+import { Router } from '@angular/router';
 import { AspirasiService } from '../../services/aspirasi.service';
 import { LoadingController, ToastController } from '@ionic/angular';
 import { Aspirasi } from '../../interfaces/aspirasi';
@@ -12,14 +10,12 @@ import { Aspirasi } from '../../interfaces/aspirasi';
   styleUrls: ['./aspirasi.page.scss']
 })
 export class AspirasiPage implements OnInit {
-  records: [];
+  idUser: number;
   dataAspirasi: Aspirasi[];
-  dataRead = [];
   dataEmpty = false;
   currentPage = 1;
   maximumPages: number;
-
-  data: any;
+  dataLikes = [];
 
   constructor(
     private aspirasiService: AspirasiService,
@@ -29,6 +25,7 @@ export class AspirasiPage implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.idUser = JSON.parse(localStorage.getItem('PROFILE')).id;
     setTimeout(() => {
       this.dataAspirasi = [];
       this.getListAspirasi();
@@ -95,6 +92,42 @@ export class AspirasiPage implements OnInit {
     setTimeout(() => {
       this.getListAspirasi(event);
     }, 2000);
+  }
+
+  doLike(id: number, checkLike: boolean) {
+    if (checkLike) {
+      // check index from state dataLikes if data match remove dataLikes by index
+      let index = this.dataLikes.findIndex(x => x.id === id);
+      this.dataLikes.splice(index, 1);
+    } else {
+      // save data to state
+      this.savestateLikes(id);
+    }
+
+    this.aspirasiService.likeAspirasi(id).subscribe(
+      res => {
+        console.log(res);
+      },
+      err => {}
+    );
+  }
+
+  // check user he ever likes
+  checklike(data_likes: any) {
+    return data_likes.filter(x => x.id === this.idUser).length > 0;
+  }
+
+  // check if data like/non
+  checkStateLike(id: number) {
+    return this.dataLikes.filter(x => x.id === id).length > 0;
+  }
+
+  savestateLikes(id: number) {
+    let like = {
+      id: id,
+      liked: true
+    };
+    this.dataLikes.push(like);
   }
 
   async showToast(msg: string) {
