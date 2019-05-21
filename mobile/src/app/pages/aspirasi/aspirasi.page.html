@@ -16,10 +16,11 @@
   <div class="ion-text-center" *ngIf="dataEmpty">Tidak ada Aspirasi</div>
 
   <!-- Data to display after skeleton screen -->
-  <ion-card *ngFor="let aspirasi of dataAspirasi">
+  <ion-card *ngFor="let aspirasi of dataAspirasi; let i = index">
     <img
+      class="img-cover"
       src="{{
-        aspirasi.attachments[0].url
+        aspirasi.attachments !== null
           ? aspirasi.attachments[0].url
           : '../../../assets/img/placeholder_image.png'
       }}"
@@ -44,14 +45,16 @@
           name="heart"
           [color]="checkStateLike(aspirasi.id) ? 'danger' : 'medium'"
           class="icon-heart"
-          (click)="doLike(aspirasi.id, checkStateLike(aspirasi.id))"
+          (click)="
+            doLike(
+              aspirasi.id,
+              checkStateLike(aspirasi.id),
+              aspirasi.likes_count
+            )
+          "
         ></ion-icon>
-        <p *ngIf="aspirasi.likes_counts" style="margin: 5px;">
-          {{
-            checkStateLike(aspirasi.id)
-              ? aspirasi.likes_counts + 1
-              : aspirasi.likes_counts
-          }}
+        <p *ngIf="checkCountLike(aspirasi.id)" style="margin: 5px;">
+          {{ checkCountLike(aspirasi.id) }}
           orang menyukai ini.
         </p>
       </div>
