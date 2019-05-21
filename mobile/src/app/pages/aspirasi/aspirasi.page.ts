@@ -104,12 +104,7 @@ export class AspirasiPage implements OnInit {
       this.savestateLikes(id);
     }
 
-    this.aspirasiService.likeAspirasi(id).subscribe(
-      res => {
-        console.log(res);
-      },
-      err => {}
-    );
+    this.aspirasiService.likeAspirasi(id).subscribe(res => {}, err => {});
   }
 
   // check user he ever likes
