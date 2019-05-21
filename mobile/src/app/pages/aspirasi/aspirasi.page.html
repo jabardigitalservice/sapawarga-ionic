@@ -41,7 +41,7 @@
           class="icon-heart"
           (click)="doLike(aspirasi.id, checkStateLike(aspirasi.id))"
         ></ion-icon>
-        <p style="margin: 5px;">
+        <p *ngIf="aspirasi.likes_counts" style="margin: 5px;">
           {{
             checkStateLike(aspirasi.id)
               ? aspirasi.likes_counts + 1
