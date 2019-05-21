@@ -101,6 +101,11 @@ export class AspirasiPage implements OnInit {
     this.router.navigate(['/aspirasi-user']);
   }
 
+  // go to my aspirasi
+  goMyAspirasi() {
+    this.router.navigate(['/aspirasi-user']);
+  }
+
   // go to detail with param id
   goDetail(id: number) {
     this.router.navigate(['/aspirasi', id]);

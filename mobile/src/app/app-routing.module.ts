@@ -92,6 +92,11 @@ const routes: Routes = [
   {
     path: 'e-samsat',
     loadChildren: './pages/e-samsat/e-samsat.module#ESamsatPageModule'
+  },
+  {
+    path: 'aspirasi-user',
+    loadChildren:
+      './pages/aspirasi-user/aspirasi-user.module#AspirasiUserPageModule'
   }
 ];
 
