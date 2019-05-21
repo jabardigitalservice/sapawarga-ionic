@@ -17,6 +17,8 @@ export class AspirasiPage implements OnInit {
   maximumPages: number;
   dataLikes = [];
 
+  defaut_img = 'assets/img/placeholder_image.png';
+
   constructor(
     private aspirasiService: AspirasiService,
     public loadingCtrl: LoadingController,
@@ -53,6 +55,8 @@ export class AspirasiPage implements OnInit {
         if (res['data']['items'].length) {
           this.dataAspirasi = this.dataAspirasi.concat(res['data']['items']);
 
+          this.dataLikes = this.initState(this.dataAspirasi);
+
           // save to local
           this.aspirasiService.saveLocalAspirasi(this.dataAspirasi);
         } else {
@@ -73,6 +77,25 @@ export class AspirasiPage implements OnInit {
         }
       }
     );
+  }
+
+  initState(data: any) {
+    let datas = [];
+    for (let index in data) {
+      if (data.length) {
+        let data_like = {
+          id: data[index].id,
+          liked:
+            data[index].likes_users.filter(x => x.id === this.idUser).length > 0
+        };
+        datas.push(data_like);
+      }
+    }
+    return datas;
+  }
+  // go to my aspirasi
+  goMyAspirasi() {
+    this.router.navigate(['/aspirasi-user']);
   }
 
   // go to detail with param id
@@ -96,31 +119,23 @@ export class AspirasiPage implements OnInit {
 
   doLike(id: number, checkLike: boolean) {
     if (checkLike) {
-      // check index from state dataLikes if data match remove dataLikes by index
-      let index = this.dataLikes.findIndex(x => x.id === id);
-      this.dataLikes.splice(index, 1);
+      this.dataLikes.find(x => x.id === id).liked = false;
     } else {
-      // save data to state
-      this.savestateLikes(id);
+      this.dataLikes.find(x => x.id === id).liked = true;
     }
 
     this.aspirasiService.likeAspirasi(id).subscribe(res => {}, err => {});
   }
 
-  // check user he ever likes
-  checklike(data_likes: any) {
-    return data_likes.filter(x => x.id === this.idUser).length > 0;
-  }
-
   // check if data like/non
   checkStateLike(id: number) {
-    return this.dataLikes.filter(x => x.id === id).length > 0;
+    return this.dataLikes.filter(x => x.id === id && x.liked).length > 0;
   }
 
-  savestateLikes(id: number) {
+  savestateLikes(id: number, liked: boolean) {
     let like = {
       id: id,
-      liked: true
+      liked: liked
     };
     this.dataLikes.push(like);
   }

@@ -1,9 +1,14 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="light">
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
     <ion-title>Aspirasi</ion-title>
+    <ion-buttons slot="end" (click)="goMyAspirasi()">
+      <ion-button shape="round" color="dark">
+        <ion-icon name="bookmarks"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -13,7 +18,11 @@
   <!-- Data to display after skeleton screen -->
   <ion-card *ngFor="let aspirasi of dataAspirasi">
     <img
-      src="{{ aspirasi.attachments[0].url }}"
+      src="{{
+        aspirasi.attachments[0].url
+          ? aspirasi.attachments[0].url
+          : '../../../assets/img/placeholder_image.png'
+      }}"
       (click)="goDetail(aspirasi.id)"
     />
     <ion-card-header>
@@ -33,11 +42,7 @@
       <div class="d-inline-f">
         <ion-icon
           name="heart"
-          [color]="
-            checklike(aspirasi.likes_users) || checkStateLike(aspirasi.id)
-              ? 'danger'
-              : 'medium'
-          "
+          [color]="checkStateLike(aspirasi.id) ? 'danger' : 'medium'"
           class="icon-heart"
           (click)="doLike(aspirasi.id, checkStateLike(aspirasi.id))"
         ></ion-icon>
