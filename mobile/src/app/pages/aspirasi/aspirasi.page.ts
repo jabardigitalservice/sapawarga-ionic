@@ -45,6 +45,7 @@ export class AspirasiPage implements OnInit {
       }
       // get local
       this.dataAspirasi = JSON.parse(this.aspirasiService.getLocalAspirasi());
+      this.dataLikes = this.dataAspirasi;
       return;
     }
 
@@ -54,6 +55,8 @@ export class AspirasiPage implements OnInit {
       res => {
         if (res['data']['items'].length) {
           this.dataAspirasi = this.dataAspirasi.concat(res['data']['items']);
+
+          this.dataLikes = this.initState(this.dataAspirasi);
 
           // save to local
           this.aspirasiService.saveLocalAspirasi(this.dataAspirasi);
@@ -75,6 +78,27 @@ export class AspirasiPage implements OnInit {
         }
       }
     );
+  }
+
+  initState(data: any) {
+    let datas = [];
+    for (let index in data) {
+      if (data.length) {
+        let data_like = {
+          id: data[index].id,
+          liked:
+            data[index].likes_users.filter(x => x.id === this.idUser).length >
+            0,
+          likes_count: data[index].likes_count
+        };
+        datas.push(data_like);
+      }
+    }
+    return datas;
+  }
+  // go to my aspirasi
+  goMyAspirasi() {
+    this.router.navigate(['/aspirasi-user']);
   }
 
   // go to my aspirasi
@@ -101,40 +125,30 @@ export class AspirasiPage implements OnInit {
     }, 2000);
   }
 
-  doLike(id: number, checkLike: boolean) {
+  doLike(id: number, checkLike: boolean, totalLike: number) {
     if (checkLike) {
-      // check index from state dataLikes if data match remove dataLikes by index
-      let index = this.dataLikes.findIndex(x => x.id === id);
-      this.dataLikes.splice(index, 1);
+      // set unlike
+      this.dataLikes.find(x => x.id === id).liked = false;
+      // set total like
+      this.dataLikes.find(x => x.id === id).likes_count--;
     } else {
-      // save data to state
-      this.savestateLikes(id);
+      // set like
+      this.dataLikes.find(x => x.id === id).liked = true;
+      // set total like + 1
+      this.dataLikes.find(x => x.id === id).likes_count++;
     }
 
-    this.aspirasiService.likeAspirasi(id).subscribe(
-      res => {
-        console.log(res);
-      },
-      err => {}
-    );
-  }
-
-  // check user he ever likes
-  checklike(data_likes: any) {
-    return data_likes.filter(x => x.id === this.idUser).length > 0;
+    this.aspirasiService.likeAspirasi(id).subscribe(res => {}, err => {});
   }
 
   // check if data like/non
   checkStateLike(id: number) {
-    return this.dataLikes.filter(x => x.id === id).length > 0;
+    return this.dataLikes.filter(x => x.id === id && x.liked).length > 0;
   }
 
-  savestateLikes(id: number) {
-    let like = {
-      id: id,
-      liked: true
-    };
-    this.dataLikes.push(like);
+  // check total likes
+  checkCountLike(id: number) {
+    return this.dataLikes.find(x => x.id === id).likes_count;
   }
 
   async showToast(msg: string) {
