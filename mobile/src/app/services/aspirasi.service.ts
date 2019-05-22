@@ -6,6 +6,7 @@ import { Aspirasi } from '../interfaces/aspirasi';
 import { environment } from '../../environments/environment';
 
 const ASPIRASI = 'aspirasi';
+const ASPIRASI_LIKES = 'aspirasi-likes';
 
 @Injectable({
   providedIn: 'root'
@@ -45,6 +46,18 @@ export class AspirasiService {
   // get Aspirasi into local storage
   getLocalAspirasi() {
     return localStorage.getItem(ASPIRASI) ? localStorage.getItem(ASPIRASI) : '';
+  }
+
+  // save Aspirasi into local storage
+  saveLocalLikes(data: object) {
+    localStorage.setItem(ASPIRASI_LIKES, JSON.stringify(data));
+  }
+
+  // get Aspirasi into local storage
+  getLocalLikes() {
+    return localStorage.getItem(ASPIRASI_LIKES)
+      ? localStorage.getItem(ASPIRASI_LIKES)
+      : '';
   }
 
   private handleError(error: HttpErrorResponse) {
