@@ -37,7 +37,7 @@ export class AspirasiAddPage implements OnInit {
         [Validators.required, Validators.minLength(3), Validators.maxLength(12)]
       ],
       address: ['', [Validators.required, Validators.maxLength(255)]],
-      kabkota_id: { value: '', disabled: true }
+      kabkota_id: ['']
     });
   }
 

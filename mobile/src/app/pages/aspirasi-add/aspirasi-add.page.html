@@ -16,12 +16,61 @@
       <ion-row class="ion-padding-start ion-margin-top">
         <ion-col size="4">
           <div class="profile-content">
-            <ion-label>Nama<span class="ion-text-right">:</span></ion-label>
+            <ion-label>Kategori<span class="ion-text-right">:</span></ion-label>
           </div>
         </ion-col>
         <ion-col>
           <div class="profile-data">
-            <ion-label>sadsa</ion-label>
+            <ion-select
+              formControlName="kabkota_id"
+              okText="Pilih"
+              cancelText="Batal"
+              (ngModelChange)="onChanges('kabkota')"
+              placeholder="Pilih Kab/Kota"
+            >
+              <ion-select placeholder="Select One">
+                <ion-select-option value="f">Female</ion-select-option>
+                <ion-select-option value="m">Male</ion-select-option>
+              </ion-select>
+            </ion-select>
+          </div>
+        </ion-col>
+      </ion-row>
+
+      <ion-row class="ion-padding-start ion-margin-top">
+        <ion-col size="4">
+          <div class="profile-content">
+            <ion-label>Judul <span class="ion-text-right">:</span></ion-label>
+          </div>
+        </ion-col>
+        <ion-col>
+          <div class="profile-data">
+            <ion-textarea
+              rows="6"
+              formControlName="name"
+              [ngClass]="{ 'is-invalid': submitted && f.name.errors }"
+              placeholder="Masukkan nama anda"
+            ></ion-textarea>
+          </div>
+        </ion-col>
+      </ion-row>
+
+      <ion-row class="ion-padding-start ion-margin-top">
+        <ion-col size="4">
+          <div class="profile-content">
+            <ion-label
+              >Detail Aspirasi <span class="ion-text-right">:</span></ion-label
+            >
+          </div>
+        </ion-col>
+        <ion-col>
+          <div class="profile-data">
+            <ion-textarea
+              rows="6"
+              formControlName="username"
+              [ngClass]="{ 'is-invalid': submitted && f.username.errors }"
+              placeholder="Masukkan nama anda"
+            ></ion-textarea>
           </div>
         </ion-col>
       </ion-row>
