@@ -39,19 +39,21 @@ export class AspirasiUserPage implements OnInit {
         infiniteScroll.target.complete();
       }
       // get local
-      this.dataAspirasi = JSON.parse(this.aspirasiService.getLocalAspirasi());
+      this.dataAspirasi = JSON.parse(
+        this.aspirasiService.getLocalAspirasiUser()
+      );
       return;
     }
 
     this.dataEmpty = false;
 
-    this.aspirasiService.getListAspirasi(this.currentPage).subscribe(
+    this.aspirasiService.getMyListAspirasi(this.currentPage).subscribe(
       res => {
         if (res['data']['items'].length) {
           this.dataAspirasi = this.dataAspirasi.concat(res['data']['items']);
           console.log(this.dataAspirasi);
           // save to local
-          // this.aspirasiService.saveLocalAspirasi(this.dataAspirasi);
+          this.aspirasiService.saveLocalAspirasiUser(this.dataAspirasi);
         } else {
           this.dataEmpty = true;
         }
@@ -70,5 +72,26 @@ export class AspirasiUserPage implements OnInit {
         }
       }
     );
+  }
+
+  checkStatus(status: number) {
+    switch (status) {
+      case 5:
+        return 'primary';
+        break;
+      case 10:
+        return 'success';
+        break;
+      case 3:
+        return 'danger';
+        break;
+      case 0:
+        return 'warning';
+        break;
+      case -1:
+        return 'danger';
+      default:
+        break;
+    }
   }
 }
