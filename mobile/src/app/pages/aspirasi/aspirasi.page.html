@@ -18,12 +18,19 @@
   <!-- Data to display after skeleton screen -->
   <ion-card *ngFor="let aspirasi of dataAspirasi; let i = index">
     <img
+      *ngIf="!offline"
       class="img-cover"
       src="{{
         aspirasi.attachments !== null
           ? aspirasi.attachments[0].url
           : '../../../assets/img/placeholder_image.png'
       }}"
+      (click)="goDetail(aspirasi.id)"
+    />
+    <img
+      *ngIf="offline"
+      class="img-cover"
+      src="../../../assets/img/placeholder_image.png"
       (click)="goDetail(aspirasi.id)"
     />
     <ion-card-header>

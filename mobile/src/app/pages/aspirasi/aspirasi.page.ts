@@ -17,6 +17,8 @@ export class AspirasiPage implements OnInit {
   maximumPages: number;
   dataLikes = [];
 
+  offline = false;
+
   defaut_img = 'assets/img/placeholder_image.png';
 
   constructor(
@@ -36,16 +38,18 @@ export class AspirasiPage implements OnInit {
 
   // get data broadcasts
   async getListAspirasi(infiniteScroll?: any) {
+    this.offline = false;
     // check internet
     if (!navigator.onLine) {
       // stop infinite scroll
+      this.offline = true;
       if (infiniteScroll) {
         alert('Tidak ada jaringan internet');
         infiniteScroll.target.complete();
       }
       // get local
       this.dataAspirasi = JSON.parse(this.aspirasiService.getLocalAspirasi());
-      this.dataLikes = this.dataAspirasi;
+      this.dataLikes = JSON.parse(this.aspirasiService.getLocalLikes());
       return;
     }
 
@@ -58,8 +62,11 @@ export class AspirasiPage implements OnInit {
 
           this.dataLikes = this.initState(this.dataAspirasi);
 
-          // save to local
+          // save data aspirasi to local
           this.aspirasiService.saveLocalAspirasi(this.dataAspirasi);
+
+          // save likes to local
+          this.aspirasiService.saveLocalLikes(this.dataLikes);
         } else {
           this.dataEmpty = true;
         }
@@ -121,6 +128,12 @@ export class AspirasiPage implements OnInit {
   }
 
   doLike(id: number, checkLike: boolean, totalLike: number) {
+    // check internet
+    if (!navigator.onLine) {
+      alert('Tidak ada koneksi internet');
+      return;
+    }
+
     if (checkLike) {
       // set unlike
       this.dataLikes.find(x => x.id === id).liked = false;
@@ -133,7 +146,11 @@ export class AspirasiPage implements OnInit {
       this.dataLikes.find(x => x.id === id).likes_count++;
     }
 
+    // save liketo server
     this.aspirasiService.likeAspirasi(id).subscribe(res => {}, err => {});
+
+    // save likes to local
+    this.aspirasiService.saveLocalLikes(this.dataLikes);
   }
 
   // check if data like/non
