@@ -35,8 +35,8 @@
       }}</ion-card-title>
     </ion-card-header>
 
-    <ion-card-content style="padding-top: 0">
-      <div (click)="goDetail(aspirasi.id)" style="margin: 15px 0">
+    <ion-card-content>
+      <div class="address" (click)="goDetail(aspirasi.id)">
         {{ aspirasi.kabkota.name }}, {{ aspirasi.kecamatan.name }},
         {{ aspirasi.kelurahan.name }}
       </div>
@@ -53,7 +53,7 @@
             )
           "
         ></ion-icon>
-        <p *ngIf="checkCountLike(aspirasi.id)" style="margin: 5px;">
+        <p class="text-like" *ngIf="checkCountLike(aspirasi.id)">
           {{ checkCountLike(aspirasi.id) }}
           orang menyukai ini.
         </p>
