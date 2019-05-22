@@ -33,9 +33,9 @@ export class AspirasiUserPage implements OnInit {
   async getListAspirasi(infiniteScroll?: any) {
     // check internet
     if (!navigator.onLine) {
+      alert('Tidak ada jaringan internet');
       // stop infinite scroll
       if (infiniteScroll) {
-        alert('Tidak ada jaringan internet');
         infiniteScroll.target.complete();
       }
       // get local
