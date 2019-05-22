@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-toolbar color="light">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Tambah Aspirasi</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid fixed no-padding>
+    <form
+      [formGroup]="formAddAspirasi"
+      (ngSubmit)="onFormSubmit(formAddAspirasi.getRawValue())"
+    >
+      <ion-row class="ion-padding-start ion-margin-top">
+        <ion-col size="4">
+          <div class="profile-content">
+            <ion-label>Nama<span class="ion-text-right">:</span></ion-label>
+          </div>
+        </ion-col>
+        <ion-col>
+          <div class="profile-data">
+            <ion-label>sadsa</ion-label>
+          </div>
+        </ion-col>
+      </ion-row>
+
+      <ion-button
+        class="ion-margin-top"
+        size="medium"
+        expand="full"
+        color="dark"
+        type="submit"
+        >Simpan perubahan
+      </ion-button>
+    </form>
+  </ion-grid>
+</ion-content>
