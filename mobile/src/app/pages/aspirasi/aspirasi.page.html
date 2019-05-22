@@ -16,10 +16,13 @@
   <div class="ion-text-center" *ngIf="dataEmpty">Tidak ada Aspirasi</div>
 
   <!-- Data to display after skeleton screen -->
-  <ion-card *ngFor="let aspirasi of dataAspirasi">
+  <ion-card *ngFor="let aspirasi of dataAspirasi; let i = index">
     <img
+      class="img-cover"
       src="{{
-        aspirasi.attachments[0].url ? aspirasi.attachments[0].url : defaut_img
+        aspirasi.attachments !== null
+          ? aspirasi.attachments[0].url
+          : '../../../assets/img/placeholder_image.png'
       }}"
       (click)="goDetail(aspirasi.id)"
     />
@@ -32,28 +35,26 @@
       }}</ion-card-title>
     </ion-card-header>
 
-    <ion-card-content style="padding-top: 0">
-      <div (click)="goDetail(aspirasi.id)" style="margin: 15px 0">
+    <ion-card-content>
+      <div class="address" (click)="goDetail(aspirasi.id)">
         {{ aspirasi.kabkota.name }}, {{ aspirasi.kecamatan.name }},
         {{ aspirasi.kelurahan.name }}
       </div>
       <div class="d-inline-f">
         <ion-icon
           name="heart"
-          [color]="
-            checklike(aspirasi.likes_users) || checkStateLike(aspirasi.id)
-              ? 'danger'
-              : 'medium'
-          "
+          [color]="checkStateLike(aspirasi.id) ? 'danger' : 'medium'"
           class="icon-heart"
-          (click)="doLike(aspirasi.id, checkStateLike(aspirasi.id))"
+          (click)="
+            doLike(
+              aspirasi.id,
+              checkStateLike(aspirasi.id),
+              aspirasi.likes_count
+            )
+          "
         ></ion-icon>
-        <p *ngIf="aspirasi.likes_counts" style="margin: 5px;">
-          {{
-            checkStateLike(aspirasi.id)
-              ? aspirasi.likes_counts + 1
-              : aspirasi.likes_counts
-          }}
+        <p class="text-like" *ngIf="checkCountLike(aspirasi.id)">
+          {{ checkCountLike(aspirasi.id) }}
           orang menyukai ini.
         </p>
       </div>
