@@ -40,15 +40,12 @@ export class AppComponent {
         this.fcm.onNotification().subscribe(data => {
           console.log(data);
           if (data.wasTapped) {
-            console.log('Received in background');
+            // Received in background
             this.router.navigate([data.target, data.title], {
               queryParams: data
             });
           } else {
-            console.log('Received in foreground');
-            this.router.navigate([data.target, data.title], {
-              queryParams: data
-            });
+            // Received in foreground
           }
         });
 
