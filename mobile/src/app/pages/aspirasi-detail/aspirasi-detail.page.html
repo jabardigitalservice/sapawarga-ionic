@@ -37,8 +37,17 @@
         <ion-label class="ion-text-justify">{{ dataAspirasi['description'] }}</ion-label>
       </div>
 
-      <div style="margin: 15px 0">
-        <ion-icon name="heart" color="danger"></ion-icon> 10 orang menyukai ini.
+      <div class="d-inline-f">
+        <ion-icon
+          name="heart"
+          [color]="checkStateLike() ? 'danger' : 'medium'"
+          class="icon-heart"
+          (click)="doLike()"
+        ></ion-icon>
+        <p class="text-like" *ngIf="checkCountLike()">
+          {{ checkCountLike() }}
+          orang menyukai ini.
+        </p>
       </div>
     </ion-card-content>
   </ion-card>

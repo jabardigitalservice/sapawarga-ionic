@@ -146,7 +146,7 @@ export class AspirasiPage implements OnInit {
       this.dataLikes.find(x => x.id === id).likes_count++;
     }
 
-    // save liketo server
+    // save like to server
     this.aspirasiService.likeAspirasi(id).subscribe(res => {}, err => {});
 
     // save likes to local

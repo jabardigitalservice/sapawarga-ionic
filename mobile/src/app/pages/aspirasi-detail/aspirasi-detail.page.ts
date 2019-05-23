@@ -15,7 +15,12 @@ import { Aspirasi } from '../../interfaces/aspirasi';
 })
 export class AspirasiDetailPage implements OnInit {
   id: number;
+  idUser: number;
   dataAspirasi: Aspirasi;
+  dataLike: {
+    liked: boolean,
+    likes_count: number
+  };
   constructor(
       private route: ActivatedRoute,
       private aspirasiService: AspirasiService,
@@ -26,6 +31,7 @@ export class AspirasiDetailPage implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.idUser = JSON.parse(localStorage.getItem('PROFILE')).id;
     this.route.params.subscribe(params => {
       this.id = params['id'];
     });
@@ -43,6 +49,7 @@ export class AspirasiDetailPage implements OnInit {
     this.aspirasiService.getDetailAspirasi(this.id).subscribe(
       res => {
         this.dataAspirasi = res['data'];
+        this.dataLike = this.initState(this.dataAspirasi);
         loader.dismiss();
       },
       err => {
@@ -52,6 +59,52 @@ export class AspirasiDetailPage implements OnInit {
         this.navCtrl.back();
       }
     );
+  }
+
+  initState(data: any) {
+    let dataLike = {
+      liked:
+        data.likes_users.filter(x => x.id === this.idUser).length >
+        0,
+      likes_count: data.likes_count
+    };
+    return dataLike;
+  }
+
+  doLike() {
+    // check internet
+    if (!navigator.onLine) {
+      alert('Tidak ada koneksi internet');
+      return;
+    }
+
+    if (this.checkStateLike()) {
+      // set unlike
+      this.dataLike.liked = false;
+      // set total like
+      this.dataLike.likes_count--;
+    } else {
+      // set like
+      this.dataLike.liked = true;
+      // set total like + 1
+      this.dataLike.likes_count++;
+    }
+
+    // save like to server
+    this.aspirasiService.likeAspirasi(this.id).subscribe(res => {}, err => {});
+
+    // save likes to local
+    // this.aspirasiService.saveLocalLikes(this.dataLikes);
+  }
+
+  // check if data like/non
+  checkStateLike() {
+    return this.dataLike.liked;
+  }
+
+  // check total likes
+  checkCountLike() {
+    return this.dataLike.likes_count;
   }
 
   async showToast(msg: string) {
