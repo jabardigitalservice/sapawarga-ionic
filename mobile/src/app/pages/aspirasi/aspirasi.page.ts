@@ -36,6 +36,10 @@ export class AspirasiPage implements OnInit {
     }, 2000);
   }
 
+  ionViewDidEnter() {
+    this.dataLikes = JSON.parse(this.aspirasiService.getLocalLikes());
+  }
+
   // get data broadcasts
   async getListAspirasi(infiniteScroll?: any) {
     this.offline = false;

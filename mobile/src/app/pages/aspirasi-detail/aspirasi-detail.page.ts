@@ -37,7 +37,7 @@ export class AspirasiDetailPage implements OnInit {
   ngOnInit() {
     this.idUser = JSON.parse(localStorage.getItem('PROFILE')).id;
     this.route.params.subscribe(params => {
-      this.id = params['id'];
+      this.id = parseInt(params['id']);
     });
 
     this.getDetailAspirasi();
