@@ -60,13 +60,13 @@ export class LoginPage implements OnInit {
   ngOnInit() {
     this.onLoginForm = this.formBuilder.group({
       username: ['', [Validators.required, Validators.minLength(4)]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
-      push_token: ['']
+      password: ['', [Validators.required, Validators.minLength(6)]]
+      // push_token: ['']
     });
 
     // get FCM token
     this.fcm.getToken().then(token => {
-      this.f.push_token.setValue(token);
+      // this.f.push_token.setValue(token);
     });
   }
 

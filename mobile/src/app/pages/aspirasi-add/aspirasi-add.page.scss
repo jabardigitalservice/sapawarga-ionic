@@ -1,5 +1,15 @@
+:host {
+  ion-label {
+    margin-top: 15px;
+  }
+}
+
 .profile-content {
   height: 35px;
   display: flex;
   align-items: center;
+}
+
+.agreement {
+  margin-right: 5px;
 }

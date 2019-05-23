@@ -25,7 +25,6 @@
               formControlName="kabkota_id"
               okText="Pilih"
               cancelText="Batal"
-              (ngModelChange)="onChanges('kabkota')"
               placeholder="Pilih Kab/Kota"
             >
               <ion-select placeholder="Select One">
@@ -47,8 +46,8 @@
           <div class="profile-data">
             <ion-textarea
               rows="6"
-              formControlName="name"
-              [ngClass]="{ 'is-invalid': submitted && f.name.errors }"
+              formControlName="title"
+              [ngClass]="{ 'is-invalid': submitted && f.title.errors }"
               placeholder="Masukkan nama anda"
             ></ion-textarea>
           </div>
@@ -59,6 +58,27 @@
         <ion-col size="4">
           <div class="profile-content">
             <ion-label
+              >Upload Gambar <span class="ion-text-right">:</span></ion-label
+            >
+          </div>
+        </ion-col>
+        <ion-col>
+          <div class="profile-data">
+            <!-- <input
+              type="file"
+              accept="image/*"
+              ng2FileSelect
+              [uploader]="fileUploader"
+              multiple
+            /> -->
+          </div>
+        </ion-col>
+      </ion-row>
+
+      <ion-row class="ion-padding-start ion-margin-top">
+        <ion-col size="5">
+          <div class="profile-content">
+            <ion-label
               >Detail Aspirasi <span class="ion-text-right">:</span></ion-label
             >
           </div>
@@ -67,22 +87,42 @@
           <div class="profile-data">
             <ion-textarea
               rows="6"
-              formControlName="username"
-              [ngClass]="{ 'is-invalid': submitted && f.username.errors }"
+              formControlName="description"
+              [ngClass]="{ 'is-invalid': submitted && f.description.errors }"
               placeholder="Masukkan nama anda"
             ></ion-textarea>
           </div>
         </ion-col>
       </ion-row>
 
+      <ion-list>
+        <ion-item>
+          <ion-checkbox
+            formControlName="kabkota_id"
+            class="agreement"
+          ></ion-checkbox>
+          <ion-label>tesre sfddsewr s</ion-label>
+        </ion-item>
+      </ion-list>
+
       <ion-button
-        class="ion-margin-top"
+        padding
+        class="ion-margin-bottom"
         size="medium"
         expand="full"
         color="dark"
         type="submit"
         >Simpan perubahan
       </ion-button>
+
+      <ion-button (click)="uploadAspirasi()">Upload files</ion-button>
     </form>
   </ion-grid>
+
+  <!-- <h2>Your files: {{ fileUploader?.queue?.length }}</h2>
+  <ul>
+    <li *ngFor="let item of fileUploader.queue">
+      {{ item?.file?.name }}
+    </li>
+  </ul> -->
 </ion-content>
