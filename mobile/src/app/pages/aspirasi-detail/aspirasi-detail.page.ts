@@ -18,9 +18,13 @@ export class AspirasiDetailPage implements OnInit {
   idUser: number;
   dataAspirasi: Aspirasi;
   dataLike: {
+    id: number,
     liked: boolean,
     likes_count: number
   };
+
+  offline = false;
+
   constructor(
       private route: ActivatedRoute,
       private aspirasiService: AspirasiService,
@@ -46,10 +50,25 @@ export class AspirasiDetailPage implements OnInit {
     });
     loader.present();
 
+    this.offline = false;
+    // check internet
+    if (!navigator.onLine) {
+      // stop infinite scroll
+      this.offline = true;
+      // get local
+      this.dataLike = JSON.parse(this.aspirasiService.getLocalLikes())
+                          .filter(x => x.id === this.id);
+      return;
+    }
+
     this.aspirasiService.getDetailAspirasi(this.id).subscribe(
       res => {
         this.dataAspirasi = res['data'];
         this.dataLike = this.initState(this.dataAspirasi);
+
+        // save likes to local
+        this.saveLocalLike(JSON.parse(this.aspirasiService.getLocalLikes()));
+
         loader.dismiss();
       },
       err => {
@@ -63,6 +82,7 @@ export class AspirasiDetailPage implements OnInit {
 
   initState(data: any) {
     let dataLike = {
+      id: this.id,
       liked:
         data.likes_users.filter(x => x.id === this.idUser).length >
         0,
@@ -94,7 +114,7 @@ export class AspirasiDetailPage implements OnInit {
     this.aspirasiService.likeAspirasi(this.id).subscribe(res => {}, err => {});
 
     // save likes to local
-    // this.aspirasiService.saveLocalLikes(this.dataLikes);
+    this.saveLocalLike(JSON.parse(this.aspirasiService.getLocalLikes()));
   }
 
   // check if data like/non
@@ -105,6 +125,13 @@ export class AspirasiDetailPage implements OnInit {
   // check total likes
   checkCountLike() {
     return this.dataLike.likes_count;
+  }
+
+  saveLocalLike(localLikes) {
+    let newLocalLikes = localLikes;
+    let idx = newLocalLikes.findIndex(x => x.id === this.id);
+    newLocalLikes[idx] = this.dataLike;
+    this.aspirasiService.saveLocalLikes(newLocalLikes);
   }
 
   async showToast(msg: string) {
