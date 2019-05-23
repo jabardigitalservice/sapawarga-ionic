@@ -7,21 +7,34 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <img src="{{ record['photo'] }}" />
+<ion-content *ngIf="dataAspirasi">
+  <img
+    *ngIf="!offline"
+    class="img-cover"
+    src="{{
+      dataAspirasi.attachments !== null
+        ? dataAspirasi.attachments[0].url
+        : '../../../assets/img/placeholder_image.png'
+    }}"
+  />
+  <img
+    *ngIf="offline"
+    class="img-cover"
+    src="../../../assets/img/placeholder_image.png"
+  />
   <ion-card>
     <ion-card-header>
-      <ion-card-subtitle class="dark-read">{{ record['category']['name'] }}</ion-card-subtitle>
-      <ion-card-title>{{ record['title'] }}</ion-card-title>
+      <ion-card-subtitle class="dark-read">{{ dataAspirasi['category']['name'] }}</ion-card-subtitle>
+      <ion-card-title>{{ dataAspirasi['title'] }}</ion-card-title>
     </ion-card-header>
 
     <ion-card-content style="padding-top: 0">
       <div style="margin: 15px 0">
-        {{ record['kabkota']['name'] }}, {{ record['kecamatan']['name'] }}, {{ record['kelurahan']['name'] }}
+        {{ dataAspirasi['kabkota']['name'] }}, {{ dataAspirasi['kecamatan']['name'] }}, {{ dataAspirasi['kelurahan']['name'] }}
       </div>
 
       <div>
-        <ion-label class="ion-text-justify">{{ record['description'] }}</ion-label>
+        <ion-label class="ion-text-justify">{{ dataAspirasi['description'] }}</ion-label>
       </div>
 
       <div style="margin: 15px 0">
