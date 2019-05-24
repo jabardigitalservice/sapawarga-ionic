@@ -74,6 +74,11 @@ export class AspirasiUserPage implements OnInit {
     );
   }
 
+  // go to detail with param id
+  goDetail(id: number) {
+    this.router.navigate(['/aspirasi', id]);
+  }
+
   checkStatus(status: number) {
     switch (status) {
       case 5:

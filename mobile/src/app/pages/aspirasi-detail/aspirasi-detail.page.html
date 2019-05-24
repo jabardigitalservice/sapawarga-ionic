@@ -37,7 +37,10 @@
         <ion-label class="ion-text-justify">{{ dataAspirasi['description'] }}</ion-label>
       </div>
 
-      <div class="d-inline-f">
+      <div
+        class="d-inline-f"
+        *ngIf="dataAspirasi.status === 10"
+      >
         <ion-icon
           name="heart"
           [color]="checkStateLike() ? 'danger' : 'medium'"
