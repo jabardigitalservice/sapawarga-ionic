@@ -8,6 +8,7 @@ import { Pages } from './interfaces/pages';
 import { AuthService } from './services/auth.service';
 import { FCM } from '@ionic-native/fcm/ngx';
 import { Router } from '@angular/router';
+import { BroadcastService } from './services/broadcast.service';
 
 @Component({
   selector: 'app-root',
@@ -25,7 +26,8 @@ export class AppComponent {
     public navCtrl: NavController,
     private authService: AuthService,
     private fcm: FCM,
-    private router: Router
+    private router: Router,
+    private broadcastService: BroadcastService
   ) {
     this.initializeApp();
   }
@@ -37,23 +39,25 @@ export class AppComponent {
         this.statusBar.styleBlackTranslucent();
         this.splashScreen.hide();
 
-        this.fcm.onNotification().subscribe(data => {
-          console.log(data);
-          if (data.wasTapped) {
-            // Received in background
-            this.router.navigate([data.target, data.title], {
-              queryParams: data
-            });
-          } else {
-            // Received in foreground
-          }
-        });
-
         this.authService.authenticationState.subscribe(state => {
           if (state) {
             this.navCtrl.navigateRoot('/');
           } else {
             this.navCtrl.navigateRoot('/login');
+          }
+        });
+
+        this.fcm.onNotification().subscribe(data => {
+          if (data.wasTapped) {
+            // Received in background
+            this.router.navigate([data.target, data.id], {
+              queryParams: data
+            });
+          } else {
+            // alert('notif');
+            // Received in foreground
+            // set notification true to call state
+            this.broadcastService.setNotification(true);
           }
         });
       })

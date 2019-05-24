@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
+import { Observable, throwError, BehaviorSubject } from 'rxjs';
 import { Broadcast } from '../interfaces/broadcast';
 import { catchError } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
@@ -11,6 +11,8 @@ const BROADCAST = 'broadcast-data';
   providedIn: 'root'
 })
 export class BroadcastService {
+  notificationState = new BehaviorSubject(false);
+
   constructor(private http: HttpClient) {}
 
   getListBroadCasts(): Observable<Broadcast[]> {
@@ -45,6 +47,14 @@ export class BroadcastService {
     return localStorage.getItem(BROADCAST)
       ? localStorage.getItem(BROADCAST)
       : '';
+  }
+
+  setNotification(data: boolean) {
+    this.notificationState.next(data);
+  }
+
+  getNotification() {
+    return this.notificationState.value;
   }
 
   private handleError(error: HttpErrorResponse) {

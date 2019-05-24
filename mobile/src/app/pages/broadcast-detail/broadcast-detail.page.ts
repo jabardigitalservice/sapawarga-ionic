@@ -34,6 +34,8 @@ export class BroadcastDetailPage implements OnInit {
   ionViewWillLeave() {
     // Unregister the custom back button action for this page
     if (!this.dataBroadcast['push_notification']) {
+      // set notification false remove notif
+      this.broadcastService.setNotification(false);
       this.navCtrl.navigateForward('/tabs/broadcasts');
     } else {
       // add to list dataRead

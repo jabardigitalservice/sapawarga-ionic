@@ -6,6 +6,12 @@
     </ion-tab-button>
 
     <ion-tab-button tab="broadcasts">
+      <img
+        *ngIf="notification"
+        src="../../assets/icon/notif_read.png"
+        alt=""
+        class="icon-notif"
+      />
       <ion-icon name="mail"></ion-icon>
       <ion-label>Pesan</ion-label>
     </ion-tab-button>

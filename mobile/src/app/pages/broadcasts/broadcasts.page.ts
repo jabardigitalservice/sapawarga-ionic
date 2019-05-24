@@ -27,6 +27,8 @@ export class BroadcastsPage implements OnInit {
   ngOnInit() {}
 
   ionViewDidEnter() {
+    // set notification false remove notif
+    this.broadcastService.setNotification(false);
     this.getNomorBroadcasts();
   }
 
