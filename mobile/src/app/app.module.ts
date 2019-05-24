@@ -26,8 +26,9 @@ import {
   FileTransfer,
   FileTransferObject
 } from '@ionic-native/file-transfer/ngx';
+import { MenuNavbarAspirasiComponent } from './components/menu-navbar-aspirasi/menu-navbar-aspirasi.component';
 @NgModule({
-  declarations: [AppComponent, MenuNavbarComponent],
+  declarations: [AppComponent, MenuNavbarComponent, MenuNavbarAspirasiComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
