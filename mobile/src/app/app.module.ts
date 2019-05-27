@@ -37,7 +37,7 @@ import {
     IonicStorageModule.forRoot(),
     HttpClientModule
   ],
-  entryComponents: [MenuNavbarComponent],
+  entryComponents: [MenuNavbarComponent, MenuNavbarAspirasiComponent],
   providers: [
     StatusBar,
     SplashScreen,

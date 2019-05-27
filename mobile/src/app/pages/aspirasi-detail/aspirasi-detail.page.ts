@@ -140,7 +140,8 @@ export class AspirasiDetailPage implements OnInit {
   checkNavbarMore() {
     if (this.dataAspirasi) {
       return this.dataAspirasi.author_id === this.idUser
-        && this.dataAspirasi.status < 10;
+        && this.dataAspirasi.status !== 10 // Dipublikasikan
+        && this.dataAspirasi.status !== 5; // Menunggu Persetujuan
     }
     return false;
   }

@@ -12,4 +12,8 @@ export class MenuNavbarAspirasiComponent implements OnInit {
   ngOnInit() {
   }
 
+  editAspirasi() { }
+
+  deleteAspirasi() { }
+
 }
