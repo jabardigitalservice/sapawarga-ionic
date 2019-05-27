@@ -34,7 +34,11 @@
         {{ dataAspirasi['kabkota']['name'] }}, {{ dataAspirasi['kecamatan']['name'] }}, {{ dataAspirasi['kelurahan']['name'] }}
       </div>
 
-      <div>
+      <div class="author">
+        <ion-label>Oleh {{ dataAspirasi['author']['name'] }}</ion-label>
+      </div>
+
+      <div style="margin: 15px 0">
         <ion-label class="ion-text-justify">{{ dataAspirasi['description'] }}</ion-label>
       </div>
 
