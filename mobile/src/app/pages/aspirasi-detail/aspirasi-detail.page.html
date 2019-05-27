@@ -4,7 +4,7 @@
       <ion-back-button></ion-back-button>
     </ion-buttons>
     <ion-title>Detail Aspirasi</ion-title>
-    <ion-icon *ngIf="checkNavbarMore()" name="more" slot="end" size="large" (click)="navbarMore($event)"></ion-icon>
+    <ion-icon *ngIf="isEditable()" name="more" slot="end" size="large" (click)="navbarMore($event)"></ion-icon>
   </ion-toolbar>
 </ion-header>
 
@@ -25,6 +25,11 @@
   />
   <ion-card>
     <ion-card-header>
+      <div *ngIf="isMyAspirasi()" style="margin-bottom: 10px">
+        <ion-badge [color]="checkStatus(dataAspirasi.status)">{{
+          dataAspirasi.status_label
+        }}</ion-badge>
+      </div>
       <ion-card-subtitle class="dark-read">{{ dataAspirasi['category']['name'] }}</ion-card-subtitle>
       <ion-card-title>{{ dataAspirasi['title'] }}</ion-card-title>
     </ion-card-header>

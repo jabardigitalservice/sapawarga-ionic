@@ -137,13 +137,40 @@ export class AspirasiDetailPage implements OnInit {
     this.aspirasiService.saveLocalLikes(newLocalLikes);
   }
 
-  checkNavbarMore() {
+  isMyAspirasi() {
     if (this.dataAspirasi) {
       return this.dataAspirasi.author_id === this.idUser
-        && this.dataAspirasi.status !== 10 // Dipublikasikan
-        && this.dataAspirasi.status !== 5; // Menunggu Persetujuan
     }
     return false;
+  }
+
+  isEditable() {
+    if (this.isMyAspirasi()) {
+      return this.dataAspirasi.status !== 10 // Dipublikasikan
+          && this.dataAspirasi.status !== 5; // Menunggu Persetujuan
+    }
+    return false;
+  }
+
+  checkStatus(status: number) {
+    switch (status) {
+      case 5:
+        return 'primary';
+        break;
+      case 10:
+        return 'success';
+        break;
+      case 3:
+        return 'danger';
+        break;
+      case 0:
+        return 'warning';
+        break;
+      case -1:
+        return 'danger';
+      default:
+        break;
+    }
   }
 
   async showToast(msg: string) {
