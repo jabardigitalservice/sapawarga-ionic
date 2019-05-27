@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
 import { BroadcastService } from '../services/broadcast.service';
 
 @Component({
@@ -8,8 +8,14 @@ import { BroadcastService } from '../services/broadcast.service';
 })
 export class TabsPage {
   notification = false;
-  constructor(private broadcastService: BroadcastService) {
-    this.notification = this.broadcastService.getNotification();
+  constructor(
+    private broadcastService: BroadcastService,
+    private ref: ChangeDetectorRef
+  ) {
+    // listen and render component
+    setInterval(() => {
+      this.ref.markForCheck();
+    }, 2000);
 
     this.broadcastService.notificationState.subscribe(state => {
       this.notification = state;
