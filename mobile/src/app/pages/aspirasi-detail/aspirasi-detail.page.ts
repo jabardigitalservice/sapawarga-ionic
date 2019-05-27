@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import {
   LoadingController,
   PopoverController,
@@ -13,29 +13,28 @@ import { MenuNavbarAspirasiComponent } from '../../components/menu-navbar-aspira
 @Component({
   selector: 'app-aspirasi-detail',
   templateUrl: './aspirasi-detail.page.html',
-  styleUrls: ['./aspirasi-detail.page.scss'],
+  styleUrls: ['./aspirasi-detail.page.scss']
 })
 export class AspirasiDetailPage implements OnInit {
   id: number;
   idUser: number;
   dataAspirasi: Aspirasi;
   dataLike: {
-    id: number,
-    liked: boolean,
-    likes_count: number
+    id: number;
+    liked: boolean;
+    likes_count: number;
   };
 
   offline = false;
 
   constructor(
-      private route: ActivatedRoute,
-      private aspirasiService: AspirasiService,
-      private loadingCtrl: LoadingController,
-      public popoverCtrl: PopoverController,
-      private toastCtrl: ToastController,
-      private navCtrl: NavController,
-      private router: Router
-  ) { }
+    private route: ActivatedRoute,
+    private aspirasiService: AspirasiService,
+    private loadingCtrl: LoadingController,
+    public popoverCtrl: PopoverController,
+    private toastCtrl: ToastController,
+    private navCtrl: NavController
+  ) {}
 
   ngOnInit() {
     this.idUser = JSON.parse(localStorage.getItem('PROFILE')).id;
@@ -59,8 +58,9 @@ export class AspirasiDetailPage implements OnInit {
       // stop infinite scroll
       this.offline = true;
       // get local
-      this.dataLike = JSON.parse(this.aspirasiService.getLocalLikes())
-                          .filter(x => x.id === this.id);
+      this.dataLike = JSON.parse(this.aspirasiService.getLocalLikes()).filter(
+        x => x.id === this.id
+      );
       return;
     }
 
@@ -86,9 +86,7 @@ export class AspirasiDetailPage implements OnInit {
   initState(data: any) {
     const dataLike = {
       id: this.id,
-      liked:
-        data.likes_users.filter(x => x.id === this.idUser).length >
-        0,
+      liked: data.likes_users.filter(x => x.id === this.idUser).length > 0,
       likes_count: data.likes_count
     };
     return dataLike;
@@ -146,8 +144,9 @@ export class AspirasiDetailPage implements OnInit {
 
   isEditable() {
     if (this.isMyAspirasi()) {
-      return this.dataAspirasi.status !== 10 // Dipublikasikan
-          && this.dataAspirasi.status !== 5; // Menunggu Persetujuan
+      return (
+        this.dataAspirasi.status !== 10 && this.dataAspirasi.status !== 5 // Dipublikasikan
+      ); // Menunggu Persetujuan
     }
     return false;
   }

@@ -4,7 +4,13 @@
       <ion-back-button></ion-back-button>
     </ion-buttons>
     <ion-title>Detail Aspirasi</ion-title>
-    <ion-icon *ngIf="isEditable()" name="more" slot="end" size="large" (click)="navbarMore($event)"></ion-icon>
+    <ion-icon
+      *ngIf="isEditable()"
+      name="more"
+      slot="end"
+      size="large"
+      (click)="navbarMore($event)"
+    ></ion-icon>
   </ion-toolbar>
 </ion-header>
 
@@ -30,13 +36,17 @@
           dataAspirasi.status_label
         }}</ion-badge>
       </div>
-      <ion-card-subtitle class="dark-read">{{ dataAspirasi['category']['name'] }}</ion-card-subtitle>
+      <ion-card-subtitle class="dark-read">{{
+        dataAspirasi['category']['name']
+      }}</ion-card-subtitle>
       <ion-card-title>{{ dataAspirasi['title'] }}</ion-card-title>
     </ion-card-header>
 
     <ion-card-content style="padding-top: 0">
       <div style="margin: 15px 0">
-        {{ dataAspirasi['kabkota']['name'] }}, {{ dataAspirasi['kecamatan']['name'] }}, {{ dataAspirasi['kelurahan']['name'] }}
+        {{ dataAspirasi['kabkota']['name'] }},
+        {{ dataAspirasi['kecamatan']['name'] }},
+        {{ dataAspirasi['kelurahan']['name'] }}
       </div>
 
       <div class="author">
@@ -44,13 +54,12 @@
       </div>
 
       <div style="margin: 15px 0">
-        <ion-label class="ion-text-justify">{{ dataAspirasi['description'] }}</ion-label>
+        <ion-label class="ion-text-justify">{{
+          dataAspirasi['description']
+        }}</ion-label>
       </div>
 
-      <div
-        class="d-inline-f"
-        *ngIf="dataAspirasi.status === 10"
-      >
+      <div class="d-inline-f" *ngIf="dataAspirasi.status === 10">
         <ion-icon
           name="heart"
           [color]="checkStateLike() ? 'danger' : 'medium'"
