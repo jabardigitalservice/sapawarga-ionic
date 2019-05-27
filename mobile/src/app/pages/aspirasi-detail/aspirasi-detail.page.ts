@@ -40,7 +40,7 @@ export class AspirasiDetailPage implements OnInit {
   ngOnInit() {
     this.idUser = JSON.parse(localStorage.getItem('PROFILE')).id;
     this.route.params.subscribe(params => {
-      this.id = parseInt(params['id']);
+      this.id = parseInt(params['id'], 10);
     });
 
     this.getDetailAspirasi();
@@ -84,7 +84,7 @@ export class AspirasiDetailPage implements OnInit {
   }
 
   initState(data: any) {
-    let dataLike = {
+    const dataLike = {
       id: this.id,
       liked:
         data.likes_users.filter(x => x.id === this.idUser).length >
@@ -131,15 +131,15 @@ export class AspirasiDetailPage implements OnInit {
   }
 
   saveLocalLike(localLikes) {
-    let newLocalLikes = localLikes;
-    let idx = newLocalLikes.findIndex(x => x.id === this.id);
+    const newLocalLikes = localLikes;
+    const idx = newLocalLikes.findIndex(x => x.id === this.id);
     newLocalLikes[idx] = this.dataLike;
     this.aspirasiService.saveLocalLikes(newLocalLikes);
   }
 
   isMyAspirasi() {
     if (this.dataAspirasi) {
-      return this.dataAspirasi.author_id === this.idUser
+      return this.dataAspirasi.author_id === this.idUser;
     }
     return false;
   }

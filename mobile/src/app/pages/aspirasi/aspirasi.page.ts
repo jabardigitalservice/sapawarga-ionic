@@ -92,10 +92,10 @@ export class AspirasiPage implements OnInit {
   }
 
   initState(data: any) {
-    let datas = [];
-    for (let index in data) {
+    const datas = [];
+    for (const index in data) {
       if (data.length) {
-        let data_like = {
+        const data_like = {
           id: data[index].id,
           liked:
             data[index].likes_users.filter(x => x.id === this.idUser).length >
