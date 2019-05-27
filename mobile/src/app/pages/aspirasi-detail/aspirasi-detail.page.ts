@@ -2,11 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import {
   LoadingController,
+  PopoverController,
   ToastController,
   NavController
 } from '@ionic/angular';
 import { AspirasiService } from '../../services/aspirasi.service';
 import { Aspirasi } from '../../interfaces/aspirasi';
+import { MenuNavbarAspirasiComponent } from '../../components/menu-navbar-aspirasi/menu-navbar-aspirasi.component';
 
 @Component({
   selector: 'app-aspirasi-detail',
@@ -29,6 +31,7 @@ export class AspirasiDetailPage implements OnInit {
       private route: ActivatedRoute,
       private aspirasiService: AspirasiService,
       private loadingCtrl: LoadingController,
+      public popoverCtrl: PopoverController,
       private toastCtrl: ToastController,
       private navCtrl: NavController,
       private router: Router
@@ -134,11 +137,37 @@ export class AspirasiDetailPage implements OnInit {
     this.aspirasiService.saveLocalLikes(newLocalLikes);
   }
 
+  checkNavbarMore() {
+    if (this.dataAspirasi) {
+      return this.dataAspirasi.author_id === this.idUser
+        && this.dataAspirasi.status < 10;
+    }
+    return false;
+  }
+
   async showToast(msg: string) {
     const toast = await this.toastCtrl.create({
       message: msg,
       duration: 2000
     });
     toast.present();
+  }
+
+  async navbarMore(ev: any) {
+    const popover = await this.popoverCtrl.create({
+      component: MenuNavbarAspirasiComponent,
+      componentProps: {
+        dataAspirasi: this.dataAspirasi
+      },
+      event: ev,
+      cssClass: 'popover_class',
+      animated: true,
+      showBackdrop: true,
+      translucent: true
+    });
+
+    popover.onDidDismiss();
+
+    return await popover.present();
   }
 }

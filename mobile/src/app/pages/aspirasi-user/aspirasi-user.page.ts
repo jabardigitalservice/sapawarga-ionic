@@ -51,7 +51,6 @@ export class AspirasiUserPage implements OnInit {
       res => {
         if (res['data']['items'].length) {
           this.dataAspirasi = this.dataAspirasi.concat(res['data']['items']);
-          console.log(this.dataAspirasi);
           // save to local
           this.aspirasiService.saveLocalAspirasiUser(this.dataAspirasi);
         } else {
