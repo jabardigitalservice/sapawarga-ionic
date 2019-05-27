@@ -14,7 +14,8 @@ import { BroadcastService } from '../../services/broadcast.service';
   styleUrls: ['./broadcast-detail.page.scss']
 })
 export class BroadcastDetailPage implements OnInit {
-  dataBroadcast: Broadcast;
+  dataBroadcast: any;
+  dataRead = [];
   constructor(
     private broadcastService: BroadcastService,
     private navCtrl: NavController,
@@ -27,7 +28,11 @@ export class BroadcastDetailPage implements OnInit {
     // get data detail Broadcast
     this.route.queryParamMap.subscribe(params => {
       this.dataBroadcast = params['params'];
+
+      // console.log(this.dataBroadcast);
     });
+    // add to list dataRead
+    this.dataRead = this.broadcastService.getlocalBroadcast() || [];
   }
 
   // Called when view is left
@@ -38,17 +43,7 @@ export class BroadcastDetailPage implements OnInit {
       this.broadcastService.setNotification(false);
       this.navCtrl.navigateForward('/tabs/broadcasts');
     } else {
-      // add to list dataRead
-      const dataRead = this.broadcastService.getlocalBroadcast() || [];
-      // if (this.checkRead(broadcast.id) === false) {
-      let data = {
-        id: this.dataBroadcast['id'],
-        read: true
-      };
-      dataRead.push(data);
-      // to dataRead to local storage
-      this.broadcastService.saveBroadcast(JSON.stringify(dataRead));
-      // }
+      this.SetRead(parseInt(this.dataBroadcast.id, 10));
       this.navCtrl.navigateRoot('/tabs/broadcasts');
     }
   }
@@ -68,5 +63,18 @@ export class BroadcastDetailPage implements OnInit {
       duration: 2000
     });
     toast.present();
+  }
+
+  SetRead(id: number) {
+    console.log('id parser' + id);
+    let data = {
+      id: id,
+      read: true
+    };
+    this.dataRead.push(data);
+    // to dataRead to local storage
+    this.broadcastService.saveBroadcast(JSON.stringify(this.dataRead));
+
+    console.log(this.dataRead);
   }
 }

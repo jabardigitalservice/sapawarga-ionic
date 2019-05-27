@@ -20,15 +20,17 @@ export class BroadcastsPage implements OnInit {
     private broadcastService: BroadcastService,
     public loadingCtrl: LoadingController,
     private router: Router
-  ) {
-    this.dataRead = this.broadcastService.getlocalBroadcast() || [];
-  }
+  ) {}
 
-  ngOnInit() {}
-
-  ionViewDidEnter() {
+  ngOnInit() {
     // set notification false remove notif
     this.broadcastService.setNotification(false);
+    this.dataRead = this.broadcastService.getlocalBroadcast() || [];
+    this.getNomorBroadcasts();
+  }
+
+  ionViewDidEnter() {
+    this.dataRead = this.broadcastService.getlocalBroadcast() || [];
     this.getNomorBroadcasts();
   }
 

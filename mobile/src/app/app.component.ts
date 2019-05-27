@@ -9,6 +9,7 @@ import { AuthService } from './services/auth.service';
 import { FCM } from '@ionic-native/fcm/ngx';
 import { Router } from '@angular/router';
 import { BroadcastService } from './services/broadcast.service';
+import { Notification } from './interfaces/notification';
 
 @Component({
   selector: 'app-root',
@@ -18,6 +19,7 @@ import { BroadcastService } from './services/broadcast.service';
 export class AppComponent {
   showSplash = true; // <-- show animation
   public appPages: Array<Pages>;
+  payloadNotification: Notification;
 
   constructor(
     private platform: Platform,
@@ -48,13 +50,15 @@ export class AppComponent {
         });
 
         this.fcm.onNotification().subscribe(data => {
+          // this.payloadNotification = data;
           if (data.wasTapped) {
             // Received in background
+            console.log(data);
+            // this.payloadNotification = data;
             this.router.navigate([data.target, data.id], {
               queryParams: data
             });
           } else {
-            // alert('notif');
             // Received in foreground
             // set notification true to call state
             this.broadcastService.setNotification(true);
