@@ -29,6 +29,7 @@ export class BroadcastsPage implements OnInit {
     // this.broadcastService.setNotification(false);
     this.dataRead = this.broadcastService.getBroadcast() || [];
     this.getNomorBroadcasts();
+    this.checkLenghtRead();
   }
 
   ionViewDidEnter() {
@@ -39,6 +40,7 @@ export class BroadcastsPage implements OnInit {
     this.interval = setInterval(() => {
       this.dataRead = this.broadcastService.getBroadcast() || [];
     }, 1000);
+    this.checkLenghtRead();
   }
 
   // Called when view is left

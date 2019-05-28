@@ -63,14 +63,20 @@ export class BroadcastDetailPage implements OnInit {
 
   SetRead(id: number) {
     console.log('id parser' + id);
-    let data = {
-      id: id,
-      read: true
-    };
-    this.dataRead.push(data);
-    // to dataRead to local storage
-    this.broadcastService.saveBroadcast(JSON.stringify(this.dataRead));
-
+    if (this.checkRead(id) === false) {
+      let data = {
+        id: id,
+        read: true
+      };
+      this.dataRead.push(data);
+      // to dataRead to local storage
+      this.broadcastService.saveBroadcast(JSON.stringify(this.dataRead));
+    }
     console.log(this.dataRead);
+  }
+
+  // check if data isRead/UnRead
+  checkRead(id: number) {
+    return this.dataRead.filter(x => x.id === id).length > 0;
   }
 }
