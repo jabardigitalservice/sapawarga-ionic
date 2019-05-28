@@ -60,7 +60,7 @@ export class AspirasiDetailPage implements OnInit {
         x => x.id === this.id
       );
 
-      this.getDatalocal();
+      this.getDataLocal();
       return;
     }
 
@@ -88,7 +88,7 @@ export class AspirasiDetailPage implements OnInit {
     );
   }
 
-  getDatalocal() {
+  getDataLocal() {
     // get data local aspirasi
     let dataAspirasi = JSON.parse(this.aspirasiService.getLocalAspirasi());
     this.dataAspirasi = dataAspirasi.find(x => x.id === this.id);
