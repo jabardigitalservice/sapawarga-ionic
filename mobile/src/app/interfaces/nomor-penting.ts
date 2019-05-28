@@ -10,7 +10,7 @@ export interface NomorPenting {
   latitude: string;
   longitude: string;
   seq: number;
-  cover_image_path: string;
+  cover_image_url: string;
   meta: null;
   status: number;
   status_label: string;
