@@ -45,7 +45,14 @@ export class AppComponent {
           if (state) {
             this.navCtrl.navigateRoot('/');
           } else {
-            this.navCtrl.navigateRoot('/login');
+            const hasOnboarding = localStorage.getItem('has-onboarding');
+            if (hasOnboarding) {
+              this.navCtrl.navigateRoot('/login');
+            }
+            else {
+              this.navCtrl.navigateRoot('/onboarding');
+              localStorage.setItem('has-onboarding', 'true');
+            }
           }
         });
 
