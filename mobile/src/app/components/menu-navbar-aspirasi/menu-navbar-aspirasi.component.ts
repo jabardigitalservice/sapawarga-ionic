@@ -24,8 +24,7 @@ export class MenuNavbarAspirasiComponent implements OnInit {
     public alertController: AlertController
   ) { }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   editAspirasi() { }
 

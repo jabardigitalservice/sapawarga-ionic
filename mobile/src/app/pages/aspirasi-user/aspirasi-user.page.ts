@@ -22,11 +22,11 @@ export class AspirasiUserPage implements OnInit {
     private toastCtrl: ToastController
   ) {}
 
-  ngOnInit() {
-    setTimeout(() => {
-      this.dataAspirasi = [];
-      this.getListAspirasi();
-    }, 2000);
+  ngOnInit() {}
+
+  ionViewDidEnter() {
+    this.dataAspirasi = [];
+    this.getListAspirasi();
   }
 
   // get data broadcasts
