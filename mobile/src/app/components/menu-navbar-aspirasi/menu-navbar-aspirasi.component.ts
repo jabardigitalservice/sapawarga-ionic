@@ -14,7 +14,6 @@ import { AspirasiService } from '../../services/aspirasi.service';
   styleUrls: ['./menu-navbar-aspirasi.component.scss']
 })
 export class MenuNavbarAspirasiComponent implements OnInit {
-
   constructor(
     private navParams: NavParams,
     private router: Router,
@@ -22,13 +21,18 @@ export class MenuNavbarAspirasiComponent implements OnInit {
     private aspirasiService: AspirasiService,
     private toastCtrl: ToastController,
     public alertController: AlertController
-  ) { }
+  ) {}
 
   ngOnInit() {}
 
-  editAspirasi() { }
+  editAspirasi() {}
 
   deleteAspirasi() {
+    if (!navigator.onLine) {
+      alert('Tidak ada jaringan internet');
+      return;
+    }
+
     const id = this.navParams.get('dataAspirasi').id;
     this.aspirasiService.deleteAspirasi(id).subscribe(
       res => {
@@ -76,5 +80,4 @@ export class MenuNavbarAspirasiComponent implements OnInit {
     });
     toast.present();
   }
-
 }
