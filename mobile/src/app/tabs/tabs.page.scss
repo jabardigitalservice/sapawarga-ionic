@@ -1,8 +1,16 @@
 :host {
-    ion-tab-button {
-        // background: rgb(134, 31, 194) !important;
-        // color: #0f9c56 !important;
+  ion-tab-button {
+    --color-selected: var(
+      --ion-tab-bar-color-activated,
+      var(--ion-color-success, #0f9c56)
+    );
+  }
+}
 
-        --color-selected: var(--ion-tab-bar-color-activated, var(--ion-color-success, #0f9c56));
-    }
+.icon-notif {
+  width: 15px;
+  position: absolute;
+  top: 7px;
+  margin-left: 9px;
+  z-index: 999;
 }
