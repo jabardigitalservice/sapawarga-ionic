@@ -215,7 +215,7 @@ export class ListMapNomorPentingPage implements OnInit {
         return 'assets/icon/keamanan.png'
       }
       case 'Transportasi': {
-        return 'assets/icon/transportasi.png'
+        return 'assets/icon/transport.png'
       }
       case 'Sosialisasi': {
         return 'assets/icon/sosial.png'
