@@ -90,7 +90,7 @@ export class AspirasiDetailPage implements OnInit {
 
   getDataLocal() {
     // get data local aspirasi
-    let dataAspirasi = JSON.parse(this.aspirasiService.getLocalAspirasi());
+    const dataAspirasi = JSON.parse(this.aspirasiService.getLocalAspirasi());
     this.dataAspirasi = dataAspirasi.find(x => x.id === this.id);
 
     // initial data like
