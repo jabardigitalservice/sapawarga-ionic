@@ -33,7 +33,7 @@ export class BroadcastService {
   }
 
   // save token into local storage
-  getlocalBroadcast() {
+  getBroadcast() {
     return JSON.parse(localStorage.getItem(BROADCAST_KEY));
   }
 
@@ -44,9 +44,7 @@ export class BroadcastService {
 
   // get Broadcast into local storage
   getLocalBroadcast() {
-    return localStorage.getItem(BROADCAST)
-      ? localStorage.getItem(BROADCAST)
-      : '';
+    return JSON.parse(localStorage.getItem(BROADCAST));
   }
 
   setNotification(data: boolean) {

@@ -32,27 +32,23 @@ export class BroadcastDetailPage implements OnInit {
       // console.log(this.dataBroadcast);
     });
     // add to list dataRead
-    this.dataRead = this.broadcastService.getlocalBroadcast() || [];
+    this.dataRead = this.broadcastService.getBroadcast() || [];
   }
 
   // Called when view is left
   ionViewWillLeave() {
     // Unregister the custom back button action for this page
-    if (!this.dataBroadcast['push_notification']) {
-      // set notification false remove notif
-      this.broadcastService.setNotification(false);
-      this.navCtrl.navigateForward('/tabs/broadcasts');
-    } else {
-      this.SetRead(parseInt(this.dataBroadcast.id, 10));
-      this.navCtrl.navigateRoot('/tabs/broadcasts');
-    }
+    this.backButton();
   }
 
   backButton() {
     // check navigate before, from push notification or not
     if (!this.dataBroadcast['push_notification']) {
+      // set notification false remove notif
+      // this.broadcastService.setNotification(false);
       this.navCtrl.navigateForward('/tabs/broadcasts');
     } else {
+      this.SetRead(parseInt(this.dataBroadcast.id, 10));
       this.navCtrl.navigateRoot('/tabs/broadcasts');
     }
   }

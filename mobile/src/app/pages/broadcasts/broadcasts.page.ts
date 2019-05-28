@@ -16,6 +16,8 @@ export class BroadcastsPage implements OnInit {
   currentPage = 1;
   maximumPages: number;
 
+  interval: any;
+
   constructor(
     private broadcastService: BroadcastService,
     public loadingCtrl: LoadingController,
@@ -24,14 +26,24 @@ export class BroadcastsPage implements OnInit {
 
   ngOnInit() {
     // set notification false remove notif
-    this.broadcastService.setNotification(false);
-    this.dataRead = this.broadcastService.getlocalBroadcast() || [];
+    // this.broadcastService.setNotification(false);
+    this.dataRead = this.broadcastService.getBroadcast() || [];
     this.getNomorBroadcasts();
   }
 
   ionViewDidEnter() {
-    this.dataRead = this.broadcastService.getlocalBroadcast() || [];
+    this.dataRead = this.broadcastService.getBroadcast() || [];
     this.getNomorBroadcasts();
+
+    // listen and render component
+    this.interval = setInterval(() => {
+      this.dataRead = this.broadcastService.getBroadcast() || [];
+    }, 1000);
+  }
+
+  // Called when view is left
+  ionViewWillLeave() {
+    window.clearInterval(this.interval);
   }
 
   // get data broadcasts
@@ -56,6 +68,7 @@ export class BroadcastsPage implements OnInit {
       res => {
         if (res['data']['items'].length) {
           this.dataBroadcast = res['data']['items'];
+
           // save to local
           this.broadcastService.saveLocalBroadcast(this.dataBroadcast);
         } else {
@@ -83,7 +96,9 @@ export class BroadcastsPage implements OnInit {
       // to dataRead to local storage
       this.broadcastService.saveBroadcast(JSON.stringify(this.dataRead));
     }
-    // console.log(broadcast);
+
+    this.checkLenghtRead();
+
     this.router.navigate(['/broadcast', broadcast.id], {
       queryParams: {
         id: broadcast.id,
@@ -94,6 +109,15 @@ export class BroadcastsPage implements OnInit {
         updated_at: broadcast.updated_at
       }
     });
+  }
+
+  // check if length data broadCast === dataRead
+  checkLenghtRead() {
+    if (this.dataRead.length === this.dataBroadcast.length) {
+      this.broadcastService.setNotification(false);
+    } else {
+      this.broadcastService.setNotification(true);
+    }
   }
 
   // check if data isRead/UnRead
