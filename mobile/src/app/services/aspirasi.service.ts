@@ -39,6 +39,12 @@ export class AspirasiService {
       .pipe(catchError(this.handleError));
   }
 
+  deleteAspirasi(id: number): Observable<Aspirasi> {
+    return this.http
+      .delete<Aspirasi>(`${environment.API_URL}/aspirasi/${id}`)
+      .pipe(catchError(this.handleError));
+  }
+
   // save Aspirasi into local storage
   saveLocalAspirasi(data: object) {
     localStorage.setItem(ASPIRASI, JSON.stringify(data));

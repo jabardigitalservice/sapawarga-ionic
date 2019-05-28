@@ -37,7 +37,9 @@ export class AspirasiDetailPage implements OnInit {
   ) {}
 
   ngOnInit() {
+    // get iduser
     this.idUser = JSON.parse(localStorage.getItem('PROFILE')).id;
+
     this.route.params.subscribe(params => {
       this.id = parseInt(params['id'], 10);
     });
@@ -47,12 +49,8 @@ export class AspirasiDetailPage implements OnInit {
 
   // get data nomor penting
   async getDetailAspirasi() {
-    const loader = await this.loadingCtrl.create({
-      duration: 10000
-    });
-    loader.present();
-
     this.offline = false;
+
     // check internet
     if (!navigator.onLine) {
       // stop infinite scroll
@@ -61,8 +59,15 @@ export class AspirasiDetailPage implements OnInit {
       this.dataLike = JSON.parse(this.aspirasiService.getLocalLikes()).filter(
         x => x.id === this.id
       );
+
+      this.getDataLocal();
       return;
     }
+
+    const loader = await this.loadingCtrl.create({
+      duration: 10000
+    });
+    loader.present();
 
     this.aspirasiService.getDetailAspirasi(this.id).subscribe(
       res => {
@@ -81,6 +86,15 @@ export class AspirasiDetailPage implements OnInit {
         this.navCtrl.back();
       }
     );
+  }
+
+  getDataLocal() {
+    // get data local aspirasi
+    const dataAspirasi = JSON.parse(this.aspirasiService.getLocalAspirasi());
+    this.dataAspirasi = dataAspirasi.find(x => x.id === this.id);
+
+    // initial data like
+    this.dataLike = this.initState(this.dataAspirasi);
   }
 
   initState(data: any) {
