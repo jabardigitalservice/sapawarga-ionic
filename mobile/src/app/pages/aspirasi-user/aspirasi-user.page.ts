@@ -51,7 +51,6 @@ export class AspirasiUserPage implements OnInit {
       res => {
         if (res['data']['items'].length) {
           this.dataAspirasi = this.dataAspirasi.concat(res['data']['items']);
-          console.log(this.dataAspirasi);
           // save to local
           this.aspirasiService.saveLocalAspirasiUser(this.dataAspirasi);
         } else {
@@ -72,6 +71,11 @@ export class AspirasiUserPage implements OnInit {
         }
       }
     );
+  }
+
+  // go to detail with param id
+  goDetail(id: number) {
+    this.router.navigate(['/aspirasi', id]);
   }
 
   checkStatus(status: number) {
