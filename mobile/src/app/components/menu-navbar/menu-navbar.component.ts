@@ -41,7 +41,7 @@ export class MenuNavbarComponent implements OnInit {
 
   async confirmLogout() {
     const alert = await this.alertController.create({
-      message: 'Apakah anda yakin ingin keluar dari aplikasi Sapawarga?',
+      message: 'Apakah Anda yakin ingin keluar dari aplikasi Sapawarga?',
       buttons: [
         {
           text: 'Batalkan',
