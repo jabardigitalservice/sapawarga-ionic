@@ -71,7 +71,6 @@ export class BroadcastDetailPage implements OnInit {
       // to dataRead to local storage
       this.broadcastService.saveBroadcast(JSON.stringify(this.dataRead));
     }
-    console.log(this.dataRead);
   }
 
   // check if data isRead/UnRead

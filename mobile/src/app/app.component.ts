@@ -52,7 +52,6 @@ export class AppComponent {
         this.fcm.onNotification().subscribe(data => {
           if (data.wasTapped) {
             // Received in background
-            console.log(data);
             // this.payloadNotification = data;
             this.broadcastService.setNotification(false);
             this.router.navigate([data.target, data.id], {
