@@ -4,28 +4,72 @@
       <ion-back-button></ion-back-button>
     </ion-buttons>
     <ion-title>Detail Aspirasi</ion-title>
+    <ion-icon
+      *ngIf="isEditable()"
+      name="more"
+      slot="end"
+      size="large"
+      (click)="navbarMore($event)"
+    ></ion-icon>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <img src="{{ record['photo'] }}" />
+<ion-content *ngIf="dataAspirasi">
+  <img
+    *ngIf="!offline"
+    class="img-cover"
+    src="{{
+      dataAspirasi.attachments !== null
+        ? dataAspirasi.attachments[0].url
+        : '../../../assets/img/placeholder_image.png'
+    }}"
+  />
+  <img
+    *ngIf="offline"
+    class="img-cover"
+    src="../../../assets/img/placeholder_image.png"
+  />
   <ion-card>
     <ion-card-header>
-      <ion-card-subtitle class="dark-read">{{ record['category']['name'] }}</ion-card-subtitle>
-      <ion-card-title>{{ record['title'] }}</ion-card-title>
+      <div *ngIf="isMyAspirasi()" style="margin-bottom: 10px">
+        <ion-badge [color]="checkStatus(dataAspirasi.status)">{{
+          dataAspirasi.status_label
+        }}</ion-badge>
+      </div>
+      <ion-card-subtitle class="dark-read">{{
+        dataAspirasi['category']['name']
+      }}</ion-card-subtitle>
+      <ion-card-title>{{ dataAspirasi['title'] }}</ion-card-title>
     </ion-card-header>
 
     <ion-card-content style="padding-top: 0">
       <div style="margin: 15px 0">
-        {{ record['kabkota']['name'] }}, {{ record['kecamatan']['name'] }}, {{ record['kelurahan']['name'] }}
+        {{ dataAspirasi['kabkota']['name'] }},
+        {{ dataAspirasi['kecamatan']['name'] }},
+        {{ dataAspirasi['kelurahan']['name'] }}
       </div>
 
-      <div>
-        <ion-label class="ion-text-justify">{{ record['description'] }}</ion-label>
+      <div class="author">
+        <ion-label>Oleh {{ dataAspirasi['author']['name'] }}</ion-label>
       </div>
 
       <div style="margin: 15px 0">
-        <ion-icon name="heart" color="danger"></ion-icon> 10 orang menyukai ini.
+        <ion-label class="ion-text-justify">{{
+          dataAspirasi['description']
+        }}</ion-label>
+      </div>
+
+      <div class="d-inline-f" *ngIf="dataAspirasi.status === 10">
+        <ion-icon
+          name="heart"
+          [color]="checkStateLike() ? 'danger' : 'medium'"
+          class="icon-heart"
+          (click)="doLike()"
+        ></ion-icon>
+        <p class="text-like" *ngIf="checkCountLike()">
+          {{ checkCountLike() }}
+          orang menyukai ini.
+        </p>
       </div>
     </ion-card-content>
   </ion-card>
