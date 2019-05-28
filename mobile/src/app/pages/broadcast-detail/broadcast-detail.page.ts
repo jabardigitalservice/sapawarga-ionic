@@ -28,8 +28,6 @@ export class BroadcastDetailPage implements OnInit {
     // get data detail Broadcast
     this.route.queryParamMap.subscribe(params => {
       this.dataBroadcast = params['params'];
-
-      // console.log(this.dataBroadcast);
     });
     // add to list dataRead
     this.dataRead = this.broadcastService.getBroadcast() || [];
@@ -69,6 +67,7 @@ export class BroadcastDetailPage implements OnInit {
         read: true
       };
       this.dataRead.push(data);
+
       // to dataRead to local storage
       this.broadcastService.saveBroadcast(JSON.stringify(this.dataRead));
     }

@@ -95,6 +95,7 @@ export class BroadcastsPage implements OnInit {
         read: true
       };
       this.dataRead.push(data);
+
       // to dataRead to local storage
       this.broadcastService.saveBroadcast(JSON.stringify(this.dataRead));
     }
