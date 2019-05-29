@@ -162,6 +162,7 @@ export class ListMapNomorPentingPage implements OnInit {
           if (res['data']['items'].length) {
             this.dataEmpty = false;
             this.dataLokasiTerdekat = res['data']['items'];
+            console.log(this.dataLokasiTerdekat);
             markers = this.createMarkers(this.dataLokasiTerdekat);
             // call map
             this.loadMap(markers);
@@ -193,9 +194,9 @@ export class ListMapNomorPentingPage implements OnInit {
             url: this.iconMarker(data[index].category),
             size: {
               width: 32,
-              height: 24
+              height: 42
             }
-          },
+          }
         };
         markers.push(marker);
       }
@@ -203,28 +204,28 @@ export class ListMapNomorPentingPage implements OnInit {
     return markers;
   }
 
-  iconMarker(category:string) {
+  iconMarker(category: string) {
     switch (category) {
       case 'Kesehatan': {
-        return 'assets/icon/kesehatan.png'
+        return 'assets/icon/kesehatan.png';
       }
       case 'Ekonomi': {
-        return 'assets/icon/ekonomi.png'
+        return 'assets/icon/ekonomi.png';
       }
       case 'Keamanan': {
-        return 'assets/icon/keamanan.png'
+        return 'assets/icon/keamanan.png';
       }
       case 'Transportasi': {
-        return 'assets/icon/transport.png'
+        return 'assets/icon/transport.png';
       }
       case 'Sosialisasi': {
-        return 'assets/icon/sosial.png'
+        return 'assets/icon/sosial.png';
       }
       case 'Layanan': {
-        return 'assets/icon/pelayanan.png'
+        return 'assets/icon/pelayanan.png';
       }
       default: {
-        return 'blue'
+        return 'blue';
       }
     }
   }
