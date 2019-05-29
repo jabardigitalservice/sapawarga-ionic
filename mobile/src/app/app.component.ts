@@ -8,6 +8,8 @@ import { Pages } from './interfaces/pages';
 import { AuthService } from './services/auth.service';
 import { FCM } from '@ionic-native/fcm/ngx';
 import { Router } from '@angular/router';
+import { BroadcastService } from './services/broadcast.service';
+import { Notification } from './interfaces/notification';
 
 @Component({
   selector: 'app-root',
@@ -17,6 +19,7 @@ import { Router } from '@angular/router';
 export class AppComponent {
   showSplash = true; // <-- show animation
   public appPages: Array<Pages>;
+  payloadNotification: Notification;
 
   constructor(
     private platform: Platform,
@@ -25,7 +28,8 @@ export class AppComponent {
     public navCtrl: NavController,
     private authService: AuthService,
     private fcm: FCM,
-    private router: Router
+    private router: Router,
+    private broadcastService: BroadcastService
   ) {
     this.initializeApp();
   }
@@ -37,26 +41,26 @@ export class AppComponent {
         this.statusBar.styleBlackTranslucent();
         this.splashScreen.hide();
 
-        this.fcm.onNotification().subscribe(data => {
-          console.log(data);
-          if (data.wasTapped) {
-            console.log('Received in background');
-            this.router.navigate([data.target, data.title], {
-              queryParams: data
-            });
-          } else {
-            console.log('Received in foreground');
-            this.router.navigate([data.target, data.title], {
-              queryParams: data
-            });
-          }
-        });
-
         this.authService.authenticationState.subscribe(state => {
           if (state) {
             this.navCtrl.navigateRoot('/');
           } else {
             this.navCtrl.navigateRoot('/login');
+          }
+        });
+
+        this.fcm.onNotification().subscribe(data => {
+          if (data.wasTapped) {
+            // Received in background
+            // this.payloadNotification = data;
+            this.broadcastService.setNotification(false);
+            this.router.navigate([data.target, data.id], {
+              queryParams: data
+            });
+          } else {
+            // Received in foreground
+            // set notification true to call state
+            this.broadcastService.setNotification(true);
           }
         });
       })
