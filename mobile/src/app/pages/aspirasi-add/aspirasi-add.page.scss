@@ -6,8 +6,15 @@
   ion-select {
     --padding-start: 0px;
   }
+
+  ion-checkbox {
+    margin: 6px;
+  }
 }
 
+.no-border {
+  --border-color: transparent;
+}
 .profile-content {
   height: 35px;
   display: flex;
@@ -15,5 +22,5 @@
 }
 
 .agreement {
-  margin-right: 5px;
+  font-size: 13px;
 }

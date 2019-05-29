@@ -30,6 +30,8 @@ export class AspirasiAddPage implements OnInit {
   imageData: any;
   images = [];
 
+  isChecked = false;
+
   constructor(
     private formBuilder: FormBuilder,
     private aspirasiService: AspirasiService,

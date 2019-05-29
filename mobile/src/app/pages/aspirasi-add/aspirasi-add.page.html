@@ -13,97 +13,56 @@
       [formGroup]="formAddAspirasi"
       (ngSubmit)="onFormSubmit(formAddAspirasi.getRawValue())"
     >
-      <ion-row class="ion-padding-start ion-margin-top">
-        <ion-col size="4">
-          <div class="profile-content">
-            <ion-label>Kategori<span class="ion-text-right">:</span></ion-label>
-          </div>
-        </ion-col>
-        <ion-col *ngIf="CategoriesAspirasi">
-          <div class="profile-data">
-            <ion-select
-              formControlName="kategori"
-              okText="Pilih"
-              cancelText="Batal"
-              placeholder="Pilih Kategori"
-            >
-              <ion-select-option
-                *ngFor="let category of CategoriesAspirasi"
-                value="{{ category.id }}"
+      <ion-grid>
+        <ion-row color="primary" justify-content-center>
+          <ion-col align-self-center size-md="6" size-lg="5" size-xs="12">
+            <ion-item>
+              <ion-label>Gender</ion-label>
+              <ion-select
+                formControlName="kategori"
+                okText="Pilih"
+                cancelText="Batal"
+                placeholder="Pilih Kategori"
               >
-                {{ category.name }}
-              </ion-select-option>
-            </ion-select>
-          </div>
-        </ion-col>
-      </ion-row>
+                <ion-select-option
+                  *ngFor="let category of CategoriesAspirasi"
+                  value="{{ category.id }}"
+                >
+                  {{ category.name }}
+                </ion-select-option>
+              </ion-select>
+            </ion-item>
 
-      <ion-row class="ion-padding-start ion-margin-top">
-        <ion-col size="4">
-          <div class="profile-content">
-            <ion-label>Judul <span class="ion-text-right">:</span></ion-label>
-          </div>
-        </ion-col>
-        <ion-col>
-          <div class="profile-data">
-            <ion-textarea
-              rows="6"
-              formControlName="title"
-              [ngClass]="{ 'is-invalid': submitted && f.title.errors }"
-              placeholder="Masukkan nama anda"
-            ></ion-textarea>
-          </div>
-        </ion-col>
-      </ion-row>
+            <ion-item>
+              <ion-label position="floating">Judul</ion-label>
+              <ion-input
+                type="text"
+                formControlName="title"
+                [ngClass]="{ 'is-invalid': submitted && f.title.errors }"
+              ></ion-input>
+            </ion-item>
 
-      <ion-row class="ion-padding-start ion-margin-top">
-        <ion-col size="4">
-          <div class="profile-content">
-            <ion-label
-              >Upload Gambar <span class="ion-text-right">:</span></ion-label
-            >
-          </div>
-        </ion-col>
-        <ion-col>
-          <div class="profile-data">
-            <!-- <input
-              type="file"
-              accept="image/*"
-              ng2FileSelect
-              [uploader]="fileUploader"
-              multiple
-            /> -->
-          </div>
-        </ion-col>
-      </ion-row>
-
-      <ion-row class="ion-padding-start ion-margin-top">
-        <ion-col size="5">
-          <div class="profile-content">
-            <ion-label
-              >Detail Aspirasi <span class="ion-text-right">:</span></ion-label
-            >
-          </div>
-        </ion-col>
-        <ion-col>
-          <div class="profile-data">
-            <ion-textarea
-              rows="6"
-              formControlName="description"
-              [ngClass]="{ 'is-invalid': submitted && f.description.errors }"
-              placeholder="Masukkan nama anda"
-            ></ion-textarea>
-          </div>
-        </ion-col>
-      </ion-row>
+            <ion-item>
+              <ion-label position="floating">Detail Aspirasi</ion-label>
+              <ion-textarea
+                formControlName="description"
+                rows="7"
+                cols="20"
+                [ngClass]="{ 'is-invalid': submitted && f.description.errors }"
+              ></ion-textarea>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
 
       <ion-list>
-        <ion-item>
-          <ion-checkbox
-            formControlName="description"
-            class="agreement"
-          ></ion-checkbox>
-          <ion-label>tesre sfddsewr s</ion-label>
+        <ion-item class="no-border">
+          <ion-checkbox slot="start"></ion-checkbox>
+          <ion-text item-right>
+            <p class="agreement">
+              Saya telah menyetujui untuk memberikan aspirasi untuk Jawa Barat
+            </p></ion-text
+          >
         </ion-item>
       </ion-list>
 
@@ -112,12 +71,14 @@
         class="ion-margin-bottom"
         size="medium"
         expand="full"
-        color="dark"
+        color="success"
         type="submit"
         >Simpan perubahan
       </ion-button>
 
-      <ion-button (click)="uploadAspirasi()">Upload files</ion-button>
+      <ion-button (click)="uploadAspirasi()" color="success"
+        >Upload files</ion-button
+      >
     </form>
   </ion-grid>
 
