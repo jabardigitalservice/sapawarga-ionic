@@ -17,6 +17,7 @@ import { IonicStorageModule } from '@ionic/storage';
 // Components
 import { TokenInterceptor } from './helpers/token.interceptor';
 import { MenuNavbarComponent } from './components/menu-navbar/menu-navbar.component';
+import { MenuNavbarAspirasiComponent } from './components/menu-navbar-aspirasi/menu-navbar-aspirasi.component';
 
 // plugin
 import { FCM } from '@ionic-native/fcm/ngx';
@@ -27,7 +28,7 @@ import {
   FileTransferObject
 } from '@ionic-native/file-transfer/ngx';
 @NgModule({
-  declarations: [AppComponent, MenuNavbarComponent],
+  declarations: [AppComponent, MenuNavbarComponent, MenuNavbarAspirasiComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -36,7 +37,7 @@ import {
     IonicStorageModule.forRoot(),
     HttpClientModule
   ],
-  entryComponents: [MenuNavbarComponent],
+  entryComponents: [MenuNavbarComponent, MenuNavbarAspirasiComponent],
   providers: [
     StatusBar,
     SplashScreen,

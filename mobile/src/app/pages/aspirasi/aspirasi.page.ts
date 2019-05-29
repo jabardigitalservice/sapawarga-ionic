@@ -36,6 +36,10 @@ export class AspirasiPage implements OnInit {
     }, 2000);
   }
 
+  ionViewDidEnter() {
+    this.dataLikes = JSON.parse(this.aspirasiService.getLocalLikes());
+  }
+
   // get data broadcasts
   async getListAspirasi(infiniteScroll?: any) {
     this.offline = false;
@@ -88,10 +92,10 @@ export class AspirasiPage implements OnInit {
   }
 
   initState(data: any) {
-    let datas = [];
-    for (let index in data) {
+    const datas = [];
+    for (const index in data) {
       if (data.length) {
-        let data_like = {
+        const data_like = {
           id: data[index].id,
           liked:
             data[index].likes_users.filter(x => x.id === this.idUser).length >
@@ -146,7 +150,7 @@ export class AspirasiPage implements OnInit {
       this.dataLikes.find(x => x.id === id).likes_count++;
     }
 
-    // save liketo server
+    // save like to server
     this.aspirasiService.likeAspirasi(id).subscribe(res => {}, err => {});
 
     // save likes to local

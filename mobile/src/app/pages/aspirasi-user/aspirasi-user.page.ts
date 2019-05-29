@@ -22,20 +22,20 @@ export class AspirasiUserPage implements OnInit {
     private toastCtrl: ToastController
   ) {}
 
-  ngOnInit() {
-    setTimeout(() => {
-      this.dataAspirasi = [];
-      this.getListAspirasi();
-    }, 2000);
+  ngOnInit() {}
+
+  ionViewDidEnter() {
+    this.dataAspirasi = [];
+    this.getListAspirasi();
   }
 
   // get data broadcasts
   async getListAspirasi(infiniteScroll?: any) {
     // check internet
     if (!navigator.onLine) {
-      alert('Tidak ada jaringan internet');
       // stop infinite scroll
       if (infiniteScroll) {
+        alert('Tidak ada jaringan internet');
         infiniteScroll.target.complete();
       }
       // get local
@@ -71,6 +71,11 @@ export class AspirasiUserPage implements OnInit {
         }
       }
     );
+  }
+
+  // go to detail with param id
+  goDetail(id: number) {
+    this.router.navigate(['/aspirasi', id]);
   }
 
   checkStatus(status: number) {
