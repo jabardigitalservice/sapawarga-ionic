@@ -2,6 +2,10 @@
   ion-label {
     margin-top: 15px;
   }
+
+  ion-select {
+    --padding-start: 0px;
+  }
 }
 
 .profile-content {

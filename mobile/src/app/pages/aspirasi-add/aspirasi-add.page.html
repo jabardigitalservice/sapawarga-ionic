@@ -19,18 +19,20 @@
             <ion-label>Kategori<span class="ion-text-right">:</span></ion-label>
           </div>
         </ion-col>
-        <ion-col>
+        <ion-col *ngIf="CategoriesAspirasi">
           <div class="profile-data">
             <ion-select
-              formControlName="kabkota_id"
+              formControlName="kategori"
               okText="Pilih"
               cancelText="Batal"
-              placeholder="Pilih Kab/Kota"
+              placeholder="Pilih Kategori"
             >
-              <ion-select placeholder="Select One">
-                <ion-select-option value="f">Female</ion-select-option>
-                <ion-select-option value="m">Male</ion-select-option>
-              </ion-select>
+              <ion-select-option
+                *ngFor="let category of CategoriesAspirasi"
+                value="{{ category.id }}"
+              >
+                {{ category.name }}
+              </ion-select-option>
             </ion-select>
           </div>
         </ion-col>
@@ -98,7 +100,7 @@
       <ion-list>
         <ion-item>
           <ion-checkbox
-            formControlName="kabkota_id"
+            formControlName="description"
             class="agreement"
           ></ion-checkbox>
           <ion-label>tesre sfddsewr s</ion-label>

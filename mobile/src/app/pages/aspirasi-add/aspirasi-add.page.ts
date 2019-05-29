@@ -15,6 +15,7 @@ import {
   FileUploadOptions,
   FileTransferObject
 } from '@ionic-native/file-transfer/ngx';
+import { Aspirasi } from '../../interfaces/aspirasi';
 
 const TOKEN_KEY = 'auth-token';
 @Component({
@@ -24,6 +25,7 @@ const TOKEN_KEY = 'auth-token';
 })
 export class AspirasiAddPage implements OnInit {
   formAddAspirasi: FormGroup;
+  CategoriesAspirasi: Aspirasi[];
   submitted = false;
   imageData: any;
   images = [];
@@ -51,16 +53,36 @@ export class AspirasiAddPage implements OnInit {
         ]
       ],
       description: ['', [Validators.required]],
-      kategori: [''],
-      kabkota_id: [''],
-      kec_id: [''],
-      kel_id: ['']
+      kategori: ['', [Validators.required]]
     });
+    this.getCategories();
   }
 
   // convenience getter for easy access to form fields
   get f() {
     return this.formAddAspirasi.controls;
+  }
+
+  // get data kab/kota
+  async getCategories() {
+    const loader = await this.loadingCtrl.create({
+      duration: 10000
+    });
+    loader.present();
+
+    this.aspirasiService.getCategories().subscribe(
+      res => {
+        this.CategoriesAspirasi = res['data']['items'];
+        console.log(this.CategoriesAspirasi);
+        loader.dismiss();
+      },
+      err => {
+        this.showToast(
+          'Terjadi kesalahan periksa kembali koneksi internet anda'
+        );
+        loader.dismiss();
+      }
+    );
   }
 
   async onFormSubmit(form: NgForm) {

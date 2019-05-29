@@ -19,6 +19,7 @@ export interface Aspirasi {
   attachments: AttachmentsItem[];
   created_at: number;
   updated_at: number;
+  name: string;
 }
 
 interface Kabkota {

@@ -109,6 +109,13 @@ export class AspirasiService {
       : '';
   }
 
+  // get categories aspirasi
+  getCategories() {
+    return this.http
+      .get<Aspirasi[]>(`${environment.API_URL}/categories?type=aspirasi`)
+      .pipe(catchError(this.handleError));
+  }
+
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
       // A client-side or network error occurred. Handle it accordingly.
