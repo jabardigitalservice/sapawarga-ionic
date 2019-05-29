@@ -4,7 +4,8 @@ import {
   LoadingController,
   PopoverController,
   ToastController,
-  NavController
+  NavController,
+  AlertController
 } from '@ionic/angular';
 import { AspirasiService } from '../../services/aspirasi.service';
 import { Aspirasi } from '../../interfaces/aspirasi';
@@ -33,7 +34,8 @@ export class AspirasiDetailPage implements OnInit {
     private loadingCtrl: LoadingController,
     public popoverCtrl: PopoverController,
     private toastCtrl: ToastController,
-    private navCtrl: NavController
+    private navCtrl: NavController,
+    private alertController: AlertController
   ) {}
 
   ngOnInit() {
@@ -216,5 +218,15 @@ export class AspirasiDetailPage implements OnInit {
     popover.onDidDismiss();
 
     return await popover.present();
+  }
+
+  async lihatNote(message: string) {
+    const alert = await this.alertController.create({
+      header: 'Ditolak',
+      message: message,
+      buttons: ['OK']
+    });
+
+    await alert.present();
   }
 }
