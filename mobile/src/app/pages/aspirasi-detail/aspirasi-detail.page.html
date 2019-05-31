@@ -32,9 +32,20 @@
   <ion-card>
     <ion-card-header>
       <div *ngIf="isMyAspirasi()" style="margin-bottom: 10px">
-        <ion-badge [color]="checkStatus(dataAspirasi.status)">{{
-          dataAspirasi.status_label
-        }}</ion-badge>
+        <ion-item no-padding>
+          <div slot="start">
+            <ion-badge [color]="checkStatus(dataAspirasi.status)">{{
+              dataAspirasi.status_label
+            }}</ion-badge>
+          </div>
+          <div slot="end" *ngIf="dataAspirasi.status === 3">
+            <ion-badge
+              class="badge-note"
+              (click)="lihatNote(dataAspirasi.approval_note)"
+              >Lihat Catatan</ion-badge
+            >
+          </div>
+        </ion-item>
       </div>
       <ion-card-subtitle class="dark-read">{{
         dataAspirasi['category']['name']
