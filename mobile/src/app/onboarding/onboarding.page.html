@@ -1,21 +1,14 @@
 <ion-content>
-  <ion-slides pager class="full-page">
-
-    <ion-slide>
-      <img src="../../assets/img/onboarding/onboarding1.png" />
-    </ion-slide>
-
-    <ion-slide>
-      <img src="../../assets/img/onboarding/onboarding2.png" />
-    </ion-slide>
-
-    <ion-slide>
-      <img src="../../assets/img/onboarding/onboarding3.png" />
-    </ion-slide>
-
-    <ion-slide>
-      <img src="../../assets/img/onboarding/onboarding4.png" />
-    </ion-slide>
-
-  </ion-slides>
+  <!-- <div style="height:100%"> -->
+    <ion-slides pager>
+      <ion-slide *ngFor="let slide of slides; let i = index">
+        <div [ngStyle]="getSlideBackgroundStyle(i+1)">
+          <div [ngClass]="slideCaptionStyle[i % 2]">
+            <h2 [ngStyle]="{color:slide.titleColor}">{{slide.title}}</h2>
+            <p>{{slide.description}}</p>
+          </div>
+        </div>
+      </ion-slide>
+    </ion-slides>
+  <!-- </div> -->
 </ion-content>

@@ -1,0 +1,21 @@
+ion-slides {
+    height: 100%;
+}
+
+.slide-background {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    background: url("../../assets/img/onboarding/onboarding1.png") no-repeat;
+    background-size: cover;
+}
+
+.slide-caption {
+    position: absolute;
+    &.top {
+        top: 0
+    }
+    &.bottom {
+        bottom: 0
+    }
+}
