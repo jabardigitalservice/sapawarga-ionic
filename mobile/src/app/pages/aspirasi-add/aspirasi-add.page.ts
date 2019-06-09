@@ -55,7 +55,8 @@ export class AspirasiAddPage implements OnInit {
         ]
       ],
       description: ['', [Validators.required]],
-      kategori: ['', [Validators.required]]
+      kategori: ['', [Validators.required]],
+      attachments: []
     });
     this.getCategories();
   }
@@ -75,7 +76,7 @@ export class AspirasiAddPage implements OnInit {
     this.aspirasiService.getCategories().subscribe(
       res => {
         this.CategoriesAspirasi = res['data']['items'];
-        console.log(this.CategoriesAspirasi);
+        // console.log(this.CategoriesAspirasi);
         loader.dismiss();
       },
       err => {
@@ -88,7 +89,18 @@ export class AspirasiAddPage implements OnInit {
   }
 
   async onFormSubmit(form: NgForm) {
+    // let data = [];
+    // let dataForm = {
+    //   form,
+    //   attachments: this.images
+    // };
+    // data.push(dataForm);
+
+    // console.log(this.images);
     console.log(form);
+    // let data_form: any;
+    // data_form.assign(form, this.images);
+    // console.log(dataForm);
     this.submitted = true;
     // check form if invalid
     if (this.formAddAspirasi.invalid) {
@@ -97,6 +109,19 @@ export class AspirasiAddPage implements OnInit {
   }
 
   async uploadAspirasi() {
+    // coding sementara berhubung server offline
+    let image = {
+      type: 'photo',
+      path: '/path/test/test.png'
+    };
+
+    this.images.push(image);
+
+    this.f.attachments.setValue(this.images);
+
+    return;
+    // coding sementara
+
     const actionSheet = await this.actionsheetCtrl.create({
       header: 'Pilihan',
       buttons: [
@@ -170,19 +195,19 @@ export class AspirasiAddPage implements OnInit {
       }
     };
 
+    options.params = {
+      type: 'phonebook_photo'
+    };
+
     fileTransfer
-      .upload(
-        imageData,
-        `${environment.API_URL}/attachments?type=aspirasi_photo`,
-        options
-      )
+      .upload(imageData, `${environment.API_URL}/attachments`, options)
       .then(
         data => {
           // console.log(data);
           let response = JSON.parse(data.response);
           // success
           loading.dismiss();
-          // console.log(response);
+          console.log(response);
           if (response['success'] === true) {
             this.showToast('Foto berhasil disimpan');
             // this.image = response['data']['photo_url'];
@@ -192,11 +217,16 @@ export class AspirasiAddPage implements OnInit {
             };
 
             this.images.push(image);
+
+            // insert array images to form attachments
+            this.f.attachments.setValue(this.images);
           } else {
             this.showToast(
               'Foto profile yang diupload melebihi batas max. file'
             );
           }
+
+          console.log(this.images);
         },
         err => {
           console.log(err);
