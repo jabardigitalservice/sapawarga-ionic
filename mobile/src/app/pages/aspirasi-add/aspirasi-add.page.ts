@@ -32,7 +32,7 @@ export class AspirasiAddPage implements OnInit {
   submitted = false;
   imageData: any;
   images = [];
-
+  urlStorage = `${environment.API_STORAGE}/image/`;
   isChecked = false;
 
   constructor(
@@ -64,7 +64,8 @@ export class AspirasiAddPage implements OnInit {
       kec_id: [null],
       kel_id: [null],
       status: [0],
-      attachments: []
+      attachments: [],
+      isChecked: [false]
     });
 
     // get data categories aspirasi
@@ -114,7 +115,7 @@ export class AspirasiAddPage implements OnInit {
     console.log(form);
     this.submitted = true;
     // check form if invalid
-    if (this.formAddAspirasi.invalid) {
+    if (this.f.isChecked.value || this.formAddAspirasi.invalid) {
       return;
     }
 
@@ -280,6 +281,16 @@ export class AspirasiAddPage implements OnInit {
       );
 
     console.log(this.images);
+  }
+
+  checkEvent() {
+    // if (this.f.isChecked.value === false) {
+    //   this.f.isChecked.setValue(true);
+    // } else {
+    //   this.f.isChecked.setValue(false);
+    // }
+
+    console.log(this.f.isChecked.value);
   }
 
   async showToast(msg: string) {

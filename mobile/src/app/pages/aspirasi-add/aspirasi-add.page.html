@@ -4,6 +4,12 @@
       <ion-back-button></ion-back-button>
     </ion-buttons>
     <ion-title>Tambah Aspirasi</ion-title>
+    <!-- <ion-icon name="attach" slot="end" (click)="uploadAspirasi()"></ion-icon> -->
+    <ion-buttons slot="end" (click)="uploadAspirasi()">
+      <ion-button shape="round" color="dark">
+        <ion-icon name="attach"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -42,6 +48,30 @@
               ></ion-input>
             </ion-item>
 
+            <ion-item class="ion-margin-top" *ngIf="images.length">
+              <!-- <ul>
+                <li *ngFor="let item of images">
+                  {{ item?.path }}
+                  <img class="img-cover" [src]="urlStorage + item?.path" />
+                </li>
+              </ul> -->
+
+              <ion-grid>
+                <ion-row>
+                  <ion-col size="4" *ngFor="let item of images">
+                    <div>
+                      <ion-icon
+                        color="danger"
+                        name="remove-circle"
+                        class="icon-remove"
+                      ></ion-icon>
+                      <img class="img-cover" [src]="urlStorage + item?.path" />
+                    </div>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            </ion-item>
+
             <ion-item>
               <ion-label position="floating">Detail Aspirasi</ion-label>
               <ion-textarea
@@ -57,7 +87,7 @@
 
       <ion-list>
         <ion-item class="no-border">
-          <ion-checkbox slot="start"></ion-checkbox>
+          <ion-checkbox slot="start" formControlName="isChecked"></ion-checkbox>
           <ion-text item-right>
             <p class="agreement">
               Saya telah menyetujui untuk memberikan aspirasi untuk Jawa Barat
@@ -75,17 +105,15 @@
         type="submit"
         >Simpan perubahan
       </ion-button>
-
-      <ion-button (click)="uploadAspirasi()" color="success"
-        >Upload files</ion-button
-      >
     </form>
   </ion-grid>
 
-  <h2>Your files: {{ images.length }}</h2>
+  <!-- <h2>Your files: {{ images.length }}</h2>
   <ul>
     <li *ngFor="let item of images">
       {{ item?.path }}
+      <img class="img-cover" [src]="urlStorage + item?.path" />
     </li>
   </ul>
+  <p>{{ baseUrl }}</p> -->
 </ion-content>
