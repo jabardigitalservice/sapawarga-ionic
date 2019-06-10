@@ -4,9 +4,9 @@ import { AspirasiService } from '../../services/aspirasi.service';
 import {
   LoadingController,
   ToastController,
-  ActionSheetController
+  ActionSheetController,
+  NavController
 } from '@ionic/angular';
-import { Router } from '@angular/router';
 import { environment } from '../../../environments/environment';
 // plugin
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
@@ -16,6 +16,8 @@ import {
   FileTransferObject
 } from '@ionic-native/file-transfer/ngx';
 import { Aspirasi } from '../../interfaces/aspirasi';
+import { ProfileService } from '../../services/profile.service';
+import { Profile } from '../../interfaces/profile';
 
 const TOKEN_KEY = 'auth-token';
 @Component({
@@ -26,6 +28,7 @@ const TOKEN_KEY = 'auth-token';
 export class AspirasiAddPage implements OnInit {
   formAddAspirasi: FormGroup;
   CategoriesAspirasi: Aspirasi[];
+  dataProfile: Profile;
   submitted = false;
   imageData: any;
   images = [];
@@ -35,12 +38,13 @@ export class AspirasiAddPage implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private aspirasiService: AspirasiService,
+    private profileService: ProfileService,
     public loadingCtrl: LoadingController,
-    private router: Router,
     private actionsheetCtrl: ActionSheetController,
     private toastCtrl: ToastController,
     private camera: Camera,
-    private transfer: FileTransfer
+    private transfer: FileTransfer,
+    private navCtrl: NavController
   ) {}
 
   ngOnInit() {
@@ -54,11 +58,29 @@ export class AspirasiAddPage implements OnInit {
           Validators.pattern(/^[a-z0-9 ]+$/)
         ]
       ],
-      description: ['', [Validators.required]],
-      kategori: ['', [Validators.required]],
+      description: ['', [Validators.required, Validators.maxLength(280)]],
+      category_id: ['', [Validators.required]],
+      kabkota_id: [null],
+      kec_id: [null],
+      kel_id: [null],
+      status: [0],
       attachments: []
     });
+
+    // get data categories aspirasi
     this.getCategories();
+
+    // get data profile user
+    this.dataProfile = this.profileService.getLocalProfile();
+
+    // set data kab / kota
+    this.f.kabkota_id.setValue(this.dataProfile.kabkota_id);
+
+    // set data kecamatan
+    this.f.kec_id.setValue(this.dataProfile.kec_id);
+
+    // set data kelurahan
+    this.f.kel_id.setValue(this.dataProfile.kel_id);
   }
 
   // convenience getter for easy access to form fields
@@ -89,37 +111,59 @@ export class AspirasiAddPage implements OnInit {
   }
 
   async onFormSubmit(form: NgForm) {
-    // let data = [];
-    // let dataForm = {
-    //   form,
-    //   attachments: this.images
-    // };
-    // data.push(dataForm);
-
-    // console.log(this.images);
     console.log(form);
-    // let data_form: any;
-    // data_form.assign(form, this.images);
-    // console.log(dataForm);
     this.submitted = true;
     // check form if invalid
     if (this.formAddAspirasi.invalid) {
       return;
     }
+
+    // check internet
+    if (!navigator.onLine) {
+      this.showToast('Tidak ada koneksi internet');
+      return;
+    }
+
+    const loader = await this.loadingCtrl.create({
+      duration: 10000
+    });
+    loader.present();
+    this.aspirasiService.PostAspirasi(form).subscribe(
+      res => {
+        if (res.status === 201) {
+          this.showToast('Data berhasil tersimpan');
+          this.navCtrl.navigateForward('/tabs/akun');
+        } else {
+          this.showToast('Data gagal tersimpan');
+        }
+        loader.dismiss();
+      },
+      err => {
+        loader.dismiss();
+        // check if status 422
+        if (err.status === 422) {
+          // get data from server
+        } else {
+          this.showToast(
+            'Data gagal tersimpan periksa kembali koneksi internet anda'
+          );
+        }
+      }
+    );
   }
 
   async uploadAspirasi() {
     // coding sementara berhubung server offline
-    let image = {
-      type: 'photo',
-      path: '/path/test/test.png'
-    };
+    // let image = {
+    //   type: 'photo',
+    //   path: '/path/test/test.png'
+    // };
 
-    this.images.push(image);
+    // this.images.push(image);
 
-    this.f.attachments.setValue(this.images);
+    // this.f.attachments.setValue(this.images);
 
-    return;
+    // return;
     // coding sementara
 
     const actionSheet = await this.actionsheetCtrl.create({
