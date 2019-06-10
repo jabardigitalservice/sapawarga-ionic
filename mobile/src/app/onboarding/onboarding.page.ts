@@ -46,6 +46,7 @@ export class OnboardingPage implements OnInit {
       height: '100%',
       position: 'relative',
       background: `url("../../assets/img/onboarding/onboarding${index}.png") no-repeat`,
+      backgroundPosition: 'center center',
       backgroundSize: 'cover'
     };
   }
