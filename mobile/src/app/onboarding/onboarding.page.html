@@ -1,11 +1,11 @@
-<ion-content>
+<ion-content padding>
   <!-- <div style="height:100%"> -->
     <ion-slides pager>
       <ion-slide *ngFor="let slide of slides; let i = index">
         <div [ngStyle]="getSlideBackgroundStyle(i+1)">
           <div [ngClass]="slideCaptionStyle[i % 2]">
             <h2 [ngStyle]="{color:slide.titleColor}">{{slide.title}}</h2>
-            <p>{{slide.description}}</p>
+            <p class="slide-description">{{slide.description}}</p>
           </div>
         </div>
       </ion-slide>

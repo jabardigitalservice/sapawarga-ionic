@@ -16,17 +16,17 @@ export class OnboardingPage implements OnInit {
     {
       title: "Aspirasi",
       description: "Sampaikan saran, keluhan, dan ide Anda melalui fitur polling, survei, dan pelaporan kepada pemerintah daerah.",
-      titleColor: "green"    
+      titleColor: "#3ca96b"    
     },
     {
       title: "Informasi",
       description: "Dapatkan broadcast informasi penting dan terbaru dari pemerintah.",
-      titleColor: "yellow"    
+      titleColor: "#ffce38"    
     },
     {
       title: "Pelayanan Publik",
       description: "Nikmati pelayanan publik dan proses administrasi yang lebih mudah dan efisien.",
-      titleColor: "blue"    
+      titleColor: "#00b7f0"    
     }
   ]
 
