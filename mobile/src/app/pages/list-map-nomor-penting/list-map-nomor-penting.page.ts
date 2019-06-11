@@ -162,8 +162,10 @@ export class ListMapNomorPentingPage implements OnInit {
           if (res['data']['items'].length) {
             this.dataEmpty = false;
             this.dataLokasiTerdekat = res['data']['items'];
-            console.log(this.dataLokasiTerdekat);
+
+            // create marker
             markers = this.createMarkers(this.dataLokasiTerdekat);
+
             // call map
             this.loadMap(markers);
           } else {
