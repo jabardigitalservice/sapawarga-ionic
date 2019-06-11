@@ -15,10 +15,7 @@
 
 <ion-content>
   <ion-grid fixed no-padding>
-    <form
-      [formGroup]="formAddAspirasi"
-      (ngSubmit)="onFormSubmit(formAddAspirasi.getRawValue())"
-    >
+    <form [formGroup]="formAddAspirasi">
       <ion-grid>
         <ion-row color="primary" justify-content-center>
           <ion-col align-self-center size-md="6" size-lg="5" size-xs="12">
@@ -103,8 +100,8 @@
         class="ion-margin-bottom"
         size="medium"
         expand="full"
-        color="success"
-        type="submit"
+        color="warning"
+        (click)="saveDraft()"
         >Simpan Sebagai Draft
       </ion-button>
 
@@ -114,7 +111,7 @@
         size="medium"
         expand="full"
         color="success"
-        type="submit"
+        (click)="confirmationMsg()"
         >Kirim Aspirasi
       </ion-button>
     </form>

@@ -50,7 +50,6 @@ export class AspirasiAddPage implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.confirmationMsg();
     this.formAddAspirasi = this.formBuilder.group({
       title: [
         '',
@@ -66,7 +65,7 @@ export class AspirasiAddPage implements OnInit {
       kabkota_id: [null],
       kec_id: [null],
       kel_id: [null],
-      status: [5],
+      status: [null],
       attachments: [],
       isChecked: [false]
     });
@@ -102,7 +101,6 @@ export class AspirasiAddPage implements OnInit {
     this.aspirasiService.getCategories().subscribe(
       res => {
         this.CategoriesAspirasi = res['data']['items'];
-        // console.log(this.CategoriesAspirasi);
         loader.dismiss();
       },
       err => {
@@ -114,9 +112,9 @@ export class AspirasiAddPage implements OnInit {
     );
   }
 
-  async onFormSubmit(form: NgForm) {
-    console.log(form);
+  async addAspirasi() {
     this.submitted = true;
+
     // check form if invalid
     if (this.formAddAspirasi.invalid) {
       return;
@@ -132,7 +130,7 @@ export class AspirasiAddPage implements OnInit {
       duration: 10000
     });
     loader.present();
-    this.aspirasiService.PostAspirasi(form).subscribe(
+    this.aspirasiService.PostAspirasi(this.formAddAspirasi.value).subscribe(
       res => {
         if (res.status === 201) {
           this.showToast('Data berhasil tersimpan');
@@ -157,19 +155,6 @@ export class AspirasiAddPage implements OnInit {
   }
 
   async uploadAspirasi() {
-    // coding sementara berhubung server offline
-    // let image = {
-    //   type: 'photo',
-    //   path: '/path/test/test.png'
-    // };
-
-    // this.images.push(image);
-
-    // this.f.attachments.setValue(this.images);
-
-    // return;
-    // coding sementara
-
     const actionSheet = await this.actionsheetCtrl.create({
       header: 'Pilihan',
       buttons: [
@@ -257,8 +242,6 @@ export class AspirasiAddPage implements OnInit {
           loading.dismiss();
           // console.log(response);
           if (response['success'] === true) {
-            // this.showToast('Foto berhasil disimpan');
-            // this.image = response['data']['photo_url'];
             let image = {
               type: 'photo',
               path: response['data']['path']
@@ -273,37 +256,20 @@ export class AspirasiAddPage implements OnInit {
               'Foto profile yang diupload melebihi batas max. file'
             );
           }
-
-          console.log(this.images);
         },
         err => {
-          console.log(err);
           loading.dismiss();
           this.showToast('Terjadi Kesalahan');
         }
       );
-
-    console.log(this.images);
-  }
-
-  checkEvent() {
-    // if (this.f.isChecked.value === false) {
-    //   this.f.isChecked.setValue(true);
-    // } else {
-    //   this.f.isChecked.setValue(false);
-    // }
-
-    console.log(this.f.isChecked.value);
   }
 
   removeImage(index) {
-    console.log(index);
+    // remove object from array images
     this.images.splice(index, 1);
 
     // insert new array images to form attachments
     this.f.attachments.setValue(this.images);
-
-    console.log(this.images);
   }
 
   async confirmationMsg() {
@@ -315,21 +281,26 @@ export class AspirasiAddPage implements OnInit {
           text: 'Batal',
           role: 'cancel',
           cssClass: 'secondary',
-          handler: blah => {
-            console.log('Confirm Cancel: blah');
-          }
+          handler: () => {}
         },
         {
           text: 'Setuju',
           handler: () => {
-            console.log('Confirm Okay');
-            this.onFormSubmit(this.formAddAspirasi.value);
+            // set status 5 = waiting confirmation
+            this.f.status.setValue(5);
+            this.addAspirasi();
           }
         }
       ]
     });
 
     await alert.present();
+  }
+
+  saveDraft() {
+    // set status 0 = draft
+    this.f.status.setValue(0);
+    this.addAspirasi();
   }
 
   async showToast(msg: string) {
