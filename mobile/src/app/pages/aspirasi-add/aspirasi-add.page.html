@@ -4,7 +4,6 @@
       <ion-back-button></ion-back-button>
     </ion-buttons>
     <ion-title>Tambah Aspirasi</ion-title>
-    <!-- <ion-icon name="attach" slot="end" (click)="uploadAspirasi()"></ion-icon> -->
     <ion-buttons slot="end" (click)="uploadAspirasi()">
       <ion-button shape="round" color="dark">
         <ion-icon name="attach"></ion-icon>
@@ -20,7 +19,7 @@
         <ion-row color="primary" justify-content-center>
           <ion-col align-self-center size-md="6" size-lg="5" size-xs="12">
             <ion-item>
-              <ion-label>Gender</ion-label>
+              <ion-label>Kategori</ion-label>
               <ion-select
                 formControlName="category_id"
                 okText="Pilih"
@@ -35,6 +34,20 @@
                 </ion-select-option>
               </ion-select>
             </ion-item>
+            <div
+              *ngIf="submitted && !!f.category_id.errors"
+              class="invalid-feedback"
+            >
+              <p
+                ion-text
+                class="text08"
+                *ngIf="!!f.category_id.errors.required"
+              >
+                <ion-text color="danger">
+                  kategori harus diisi
+                </ion-text>
+              </p>
+            </div>
 
             <ion-item>
               <ion-label position="floating">Judul</ion-label>
@@ -44,6 +57,28 @@
                 [ngClass]="{ 'is-invalid': submitted && f.title.errors }"
               ></ion-input>
             </ion-item>
+            <div *ngIf="submitted && !!f.title.errors" class="invalid-feedback">
+              <p ion-text class="text08" *ngIf="!!f.title.errors.required">
+                <ion-text color="danger">
+                  Judul harus diisi
+                </ion-text>
+              </p>
+              <p ion-text class="text08" *ngIf="!!f.title.errors.minlength">
+                <ion-text color="danger">
+                  Judul minimal 10 karakter
+                </ion-text>
+              </p>
+              <p ion-text class="text08" *ngIf="!!f.title.errors.maxLength">
+                <ion-text color="danger">
+                  Judul maximal 60 karakter
+                </ion-text>
+              </p>
+              <p ion-text class="text08" *ngIf="!!f.title.errors.pattern">
+                <ion-text color="danger">
+                  Judul tidak sesuai
+                </ion-text>
+              </p>
+            </div>
 
             <ion-item>
               <ion-label position="floating">Detail Aspirasi</ion-label>
@@ -54,15 +89,31 @@
                 [ngClass]="{ 'is-invalid': submitted && f.description.errors }"
               ></ion-textarea>
             </ion-item>
+            <div
+              *ngIf="submitted && !!f.description.errors"
+              class="invalid-feedback"
+            >
+              <p
+                ion-text
+                class="text08"
+                *ngIf="!!f.description.errors.required"
+              >
+                <ion-text color="danger">
+                  Detail harus diisi
+                </ion-text>
+              </p>
+              <p
+                ion-text
+                class="text08"
+                *ngIf="!!f.description.errors.maxLength"
+              >
+                <ion-text color="danger">
+                  Detail maximal 280 karakter
+                </ion-text>
+              </p>
+            </div>
 
             <ion-item class="ion-margin-top" *ngIf="images.length">
-              <!-- <ul>
-                <li *ngFor="let item of images">
-                  {{ item?.path }}
-                  <img class="img-cover" [src]="urlStorage + item?.path" />
-                </li>
-              </ul> -->
-
               <ion-grid>
                 <ion-label class="ion-margin-bottom">Lampiran</ion-label>
                 <ion-row>
@@ -83,17 +134,6 @@
           </ion-col>
         </ion-row>
       </ion-grid>
-
-      <!-- <ion-list>
-        <ion-item class="no-border">
-          <ion-checkbox slot="start" formControlName="isChecked"></ion-checkbox>
-          <ion-text item-right>
-            <p class="agreement">
-              Saya telah menyetujui untuk memberikan aspirasi untuk Jawa Barat
-            </p></ion-text
-          >
-        </ion-item>
-      </ion-list> -->
 
       <ion-button
         padding
@@ -116,14 +156,4 @@
       </ion-button>
     </form>
   </ion-grid>
-
-  <!-- apakah anda setuju untuk memberikan aspirasi untuk jawa barat -->
-  <!-- <h2>Your files: {{ images.length }}</h2>
-  <ul>
-    <li *ngFor="let item of images">
-      {{ item?.path }}
-      <img class="img-cover" [src]="urlStorage + item?.path" />
-    </li>
-  </ul>
-  <p>{{ baseUrl }}</p> -->
 </ion-content>
