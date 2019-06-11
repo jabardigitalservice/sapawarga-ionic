@@ -8,8 +8,8 @@
 </ion-header>
 
 <ion-content *ngIf="dataNomorPenting">
-  <img *ngIf="!dataNomorPenting.cover_image_path" src="../../../assets/img/placeholder_image.png" />
-  <img *ngIf="dataNomorPenting.cover_image_path" src="{{ dataNomorPenting.cover_image_path }}" />
+  <img *ngIf="!dataNomorPenting.cover_image_url" src="../../../assets/img/placeholder_image.png" />
+  <img *ngIf="dataNomorPenting.cover_image_url" src="{{ dataNomorPenting.cover_image_url }}" />
 
   <ion-item>
     <div class="ion-margin-top ion-margin-bottom">
