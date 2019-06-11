@@ -37,12 +37,6 @@ export class AspirasiService {
       .pipe(catchError(this.handleError));
   }
 
-  // PostImageAspirasi(data: any): Observable<any> {
-  //   return this.http
-  //     .post(`${environment.API_URL}/aspirasi`, data)
-  //     .pipe(catchError(this.handleError));
-  // }
-
   uploadFormData(formData) {
     const HttpOptions = {
       headers: new HttpHeaders({
