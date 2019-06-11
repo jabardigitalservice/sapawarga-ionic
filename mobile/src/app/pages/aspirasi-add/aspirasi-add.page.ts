@@ -34,7 +34,6 @@ export class AspirasiAddPage implements OnInit {
   imageData: any;
   images = [];
   urlStorage = `${environment.API_STORAGE}/image/`;
-  isChecked = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -66,8 +65,7 @@ export class AspirasiAddPage implements OnInit {
       kec_id: [null],
       kel_id: [null],
       status: [null],
-      attachments: [],
-      isChecked: [false]
+      attachments: []
     });
 
     // get data categories aspirasi
@@ -84,6 +82,11 @@ export class AspirasiAddPage implements OnInit {
 
     // set data kelurahan
     this.f.kel_id.setValue(this.dataProfile.kel_id);
+  }
+
+  backMyAspirasi() {
+    // this.navCtrl.back();
+    this.confirmationDraft();
   }
 
   // convenience getter for easy access to form fields
@@ -272,7 +275,7 @@ export class AspirasiAddPage implements OnInit {
     this.f.attachments.setValue(this.images);
   }
 
-  async confirmationMsg() {
+  async confirmationSend() {
     const alert = await this.alertController.create({
       header: 'Konfirmasi',
       message: 'apakah anda setuju untuk memberikan aspirasi untuk jawa barat?',
@@ -288,6 +291,34 @@ export class AspirasiAddPage implements OnInit {
           handler: () => {
             // set status 5 = waiting confirmation
             this.f.status.setValue(5);
+            this.addAspirasi();
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
+  async confirmationDraft() {
+    const alert = await this.alertController.create({
+      header: 'Konfirmasi',
+      message:
+        'Anda belum menyelesaikan posting Anda. Apakah ingin menyimpan sebagai draft?',
+      buttons: [
+        {
+          text: 'Batal',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {
+            this.navCtrl.back();
+          }
+        },
+        {
+          text: 'Setuju',
+          handler: () => {
+            // set status 5 = waiting confirmation
+            this.f.status.setValue(0);
             this.addAspirasi();
           }
         }

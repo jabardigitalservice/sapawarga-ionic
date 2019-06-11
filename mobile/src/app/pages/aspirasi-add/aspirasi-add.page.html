@@ -1,8 +1,11 @@
 <ion-header>
   <ion-toolbar color="light">
-    <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
+    <ion-buttons slot="start" (click)="backMyAspirasi()">
+      <ion-button shape="round" color="dark">
+        <ion-icon name="arrow-back"></ion-icon>
+      </ion-button>
     </ion-buttons>
+
     <ion-title>Tambah Aspirasi</ion-title>
     <ion-buttons slot="end" (click)="uploadAspirasi()">
       <ion-button shape="round" color="dark">
