@@ -48,30 +48,6 @@
               ></ion-input>
             </ion-item>
 
-            <ion-item class="ion-margin-top" *ngIf="images.length">
-              <!-- <ul>
-                <li *ngFor="let item of images">
-                  {{ item?.path }}
-                  <img class="img-cover" [src]="urlStorage + item?.path" />
-                </li>
-              </ul> -->
-
-              <ion-grid>
-                <ion-row>
-                  <ion-col size="4" *ngFor="let item of images">
-                    <div>
-                      <ion-icon
-                        color="danger"
-                        name="remove-circle"
-                        class="icon-remove"
-                      ></ion-icon>
-                      <img class="img-cover" [src]="urlStorage + item?.path" />
-                    </div>
-                  </ion-col>
-                </ion-row>
-              </ion-grid>
-            </ion-item>
-
             <ion-item>
               <ion-label position="floating">Detail Aspirasi</ion-label>
               <ion-textarea
@@ -81,11 +57,37 @@
                 [ngClass]="{ 'is-invalid': submitted && f.description.errors }"
               ></ion-textarea>
             </ion-item>
+
+            <ion-item class="ion-margin-top" *ngIf="images.length">
+              <!-- <ul>
+                <li *ngFor="let item of images">
+                  {{ item?.path }}
+                  <img class="img-cover" [src]="urlStorage + item?.path" />
+                </li>
+              </ul> -->
+
+              <ion-grid>
+                <ion-label class="ion-margin-bottom">Lampiran</ion-label>
+                <ion-row>
+                  <ion-col size="4" *ngFor="let item of images; let i = index">
+                    <div>
+                      <ion-icon
+                        color="danger"
+                        name="remove-circle"
+                        class="icon-remove"
+                        (click)="removeImage(i)"
+                      ></ion-icon>
+                      <img class="img-cover" [src]="urlStorage + item?.path" />
+                    </div>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            </ion-item>
           </ion-col>
         </ion-row>
       </ion-grid>
 
-      <ion-list>
+      <!-- <ion-list>
         <ion-item class="no-border">
           <ion-checkbox slot="start" formControlName="isChecked"></ion-checkbox>
           <ion-text item-right>
@@ -94,7 +96,7 @@
             </p></ion-text
           >
         </ion-item>
-      </ion-list>
+      </ion-list> -->
 
       <ion-button
         padding
@@ -103,11 +105,22 @@
         expand="full"
         color="success"
         type="submit"
-        >Simpan perubahan
+        >Simpan Sebagai Draft
+      </ion-button>
+
+      <ion-button
+        padding
+        class="ion-margin-top ion-margin-bottom"
+        size="medium"
+        expand="full"
+        color="success"
+        type="submit"
+        >Kirim Aspirasi
       </ion-button>
     </form>
   </ion-grid>
 
+  <!-- apakah anda setuju untuk memberikan aspirasi untuk jawa barat -->
   <!-- <h2>Your files: {{ images.length }}</h2>
   <ul>
     <li *ngFor="let item of images">

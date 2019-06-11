@@ -5,7 +5,8 @@ import {
   LoadingController,
   ToastController,
   ActionSheetController,
-  NavController
+  NavController,
+  AlertController
 } from '@ionic/angular';
 import { environment } from '../../../environments/environment';
 // plugin
@@ -44,10 +45,12 @@ export class AspirasiAddPage implements OnInit {
     private toastCtrl: ToastController,
     private camera: Camera,
     private transfer: FileTransfer,
-    private navCtrl: NavController
+    private navCtrl: NavController,
+    private alertController: AlertController
   ) {}
 
   ngOnInit() {
+    this.confirmationMsg();
     this.formAddAspirasi = this.formBuilder.group({
       title: [
         '',
@@ -63,7 +66,7 @@ export class AspirasiAddPage implements OnInit {
       kabkota_id: [null],
       kec_id: [null],
       kel_id: [null],
-      status: [0],
+      status: [5],
       attachments: [],
       isChecked: [false]
     });
@@ -115,7 +118,7 @@ export class AspirasiAddPage implements OnInit {
     console.log(form);
     this.submitted = true;
     // check form if invalid
-    if (this.f.isChecked.value || this.formAddAspirasi.invalid) {
+    if (this.formAddAspirasi.invalid) {
       return;
     }
 
@@ -133,7 +136,7 @@ export class AspirasiAddPage implements OnInit {
       res => {
         if (res.status === 201) {
           this.showToast('Data berhasil tersimpan');
-          this.navCtrl.navigateForward('/tabs/akun');
+          this.navCtrl.back();
         } else {
           this.showToast('Data gagal tersimpan');
         }
@@ -252,9 +255,9 @@ export class AspirasiAddPage implements OnInit {
           let response = JSON.parse(data.response);
           // success
           loading.dismiss();
-          console.log(response);
+          // console.log(response);
           if (response['success'] === true) {
-            this.showToast('Foto berhasil disimpan');
+            // this.showToast('Foto berhasil disimpan');
             // this.image = response['data']['photo_url'];
             let image = {
               type: 'photo',
@@ -291,6 +294,42 @@ export class AspirasiAddPage implements OnInit {
     // }
 
     console.log(this.f.isChecked.value);
+  }
+
+  removeImage(index) {
+    console.log(index);
+    this.images.splice(index, 1);
+
+    // insert new array images to form attachments
+    this.f.attachments.setValue(this.images);
+
+    console.log(this.images);
+  }
+
+  async confirmationMsg() {
+    const alert = await this.alertController.create({
+      header: 'Konfirmasi',
+      message: 'apakah anda setuju untuk memberikan aspirasi untuk jawa barat?',
+      buttons: [
+        {
+          text: 'Batal',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: blah => {
+            console.log('Confirm Cancel: blah');
+          }
+        },
+        {
+          text: 'Setuju',
+          handler: () => {
+            console.log('Confirm Okay');
+            this.onFormSubmit(this.formAddAspirasi.value);
+          }
+        }
+      ]
+    });
+
+    await alert.present();
   }
 
   async showToast(msg: string) {
