@@ -26,12 +26,18 @@
 }
 
 .img-cover {
-  width: 60px;
-  height: 60px;
+  width: 80px;
+  height: 80px;
 }
 
 .icon-remove {
   position: absolute;
   top: 0px;
-  margin-left: 50px;
+  margin-left: 70px;
+}
+
+.msg-lampiran {
+  margin-top: unset !important;
+  color: red;
+  font-size: 12px;
 }

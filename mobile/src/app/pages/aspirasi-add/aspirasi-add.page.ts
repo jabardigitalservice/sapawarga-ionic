@@ -158,6 +158,10 @@ export class AspirasiAddPage implements OnInit {
   }
 
   async uploadAspirasi() {
+    if (this.images.length >= 5) {
+      return;
+    }
+
     const actionSheet = await this.actionsheetCtrl.create({
       header: 'Pilihan',
       buttons: [
@@ -200,6 +204,12 @@ export class AspirasiAddPage implements OnInit {
 
     this.camera.getPicture(options).then(
       imageData => {
+        // check internet
+        if (!navigator.onLine) {
+          this.showToast('Tidak ada koneksi internet');
+          return;
+        }
+
         this.imageData = imageData;
         this.uploadImage(imageData);
       },
@@ -239,11 +249,9 @@ export class AspirasiAddPage implements OnInit {
       .upload(imageData, `${environment.API_URL}/attachments`, options)
       .then(
         data => {
-          // console.log(data);
           let response = JSON.parse(data.response);
           // success
           loading.dismiss();
-          // console.log(response);
           if (response['success'] === true) {
             let image = {
               type: 'photo',
