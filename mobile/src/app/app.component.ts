@@ -42,19 +42,16 @@ export class AppComponent {
         this.splashScreen.hide();
 
         this.authService.authenticationState.subscribe(state => {
-          // if (state) {
-          //   this.navCtrl.navigateRoot('/');
-          // } else {
-          //   const hasOnboarding = localStorage.getItem('has-onboarding');
-          //   if (hasOnboarding) {
-          //     this.navCtrl.navigateRoot('/login');
-          //   }
-          //   else {
-          //     this.navCtrl.navigateRoot('/onboarding');
-          //     localStorage.setItem('has-onboarding', 'true');
-          //   }
-          // }
-          this.navCtrl.navigateRoot('/onboarding');
+          if (state) {
+            this.navCtrl.navigateRoot('/');
+          } else {
+            const hasOnboarding = localStorage.getItem('has-onboarding');
+            if (hasOnboarding) {
+              this.navCtrl.navigateRoot('/login');
+            } else {
+              this.navCtrl.navigateRoot('/onboarding');
+            }
+          }
         });
 
         this.fcm.onNotification().subscribe(data => {

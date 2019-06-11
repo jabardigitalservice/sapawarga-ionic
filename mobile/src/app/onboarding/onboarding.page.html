@@ -7,10 +7,14 @@
           <p class="slide-description">{{ slide.description }}</p>
         </div>
         <div *ngIf="i < 3" class="slide-button-skip">
-          <ion-button fill="clear">Lewati</ion-button>
+          <ion-button strong fill="clear" (click)="goToLogin()"
+            >Lewati</ion-button
+          >
         </div>
         <div *ngIf="i === 3" class="slide-button-start">
-          <ion-button expand="block" color="primary">Mulai</ion-button>
+          <ion-button strong expand="block" shape="round" (click)="goToLogin()"
+            >Mulai</ion-button
+          >
         </div>
       </div>
     </ion-slide>
