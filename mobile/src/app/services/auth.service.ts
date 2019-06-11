@@ -47,6 +47,8 @@ export class AuthService {
   // logout and clear session
   logout() {
     localStorage.clear();
+    // onboarding page will not be displayed anymore
+    localStorage.setItem('has-onboarding', 'true');
     this.authenticationState.next(false);
   }
 
@@ -70,7 +72,7 @@ export class AuthService {
   }
 
   private extractData(res: Response) {
-    let body = res;
+    const body = res;
     return body || {};
   }
 }

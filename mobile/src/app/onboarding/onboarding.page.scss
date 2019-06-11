@@ -1,0 +1,39 @@
+ion-slides {
+  height: 100%;
+  --bullet-background: #fecb38;
+  --bullet-background-active: #00b7f0;
+}
+
+.slide-caption {
+  position: absolute;
+  left: 0;
+  right: 0;
+
+  &.top {
+    top: 10%;
+  }
+  &.bottom {
+    bottom: 10%;
+  }
+}
+
+.slide-description {
+  color: #727272;
+}
+
+.slide-button-start {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 6%;
+}
+
+.slide-button-skip {
+  position: absolute;
+  right: 0;
+  bottom: 2%;
+
+  ion-button {
+    --color: #00b7f0;
+  }
+}

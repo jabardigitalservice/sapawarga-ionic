@@ -162,7 +162,10 @@ export class ListMapNomorPentingPage implements OnInit {
           if (res['data']['items'].length) {
             this.dataEmpty = false;
             this.dataLokasiTerdekat = res['data']['items'];
+
+            // create marker
             markers = this.createMarkers(this.dataLokasiTerdekat);
+
             // call map
             this.loadMap(markers);
           } else {
@@ -188,11 +191,44 @@ export class ListMapNomorPentingPage implements OnInit {
             lng: data[index].longitude
           },
           animation: GoogleMapsAnimation.BOUNCE,
-          title: data[index].name
+          title: data[index].name,
+          icon: {
+            url: this.iconMarker(data[index].category),
+            size: {
+              width: 32,
+              height: 42
+            }
+          }
         };
         markers.push(marker);
       }
     }
     return markers;
+  }
+
+  iconMarker(category: string) {
+    switch (category) {
+      case 'Kesehatan': {
+        return 'assets/icon/kesehatan.png';
+      }
+      case 'Ekonomi': {
+        return 'assets/icon/ekonomi.png';
+      }
+      case 'Keamanan': {
+        return 'assets/icon/keamanan.png';
+      }
+      case 'Transportasi': {
+        return 'assets/icon/transport.png';
+      }
+      case 'Sosialisasi': {
+        return 'assets/icon/sosial.png';
+      }
+      case 'Layanan': {
+        return 'assets/icon/pelayanan.png';
+      }
+      default: {
+        return 'blue';
+      }
+    }
   }
 }

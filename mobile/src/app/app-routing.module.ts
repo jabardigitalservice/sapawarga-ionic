@@ -99,6 +99,11 @@ const routes: Routes = [
       './pages/aspirasi-user/aspirasi-user.module#AspirasiUserPageModule'
   },
   {
+    path: 'onboarding',
+    loadChildren:
+      './onboarding/onboarding.module#OnboardingPageModule'
+  },
+  {
     path: 'aspirasi-add',
     loadChildren:
       './pages/aspirasi-add/aspirasi-add.module#AspirasiAddPageModule'
