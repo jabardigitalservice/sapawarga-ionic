@@ -1,28 +1,29 @@
 ion-slides {
-    height: 100%;
-}
-
-.slide-background {
-    width: 100%;
-    height: 100%;
-    position: relative;
-    background: url("../../assets/img/onboarding/onboarding1.png") no-repeat;
-    background-size: cover;
+  height: 100%;
+  --bullet-background: #fecb38;
+  --bullet-background-active: #00b7f0;
 }
 
 .slide-caption {
-    position: absolute;
-    left: 0;
-    right: 0;
+  position: absolute;
+  left: 0;
+  right: 0;
 
-    &.top {
-        top: 10%;
-    }
-    &.bottom {
-        bottom: 10%;
-    }
+  &.top {
+    top: 10%;
+  }
+  &.bottom {
+    bottom: 10%;
+  }
 }
 
 .slide-description {
-    color: #727272;
+  color: #727272;
+}
+
+.slide-button-start {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 6%;
 }

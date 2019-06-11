@@ -1,53 +1,53 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from "@angular/core";
 
 @Component({
-  selector: 'app-onboarding',
-  templateUrl: './onboarding.page.html',
-  styleUrls: ['./onboarding.page.scss'],
+  selector: "app-onboarding",
+  templateUrl: "./onboarding.page.html",
+  styleUrls: ["./onboarding.page.scss"]
 })
 export class OnboardingPage implements OnInit {
-
   slides = [
     {
       title: "Selamat datang di Sapa Warga",
       description: "Menghubungkan Anda dengan Pemerintah Provinsi Jawa Barat",
-      titleColor: "#000000"    
+      titleColor: "#000000"
     },
     {
       title: "Aspirasi",
-      description: "Sampaikan saran, keluhan, dan ide Anda melalui fitur polling, survei, dan pelaporan kepada pemerintah daerah.",
-      titleColor: "#3ca96b"    
+      description:
+        "Sampaikan saran, keluhan, dan ide Anda melalui fitur polling, survei, dan pelaporan kepada pemerintah daerah.",
+      titleColor: "#3ca96b"
     },
     {
       title: "Informasi",
-      description: "Dapatkan broadcast informasi penting dan terbaru dari pemerintah.",
-      titleColor: "#ffce38"    
+      description:
+        "Dapatkan broadcast informasi penting dan terbaru dari pemerintah.",
+      titleColor: "#fecb38"
     },
     {
       title: "Pelayanan Publik",
-      description: "Nikmati pelayanan publik dan proses administrasi yang lebih mudah dan efisien.",
-      titleColor: "#00b7f0"    
+      description:
+        "Nikmati pelayanan publik dan proses administrasi yang lebih mudah dan efisien.",
+      titleColor: "#00b7f0"
     }
-  ]
+  ];
 
-  slideCaptionStyle = [
-    'slide-caption bottom',
-    'slide-caption top'
-  ]
-  
-  constructor() { }
+  slideCaptionStyle = ["slide-caption bottom", "slide-caption top"];
 
-  ngOnInit() {
-  }
+  constructor() {}
+
+  ngOnInit() {}
 
   getSlideBackgroundStyle(index) {
+    const verticalPos = index % 2 ? "center" : "bottom";
+
     return {
-      width: '100%',
-      height: '100%',
-      position: 'relative',
+      width: "100%",
+      height: "100%",
+      position: "relative",
       background: `url("../../assets/img/onboarding/onboarding${index}.png") no-repeat`,
-      backgroundPosition: 'center center',
-      backgroundSize: 'cover'
+      backgroundPosition: `center ${verticalPos}`,
+      backgroundSize: "cover"
     };
   }
 }
