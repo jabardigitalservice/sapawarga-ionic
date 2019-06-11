@@ -27,3 +27,13 @@ ion-slides {
   right: 0;
   bottom: 6%;
 }
+
+.slide-button-skip {
+  position: absolute;
+  right: 0;
+  bottom: 2%;
+
+  ion-button {
+    --color: #00b7f0;
+  }
+}
