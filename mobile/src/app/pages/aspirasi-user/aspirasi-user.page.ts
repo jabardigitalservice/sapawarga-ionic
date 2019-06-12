@@ -98,4 +98,8 @@ export class AspirasiUserPage implements OnInit {
         break;
     }
   }
+
+  AddAspirasi() {
+    this.router.navigate(['/aspirasi-add']);
+  }
 }

@@ -102,6 +102,11 @@ const routes: Routes = [
     path: 'onboarding',
     loadChildren:
       './onboarding/onboarding.module#OnboardingPageModule'
+  },
+  {
+    path: 'aspirasi-add',
+    loadChildren:
+      './pages/aspirasi-add/aspirasi-add.module#AspirasiAddPageModule'
   }
 ];
 

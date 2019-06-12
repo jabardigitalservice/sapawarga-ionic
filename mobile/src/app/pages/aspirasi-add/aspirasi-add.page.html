@@ -1,0 +1,165 @@
+<ion-header>
+  <ion-toolbar color="light">
+    <ion-buttons slot="start" (click)="backMyAspirasi()">
+      <ion-button shape="round" color="dark">
+        <ion-icon name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+    <ion-title>Tambah Aspirasi</ion-title>
+    <ion-buttons slot="end" (click)="uploadAspirasi()">
+      <ion-button shape="round" color="dark">
+        <ion-icon name="attach"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid fixed no-padding>
+    <form [formGroup]="formAddAspirasi">
+      <ion-grid>
+        <ion-row color="primary" justify-content-center>
+          <ion-col align-self-center size-md="6" size-lg="5" size-xs="12">
+            <ion-item>
+              <ion-label>Kategori</ion-label>
+              <ion-select
+                formControlName="category_id"
+                okText="Pilih"
+                cancelText="Batal"
+                placeholder="Pilih Kategori"
+              >
+                <ion-select-option
+                  *ngFor="let category of CategoriesAspirasi"
+                  value="{{ category.id }}"
+                >
+                  {{ category.name }}
+                </ion-select-option>
+              </ion-select>
+            </ion-item>
+            <div
+              *ngIf="submitted && !!f.category_id.errors"
+              class="invalid-feedback"
+            >
+              <p
+                ion-text
+                class="text08"
+                *ngIf="!!f.category_id.errors.required"
+              >
+                <ion-text color="danger">
+                  kategori harus diisi
+                </ion-text>
+              </p>
+            </div>
+
+            <ion-item>
+              <ion-label position="floating">Judul</ion-label>
+              <ion-input
+                type="text"
+                formControlName="title"
+                [ngClass]="{ 'is-invalid': submitted && f.title.errors }"
+              ></ion-input>
+            </ion-item>
+            <div *ngIf="submitted && !!f.title.errors" class="invalid-feedback">
+              <p ion-text class="text08" *ngIf="!!f.title.errors.required">
+                <ion-text color="danger">
+                  Judul harus diisi
+                </ion-text>
+              </p>
+              <p ion-text class="text08" *ngIf="!!f.title.errors.minlength">
+                <ion-text color="danger">
+                  Judul minimal 10 karakter
+                </ion-text>
+              </p>
+              <p ion-text class="text08" *ngIf="!!f.title.errors.maxLength">
+                <ion-text color="danger">
+                  Judul maximal 60 karakter
+                </ion-text>
+              </p>
+              <p ion-text class="text08" *ngIf="!!f.title.errors.pattern">
+                <ion-text color="danger">
+                  Judul tidak sesuai
+                </ion-text>
+              </p>
+            </div>
+
+            <ion-item>
+              <ion-label position="floating">Detail Aspirasi</ion-label>
+              <ion-textarea
+                formControlName="description"
+                rows="7"
+                cols="20"
+                [ngClass]="{ 'is-invalid': submitted && f.description.errors }"
+              ></ion-textarea>
+            </ion-item>
+            <div
+              *ngIf="submitted && !!f.description.errors"
+              class="invalid-feedback"
+            >
+              <p
+                ion-text
+                class="text08"
+                *ngIf="!!f.description.errors.required"
+              >
+                <ion-text color="danger">
+                  Detail harus diisi
+                </ion-text>
+              </p>
+              <p
+                ion-text
+                class="text08"
+                *ngIf="!!f.description.errors.maxLength"
+              >
+                <ion-text color="danger">
+                  Detail maximal 280 karakter
+                </ion-text>
+              </p>
+            </div>
+
+            <ion-item class="ion-margin-top" *ngIf="images.length">
+              <ion-grid>
+                <ion-label>Lampiran</ion-label>
+                <ion-label class="ion-margin-bottom msg-lampiran"
+                  >Max. jumlah foto yang dapat diupload adalah 5 foto</ion-label
+                >
+                <ion-row>
+                  <ion-col size="4" *ngFor="let item of images; let i = index">
+                    <div>
+                      <ion-icon
+                        color="danger"
+                        name="remove-circle"
+                        class="icon-remove"
+                        (click)="removeImage(i)"
+                      ></ion-icon>
+                      <img class="img-cover" [src]="urlStorage + item?.path" />
+                    </div>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+      <ion-button
+        padding
+        class="ion-margin-bottom"
+        size="medium"
+        expand="full"
+        color="warning"
+        (click)="saveDraft()"
+        >Simpan Sebagai Draft
+      </ion-button>
+
+      <ion-button
+        padding
+        class="ion-margin-top ion-margin-bottom"
+        size="medium"
+        expand="full"
+        color="success"
+        (click)="confirmationSend()"
+        >Kirim Aspirasi
+      </ion-button>
+    </form>
+  </ion-grid>
+</ion-content>

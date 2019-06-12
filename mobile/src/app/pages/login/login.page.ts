@@ -139,18 +139,24 @@ export class LoginPage implements OnInit {
     // stop disconnect watch
     disconnectSubscription.unsubscribe();
 
+    const loader = await this.loadingCtrl.create({
+      duration: 10000
+    });
+    loader.present();
+
     await this.auth.login(this.onLoginForm.value).subscribe(
       res => {
         if (res.success === true) {
+          loader.dismiss();
           this.auth.saveToken(res.data.access_token);
           this.navCtrl.navigateRoot(['/tabs']['home']);
         } else {
+          loader.dismiss();
           this.showToast('Login', 'Pastikan input data terisi dengan benar');
         }
       },
       err => {
-        // loader.dismiss();
-        console.log(err);
+        loader.dismiss();
         this.showToast('Login', err.data.password[0]);
       }
     );

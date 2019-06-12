@@ -1,5 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpErrorResponse,
+  HttpHeaders
+} from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Aspirasi } from '../interfaces/aspirasi';
@@ -25,6 +29,26 @@ export class AspirasiService {
     return this.http
       .get<Aspirasi[]>(`${environment.API_URL}/aspirasi/me?page=${page}`)
       .pipe(catchError(this.handleError));
+  }
+
+  PostAspirasi(data: any): Observable<Aspirasi> {
+    return this.http
+      .post<Aspirasi>(`${environment.API_URL}/aspirasi`, data)
+      .pipe(catchError(this.handleError));
+  }
+
+  uploadFormData(formData) {
+    const HttpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/x-www-form-urlencoded'
+      })
+    };
+    console.log(formData);
+    return this.http.post<any>(
+      `${environment.API_URL}/attachments`,
+      formData,
+      HttpOptions
+    );
   }
 
   getDetailAspirasi(id: number): Observable<Aspirasi> {
@@ -77,6 +101,13 @@ export class AspirasiService {
     return localStorage.getItem(ASPIRASI_LIKES)
       ? localStorage.getItem(ASPIRASI_LIKES)
       : '';
+  }
+
+  // get categories aspirasi
+  getCategories() {
+    return this.http
+      .get<Aspirasi[]>(`${environment.API_URL}/categories?type=aspirasi`)
+      .pipe(catchError(this.handleError));
   }
 
   private handleError(error: HttpErrorResponse) {

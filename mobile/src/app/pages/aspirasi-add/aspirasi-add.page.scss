@@ -1,0 +1,43 @@
+:host {
+  ion-label {
+    margin-top: 15px;
+  }
+
+  ion-select {
+    --padding-start: 0px;
+  }
+
+  ion-checkbox {
+    margin: 6px;
+  }
+}
+
+.no-border {
+  --border-color: transparent;
+}
+.profile-content {
+  height: 35px;
+  display: flex;
+  align-items: center;
+}
+
+.agreement {
+  font-size: 13px;
+}
+
+.img-cover {
+  width: 80px;
+  height: 80px;
+}
+
+.icon-remove {
+  position: absolute;
+  top: 0px;
+  margin-left: 70px;
+}
+
+.msg-lampiran {
+  margin-top: unset !important;
+  color: red;
+  font-size: 12px;
+}
