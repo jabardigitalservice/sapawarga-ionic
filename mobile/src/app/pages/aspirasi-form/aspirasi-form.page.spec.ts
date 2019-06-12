@@ -1,22 +1,21 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AspirasiAddPage } from './aspirasi-add.page';
+import { AspirasiFormPage } from './aspirasi-form.page';
 
-describe('AspirasiAddPage', () => {
-  let component: AspirasiAddPage;
-  let fixture: ComponentFixture<AspirasiAddPage>;
+describe('AspirasiFormPage', () => {
+  let component: AspirasiFormPage;
+  let fixture: ComponentFixture<AspirasiFormPage>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AspirasiAddPage ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA],
-    })
-    .compileComponents();
+      declarations: [AspirasiFormPage],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AspirasiAddPage);
+    fixture = TestBed.createComponent(AspirasiFormPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

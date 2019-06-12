@@ -22,11 +22,11 @@ import { Profile } from '../../interfaces/profile';
 
 const TOKEN_KEY = 'auth-token';
 @Component({
-  selector: 'app-aspirasi-add',
-  templateUrl: './aspirasi-add.page.html',
-  styleUrls: ['./aspirasi-add.page.scss']
+  selector: 'app-aspirasi-form',
+  templateUrl: './aspirasi-form.page.html',
+  styleUrls: ['./aspirasi-form.page.scss']
 })
-export class AspirasiAddPage implements OnInit {
+export class AspirasiFormPage implements OnInit {
   formAddAspirasi: FormGroup;
   CategoriesAspirasi: Aspirasi[];
   dataProfile: Profile;
