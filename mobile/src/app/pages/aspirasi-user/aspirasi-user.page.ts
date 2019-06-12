@@ -100,6 +100,6 @@ export class AspirasiUserPage implements OnInit {
   }
 
   AddAspirasi() {
-    this.router.navigate(['/aspirasi-add']);
+    this.router.navigate(['/aspirasi-form']);
   }
 }
