@@ -242,7 +242,7 @@ export class AspirasiAddPage implements OnInit {
     };
 
     options.params = {
-      type: 'phonebook_photo'
+      type: 'aspirasi_photo'
     };
 
     fileTransfer
