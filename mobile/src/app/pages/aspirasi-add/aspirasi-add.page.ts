@@ -242,7 +242,7 @@ export class AspirasiAddPage implements OnInit {
     };
 
     options.params = {
-      type: 'phonebook_photo'
+      type: 'aspirasi_photo'
     };
 
     fileTransfer
@@ -270,7 +270,12 @@ export class AspirasiAddPage implements OnInit {
         },
         err => {
           loading.dismiss();
-          this.showToast('Terjadi Kesalahan');
+          let data = JSON.parse(err.body);
+          if (data.data.file[0]) {
+            this.showToast(data.data.file[0]);
+          } else {
+            this.showToast('Terjadi Kesalahan');
+          }
         }
       );
   }
