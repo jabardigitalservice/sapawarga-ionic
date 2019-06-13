@@ -10,6 +10,7 @@ import { NomorPenting } from '../../interfaces/nomor-penting';
 import { CallNumber } from '@ionic-native/call-number/ngx';
 import { SMS } from '@ionic-native/sms/ngx';
 import { Router } from '@angular/router';
+import { Dictionary } from '../../helpers/dictionary';
 
 @Component({
   selector: 'app-nomor-penting',
@@ -30,6 +31,11 @@ export class NomorPentingPage implements OnInit {
   openSearch = false;
 
   currentContent = 'telepon';
+
+  msgResponse = {
+    type: '',
+    msg: ''
+  };
 
   constructor(
     private nomorPentingService: NomorPentingService,
@@ -53,7 +59,7 @@ export class NomorPentingPage implements OnInit {
     // this.loadMap();
   }
 
-  //Called when view is left
+  // Called when view is left
   ionViewWillLeave() {
     // Unregister the custom back button action for this page
     this.currentContent = 'telepon';
@@ -63,7 +69,10 @@ export class NomorPentingPage implements OnInit {
   async getNomorPenting(infiniteScroll?) {
     // check internet
     if (!navigator.onLine) {
-      alert('Tidak ada jaringan internet');
+      this.msgResponse = {
+        type: 'offline',
+        msg: Dictionary.offline
+      };
       return;
     }
 
@@ -84,6 +93,10 @@ export class NomorPentingPage implements OnInit {
           );
         } else {
           this.dataEmpty = true;
+          this.msgResponse = {
+            type: 'empty',
+            msg: Dictionary.empty
+          };
         }
         // set count page
         this.maximumPages = res['data']['_meta'].pageCount;
@@ -103,7 +116,10 @@ export class NomorPentingPage implements OnInit {
   async getLocationsNearby() {
     // check internet
     if (!navigator.onLine) {
-      alert('Tidak ada jaringan internet');
+      this.msgResponse = {
+        type: 'offline',
+        msg: Dictionary.offline
+      };
       return;
     }
 
@@ -134,7 +150,10 @@ export class NomorPentingPage implements OnInit {
   async filterNomorPenting(type: string, id: number) {
     // check internet
     if (!navigator.onLine) {
-      alert('Tidak ada jaringan internet');
+      this.msgResponse = {
+        type: 'offline',
+        msg: Dictionary.empty
+      };
       return;
     }
 
@@ -270,7 +289,10 @@ export class NomorPentingPage implements OnInit {
   CariAreas(event: string) {
     // check internet
     if (!navigator.onLine) {
-      alert('Tidak ada jaringan internet');
+      this.msgResponse = {
+        type: 'offline',
+        msg: Dictionary.offline
+      };
       return;
     }
 

@@ -12,6 +12,7 @@ import { CallNumber } from '@ionic-native/call-number/ngx';
 import { SMS } from '@ionic-native/sms/ngx';
 import { Diagnostic } from '@ionic-native/diagnostic/ngx';
 import { OpenNativeSettings } from '@ionic-native/open-native-settings/ngx';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 const routes: Routes = [
   {
@@ -25,7 +26,8 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     IonicModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    SharedModule
   ],
   providers: [CallNumber, SMS, Diagnostic, OpenNativeSettings],
   declarations: [NomorPentingPage]
