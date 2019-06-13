@@ -91,7 +91,7 @@ export class DetailNomorPentingPage implements OnInit {
       case 'Transportasi': {
         return 'assets/icon/transport.png';
       }
-      case 'Sosialisasi': {
+      case 'Sosial': {
         return 'assets/icon/sosial.png';
       }
       case 'Layanan': {
