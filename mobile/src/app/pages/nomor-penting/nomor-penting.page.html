@@ -27,7 +27,7 @@
 <ion-content>
   <!-- list telepon -->
   <div>
-    <ion-item>
+    <ion-item *ngIf="!msgResponse.type">
       <ion-label>Filter</ion-label>
       <ion-select (ionChange)="filterAreas($event.detail.value)">
         <ion-select-option value="kabkota_id {{ kabkota_id }}" selected
@@ -42,7 +42,6 @@
       </ion-select>
     </ion-item>
 
-    <!-- <div class="ion-text-center" *ngIf="dataEmpty">Data tidak ditemukan</div> -->
     <app-message-control
       *ngIf="msgResponse.type"
       [type]="msgResponse.type"
