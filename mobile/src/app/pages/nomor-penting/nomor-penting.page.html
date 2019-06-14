@@ -96,7 +96,11 @@
       </ion-item>
     </ion-card>
 
-    <ion-infinite-scroll threshold="100px" (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll
+      threshold="100px"
+      (ionInfinite)="doInfinite($event)"
+      *ngIf="dataNomorPenting.length > 0"
+    >
       <ion-infinite-scroll-content
         loadingSpinner="bubbles"
         loadingText="Sedang mengambil data..."

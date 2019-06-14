@@ -56,7 +56,6 @@ export class NomorPentingPage implements OnInit {
 
   ngOnInit() {
     this.getNomorPenting();
-    // this.loadMap();
   }
 
   // Called when view is left
@@ -108,6 +107,12 @@ export class NomorPentingPage implements OnInit {
       },
       err => {
         loader.dismiss();
+        if (err) {
+          this.msgResponse = {
+            type: 'server-error',
+            msg: Dictionary.internalError
+          };
+        }
       }
     );
   }

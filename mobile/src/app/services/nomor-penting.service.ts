@@ -68,9 +68,7 @@ export class NomorPentingService {
     } else {
       // The backend returned an unsuccessful response code.
       // The response body may contain clues as to what went wrong,
-      console.error(
-        `Backend returned code ${error.status}, ` + `body was: ${error.error}`
-      );
+      console.error(`Backend returned code ${error.status}`);
     }
     // return an observable with a user-facing error message
     return throwError(error.error);
