@@ -34,7 +34,9 @@ export class BroadcastsPage implements OnInit {
     // set notification false remove notif
     this.dataRead = this.broadcastService.getBroadcast() || [];
     this.getNomorBroadcasts();
-    this.checkLenghtRead();
+    if (this.dataRead && this.dataBroadcast) {
+      this.checkLenghtRead();
+    }
   }
 
   ionViewDidEnter() {
@@ -45,7 +47,9 @@ export class BroadcastsPage implements OnInit {
     this.interval = setInterval(() => {
       this.dataRead = this.broadcastService.getBroadcast() || [];
     }, 1000);
-    this.checkLenghtRead();
+    if (this.dataRead && this.dataBroadcast) {
+      this.checkLenghtRead();
+    }
   }
 
   // Called when view is left
