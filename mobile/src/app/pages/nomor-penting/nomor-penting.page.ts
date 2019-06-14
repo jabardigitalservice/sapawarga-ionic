@@ -142,11 +142,21 @@ export class NomorPentingPage implements OnInit {
             this.dataLokasiTerdekat = res['data']['items'];
           } else {
             this.dataEmpty = true;
+            this.msgResponse = {
+              type: 'empty',
+              msg: Dictionary.empty
+            };
           }
           loader.dismiss();
         },
         err => {
           loader.dismiss();
+          if (err) {
+            this.msgResponse = {
+              type: 'server-error',
+              msg: Dictionary.internalError
+            };
+          }
         }
       );
   }
@@ -176,11 +186,21 @@ export class NomorPentingPage implements OnInit {
           this.dataNomorPenting = res['data']['items'];
         } else {
           this.dataEmpty = true;
+          this.msgResponse = {
+            type: 'empty',
+            msg: Dictionary.empty
+          };
         }
         loader.dismiss();
       },
       err => {
         loader.dismiss();
+        if (err) {
+          this.msgResponse = {
+            type: 'server-error',
+            msg: Dictionary.internalError
+          };
+        }
       }
     );
   }
@@ -318,10 +338,19 @@ export class NomorPentingPage implements OnInit {
           this.dataNomorPenting = res['data']['items'];
         } else {
           this.dataEmpty = true;
+          this.msgResponse = {
+            type: 'empty',
+            msg: Dictionary.empty
+          };
         }
       },
       err => {
-        this.showToast('Terjadi Kesalahan');
+        if (err) {
+          this.msgResponse = {
+            type: 'server-error',
+            msg: Dictionary.internalError
+          };
+        }
       }
     );
   }
