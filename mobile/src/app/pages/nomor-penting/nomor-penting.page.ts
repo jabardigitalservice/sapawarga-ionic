@@ -264,10 +264,10 @@ export class NomorPentingPage implements OnInit {
         this.callNumber
           .callNumber(phone, true)
           .then()
-          .catch(err => this.showToast('Terjadi kesalahan'));
+          .catch(err => this.showToast(Dictionary.terjadi_kesalahan));
       })
       .catch(() => {
-        this.showToast('Silahkan periksa kembali permission anda');
+        this.showToast(Dictionary.error_permission);
       });
   }
 
@@ -286,7 +286,7 @@ export class NomorPentingPage implements OnInit {
         this.sms.send(phone, '', options);
       })
       .catch(() => {
-        this.showToast('Silahkan periksa kembali permission anda');
+        this.showToast(Dictionary.error_permission);
       });
   }
 
