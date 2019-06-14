@@ -3,6 +3,7 @@ import { BroadcastService } from '../../services/broadcast.service';
 import { LoadingController } from '@ionic/angular';
 import { Broadcast } from '../../interfaces/broadcast';
 import { Router } from '@angular/router';
+import { Dictionary } from '../../helpers/dictionary';
 
 @Component({
   selector: 'app-broadcasts',
@@ -18,6 +19,11 @@ export class BroadcastsPage implements OnInit {
 
   interval: any;
 
+  msgResponse = {
+    type: '',
+    msg: ''
+  };
+
   constructor(
     private broadcastService: BroadcastService,
     public loadingCtrl: LoadingController,
@@ -26,7 +32,6 @@ export class BroadcastsPage implements OnInit {
 
   ngOnInit() {
     // set notification false remove notif
-    // this.broadcastService.setNotification(false);
     this.dataRead = this.broadcastService.getBroadcast() || [];
     this.getNomorBroadcasts();
     this.checkLenghtRead();
@@ -75,6 +80,10 @@ export class BroadcastsPage implements OnInit {
           this.broadcastService.saveLocalBroadcast(this.dataBroadcast);
         } else {
           this.dataEmpty = true;
+          this.msgResponse = {
+            type: 'empty',
+            msg: Dictionary.empty
+          };
         }
         // set count page
         this.maximumPages = res['data']['_meta'].pageCount;
@@ -82,6 +91,12 @@ export class BroadcastsPage implements OnInit {
       },
       err => {
         loader.dismiss();
+        if (err) {
+          this.msgResponse = {
+            type: 'server-error',
+            msg: Dictionary.internalError
+          };
+        }
       }
     );
   }
