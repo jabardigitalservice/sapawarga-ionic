@@ -57,7 +57,14 @@ export class DetailNomorPentingPage implements OnInit {
 
     this.nomorPentingService.getDetailNomorPenting(this.id).subscribe(
       res => {
-        this.dataNomorPenting = res['data'];
+        if (res['data']) {
+          this.dataNomorPenting = res['data'];
+        } else {
+          this.msgResponse = {
+            type: 'empty',
+            msg: Dictionary.empty
+          };
+        }
         loader.dismiss();
       },
       err => {
