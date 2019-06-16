@@ -56,7 +56,7 @@ export class AspirasiAddPage implements OnInit {
           Validators.required,
           Validators.maxLength(60),
           Validators.minLength(10),
-          Validators.pattern(/^[a-z0-9 ]+$/)
+          Validators.pattern(/^[A-Za-z0-9 ]+$/)
         ]
       ],
       description: ['', [Validators.required, Validators.maxLength(280)]],
