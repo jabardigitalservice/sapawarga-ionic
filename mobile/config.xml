@@ -1,8 +1,8 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.sapawarga.jds" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.sapawarga.jds" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Sapa Warga</name>
     <description>Aplikasi Sapa Warga</description>
-    <author email="firminoata@gmail.com" href="https://ionictheme.com">Jabar Digital Service</author>
+    <author email="jds@jabarprov.go.id" href="https://digitalservice.jabarprov.go.id">Jabar Digital Service</author>
     <content src="index.html" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
@@ -20,7 +20,7 @@
     <preference name="AutoHideSplashScreen" value="false" />
     <preference name="FadeSplashScreen" value="true" />
     <preference name="ShowSplashScreen" value="true" />
-    <preference name="GOOGLE_MAPS_ANDROID_API_KEY" value="%GOOGLE_MAPS_ANDROID_API_KEY%" />
+    <preference name="GOOGLE_MAPS_ANDROID_API_KEY" value="AIzaSyA7fLMZEL1CdQp5h04_QaphO-R6UE5M7Yw" />
     <preference name="GOOGLE_MAPS_IOS_API_KEY" value="****" />
     <platform name="android">
         <allow-intent href="market:*" />
@@ -96,7 +96,7 @@
     <plugin name="mx.ferreyra.callnumber" spec="~0.0.2" />
     <plugin name="cordova-sms-plugin" spec="1.0.0" />
     <plugin name="cordova-plugin-googlemaps" spec="2.5.3">
-        <variable name="API_KEY_FOR_ANDROID" value="%GOOGLE_MAPS_ANDROID_API_KEY%" />
+        <variable name="API_KEY_FOR_ANDROID" value="AIzaSyA7fLMZEL1CdQp5h04_QaphO-R6UE5M7Yw" />
         <variable name="API_KEY_FOR_IOS" value="" />
         <variable name="PLAY_SERVICES_VERSION" value="15.0.1" />
         <variable name="ANDROID_SUPPORT_V4_VERSION" value="27.+" />

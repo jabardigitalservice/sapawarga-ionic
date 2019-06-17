@@ -120,7 +120,7 @@
       "cordova-sms-plugin": {},
       "call-number": {},
       "cordova-plugin-googlemaps": {
-        "API_KEY_FOR_ANDROID": "%GOOGLE_MAPS_ANDROID_API_KEY%",
+        "API_KEY_FOR_ANDROID": "AIzaSyA7fLMZEL1CdQp5h04_QaphO-R6UE5M7Yw",
         "API_KEY_FOR_IOS": "",
         "PLAY_SERVICES_VERSION": "15.0.1",
         "ANDROID_SUPPORT_V4_VERSION": "27.+"
