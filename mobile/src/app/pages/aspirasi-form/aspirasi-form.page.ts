@@ -56,7 +56,7 @@ export class AspirasiFormPage implements OnInit {
           Validators.required,
           Validators.maxLength(60),
           Validators.minLength(10),
-          Validators.pattern(/^[a-z0-9 ]+$/)
+          Validators.pattern(/^[A-Za-z0-9 ]+$/)
         ]
       ],
       description: ['', [Validators.required, Validators.maxLength(280)]],
@@ -242,7 +242,7 @@ export class AspirasiFormPage implements OnInit {
     };
 
     options.params = {
-      type: 'phonebook_photo'
+      type: 'aspirasi_photo'
     };
 
     fileTransfer
@@ -270,7 +270,12 @@ export class AspirasiFormPage implements OnInit {
         },
         err => {
           loading.dismiss();
-          this.showToast('Terjadi Kesalahan');
+          let data = JSON.parse(err.body);
+          if (data.data.file[0]) {
+            this.showToast(data.data.file[0]);
+          } else {
+            this.showToast('Terjadi Kesalahan');
+          }
         }
       );
   }

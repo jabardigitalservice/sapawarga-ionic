@@ -8,8 +8,14 @@
 </ion-header>
 
 <ion-content *ngIf="dataNomorPenting">
-  <img *ngIf="!dataNomorPenting.cover_image_url" src="../../../assets/img/placeholder_image.png" />
-  <img *ngIf="dataNomorPenting.cover_image_url" src="{{ dataNomorPenting.cover_image_url }}" />
+  <img
+    *ngIf="!dataNomorPenting.cover_image_url"
+    src="../../../assets/img/placeholder_image.png"
+  />
+  <img
+    *ngIf="dataNomorPenting.cover_image_url"
+    src="{{ dataNomorPenting.cover_image_url }}"
+  />
 
   <ion-item>
     <div class="ion-margin-top ion-margin-bottom">
@@ -18,8 +24,20 @@
         <ion-note>{{ nomor.phone_number }}</ion-note>
       </div>
     </div>
-    <div slot="end" *ngIf="dataNomorPenting.latitude && dataNomorPenting.longitude">
-      <ion-buttons (click)="goToMap(dataNomorPenting.name ,dataNomorPenting.latitude, dataNomorPenting.longitude)">
+    <div
+      slot="end"
+      *ngIf="dataNomorPenting.latitude && dataNomorPenting.longitude"
+    >
+      <ion-buttons
+        (click)="
+          goToMap(
+            dataNomorPenting.name,
+            dataNomorPenting.latitude,
+            dataNomorPenting.longitude,
+            dataNomorPenting.category.name
+          )
+        "
+      >
         <ion-button shape="round" color="dark">
           <ion-icon name="pin"></ion-icon>
         </ion-button>
@@ -35,6 +53,5 @@
     <ion-card-content color="dark">
       {{ dataNomorPenting.address }}
     </ion-card-content>
-
   </ion-card>
 </ion-content>

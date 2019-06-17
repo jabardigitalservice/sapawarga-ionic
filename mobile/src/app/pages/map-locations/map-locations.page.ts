@@ -24,6 +24,7 @@ export class MapLocationsPage implements OnInit {
   map: GoogleMap;
   latlong: any;
   title: string;
+  icon: any;
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -37,6 +38,7 @@ export class MapLocationsPage implements OnInit {
       if (this.router.getCurrentNavigation().extras.state) {
         this.latlong = this.router.getCurrentNavigation().extras.state.latlng;
         this.title = this.router.getCurrentNavigation().extras.state.title;
+        this.icon = this.router.getCurrentNavigation().extras.state.icon;
       }
     });
 
@@ -86,7 +88,8 @@ export class MapLocationsPage implements OnInit {
     let marker: Marker = this.map.addMarkerSync({
       title: this.title,
       animation: GoogleMapsAnimation.BOUNCE,
-      position: this.latlong
+      position: this.latlong,
+      icon: this.icon
     });
   }
 
