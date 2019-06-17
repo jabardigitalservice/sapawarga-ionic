@@ -98,12 +98,22 @@ export class AspirasiFormPage implements OnInit {
         this.f.title.setValue(this.dataAspirasi.title);
         this.f.description.setValue(this.dataAspirasi.description);
         this.f.category_id.setValue(this.dataAspirasi.category_id);
+
+        // insert data attachments
+        this.images = this.dataAspirasi.attachments
+          ? this.dataAspirasi.attachments
+          : [];
+        this.f.attachments.setValue(this.images);
       }
     });
   }
 
   backMyAspirasi() {
-    this.confirmationDraft();
+    if (this.isEdit !== true) {
+      this.confirmationDraft();
+    } else {
+      this.navCtrl.back();
+    }
   }
 
   // convenience getter for easy access to form fields
@@ -191,7 +201,7 @@ export class AspirasiFormPage implements OnInit {
       .editAspirasi(this.dataAspirasi.id, this.formAddAspirasi.value)
       .subscribe(
         res => {
-          if (res.status === 201) {
+          if (res.status === 200) {
             this.showToast('Data berhasil tersimpan');
             this.navCtrl.back();
           } else {

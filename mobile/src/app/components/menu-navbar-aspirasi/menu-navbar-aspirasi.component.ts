@@ -26,7 +26,12 @@ export class MenuNavbarAspirasiComponent implements OnInit {
   ngOnInit() {}
 
   editAspirasi() {
-    // console.log(this.navParams.get('dataAspirasi'));
+    // check internet
+    if (!navigator.onLine) {
+      this.showToast('Tidak ada koneksi internet');
+      return;
+    }
+
     this.router.navigate(['aspirasi-form'], {
       queryParams: {
         data: JSON.stringify(this.navParams.get('dataAspirasi'))
