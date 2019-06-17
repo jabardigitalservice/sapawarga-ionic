@@ -15,6 +15,9 @@ import {
 export class SurveyPage implements OnInit {
   records: [];
 
+  url =
+    'http://35.247.135.93.xip.io:5001/view/#!/forms/5d038b3f5d65dc01009ef904';
+
   options: InAppBrowserOptions = {
     location: 'yes', //Or 'no'
     hidden: 'no', //Or  'yes'
@@ -40,9 +43,7 @@ export class SurveyPage implements OnInit {
 
   ngOnInit() {}
 
-  ionViewDidEnter() {
-    //
-  }
+  ionViewDidEnter() {}
 
   public openWithCordovaBrowser(url: string) {
     let target = '_self';
