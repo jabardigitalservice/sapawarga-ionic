@@ -38,6 +38,8 @@ export class AspirasiFormPage implements OnInit {
 
   dataAspirasi: Aspirasi;
 
+  selected_category = 10;
+
   constructor(
     private formBuilder: FormBuilder,
     private aspirasiService: AspirasiService,
@@ -53,14 +55,6 @@ export class AspirasiFormPage implements OnInit {
   ) {}
 
   ngOnInit() {
-    // get query param from view profile
-    this.route.queryParamMap.subscribe((params: any) => {
-      if (params.params.data) {
-        this.dataAspirasi = JSON.parse(params.params.data);
-        console.log(this.dataAspirasi);
-      }
-    });
-
     this.formAddAspirasi = this.formBuilder.group({
       title: [
         '',
@@ -94,14 +88,19 @@ export class AspirasiFormPage implements OnInit {
 
     // set data kelurahan
     this.f.kel_id.setValue(this.dataProfile.kel_id);
+  }
 
-    // if isEdit
-    if (this.dataAspirasi) {
-      this.f.title.setValue(this.dataAspirasi.title);
-      this.f.description.setValue(this.dataAspirasi.description);
-      this.f.category_id.setValue(this.dataAspirasi.category_id);
-      console.log(this.f.category_id.value);
-    }
+  ionViewDidEnter() {
+    // get query param from view profile
+    this.route.queryParamMap.subscribe((params: any) => {
+      if (params.params.data) {
+        this.dataAspirasi = JSON.parse(params.params.data);
+        console.log(this.dataAspirasi);
+        this.f.title.setValue(this.dataAspirasi.title);
+        this.f.description.setValue(this.dataAspirasi.description);
+        this.f.category_id.setValue(this.dataAspirasi.category_id);
+      }
+    });
   }
 
   backMyAspirasi() {
