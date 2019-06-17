@@ -38,7 +38,7 @@ export class AspirasiFormPage implements OnInit {
 
   dataAspirasi: Aspirasi;
 
-  selected_category = 10;
+  isEdit = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -88,12 +88,11 @@ export class AspirasiFormPage implements OnInit {
 
     // set data kelurahan
     this.f.kel_id.setValue(this.dataProfile.kel_id);
-  }
 
-  ionViewDidEnter() {
-    // get query param from view profile
+    // get query param from detail aspirasi user
     this.route.queryParamMap.subscribe((params: any) => {
       if (params.params.data) {
+        this.isEdit = true;
         this.dataAspirasi = JSON.parse(params.params.data);
         console.log(this.dataAspirasi);
         this.f.title.setValue(this.dataAspirasi.title);
@@ -104,7 +103,6 @@ export class AspirasiFormPage implements OnInit {
   }
 
   backMyAspirasi() {
-    // this.navCtrl.back();
     this.confirmationDraft();
   }
 
@@ -134,7 +132,7 @@ export class AspirasiFormPage implements OnInit {
     );
   }
 
-  async addAspirasi() {
+  prosesAspirasi() {
     this.submitted = true;
 
     // check form if invalid
@@ -148,6 +146,14 @@ export class AspirasiFormPage implements OnInit {
       return;
     }
 
+    if (this.isEdit) {
+      this.editAspirasi();
+    } else {
+      this.addAspirasi();
+    }
+  }
+
+  async addAspirasi() {
     const loader = await this.loadingCtrl.create({
       duration: 10000
     });
@@ -174,6 +180,37 @@ export class AspirasiFormPage implements OnInit {
         }
       }
     );
+  }
+
+  async editAspirasi() {
+    const loader = await this.loadingCtrl.create({
+      duration: 10000
+    });
+    loader.present();
+    this.aspirasiService
+      .editAspirasi(this.dataAspirasi.id, this.formAddAspirasi.value)
+      .subscribe(
+        res => {
+          if (res.status === 201) {
+            this.showToast('Data berhasil tersimpan');
+            this.navCtrl.back();
+          } else {
+            this.showToast('Data gagal tersimpan');
+          }
+          loader.dismiss();
+        },
+        err => {
+          loader.dismiss();
+          // check if status 422
+          if (err.status === 422) {
+            // get data from server
+          } else {
+            this.showToast(
+              'Data gagal tersimpan periksa kembali koneksi internet anda'
+            );
+          }
+        }
+      );
   }
 
   async uploadAspirasi() {
@@ -323,7 +360,7 @@ export class AspirasiFormPage implements OnInit {
           handler: () => {
             // set status 5 = waiting confirmation
             this.f.status.setValue(5);
-            this.addAspirasi();
+            this.prosesAspirasi();
           }
         }
       ]
@@ -351,7 +388,7 @@ export class AspirasiFormPage implements OnInit {
           handler: () => {
             // set status 5 = waiting confirmation
             this.f.status.setValue(0);
-            this.addAspirasi();
+            this.prosesAspirasi();
           }
         }
       ]
@@ -363,7 +400,7 @@ export class AspirasiFormPage implements OnInit {
   saveDraft() {
     // set status 0 = draft
     this.f.status.setValue(0);
-    this.addAspirasi();
+    this.prosesAspirasi();
   }
 
   async showToast(msg: string) {

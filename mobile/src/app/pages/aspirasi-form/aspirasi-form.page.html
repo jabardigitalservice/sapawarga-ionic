@@ -149,6 +149,7 @@
         expand="full"
         color="warning"
         (click)="saveDraft()"
+        *ngIf="isEdit !== true"
         >Simpan Sebagai Draft
       </ion-button>
 
@@ -159,7 +160,8 @@
         expand="full"
         color="success"
         (click)="confirmationSend()"
-        >Kirim Aspirasi
+      >
+        {{ isEdit ? 'Perbaharui Aspirasi' : 'Kirim Aspirasi' }}
       </ion-button>
     </form>
   </ion-grid>

@@ -37,6 +37,12 @@ export class AspirasiService {
       .pipe(catchError(this.handleError));
   }
 
+  editAspirasi(id: number, data: any): Observable<Aspirasi> {
+    return this.http
+      .put<Aspirasi>(`${environment.API_URL}/aspirasi/${id}`, data)
+      .pipe(catchError(this.handleError));
+  }
+
   uploadFormData(formData) {
     const HttpOptions = {
       headers: new HttpHeaders({
