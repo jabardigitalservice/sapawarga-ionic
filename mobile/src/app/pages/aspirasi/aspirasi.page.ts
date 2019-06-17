@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { AspirasiService } from '../../services/aspirasi.service';
 import { LoadingController, ToastController } from '@ionic/angular';
 import { Aspirasi } from '../../interfaces/aspirasi';
+import { Dictionary } from '../../helpers/dictionary';
 
 @Component({
   selector: 'app-aspirasi',
@@ -21,6 +22,11 @@ export class AspirasiPage implements OnInit {
 
   defaut_img = 'assets/img/placeholder_image.png';
 
+  msgResponse = {
+    type: '',
+    msg: ''
+  };
+
   constructor(
     private aspirasiService: AspirasiService,
     public loadingCtrl: LoadingController,
@@ -37,7 +43,9 @@ export class AspirasiPage implements OnInit {
   }
 
   ionViewDidEnter() {
-    this.dataLikes = JSON.parse(this.aspirasiService.getLocalLikes());
+    if (this.aspirasiService.getLocalLikes()) {
+      this.dataLikes = JSON.parse(this.aspirasiService.getLocalLikes());
+    }
   }
 
   // get data broadcasts
@@ -47,8 +55,13 @@ export class AspirasiPage implements OnInit {
     if (!navigator.onLine) {
       // stop infinite scroll
       this.offline = true;
+
       if (infiniteScroll) {
-        alert('Tidak ada jaringan internet');
+        this.msgResponse = {
+          type: 'offline',
+          msg: Dictionary.offline
+        };
+
         infiniteScroll.target.complete();
       }
       // get local
@@ -73,6 +86,10 @@ export class AspirasiPage implements OnInit {
           this.aspirasiService.saveLocalLikes(this.dataLikes);
         } else {
           this.dataEmpty = true;
+          this.msgResponse = {
+            type: 'empty',
+            msg: Dictionary.empty
+          };
         }
         // set count page
         this.maximumPages = res['data']['_meta'].pageCount;
@@ -86,6 +103,12 @@ export class AspirasiPage implements OnInit {
         // stop infinite scroll
         if (infiniteScroll) {
           infiniteScroll.target.complete();
+        }
+        if (err) {
+          this.msgResponse = {
+            type: 'server-error',
+            msg: Dictionary.internalError
+          };
         }
       }
     );
