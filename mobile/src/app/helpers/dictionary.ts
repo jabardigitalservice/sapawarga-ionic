@@ -6,5 +6,8 @@ export enum Dictionary {
 
   // message handle error
   terjadi_kesalahan = 'Terjadi kesalahan',
-  error_permission = 'Silahkan periksa kembali permission anda'
+  error_permission = 'Silahkan periksa kembali permission anda',
+
+  // aspirasi message
+  empty_aspirasi = 'Belum ada aspirasi yang dibuat'
 }

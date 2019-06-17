@@ -3,6 +3,7 @@ import { AspirasiService } from 'src/app/services/aspirasi.service';
 import { LoadingController, ToastController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { Aspirasi } from '../../interfaces/aspirasi';
+import { Dictionary } from '../../helpers/dictionary';
 
 @Component({
   selector: 'app-aspirasi-user',
@@ -15,11 +16,15 @@ export class AspirasiUserPage implements OnInit {
   currentPage = 1;
   maximumPages: number;
 
+  msgResponse = {
+    type: '',
+    msg: ''
+  };
+
   constructor(
     private aspirasiService: AspirasiService,
     public loadingCtrl: LoadingController,
-    private router: Router,
-    private toastCtrl: ToastController
+    private router: Router
   ) {}
 
   ngOnInit() {}
@@ -35,8 +40,11 @@ export class AspirasiUserPage implements OnInit {
     if (!navigator.onLine) {
       // stop infinite scroll
       if (infiniteScroll) {
-        alert('Tidak ada jaringan internet');
         infiniteScroll.target.complete();
+        this.msgResponse = {
+          type: 'offline',
+          msg: Dictionary.offline
+        };
       }
       // get local
       this.dataAspirasi = JSON.parse(
@@ -55,6 +63,10 @@ export class AspirasiUserPage implements OnInit {
           this.aspirasiService.saveLocalAspirasiUser(this.dataAspirasi);
         } else {
           this.dataEmpty = true;
+          this.msgResponse = {
+            type: 'empty',
+            msg: Dictionary.empty_aspirasi
+          };
         }
         // set count page
         this.maximumPages = res['data']['_meta'].pageCount;
@@ -68,6 +80,13 @@ export class AspirasiUserPage implements OnInit {
         // stop infinite scroll
         if (infiniteScroll) {
           infiniteScroll.target.complete();
+        }
+
+        if (err) {
+          this.msgResponse = {
+            type: 'server-error',
+            msg: Dictionary.internalError
+          };
         }
       }
     );
