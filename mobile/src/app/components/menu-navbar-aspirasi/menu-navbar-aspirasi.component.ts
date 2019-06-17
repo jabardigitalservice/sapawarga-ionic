@@ -26,9 +26,11 @@ export class MenuNavbarAspirasiComponent implements OnInit {
   ngOnInit() {}
 
   editAspirasi() {
-    console.log(this.navParams.get('dataAspirasi'));
+    // console.log(this.navParams.get('dataAspirasi'));
     this.router.navigate(['aspirasi-form'], {
-      queryParams: this.navParams.get('dataAspirasi')
+      queryParams: {
+        data: JSON.stringify(this.navParams.get('dataAspirasi'))
+      }
     });
     this.popover.dismiss();
   }

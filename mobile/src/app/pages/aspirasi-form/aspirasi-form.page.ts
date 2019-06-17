@@ -19,6 +19,7 @@ import {
 import { Aspirasi } from '../../interfaces/aspirasi';
 import { ProfileService } from '../../services/profile.service';
 import { Profile } from '../../interfaces/profile';
+import { ActivatedRoute } from '@angular/router';
 
 const TOKEN_KEY = 'auth-token';
 @Component({
@@ -35,11 +36,14 @@ export class AspirasiFormPage implements OnInit {
   images = [];
   urlStorage = `${environment.API_STORAGE}/image/`;
 
+  dataAspirasi: Aspirasi;
+
   constructor(
     private formBuilder: FormBuilder,
     private aspirasiService: AspirasiService,
     private profileService: ProfileService,
     public loadingCtrl: LoadingController,
+    private route: ActivatedRoute,
     private actionsheetCtrl: ActionSheetController,
     private toastCtrl: ToastController,
     private camera: Camera,
@@ -49,6 +53,14 @@ export class AspirasiFormPage implements OnInit {
   ) {}
 
   ngOnInit() {
+    // get query param from view profile
+    this.route.queryParamMap.subscribe((params: any) => {
+      if (params.params.data) {
+        this.dataAspirasi = JSON.parse(params.params.data);
+        console.log(this.dataAspirasi);
+      }
+    });
+
     this.formAddAspirasi = this.formBuilder.group({
       title: [
         '',
@@ -60,7 +72,7 @@ export class AspirasiFormPage implements OnInit {
         ]
       ],
       description: ['', [Validators.required, Validators.maxLength(280)]],
-      category_id: ['', [Validators.required]],
+      category_id: [null, [Validators.required]],
       kabkota_id: [null],
       kec_id: [null],
       kel_id: [null],
@@ -82,6 +94,14 @@ export class AspirasiFormPage implements OnInit {
 
     // set data kelurahan
     this.f.kel_id.setValue(this.dataProfile.kel_id);
+
+    // if isEdit
+    if (this.dataAspirasi) {
+      this.f.title.setValue(this.dataAspirasi.title);
+      this.f.description.setValue(this.dataAspirasi.description);
+      this.f.category_id.setValue(this.dataAspirasi.category_id);
+      console.log(this.f.category_id.value);
+    }
   }
 
   backMyAspirasi() {
