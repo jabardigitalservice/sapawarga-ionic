@@ -6,7 +6,7 @@
       </ion-button>
     </ion-buttons>
 
-    <ion-title>Tambah Aspirasi</ion-title>
+    <ion-title>{{ isEdit ? 'Edit' : 'Tambah' }} Aspirasi</ion-title>
     <ion-buttons slot="end" (click)="uploadAspirasi()">
       <ion-button shape="round" color="dark">
         <ion-icon name="attach"></ion-icon>
@@ -21,10 +21,11 @@
       <ion-grid>
         <ion-row color="primary" justify-content-center>
           <ion-col align-self-center size-md="6" size-lg="5" size-xs="12">
-            <ion-item>
+            <ion-item *ngIf="CategoriesAspirasi">
               <ion-label>Kategori</ion-label>
               <ion-select
                 formControlName="category_id"
+                value="{{ f.category_id.value }}"
                 okText="Pilih"
                 cancelText="Batal"
                 placeholder="Pilih Kategori"
@@ -148,6 +149,7 @@
         expand="full"
         color="warning"
         (click)="saveDraft()"
+        *ngIf="isEdit !== true"
         >Simpan Sebagai Draft
       </ion-button>
 
@@ -158,7 +160,8 @@
         expand="full"
         color="success"
         (click)="confirmationSend()"
-        >Kirim Aspirasi
+      >
+        {{ isEdit ? 'Edit Aspirasi' : 'Kirim Aspirasi' }}
       </ion-button>
     </form>
   </ion-grid>
