@@ -114,11 +114,7 @@ export class AspirasiFormPage implements OnInit {
   }
 
   backMyAspirasi() {
-    if (this.isEdit !== true) {
-      this.confirmationDraft();
-    } else {
-      this.navCtrl.back();
-    }
+    this.confirmationDraft();
   }
 
   // convenience getter for easy access to form fields
