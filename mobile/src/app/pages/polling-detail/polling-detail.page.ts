@@ -1,6 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ToastController, NavController } from '@ionic/angular';
+import {
+  ToastController,
+  NavController,
+  LoadingController
+} from '@ionic/angular';
+import { PollingService } from '../../services/polling.service';
+import { Polling } from 'src/app/interfaces/polling';
 
 @Component({
   selector: 'app-polling-detail',
@@ -9,11 +15,14 @@ import { ToastController, NavController } from '@ionic/angular';
 })
 export class PollingDetailPage implements OnInit {
   public items: any = [];
+  dataPolling: Polling;
 
   constructor(
     private route: ActivatedRoute,
     public toastCtrl: ToastController,
-    private navCtrl: NavController
+    private navCtrl: NavController,
+    private pollingService: PollingService,
+    public loadingCtrl: LoadingController
   ) {
     this.items = [
       {
@@ -77,11 +86,34 @@ export class PollingDetailPage implements OnInit {
 
   id: number;
   ngOnInit() {
-    // get id detail instansion
+    // get id detail polling
     this.route.params.subscribe(params => {
       this.id = params['id'];
       console.log(this.id);
     });
+
+    this.getDetailPolling();
+  }
+
+  async getDetailPolling() {
+    const loader = await this.loadingCtrl.create({
+      duration: 10000
+    });
+    loader.present();
+
+    this.pollingService.getDetailPolling(this.id).subscribe(
+      res => {
+        this.dataPolling = res['data'];
+        console.log(this.dataPolling);
+        loader.dismiss();
+      },
+      err => {
+        loader.dismiss();
+        this.showToast(err.data.message);
+        // jika data not found
+        this.navCtrl.back();
+      }
+    );
   }
 
   submitPolling() {
