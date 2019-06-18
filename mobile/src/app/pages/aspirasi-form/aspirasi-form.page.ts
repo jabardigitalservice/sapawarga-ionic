@@ -94,12 +94,17 @@ export class AspirasiFormPage implements OnInit {
       if (params.params.data) {
         this.isEdit = true;
         this.dataAspirasi = JSON.parse(params.params.data);
-        console.log(this.dataAspirasi);
+
+        // set data title
         this.f.title.setValue(this.dataAspirasi.title);
+
+        // set data description
         this.f.description.setValue(this.dataAspirasi.description);
+
+        // set data category_id
         this.f.category_id.setValue(this.dataAspirasi.category_id);
 
-        // insert data attachments
+        // set data attachments
         this.images = this.dataAspirasi.attachments
           ? this.dataAspirasi.attachments
           : [];

@@ -49,7 +49,6 @@ export class AspirasiService {
         'Content-Type': 'application/x-www-form-urlencoded'
       })
     };
-    console.log(formData);
     return this.http.post<any>(
       `${environment.API_URL}/attachments`,
       formData,
