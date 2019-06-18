@@ -8,15 +8,15 @@
 </ion-header>
 
 <ion-content>
-  <ion-card>
+  <ion-card *ngIf="dataPolling">
     <ion-list>
       <ion-radio-group>
         <ion-list-header>
-          <ion-label>{{ items[id].title }}</ion-label>
+          <ion-label>{{ dataPolling.question }}</ion-label>
         </ion-list-header>
 
-        <ion-item *ngFor="let polling of items[id].pollings">
-          <ion-label>{{ polling.name }}</ion-label>
+        <ion-item *ngFor="let polling of dataPolling.answers">
+          <ion-label>{{ polling.body }}</ion-label>
           <ion-radio
             slot="start"
             [value]="polling.id"
@@ -25,7 +25,9 @@
         </ion-item>
       </ion-radio-group>
       <div text-center>
-        <ion-button color="success" (click)="submitPolling()">Submit</ion-button>
+        <ion-button color="success" (click)="submitPolling()"
+          >Submit</ion-button
+        >
       </div>
     </ion-list>
   </ion-card>
