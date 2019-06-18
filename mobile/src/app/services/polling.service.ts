@@ -17,6 +17,12 @@ export class PollingService {
       .pipe(catchError(this.handleError));
   }
 
+  getDetailPolling(id: number): Observable<Polling> {
+    return this.http
+      .get<Polling>(`${environment.API_URL}/polling/${id}`)
+      .pipe(catchError(this.handleError));
+  }
+
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
       // A client-side or network error occurred. Handle it accordingly.

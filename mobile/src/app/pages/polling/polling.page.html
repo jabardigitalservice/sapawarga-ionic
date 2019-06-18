@@ -12,7 +12,9 @@
     <ion-item>
       <ion-text
         ><p>{{ polling.name }}</p>
-        <ion-note>10 Votes</ion-note></ion-text
+        <ion-note
+          >{{ polling.votes_count ? polling.votes_count : 0 }} Votes</ion-note
+        ></ion-text
       >
       <ion-button
         fill="solid"

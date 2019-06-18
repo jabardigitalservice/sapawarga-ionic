@@ -19,6 +19,7 @@ export interface Polling {
   status_label: string;
   created_at: number;
   updated_at: number;
+  votes_count: number;
 }
 
 interface Category {
