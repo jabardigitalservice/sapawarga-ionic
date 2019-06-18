@@ -13,6 +13,7 @@ import {
   InAppBrowser,
   InAppBrowserObject
 } from '@ionic-native/in-app-browser/ngx';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-view-profile',
@@ -21,6 +22,7 @@ import {
 })
 export class ViewProfilePage implements OnInit {
   dataProfile: Profile;
+  public app_version = environment.VERSION_APP;
 
   constructor(
     public loadingCtrl: LoadingController,
