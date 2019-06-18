@@ -7,6 +7,8 @@ import { IonicModule } from '@ionic/angular';
 
 import { SurveyPage } from './survey.page';
 
+import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
+
 const routes: Routes = [
   {
     path: '',
@@ -21,6 +23,7 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes)
   ],
+  providers: [InAppBrowser],
   declarations: [SurveyPage]
 })
 export class SurveyPageModule {}

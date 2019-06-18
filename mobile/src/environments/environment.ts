@@ -4,5 +4,5 @@ export const environment = {
   API_STORAGE: 'http://35.247.135.93/api/storage',
   // API_URL: 'http://10.59.3.11/api/v1',
   API_MOCK: 'http://35.247.135.93:3000/api/v1',
-  VERSION_APP: '1.0'
+  VERSION_APP: '0.0.1'
 };
