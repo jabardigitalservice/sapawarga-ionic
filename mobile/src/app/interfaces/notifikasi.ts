@@ -7,4 +7,5 @@ export interface Notifikasi {
   target: string;
   title: string;
   updated_at: number;
+  read: boolean;
 }
