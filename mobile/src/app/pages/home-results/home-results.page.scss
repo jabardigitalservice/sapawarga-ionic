@@ -41,10 +41,22 @@
   max-width: 70%;
   border-radius: 8px;
   box-shadow: 0 3px 4px rgba(var(--ion-color-dark-rgb), 0.25);
+  margin-bottom: 4px;
 }
 
 .label-menu {
   display: block;
   font-size: 13px;
   margin-bottom: 10px;
+}
+
+// tablet mode
+@media only screen and (min-width: 625px) {
+  .icon-img {
+    max-width: 60%;
+  }
+
+  .label-menu {
+    font-size: 20px;
+  }
 }
