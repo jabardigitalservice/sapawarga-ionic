@@ -1,27 +1,58 @@
 <ion-header>
   <ion-toolbar color="light">
     <ion-title color="dark">Akun Saya</ion-title>
-    <ion-icon name="more" slot="end" size="large" (click)="navbarMore($event)"></ion-icon>
+    <ion-icon
+      name="more"
+      slot="end"
+      size="large"
+      (click)="navbarMore($event)"
+    ></ion-icon>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="profile" color="light">
   <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
-    <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingSpinner="circles"
-      refreshingText="Refreshing...">
+    <ion-refresher-content
+      pullingIcon="arrow-dropdown"
+      pullingText="Pull to refresh"
+      refreshingSpinner="circles"
+      refreshingText="Refreshing..."
+    >
     </ion-refresher-content>
   </ion-refresher>
   <ion-card no-margin *ngIf="dataProfile">
     <ion-card-content class="bg-profile">
-      <img class="profile-image" *ngIf="!dataProfile.photo_url" src="assets/img/user.png" />
-      <img class="profile-image" *ngIf="dataProfile.photo_url" [src]="dataProfile.photo_url" />
+      <img
+        class="profile-image"
+        *ngIf="!dataProfile.photo_url"
+        src="assets/img/user.png"
+      />
+      <img
+        class="profile-image"
+        *ngIf="dataProfile.photo_url"
+        [src]="dataProfile.photo_url"
+      />
       <h1 class="fw500">{{ dataProfile.name }}</h1>
 
       <div class="sosial-media">
-        <img src="assets/icon/facebook.png"
-          (click)="goToSosialMedia('facebook', dataProfile.facebook, dataProfile.facebook)" />
-        <img src="assets/icon/instagram.png" (click)="goToSosialMedia('instagram', dataProfile.instagram)" />
-        <img src="assets/icon/twitter.png" (click)="goToSosialMedia('twitter', dataProfile.twitter)" />
+        <img
+          src="assets/icon/facebook.png"
+          (click)="
+            goToSosialMedia(
+              'facebook',
+              dataProfile.facebook,
+              dataProfile.facebook
+            )
+          "
+        />
+        <img
+          src="assets/icon/instagram.png"
+          (click)="goToSosialMedia('instagram', dataProfile.instagram)"
+        />
+        <img
+          src="assets/icon/twitter.png"
+          (click)="goToSosialMedia('twitter', dataProfile.twitter)"
+        />
       </div>
     </ion-card-content>
 
@@ -41,7 +72,11 @@
       <ion-row class="ion-padding-start">
         <ion-col size="4">
           <div class="profile-content nama-pengguna">
-            <ion-label>Username<span class="ion-text-right nama-pengguna-span">:</span></ion-label>
+            <ion-label
+              >Username<span class="ion-text-right nama-pengguna-span"
+                >:</span
+              ></ion-label
+            >
           </div>
         </ion-col>
         <ion-col>
@@ -106,14 +141,18 @@
         </ion-col>
         <ion-col>
           <div class="profile-data">
-            <ion-label *ngIf="dataProfile.rt">{{ convertNumber(dataProfile.rt) }}</ion-label>
+            <ion-label *ngIf="dataProfile.rt">{{
+              convertNumber(dataProfile.rt)
+            }}</ion-label>
           </div>
         </ion-col>
       </ion-row>
       <ion-row class="ion-padding-start">
         <ion-col size="4">
           <div class="profile-content">
-            <ion-label>Kelurahan <span class="ion-text-right">:</span></ion-label>
+            <ion-label
+              >Kelurahan <span class="ion-text-right">:</span></ion-label
+            >
           </div>
         </ion-col>
         <ion-col>
@@ -125,7 +164,9 @@
       <ion-row class="ion-padding-start">
         <ion-col size="4">
           <div class="profile-content">
-            <ion-label>Kecamatan <span class="ion-text-right">:</span></ion-label>
+            <ion-label
+              >Kecamatan <span class="ion-text-right">:</span></ion-label
+            >
           </div>
         </ion-col>
         <ion-col>
@@ -137,7 +178,9 @@
       <ion-row class="ion-padding-start">
         <ion-col size="4">
           <div class="profile-content">
-            <ion-label>Kab/Kota <span class="ion-text-right">:</span></ion-label>
+            <ion-label
+              >Kab/Kota <span class="ion-text-right">:</span></ion-label
+            >
           </div>
         </ion-col>
         <ion-col class="ion-margin-bottom">
@@ -148,4 +191,12 @@
       </ion-row>
     </ion-grid>
   </ion-card>
+
+  <ion-text color="dark" class="footer-profile">
+    <p>Versi {{ app_version }}</p>
+    <p>
+      Hak Cipta Dinas Komunikasi dan Informatika Pemerintah Provinsi Jawa Barat
+      2019
+    </p>
+  </ion-text>
 </ion-content>
