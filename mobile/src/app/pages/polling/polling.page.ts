@@ -127,8 +127,8 @@ export class PollingPage implements OnInit {
     );
   }
 
-  goDetail(data: number) {
-    this.router.navigate(['/polling', data]);
+  goDetail(id: number) {
+    this.router.navigate(['/polling', id]);
   }
 
   // infinite scroll
@@ -143,5 +143,13 @@ export class PollingPage implements OnInit {
     setTimeout(() => {
       this.getListPolling(event);
     }, 2000);
+  }
+
+  async showToast(msg: string) {
+    const toast = await this.toastCtrl.create({
+      message: msg,
+      duration: 2000
+    });
+    toast.present();
   }
 }
