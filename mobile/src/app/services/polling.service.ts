@@ -5,6 +5,7 @@ import { catchError } from 'rxjs/operators';
 import { Polling } from '../interfaces/polling';
 import { environment } from '../../environments/environment';
 
+const POLLING = 'data-polling';
 @Injectable({
   providedIn: 'root'
 })
@@ -21,6 +22,16 @@ export class PollingService {
     return this.http
       .get<Polling>(`${environment.API_URL}/polling/${id}`)
       .pipe(catchError(this.handleError));
+  }
+
+  // save Broadcast into local storage
+  saveLocalPolling(data: object) {
+    localStorage.setItem(POLLING, JSON.stringify(data));
+  }
+
+  // get Polling into local storage
+  getLocalPolling() {
+    return JSON.parse(localStorage.getItem(POLLING));
   }
 
   private handleError(error: HttpErrorResponse) {

@@ -16,6 +16,8 @@ export class PollingPage implements OnInit {
   currentPage = 1;
   maximumPages: number;
 
+  dataEmpty = false;
+
   constructor(
     private pollingService: PollingService,
     public loadingCtrl: LoadingController,
@@ -31,9 +33,7 @@ export class PollingPage implements OnInit {
     // check internet
     if (!navigator.onLine) {
       // get local
-      // this.dataBroadcast = JSON.parse(
-      //   this.broadcastService.getLocalBroadcast()
-      // );
+      this.dataPolling = this.pollingService.getLocalPolling();
       return;
     }
 
@@ -44,19 +44,18 @@ export class PollingPage implements OnInit {
     if (!infiniteScroll) {
       loader.present();
     }
-    loader.present();
 
-    // this.dataEmpty = false;
+    this.dataEmpty = false;
 
     this.pollingService.getListPolling(this.currentPage).subscribe(
       res => {
         if (res['data']['items'].length) {
           this.dataPolling = res['data']['items'];
-          console.log(this.dataPolling);
+
           // save to local
-          // this.broadcastService.saveLocalBroadcast(this.dataBroadcast);
+          this.pollingService.saveLocalPolling(this.dataPolling);
         } else {
-          // this.dataEmpty = true;
+          this.dataEmpty = true;
         }
         // set count page
         this.maximumPages = res['data']['_meta'].pageCount;
@@ -69,6 +68,11 @@ export class PollingPage implements OnInit {
   }
 
   goDetail(id: number) {
+    if (!navigator.onLine) {
+      alert('Tidak ada jaringan internet');
+      return;
+    }
+
     this.router.navigate(['/polling', id]);
   }
 

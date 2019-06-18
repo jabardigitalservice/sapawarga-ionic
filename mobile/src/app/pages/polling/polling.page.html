@@ -8,12 +8,16 @@
 </ion-header>
 
 <ion-content>
+  <div class="ion-text-center" *ngIf="dataEmpty">Tidak ada Polling</div>
   <ion-card *ngFor="let polling of dataPolling; let i = index">
     <ion-item>
       <ion-text
         ><p>{{ polling.name }}</p>
         <ion-note
-          >{{ polling.votes_count ? polling.votes_count : 0 }} Votes</ion-note
+          >{{
+            polling.votes_count > 0 ? polling.votes_count : 0
+          }}
+          Votes</ion-note
         ></ion-text
       >
       <ion-button
