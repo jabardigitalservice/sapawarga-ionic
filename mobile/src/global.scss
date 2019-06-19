@@ -242,3 +242,19 @@ ion-menu {
   top: 40px !important;
   left: unset !important;
 }
+
+.popover-content {
+  top: 40px;
+  transform-origin: left top;
+  transform: scale(1);
+  width: 145px;
+  height: 103px;
+  right: 0;
+}
+
+// tablet mode
+@media only screen and (min-width: 625px) {
+  .auth-page .auth-content .logo {
+    min-height: 200px;
+  }
+}

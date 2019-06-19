@@ -53,14 +53,13 @@
 // tablet mode
 @media only screen and (min-width: 625px) {
   :host {
-    ion-card {
-      height: 220px;
+    ion-icon {
+      font-size: 25px;
     }
   }
 
-  .img-banner {
-    height: 220px;
-    object-fit: fill;
+  .logo-app {
+    height: 50px;
   }
 
   .icon-img {
@@ -68,6 +67,6 @@
   }
 
   .label-menu {
-    font-size: 18px;
+    font-size: 15px;
   }
 }
