@@ -10,13 +10,16 @@
 <ion-content padding>
   <ion-list>
     <ion-item
-      *ngFor="let record of records"
-      (click)="goToDetail(record['target'])"
+      *ngFor="let notifikasi of dataNotifikasi"
+      (click)="goToDetail(notifikasi['meta']['target'])"
     >
       <ion-avatar item-start class="ion-margin-end">
-        <img class="icon-img" src="{{ record['image_url'] }}" />
+        <img
+          class="icon-img"
+          src="{{ getImageURL(notifikasi['meta']['target']) }}"
+        />
       </ion-avatar>
-      <ion-text item-end>{{ record['title'] }}</ion-text>
+      <ion-text item-end>{{ notifikasi["title"] }}</ion-text>
     </ion-item>
   </ion-list>
 </ion-content>

@@ -36,7 +36,7 @@ export class NotifikasiService {
     const newNotif: Notifikasi = {
       target: data.target,
       title: data.title,
-      meta: data.meta,
+      meta: JSON.parse(data.meta),
       push_notification: data.push_notification,
       read: false
     };

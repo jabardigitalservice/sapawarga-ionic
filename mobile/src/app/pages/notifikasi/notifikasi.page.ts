@@ -12,16 +12,13 @@ import records from '../../../assets/data/notifikasi';
 })
 export class NotifikasiPage implements OnInit {
   dataNotifikasi: Notifikasi[];
-  records: [];
   interval: any;
 
   constructor(
     private notifikasiService: NotifikasiService,
     private route: ActivatedRoute,
     public navCtrl: NavController
-  ) {
-    this.records = records;
-  }
+  ) {}
 
   ngOnInit() {}
 
@@ -40,5 +37,23 @@ export class NotifikasiPage implements OnInit {
 
   goToDetail(target) {
     this.navCtrl.navigateForward(target);
+  }
+
+  getImageURL(targetName) {
+    const prefix = '../../../assets/icon';
+    switch (targetName) {
+      case 'survey':
+        return `${prefix}/SW-SURVEY.png`;
+        break;
+      case 'polling':
+        return `${prefix}/SW-POLLING.png`;
+        break;
+      case 'url':
+        return `${prefix}/SW-NOPENTING.png`;
+        break;
+      default:
+        return `${prefix}/SW-ASPIRASI.png`;
+        break;
+    }
   }
 }
