@@ -6,7 +6,7 @@ import {
   LoadingController
 } from '@ionic/angular';
 import { PollingService } from '../../services/polling.service';
-import { Polling } from 'src/app/interfaces/polling';
+import { Polling } from '../../interfaces/polling';
 
 @Component({
   selector: 'app-polling-detail',
@@ -17,79 +17,21 @@ export class PollingDetailPage implements OnInit {
   public items: any = [];
   dataPolling: Polling;
 
+  dataAnswer: any;
+
   constructor(
     private route: ActivatedRoute,
     public toastCtrl: ToastController,
     private navCtrl: NavController,
     private pollingService: PollingService,
     public loadingCtrl: LoadingController
-  ) {
-    this.items = [
-      {
-        id: 1,
-        title:
-          'Seberapa puaskah anda terhadap pelayanan yang ada dari Pemerintah Provinsi Jawa Barat?',
-        pollings: [
-          {
-            id: 1,
-            name: 'Puas'
-          },
-          {
-            id: 2,
-            name: 'Biasa saja'
-          },
-          {
-            id: 3,
-            name: 'Kurang puas'
-          }
-        ],
-        votes: 30
-      },
-      {
-        id: 2,
-        title:
-          'Menurut anda apakah peran Pemerintah Daerah Provinsi Jawa Barat sudah cukup baik dalam mengelola harga bahan pokok?',
-        pollings: [
-          {
-            id: 1,
-            name: 'Baik'
-          },
-          {
-            id: 2,
-            name: 'Cukup'
-          },
-          {
-            id: 3,
-            name: 'Kurang'
-          }
-        ],
-        votes: 30
-      },
-      {
-        id: 3,
-        title:
-          'Menurut anda apakah implementasi teknologi pada layanan Pemerintah Provinsi Jawa Barat dapat memberikan pengaruh yang baik dalam peningkatan layanan pemerintahan terhadap masyarakat?',
-        pollings: [
-          {
-            id: 1,
-            name: 'Ya, sangat berpengaruh'
-          },
-          {
-            id: 2,
-            name: 'Tidak berpengaruh'
-          }
-        ],
-        votes: 30
-      }
-    ];
-  }
+  ) {}
 
   id: number;
   ngOnInit() {
     // get id detail polling
     this.route.params.subscribe(params => {
       this.id = params['id'];
-      console.log(this.id);
     });
 
     this.getDetailPolling();
@@ -104,7 +46,6 @@ export class PollingDetailPage implements OnInit {
     this.pollingService.getDetailPolling(this.id).subscribe(
       res => {
         this.dataPolling = res['data'];
-        console.log(this.dataPolling);
         loader.dismiss();
       },
       err => {
@@ -116,11 +57,51 @@ export class PollingDetailPage implements OnInit {
     );
   }
 
-  submitPolling() {
-    const message =
-      'Terima kasih atas partisipasi anda dalam pengisian polling ini';
-    this.showToast(message);
-    this.navCtrl.back();
+  radioChecked(data: object) {
+    this.dataAnswer = data;
+  }
+
+  async submitPolling() {
+    // check ischecked if invalid
+    if (!this.dataAnswer) {
+      return;
+    }
+
+    // check internet
+    if (!navigator.onLine) {
+      this.showToast('Tidak ada koneksi internet');
+      return;
+    }
+
+    const loader = await this.loadingCtrl.create({
+      duration: 10000
+    });
+    loader.present();
+    this.pollingService
+      .putPollingAnswer(this.dataPolling.id, this.dataAnswer.id)
+      .subscribe(
+        res => {
+          if (res.status === 200) {
+            this.showToast('Terima kasih anda sudah mengisi polling');
+            this.navCtrl.back();
+          } else {
+            this.showToast('Data gagal tersimpan');
+          }
+          loader.dismiss();
+        },
+        err => {
+          loader.dismiss();
+          // check if status 422
+          if (err.status === 422) {
+            // get data from server
+            this.showToast('Anda sudah melakukan polling ini sebelumnya');
+          } else {
+            this.showToast(
+              'Data gagal tersimpan periksa kembali koneksi internet anda'
+            );
+          }
+        }
+      );
   }
 
   async showToast(msg: string) {
