@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { Platform, NavController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 
 import { Pages } from './interfaces/pages';
 import { AuthService } from './services/auth.service';
@@ -29,7 +30,8 @@ export class AppComponent {
     private fcm: FCM,
     private router: Router,
     private broadcastService: BroadcastService,
-    private notifikasiService: NotifikasiService
+    private notifikasiService: NotifikasiService,
+    private inAppBrowser: InAppBrowser
   ) {
     this.initializeApp();
   }
@@ -57,19 +59,29 @@ export class AppComponent {
         this.fcm.onNotification().subscribe(data => {
           if (data.wasTapped) {
             // Received in background
-            // this.payloadNotification = data;
-            this.broadcastService.setNotification(false);
-            const routingTarget = [data.target];
-            if (data.target === 'broadcast') {
-              routingTarget.push(data.id);
+            if (data.target === 'url') {
+              // Handle redirect to URL
+              const meta = JSON.parse(data.meta);
+              this.platform.ready().then(() => {
+                this.inAppBrowser.create(meta.url, '_system');
+              });
+            } else {
+              // Handle redirect to app
+              const routingTarget = [data.target];
+              if (data.target === 'broadcast') {
+                this.broadcastService.setNotification(false);
+                routingTarget.push(data.id);
+              }
+              this.router.navigate(routingTarget, {
+                queryParams: data
+              });
             }
-            this.router.navigate(routingTarget, {
-              queryParams: data
-            });
           } else {
             // Received in foreground
-            // set notification true to call state
-            this.broadcastService.setNotification(true);
+            if (data.target === 'broadcast') {
+              // set notification true to call state
+              this.broadcastService.setNotification(true);
+            }
           }
 
           if (data.target === 'notifikasi' || data.target === 'url') {
