@@ -38,6 +38,11 @@ export class PollingPage implements OnInit {
   async getListPolling(infiniteScroll?) {
     // check internet
     if (!navigator.onLine) {
+      this.msgResponse = {
+        type: 'offline',
+        msg: Dictionary.offline
+      };
+
       // get local
       this.dataPolling = this.pollingService.getLocalPolling();
       return;
@@ -85,7 +90,7 @@ export class PollingPage implements OnInit {
 
   goDetail(id: number) {
     if (!navigator.onLine) {
-      alert('Tidak ada jaringan internet');
+      alert(Dictionary.offline);
       return;
     }
 

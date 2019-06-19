@@ -57,16 +57,23 @@ export class AspirasiPage implements OnInit {
       this.offline = true;
 
       if (infiniteScroll) {
+        infiniteScroll.target.complete();
+      }
+
+      // get local
+      if (
+        this.aspirasiService.getLocalAspirasi() &&
+        this.aspirasiService.getLocalLikes()
+      ) {
+        this.dataAspirasi = JSON.parse(this.aspirasiService.getLocalAspirasi());
+        this.dataLikes = JSON.parse(this.aspirasiService.getLocalLikes());
+      } else {
         this.msgResponse = {
           type: 'offline',
           msg: Dictionary.offline
         };
-
-        infiniteScroll.target.complete();
       }
-      // get local
-      this.dataAspirasi = JSON.parse(this.aspirasiService.getLocalAspirasi());
-      this.dataLikes = JSON.parse(this.aspirasiService.getLocalLikes());
+
       return;
     }
 
@@ -157,7 +164,7 @@ export class AspirasiPage implements OnInit {
   doLike(id: number, checkLike: boolean, totalLike: number) {
     // check internet
     if (!navigator.onLine) {
-      alert('Tidak ada koneksi internet');
+      alert(Dictionary.offline);
       return;
     }
 

@@ -62,9 +62,16 @@ export class BroadcastsPage implements OnInit {
     // check internet
     if (!navigator.onLine) {
       // get local
-      this.dataBroadcast = JSON.parse(
-        this.broadcastService.getLocalBroadcast()
-      );
+      if (this.broadcastService.getLocalBroadcast()) {
+        this.dataBroadcast = JSON.parse(
+          this.broadcastService.getLocalBroadcast()
+        );
+      } else {
+        this.msgResponse = {
+          type: 'offline',
+          msg: Dictionary.offline
+        };
+      }
       return;
     }
 

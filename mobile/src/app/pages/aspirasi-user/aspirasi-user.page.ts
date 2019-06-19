@@ -42,15 +42,18 @@ export class AspirasiUserPage implements OnInit {
       // stop infinite scroll
       if (infiniteScroll) {
         infiniteScroll.target.complete();
+      }
+      // get local
+      if (this.aspirasiService.getLocalAspirasiUser()) {
+        this.dataAspirasi = JSON.parse(
+          this.aspirasiService.getLocalAspirasiUser()
+        );
+      } else {
         this.msgResponse = {
           type: 'offline',
           msg: Dictionary.offline
         };
       }
-      // get local
-      this.dataAspirasi = JSON.parse(
-        this.aspirasiService.getLocalAspirasiUser()
-      );
       return;
     }
 
@@ -122,7 +125,7 @@ export class AspirasiUserPage implements OnInit {
   AddAspirasi() {
     // check internet
     if (!navigator.onLine) {
-      this.showToast('Tidak ada koneksi internet');
+      this.showToast(Dictionary.offline);
       return;
     }
     this.router.navigate(['/aspirasi-form']);
