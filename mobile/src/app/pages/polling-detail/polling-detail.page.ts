@@ -94,6 +94,7 @@ export class PollingDetailPage implements OnInit {
           // check if status 422
           if (err.status === 422) {
             // get data from server
+            this.showToast('Anda sudah melakukan polling ini sebelumnya');
           } else {
             this.showToast(
               'Data gagal tersimpan periksa kembali koneksi internet anda'
