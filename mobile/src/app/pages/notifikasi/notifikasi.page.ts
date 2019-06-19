@@ -1,9 +1,9 @@
-import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { NavController } from '@ionic/angular';
+import { Router } from '@angular/router';
+import { NavController, Platform } from '@ionic/angular';
+import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { Notifikasi } from '../../interfaces/notifikasi';
 import { NotifikasiService } from '../../services/notifikasi.service';
-import records from '../../../assets/data/notifikasi';
 
 @Component({
   selector: 'app-notifikasi',
@@ -15,8 +15,10 @@ export class NotifikasiPage implements OnInit {
   interval: any;
 
   constructor(
+    private inAppBrowser: InAppBrowser,
     private notifikasiService: NotifikasiService,
-    private route: ActivatedRoute,
+    private platform: Platform,
+    private router: Router,
     public navCtrl: NavController
   ) {}
 
@@ -35,11 +37,17 @@ export class NotifikasiPage implements OnInit {
     window.clearInterval(this.interval);
   }
 
-  goToDetail(target) {
-    this.navCtrl.navigateForward(target);
+  goToDetail(meta: any) {
+    if (meta.target === 'survey' || meta.target === 'polling') {
+      let navigationParams = [];
+      navigationParams = [`/${meta.target}`, meta.id];
+      this.router.navigate(navigationParams);
+    } else if (meta.target === 'url') {
+      this.launchWeb(meta.url);
+    }
   }
 
-  getImageURL(targetName) {
+  getImageURL(targetName: string) {
     const prefix = '../../../assets/icon';
     switch (targetName) {
       case 'survey':
@@ -55,5 +63,12 @@ export class NotifikasiPage implements OnInit {
         return `${prefix}/SW-ASPIRASI.png`;
         break;
     }
+  }
+
+  launchWeb(url: string) {
+    // check if the platform is ios or android, else open the web url
+    this.platform.ready().then(() => {
+      this.inAppBrowser.create(url, '_system');
+    });
   }
 }

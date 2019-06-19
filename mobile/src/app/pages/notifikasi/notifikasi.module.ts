@@ -5,6 +5,8 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
 
+import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
+
 import { NotifikasiPage } from './notifikasi.page';
 
 const routes: Routes = [
@@ -21,6 +23,7 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes)
   ],
+  providers: [InAppBrowser],
   declarations: [NotifikasiPage]
 })
 export class NotifikasiPageModule {}
