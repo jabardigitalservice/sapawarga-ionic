@@ -7,6 +7,7 @@ import {
 } from '@ionic/angular';
 import { PollingService } from '../../services/polling.service';
 import { Polling } from '../../interfaces/polling';
+import { Dictionary } from '../../helpers/dictionary';
 
 @Component({
   selector: 'app-polling-detail',
@@ -18,6 +19,11 @@ export class PollingDetailPage implements OnInit {
   dataPolling: Polling;
 
   dataAnswer: any;
+
+  msgResponse = {
+    type: '',
+    msg: ''
+  };
 
   constructor(
     private route: ActivatedRoute,
@@ -69,7 +75,7 @@ export class PollingDetailPage implements OnInit {
 
     // check internet
     if (!navigator.onLine) {
-      this.showToast('Tidak ada koneksi internet');
+      this.showToast(Dictionary.offline);
       return;
     }
 
@@ -82,10 +88,10 @@ export class PollingDetailPage implements OnInit {
       .subscribe(
         res => {
           if (res.status === 200) {
-            this.showToast('Terima kasih anda sudah mengisi polling');
+            this.showToast(Dictionary.success_polling);
             this.navCtrl.back();
           } else {
-            this.showToast('Data gagal tersimpan');
+            this.showToast(Dictionary.failed_save);
           }
           loader.dismiss();
         },
@@ -94,11 +100,12 @@ export class PollingDetailPage implements OnInit {
           // check if status 422
           if (err.status === 422) {
             // get data from server
-            this.showToast('Anda sudah melakukan polling ini sebelumnya');
+            this.showToast(Dictionary.have_done_vote);
           } else {
-            this.showToast(
-              'Data gagal tersimpan periksa kembali koneksi internet anda'
-            );
+            this.msgResponse = {
+              type: 'server-error',
+              msg: Dictionary.internalError
+            };
           }
         }
       );
