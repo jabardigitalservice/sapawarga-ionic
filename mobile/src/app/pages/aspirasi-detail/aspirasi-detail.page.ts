@@ -45,7 +45,9 @@ export class AspirasiDetailPage implements OnInit {
     this.route.params.subscribe(params => {
       this.id = parseInt(params['id'], 10);
     });
+  }
 
+  ionViewDidEnter() {
     this.getDetailAspirasi();
   }
 

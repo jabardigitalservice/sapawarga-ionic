@@ -8,7 +8,7 @@
 </ion-header>
 
 <ion-content>
-  <ion-card *ngFor="let record of records" (click)="goDetail(record['id'])">
+  <!-- <ion-card *ngFor="let record of records" (click)="goDetail(record['id'])">
     <img src="{{ record['photo'] }}" />
     <ion-card-header>
       <ion-card-title>{{ record['title'] }}</ion-card-title>
@@ -23,5 +23,10 @@
         <ion-icon name="heart" color="danger"></ion-icon> 1,240 orang telah mengikuti survey ini.
       </div>
     </ion-card-content>
-  </ion-card>
+  </ion-card> -->
+
+  <!-- <whatever style="width: 100%; height: 50vh;"></whatever> -->
+  <button ion-button (click)="openWithCordovaBrowser(url)">
+    Open with Cordova browser
+  </button>
 </ion-content>

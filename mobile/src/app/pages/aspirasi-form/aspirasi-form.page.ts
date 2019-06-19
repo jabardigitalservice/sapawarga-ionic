@@ -6,7 +6,8 @@ import {
   ToastController,
   ActionSheetController,
   NavController,
-  AlertController
+  AlertController,
+  Platform
 } from '@ionic/angular';
 import { environment } from '../../../environments/environment';
 // plugin
@@ -19,14 +20,15 @@ import {
 import { Aspirasi } from '../../interfaces/aspirasi';
 import { ProfileService } from '../../services/profile.service';
 import { Profile } from '../../interfaces/profile';
+import { ActivatedRoute } from '@angular/router';
 
 const TOKEN_KEY = 'auth-token';
 @Component({
-  selector: 'app-aspirasi-add',
-  templateUrl: './aspirasi-add.page.html',
-  styleUrls: ['./aspirasi-add.page.scss']
+  selector: 'app-aspirasi-form',
+  templateUrl: './aspirasi-form.page.html',
+  styleUrls: ['./aspirasi-form.page.scss']
 })
-export class AspirasiAddPage implements OnInit {
+export class AspirasiFormPage implements OnInit {
   formAddAspirasi: FormGroup;
   CategoriesAspirasi: Aspirasi[];
   dataProfile: Profile;
@@ -35,18 +37,38 @@ export class AspirasiAddPage implements OnInit {
   images = [];
   urlStorage = `${environment.API_STORAGE}/image/`;
 
+  dataAspirasi: Aspirasi;
+
+  isEdit = false;
+
+  backButton: any;
+
   constructor(
     private formBuilder: FormBuilder,
     private aspirasiService: AspirasiService,
     private profileService: ProfileService,
     public loadingCtrl: LoadingController,
+    private route: ActivatedRoute,
     private actionsheetCtrl: ActionSheetController,
     private toastCtrl: ToastController,
     private camera: Camera,
     private transfer: FileTransfer,
     private navCtrl: NavController,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private platform: Platform
   ) {}
+
+  ionViewDidEnter() {
+    // handle hardware backbutton
+    this.backButton = this.platform.backButton.subscribeWithPriority(1, () => {
+      this.backMyAspirasi();
+    });
+  }
+
+  // unsubscribe backButton
+  ionViewWillLeave() {
+    this.backButton.unsubscribe();
+  }
 
   ngOnInit() {
     this.formAddAspirasi = this.formBuilder.group({
@@ -60,7 +82,7 @@ export class AspirasiAddPage implements OnInit {
         ]
       ],
       description: ['', [Validators.required, Validators.maxLength(280)]],
-      category_id: ['', [Validators.required]],
+      category_id: [null, [Validators.required]],
       kabkota_id: [null],
       kec_id: [null],
       kel_id: [null],
@@ -82,11 +104,37 @@ export class AspirasiAddPage implements OnInit {
 
     // set data kelurahan
     this.f.kel_id.setValue(this.dataProfile.kel_id);
+
+    // get query param from detail aspirasi user
+    this.route.queryParamMap.subscribe((params: any) => {
+      if (params.params.data) {
+        this.isEdit = true;
+        this.dataAspirasi = JSON.parse(params.params.data);
+
+        // set data title
+        this.f.title.setValue(this.dataAspirasi.title);
+
+        // set data description
+        this.f.description.setValue(this.dataAspirasi.description);
+
+        // set data category_id
+        this.f.category_id.setValue(this.dataAspirasi.category_id);
+
+        // set data attachments
+        this.images = this.dataAspirasi.attachments
+          ? this.dataAspirasi.attachments
+          : [];
+        this.f.attachments.setValue(this.images);
+      }
+    });
   }
 
   backMyAspirasi() {
-    // this.navCtrl.back();
-    this.confirmationDraft();
+    if (this.formAddAspirasi.dirty) {
+      this.confirmationDraft();
+    } else {
+      this.navCtrl.back();
+    }
   }
 
   // convenience getter for easy access to form fields
@@ -115,7 +163,7 @@ export class AspirasiAddPage implements OnInit {
     );
   }
 
-  async addAspirasi() {
+  prosesAspirasi() {
     this.submitted = true;
 
     // check form if invalid
@@ -129,6 +177,14 @@ export class AspirasiAddPage implements OnInit {
       return;
     }
 
+    if (this.isEdit) {
+      this.editAspirasi();
+    } else {
+      this.addAspirasi();
+    }
+  }
+
+  async addAspirasi() {
     const loader = await this.loadingCtrl.create({
       duration: 10000
     });
@@ -155,6 +211,37 @@ export class AspirasiAddPage implements OnInit {
         }
       }
     );
+  }
+
+  async editAspirasi() {
+    const loader = await this.loadingCtrl.create({
+      duration: 10000
+    });
+    loader.present();
+    this.aspirasiService
+      .editAspirasi(this.dataAspirasi.id, this.formAddAspirasi.value)
+      .subscribe(
+        res => {
+          if (res.status === 200) {
+            this.showToast('Data berhasil tersimpan');
+            this.navCtrl.back();
+          } else {
+            this.showToast('Data gagal tersimpan');
+          }
+          loader.dismiss();
+        },
+        err => {
+          loader.dismiss();
+          // check if status 422
+          if (err.status === 422) {
+            // get data from server
+          } else {
+            this.showToast(
+              'Data gagal tersimpan periksa kembali koneksi internet anda'
+            );
+          }
+        }
+      );
   }
 
   async uploadAspirasi() {
@@ -304,7 +391,7 @@ export class AspirasiAddPage implements OnInit {
           handler: () => {
             // set status 5 = waiting confirmation
             this.f.status.setValue(5);
-            this.addAspirasi();
+            this.prosesAspirasi();
           }
         }
       ]
@@ -332,7 +419,7 @@ export class AspirasiAddPage implements OnInit {
           handler: () => {
             // set status 5 = waiting confirmation
             this.f.status.setValue(0);
-            this.addAspirasi();
+            this.prosesAspirasi();
           }
         }
       ]
@@ -344,7 +431,7 @@ export class AspirasiAddPage implements OnInit {
   saveDraft() {
     // set status 0 = draft
     this.f.status.setValue(0);
-    this.addAspirasi();
+    this.prosesAspirasi();
   }
 
   async showToast(msg: string) {
