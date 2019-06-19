@@ -6,7 +6,8 @@ import {
   ToastController,
   ActionSheetController,
   NavController,
-  AlertController
+  AlertController,
+  Platform
 } from '@ionic/angular';
 import { environment } from '../../../environments/environment';
 // plugin
@@ -40,6 +41,8 @@ export class AspirasiFormPage implements OnInit {
 
   isEdit = false;
 
+  backButton: any;
+
   constructor(
     private formBuilder: FormBuilder,
     private aspirasiService: AspirasiService,
@@ -51,8 +54,20 @@ export class AspirasiFormPage implements OnInit {
     private camera: Camera,
     private transfer: FileTransfer,
     private navCtrl: NavController,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private platform: Platform
   ) {}
+
+  ionViewDidEnter() {
+    this.backButton = this.platform.backButton.subscribeWithPriority(1, () => {
+      this.backMyAspirasi();
+    });
+  }
+
+  // unsubscribe backButton
+  ionViewWillLeave() {
+    this.backButton.unsubscribe();
+  }
 
   ngOnInit() {
     this.formAddAspirasi = this.formBuilder.group({
@@ -114,7 +129,11 @@ export class AspirasiFormPage implements OnInit {
   }
 
   backMyAspirasi() {
-    this.confirmationDraft();
+    if (this.formAddAspirasi.dirty) {
+      this.confirmationDraft();
+    } else {
+      this.navCtrl.back();
+    }
   }
 
   // convenience getter for easy access to form fields
