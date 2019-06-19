@@ -32,13 +32,34 @@ export class NotifikasiService {
     return this.notifikasiState.value;
   }
 
-  saveNewNotifikasi(data: any) {
-    let newNotif = data;
-    newNotif['read'] = false;
-    newNotif = <Notifikasi> newNotif;
+  saveReceivedNotifikasi(data: any) {
+    const newNotif: Notifikasi = {
+      target: data.target,
+      title: data.title,
+      meta: data.meta,
+      push_notification: data.push_notification,
+      read: false
+    };
 
     const notifData = this.getLocalNotifikasi();
     notifData.unshift(newNotif);
     this.saveLocalNotifikasi(JSON.stringify(notifData));
+    this.updateNotifikasiBadge();
+  }
+
+  updateNotifikasiBadge() {
+    const dataNotif = this.getLocalNotifikasi();
+    if (dataNotif.length > 0) {
+      const readCount = dataNotif.reduce(
+        (count: number, notif: Notifikasi) =>
+          notif.read === true ? ++count : count,
+        0
+      );
+      if (readCount === dataNotif.length) {
+        this.setNotifikasiBadge(false);
+      } else {
+        this.setNotifikasiBadge(true);
+      }
+    }
   }
 }

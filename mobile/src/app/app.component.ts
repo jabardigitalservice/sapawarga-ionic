@@ -73,7 +73,7 @@ export class AppComponent {
           }
 
           if (data.target === 'notifikasi' || data.target === 'url') {
-            this.notifikasiService.saveNewNotifikasi(data);
+            this.notifikasiService.saveReceivedNotifikasi(data);
           }
         });
       })

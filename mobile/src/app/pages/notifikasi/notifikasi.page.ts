@@ -23,9 +23,7 @@ export class NotifikasiPage implements OnInit {
     this.records = records;
   }
 
-  ngOnInit() {
-    this.updateNotifikasiBadge();
-  }
+  ngOnInit() {}
 
   ionViewDidEnter() {
     this.dataNotifikasi = this.notifikasiService.getLocalNotifikasi() || [];
@@ -34,7 +32,6 @@ export class NotifikasiPage implements OnInit {
     this.interval = setInterval(() => {
       this.dataNotifikasi = this.notifikasiService.getLocalNotifikasi() || [];
     }, 3000);
-    this.updateNotifikasiBadge();
   }
 
   ionViewWillLeave() {
@@ -43,18 +40,5 @@ export class NotifikasiPage implements OnInit {
 
   goToDetail(target) {
     this.navCtrl.navigateForward(target);
-  }
-
-  updateNotifikasiBadge() {
-    const readCount = this.dataNotifikasi.reduce(
-      (count, notif) => (notif.read === true ? ++count : count),
-      0
-    );
-
-    if (readCount === this.dataNotifikasi.length) {
-      this.notifikasiService.setNotifikasiBadge(false);
-    } else {
-      this.notifikasiService.setNotifikasiBadge(true);
-    }
   }
 }
