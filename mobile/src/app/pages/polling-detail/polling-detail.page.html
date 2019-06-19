@@ -21,10 +21,11 @@
             slot="start"
             [value]="polling.id"
             color="success"
+            (ionSelect)="radioChecked(polling)"
           ></ion-radio>
         </ion-item>
       </ion-radio-group>
-      <div text-center>
+      <div text-center class="btn-voted">
         <ion-button color="success" (click)="submitPolling()"
           >Submit</ion-button
         >
