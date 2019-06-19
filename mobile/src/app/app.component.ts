@@ -9,6 +9,7 @@ import { AuthService } from './services/auth.service';
 import { FCM } from '@ionic-native/fcm/ngx';
 import { Router } from '@angular/router';
 import { BroadcastService } from './services/broadcast.service';
+import { NotifikasiService } from './services/notifikasi.service';
 
 @Component({
   selector: 'app-root',
@@ -27,7 +28,8 @@ export class AppComponent {
     private authService: AuthService,
     private fcm: FCM,
     private router: Router,
-    private broadcastService: BroadcastService
+    private broadcastService: BroadcastService,
+    private notifikasiService: NotifikasiService
   ) {
     this.initializeApp();
   }
@@ -68,6 +70,10 @@ export class AppComponent {
             // Received in foreground
             // set notification true to call state
             this.broadcastService.setNotification(true);
+          }
+
+          if (data.target === 'notifikasi' || data.target === 'url') {
+            this.notifikasiService.saveNewNotifikasi(data);
           }
         });
       })

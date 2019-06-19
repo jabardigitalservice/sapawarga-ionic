@@ -24,15 +24,6 @@ export class NotifikasiPage implements OnInit {
   }
 
   ngOnInit() {
-    this.route.queryParamMap.subscribe(params => {
-      // const newNotifikasi = params['params'];
-      console.log(params);
-
-      // Check if empty object
-      // if (Object.keys(newNotifikasi).length !== 0) {
-      // }
-    });
-
     this.updateNotifikasiBadge();
   }
 
