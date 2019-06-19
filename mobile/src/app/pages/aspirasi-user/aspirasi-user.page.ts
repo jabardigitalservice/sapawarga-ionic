@@ -119,6 +119,19 @@ export class AspirasiUserPage implements OnInit {
   }
 
   AddAspirasi() {
-    this.router.navigate(['/aspirasi-add']);
+    // check internet
+    if (!navigator.onLine) {
+      this.showToast('Tidak ada koneksi internet');
+      return;
+    }
+    this.router.navigate(['/aspirasi-form']);
+  }
+
+  async showToast(msg: string) {
+    const toast = await this.toastCtrl.create({
+      message: msg,
+      duration: 3000
+    });
+    toast.present();
   }
 }

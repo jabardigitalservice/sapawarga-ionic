@@ -37,13 +37,18 @@ export class AspirasiService {
       .pipe(catchError(this.handleError));
   }
 
+  editAspirasi(id: number, data: any): Observable<Aspirasi> {
+    return this.http
+      .put<Aspirasi>(`${environment.API_URL}/aspirasi/${id}`, data)
+      .pipe(catchError(this.handleError));
+  }
+
   uploadFormData(formData) {
     const HttpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/x-www-form-urlencoded'
       })
     };
-    console.log(formData);
     return this.http.post<any>(
       `${environment.API_URL}/attachments`,
       formData,

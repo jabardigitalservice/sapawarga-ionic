@@ -2,7 +2,11 @@
   <div class="theme-bg"></div>
   <div class="auth-content">
     <!-- Logo -->
-    <div padding-horizontal text-center class="animated fadeInDown ion-padding-top">
+    <div
+      padding-horizontal
+      text-center
+      class="animated fadeInDown ion-padding-top"
+    >
       <div class="logo"></div>
     </div>
 
@@ -13,9 +17,14 @@
           <ion-icon name="person" item-start color="dark"></ion-icon>
           Username
         </ion-label>
-        <ion-input color="dark" type="text" formControlName="username"
-          [ngClass]="{ 'is-invalid': submitted && f.username.errors }" (keydown.space)="$event.preventDefault()"
-          (keyup.enter)="login()">
+        <ion-input
+          color="dark"
+          type="text"
+          formControlName="username"
+          [ngClass]="{ 'is-invalid': submitted && f.username.errors }"
+          (keydown.space)="$event.preventDefault()"
+          (keyup.enter)="login()"
+        >
         </ion-input>
       </ion-item>
       <div *ngIf="submitted && !!f.username.errors" class="invalid-feedback">
@@ -36,10 +45,28 @@
           <ion-icon name="lock" item-start color="dark"></ion-icon>
           Kata Sandi
         </ion-label>
-        <ion-input type="{{type}}" class="text-dark" color="dark" formControlName="password" (keyup.enter)="login()"
-          [ngClass]="{ 'is-invalid': submitted && f.password.errors }"></ion-input>
-        <ion-icon *ngIf="!passwordShown" color="medium" (click)="showPassword()" name="eye" slot="end"></ion-icon>
-        <ion-icon *ngIf="passwordShown" color="dark" (click)="showPassword()" name="eye" slot="end"></ion-icon>
+        <ion-input
+          type="{{ type }}"
+          class="text-dark"
+          color="dark"
+          formControlName="password"
+          (keyup.enter)="login()"
+          [ngClass]="{ 'is-invalid': submitted && f.password.errors }"
+        ></ion-input>
+        <ion-icon
+          *ngIf="!passwordShown"
+          color="medium"
+          (click)="showPassword()"
+          name="eye"
+          slot="end"
+        ></ion-icon>
+        <ion-icon
+          *ngIf="passwordShown"
+          color="dark"
+          (click)="showPassword()"
+          name="eye"
+          slot="end"
+        ></ion-icon>
       </ion-item>
       <div *ngIf="submitted && !!f.password.errors" class="invalid-feedback">
         <p ion-text class="text08" *ngIf="!!f.password.errors.required">
@@ -55,7 +82,6 @@
       </div>
     </form>
 
-
     <p text-right tappable (click)="forgotPass()" class="paz">
       <ion-text color="dark">
         <strong>Lupa Kata Sandi?</strong>
@@ -63,22 +89,31 @@
     </p>
 
     <div class="ion-text-end">
-      <ion-button icon-left size="small" shape="round" color="dark" tappable class="ion-margin-top" (click)="login()"
-        end>
+      <ion-button
+        icon-left
+        size="small"
+        shape="round"
+        color="dark"
+        tappable
+        class="ion-margin-top"
+        (click)="login()"
+        end
+      >
         <ion-icon name="log-in" slot="start"></ion-icon>
         Masuk
       </ion-button>
     </div>
-
   </div>
-
 </ion-content>
 
 <ion-footer>
   <ion-toolbar color="light">
     <ion-text color="dark">
       <p>Versi {{ app_version }}</p>
-      <p>Hak Cipta Jabar Digital Service 2019</p>
+      <p>
+        Hak Cipta Dinas Komunikasi dan Informatika Pemerintah Provinsi Jawa
+        Barat 2019
+      </p>
     </ion-text>
   </ion-toolbar>
 </ion-footer>

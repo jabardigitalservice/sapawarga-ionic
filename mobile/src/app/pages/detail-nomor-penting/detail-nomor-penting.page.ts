@@ -76,7 +76,7 @@ export class DetailNomorPentingPage implements OnInit {
     );
   }
 
-  goToMap(title: string, lat: number, long: number) {
+  goToMap(title: string, lat: number, long: number, category: string) {
     if (lat && long) {
       let navigationExtras: NavigationExtras = {
         state: {
@@ -84,10 +84,43 @@ export class DetailNomorPentingPage implements OnInit {
             lat: lat,
             lng: long
           },
-          title: title
+          title: title,
+          icon: {
+            url: this.iconMarker(category),
+            size: {
+              width: 32,
+              height: 42
+            }
+          }
         }
       };
       this.router.navigate(['map-locations'], navigationExtras);
+    }
+  }
+
+  iconMarker(category: string) {
+    switch (category) {
+      case 'Kesehatan': {
+        return 'assets/icon/kesehatan.png';
+      }
+      case 'Ekonomi': {
+        return 'assets/icon/ekonomi.png';
+      }
+      case 'Keamanan': {
+        return 'assets/icon/keamanan.png';
+      }
+      case 'Transportasi': {
+        return 'assets/icon/transport.png';
+      }
+      case 'Sosial': {
+        return 'assets/icon/sosial.png';
+      }
+      case 'Layanan': {
+        return 'assets/icon/pelayanan.png';
+      }
+      default: {
+        return 'blue';
+      }
     }
   }
 

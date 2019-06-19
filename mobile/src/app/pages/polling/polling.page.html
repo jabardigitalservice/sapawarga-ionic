@@ -8,15 +8,32 @@
 </ion-header>
 
 <ion-content>
-  <ion-card *ngFor="let item of items; let i = index">
+  <div class="ion-text-center" *ngIf="dataEmpty">Tidak ada Polling</div>
+  <ion-card *ngFor="let polling of dataPolling; let i = index">
     <ion-item>
       <ion-text
-        ><p>{{ item.title }}</p>
-        <ion-note>{{ item.votes }} Votes</ion-note></ion-text
+        ><p>{{ polling.name }}</p>
+        <ion-note
+          >{{
+            polling.votes_count > 0 ? polling.votes_count : 0
+          }}
+          Votes</ion-note
+        ></ion-text
       >
-      <ion-button fill="solid" slot="end" color="success" (click)="goDetail(i)"
-        >View</ion-button
+      <ion-button
+        fill="solid"
+        slot="end"
+        color="success"
+        (click)="goDetail(polling.id)"
+        >Vote</ion-button
       >
     </ion-item>
   </ion-card>
+  <ion-infinite-scroll threshold="100px" (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content
+      loadingSpinner="bubbles"
+      loadingText="Sedang mengambil data..."
+    >
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 </ion-content>

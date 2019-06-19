@@ -5,12 +5,12 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
 
-import { AspirasiAddPage } from './aspirasi-add.page';
+import { AspirasiFormPage } from './aspirasi-form.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: AspirasiAddPage
+    component: AspirasiFormPage
   }
 ];
 
@@ -22,6 +22,6 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [AspirasiAddPage]
+  declarations: [AspirasiFormPage]
 })
-export class AspirasiAddPageModule {}
+export class AspirasiFormPageModule {}
