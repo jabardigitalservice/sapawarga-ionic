@@ -14,3 +14,20 @@
   margin-left: 9px;
   z-index: 999;
 }
+
+// tablet mode
+@media only screen and (min-width: 625px) {
+  :host {
+    ion-tab-bar {
+      height: 75px;
+    }
+
+    ion-icon {
+      font-size: 25px;
+    }
+
+    ion-label {
+      font-size: 15px;
+    }
+  }
+}
