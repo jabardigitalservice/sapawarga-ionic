@@ -24,6 +24,7 @@ export class AspirasiUserPage implements OnInit {
   constructor(
     private aspirasiService: AspirasiService,
     public loadingCtrl: LoadingController,
+    public toastCtrl: ToastController,
     private router: Router
   ) {}
 
