@@ -5,6 +5,11 @@ export enum Dictionary {
   internalError = 'server sedang dalam perbaikan',
   failed_save = 'Data gagal tersimpan',
 
+  // aspirasi message
+  aspirasi_success_delete = 'Aspirasi berhasil dihapus',
+  aspirasi_failed = 'Aspirasi gagal dihapus, periksa kembali koneksi internet Anda',
+  aspirasi_confirm = 'Apakah Anda yakin ingin menghapus aspirasi ini?',
+
   // confirmation message
   logout = 'Apakah Anda yakin ingin keluar dari aplikasi Sapawarga?',
 
