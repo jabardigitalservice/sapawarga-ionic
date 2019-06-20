@@ -8,25 +8,38 @@
 </ion-header>
 
 <ion-content>
-  <!-- <ion-card *ngFor="let record of records" (click)="goDetail(record['id'])">
-    <img src="{{ record['photo'] }}" />
-    <ion-card-header>
-      <ion-card-title>{{ record['title'] }}</ion-card-title>
-    </ion-card-header>
+  <app-message-control
+  *ngIf="msgResponse.type"
+  [type]="msgResponse.type"
+  [message]="msgResponse.msg"
+></app-message-control>
 
-    <ion-card-content style="padding-top: 0">
-      <div style="margin: 15px 0">
-        {{ record['description'] }}
-      </div>
+  <ion-card *ngFor="let survey of dataSurvey; let i = index">
+    <ion-item>
+      <ion-text
+        ><p>{{ survey.title }}</p>
+        <ion-note
+          >{{
+            survey.survey_count > 0 ? survey.votes_count : 0
+          }}
+          surveyors</ion-note
+        ></ion-text
+      >
+      <ion-button
+        fill="solid"
+        slot="end"
+        color="success"
+        (click)="goDetail(survey.external_url)"
+        >Isi survey</ion-button
+      >
+    </ion-item>
+  </ion-card>
 
-      <div>
-        <ion-icon name="heart" color="danger"></ion-icon> 1,240 orang telah mengikuti survey ini.
-      </div>
-    </ion-card-content>
-  </ion-card> -->
-
-  <!-- <whatever style="width: 100%; height: 50vh;"></whatever> -->
-  <button ion-button (click)="openWithCordovaBrowser(url)">
-    Open with Cordova browser
-  </button>
+  <ion-infinite-scroll threshold="100px" (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content
+      loadingSpinner="bubbles"
+      loadingText="Sedang mengambil data..."
+    >
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 </ion-content>

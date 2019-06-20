@@ -7,6 +7,7 @@ import {
 } from '@ionic/angular';
 import { NomorPentingService } from '../../services/nomor-penting.service';
 import { NomorPenting } from '../../interfaces/nomor-penting';
+import { Dictionary } from '../../helpers/dictionary';
 
 @Component({
   selector: 'app-detail-nomor-penting',
@@ -16,6 +17,11 @@ import { NomorPenting } from '../../interfaces/nomor-penting';
 export class DetailNomorPentingPage implements OnInit {
   id: number;
   dataNomorPenting: NomorPenting;
+  msgResponse = {
+    type: '',
+    msg: ''
+  };
+
   constructor(
     private route: ActivatedRoute,
     private nomorPentingService: NomorPentingService,
@@ -36,6 +42,14 @@ export class DetailNomorPentingPage implements OnInit {
 
   // get data nomor penting
   async getDetailNomorPenting() {
+    // check internet
+    if (!navigator.onLine) {
+      this.msgResponse = {
+        type: 'offline',
+        msg: Dictionary.offline
+      };
+      return;
+    }
     const loader = await this.loadingCtrl.create({
       duration: 10000
     });
@@ -43,7 +57,14 @@ export class DetailNomorPentingPage implements OnInit {
 
     this.nomorPentingService.getDetailNomorPenting(this.id).subscribe(
       res => {
-        this.dataNomorPenting = res['data'];
+        if (res['data']) {
+          this.dataNomorPenting = res['data'];
+        } else {
+          this.msgResponse = {
+            type: 'empty',
+            msg: Dictionary.empty
+          };
+        }
         loader.dismiss();
       },
       err => {

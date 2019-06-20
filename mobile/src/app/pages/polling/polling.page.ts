@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Polling } from '../../interfaces/polling';
 import { PollingService } from '../../services/polling.service';
 import { LoadingController, ToastController } from '@ionic/angular';
+import { Dictionary } from '../../helpers/dictionary';
 
 @Component({
   selector: 'app-polling',
@@ -17,6 +18,11 @@ export class PollingPage implements OnInit {
   maximumPages: number;
 
   dataEmpty = false;
+
+  msgResponse = {
+    type: '',
+    msg: ''
+  };
 
   constructor(
     private pollingService: PollingService,
@@ -35,7 +41,14 @@ export class PollingPage implements OnInit {
     // check internet
     if (!navigator.onLine) {
       // get local
-      this.dataPolling = this.pollingService.getLocalPolling();
+      if (this.pollingService.getLocalPolling()) {
+        this.dataPolling = this.pollingService.getLocalPolling();
+      } else {
+        this.msgResponse = {
+          type: 'offline',
+          msg: Dictionary.offline
+        };
+      }
       return;
     }
 
@@ -58,6 +71,10 @@ export class PollingPage implements OnInit {
           this.pollingService.saveLocalPolling(this.dataPolling);
         } else {
           this.dataEmpty = true;
+          this.msgResponse = {
+            type: 'empty',
+            msg: Dictionary.empty_aspirasi
+          };
         }
         // set count page
         this.maximumPages = res['data']['_meta'].pageCount;
@@ -65,13 +82,19 @@ export class PollingPage implements OnInit {
       },
       err => {
         loader.dismiss();
+        if (err) {
+          this.msgResponse = {
+            type: 'server-error',
+            msg: Dictionary.internalError
+          };
+        }
       }
     );
   }
 
   goDetail(id: number) {
     if (!navigator.onLine) {
-      alert('Tidak ada jaringan internet');
+      alert(Dictionary.offline);
       return;
     }
 

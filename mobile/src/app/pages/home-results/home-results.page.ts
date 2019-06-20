@@ -30,7 +30,8 @@ export class HomeResultsPage implements OnInit {
     effect: 'flip',
     autoplay: {
       delay: 3000
-    }
+    },
+    zoom: false
   };
   notifNumber: 0;
 

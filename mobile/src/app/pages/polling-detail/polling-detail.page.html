@@ -1,13 +1,24 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
+      <!-- <ion-back-button></ion-back-button> -->
+      <ion-buttons slot="start" (click)="confirmation()">
+        <ion-button shape="round" color="dark">
+          <ion-icon name="arrow-back"></ion-icon>
+        </ion-button>
+      </ion-buttons>
     </ion-buttons>
     <ion-title>polling</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <app-message-control
+    *ngIf="msgResponse.type"
+    [type]="msgResponse.type"
+    [message]="msgResponse.msg"
+  ></app-message-control>
+
   <ion-card *ngIf="dataPolling">
     <ion-list>
       <ion-radio-group>
