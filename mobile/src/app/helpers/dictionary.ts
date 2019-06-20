@@ -7,6 +7,7 @@ export enum Dictionary {
   success_save = 'Data berhasil tersimpan',
   external_error = 'Data gagal tersimpan periksa kembali koneksi internet anda',
   check_internal = 'Terjadi kesalahan periksa kembali koneksi internet anda',
+  confirm_gps = 'Untuk melanjutkan, mohon untuk mengaktifkan gps anda',
 
   // aspirasi message
   aspirasi_success_delete = 'Aspirasi berhasil dihapus',

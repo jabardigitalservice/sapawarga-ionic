@@ -15,6 +15,7 @@ import {
 } from '@ionic/angular';
 import { Diagnostic } from '@ionic-native/diagnostic/ngx';
 import { OpenNativeSettings } from '@ionic-native/open-native-settings/ngx';
+import { Dictionary } from '../../helpers/dictionary';
 @Component({
   selector: 'app-map-locations',
   templateUrl: './map-locations.page.html',
@@ -58,9 +59,7 @@ export class MapLocationsPage implements OnInit {
         if (isAvailable === true) {
           this.loadMap();
         } else {
-          this.presentAlertConfirm(
-            'Untuk melanjutkan, mohon untuk mengaktifkan gps anda'
-          );
+          this.presentAlertConfirm(Dictionary.confirm_gps);
         }
       })
       .catch((error: any) => {});
