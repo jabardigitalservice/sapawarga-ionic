@@ -23,7 +23,7 @@ build_docker:
   stage: prepare
   script:
     - cd mobile
-    - COMPOSE_HTTP_TIMEOUT=500 docker-compose up -d --build
+    - COMPOSE_HTTP_TIMEOUT=500 docker-compose build
     - docker images
     - docker-compose push
 
@@ -35,6 +35,7 @@ build_apk:
     - cd mobile
     - docker-compose pull
     - docker images
+    - COMPOSE_HTTP_TIMEOUT=500 docker-compose up -d
     - docker-compose exec -T app ionic cordova platform add android
     - docker-compose exec -T app sed -i -e "s/com.google.firebase:firebase-core:10.+/com.google.firebase:firebase-core:12.0.1/g" platforms/android/project.properties
     - docker-compose exec -T app sed -i -e "s/com.google.firebase:firebase-messaging:10.+/com.google.firebase:firebase-messaging:12.0.1/g" platforms/android/project.properties
