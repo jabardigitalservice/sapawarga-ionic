@@ -16,8 +16,8 @@ before_script:
 
 stages:
   - prepare
-  - build
   - test
+  - build
 
 build_docker:
   stage: prepare
@@ -26,6 +26,18 @@ build_docker:
     - COMPOSE_HTTP_TIMEOUT=500 docker-compose build
     - docker images
     - docker-compose push
+
+lint:
+  stage: test
+  # only:
+  #   changes:
+  #     - "*.ts"
+  script:
+    - cd mobile
+    - docker-compose pull
+    - docker images
+    - COMPOSE_HTTP_TIMEOUT=500 docker-compose up -d
+    - docker-compose exec -T app npm run lint
 
 build_apk:
   stage: build
@@ -47,15 +59,3 @@ build_apk:
   artifacts:
     paths:
       - mobile/platforms/android/app/build/outputs/apk/debug/app-debug.apk
-
-lint:
-  stage: test
-  # only:
-  #   changes:
-  #     - "*.ts"
-  script:
-    - cd mobile
-    - docker-compose pull
-    - docker images
-    - COMPOSE_HTTP_TIMEOUT=500 docker-compose up -d
-    - docker-compose exec -T app npm run lint
