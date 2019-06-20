@@ -10,6 +10,7 @@ import {
 import { AspirasiService } from '../../services/aspirasi.service';
 import { Aspirasi } from '../../interfaces/aspirasi';
 import { MenuNavbarAspirasiComponent } from '../../components/menu-navbar-aspirasi/menu-navbar-aspirasi.component';
+import { Dictionary } from '../../helpers/dictionary';
 
 @Component({
   selector: 'app-aspirasi-detail',
@@ -121,7 +122,7 @@ export class AspirasiDetailPage implements OnInit {
   doLike() {
     // check internet
     if (!navigator.onLine) {
-      alert('Tidak ada koneksi internet');
+      alert(Dictionary.offline);
       return;
     }
 
