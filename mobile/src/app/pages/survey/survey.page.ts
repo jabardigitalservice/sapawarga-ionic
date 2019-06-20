@@ -6,6 +6,7 @@ import {
   InAppBrowser,
   InAppBrowserOptions
 } from '@ionic-native/in-app-browser/ngx';
+import { SurveyService } from '../../services/survey.service';
 
 @Component({
   selector: 'app-survey',
@@ -37,7 +38,11 @@ export class SurveyPage implements OnInit {
     fullscreen: 'yes' // Windows only
   };
 
-  constructor(private router: Router, private iab: InAppBrowser) {
+  constructor(
+    private router: Router,
+    private surveyService: SurveyService,
+    private iab: InAppBrowser
+  ) {
     this.records = records;
   }
 
