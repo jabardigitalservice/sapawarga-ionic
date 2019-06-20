@@ -4,7 +4,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: jdsteam/sapawarga_mobile:1.0
+    image: registry.gitlab.com/jdsteam/sapa-warga/sapawarga-app/sapawarga-api:${IMAGETAG}
     env_file:
       - .env
     ports:
