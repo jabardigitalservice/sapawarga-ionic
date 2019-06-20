@@ -151,7 +151,7 @@ export class LoginPage implements OnInit {
           this.navCtrl.navigateRoot(['/tabs']['home']);
         } else {
           loader.dismiss();
-          this.showToast('Login', Dictionary.comfirmation_login);
+          this.showToast('Login', Dictionary.confirmation_login);
         }
       },
       err => {

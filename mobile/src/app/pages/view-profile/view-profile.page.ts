@@ -144,7 +144,7 @@ export class ViewProfilePage implements OnInit {
           !this.dataProfile.facebook ||
           !this.dataProfile.instagram
         ) {
-          this.showToast(Dictionary.complate_sosmed);
+          this.showToast(Dictionary.complete_sosmed);
         }
       },
       err => {

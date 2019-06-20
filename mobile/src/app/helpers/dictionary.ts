@@ -30,11 +30,11 @@ export enum Dictionary {
   max_upload_foto = 'Foto profile yang diupload melebihi batas max. file',
 
   // view profile message
-  complate_sosmed = 'Mohon lengkapi akun sosial media anda',
+  complete_sosmed = 'Mohon lengkapi akun sosial media anda',
 
   // login message
   forgot_password = 'Tuliskan email anda untuk mengatur ulang kata sandi',
   success_forgot_password = 'Email was sended successfully.',
   disconnected = 'network was disconnected :-(',
-  comfirmation_login = 'Pastikan input data terisi dengan benar'
+  confirmation_login = 'Pastikan input data terisi dengan benar'
 }
