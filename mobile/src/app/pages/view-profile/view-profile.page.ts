@@ -14,6 +14,7 @@ import {
   InAppBrowserObject
 } from '@ionic-native/in-app-browser/ngx';
 import { environment } from '../../../environments/environment';
+import { Dictionary } from '../../helpers/dictionary';
 
 @Component({
   selector: 'app-view-profile',
@@ -143,7 +144,7 @@ export class ViewProfilePage implements OnInit {
           !this.dataProfile.facebook ||
           !this.dataProfile.instagram
         ) {
-          this.showToast('Mohon lengkapi akun sosial media anda');
+          this.showToast(Dictionary.complate_sosmed);
         }
       },
       err => {
@@ -156,7 +157,7 @@ export class ViewProfilePage implements OnInit {
   doRefresh(event) {
     // offline
     if (!navigator.onLine) {
-      this.showToast('Tidak ada koneksi internet');
+      this.showToast(Dictionary.offline);
       event.target.complete();
       return;
     }

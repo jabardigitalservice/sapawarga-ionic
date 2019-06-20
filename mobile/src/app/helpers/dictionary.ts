@@ -29,6 +29,9 @@ export enum Dictionary {
   // edit profile message
   max_upload_foto = 'Foto profile yang diupload melebihi batas max. file',
 
+  // view profile message
+  complate_sosmed = 'Mohon lengkapi akun sosial media anda',
+
   // login message
   forgot_password = 'Tuliskan email anda untuk mengatur ulang kata sandi',
   success_forgot_password = 'Email was sended successfully.',
