@@ -10,6 +10,7 @@ import { NomorPenting } from '../../interfaces/nomor-penting';
 import { CallNumber } from '@ionic-native/call-number/ngx';
 import { SMS } from '@ionic-native/sms/ngx';
 import { Router } from '@angular/router';
+import { Dictionary } from '../../helpers/dictionary';
 
 @Component({
   selector: 'app-nomor-penting',
@@ -31,6 +32,11 @@ export class NomorPentingPage implements OnInit {
 
   currentContent = 'telepon';
 
+  msgResponse = {
+    type: '',
+    msg: ''
+  };
+
   constructor(
     private nomorPentingService: NomorPentingService,
     public loadingCtrl: LoadingController,
@@ -50,7 +56,6 @@ export class NomorPentingPage implements OnInit {
 
   ngOnInit() {
     this.getNomorPenting();
-    // this.loadMap();
   }
 
   // Called when view is left
@@ -63,7 +68,10 @@ export class NomorPentingPage implements OnInit {
   async getNomorPenting(infiniteScroll?) {
     // check internet
     if (!navigator.onLine) {
-      alert('Tidak ada jaringan internet');
+      this.msgResponse = {
+        type: 'offline',
+        msg: Dictionary.offline
+      };
       return;
     }
 
@@ -84,6 +92,10 @@ export class NomorPentingPage implements OnInit {
           );
         } else {
           this.dataEmpty = true;
+          this.msgResponse = {
+            type: 'empty',
+            msg: Dictionary.empty
+          };
         }
         // set count page
         this.maximumPages = res['data']['_meta'].pageCount;
@@ -95,6 +107,12 @@ export class NomorPentingPage implements OnInit {
       },
       err => {
         loader.dismiss();
+        if (err) {
+          this.msgResponse = {
+            type: 'server-error',
+            msg: Dictionary.internalError
+          };
+        }
       }
     );
   }
@@ -103,7 +121,10 @@ export class NomorPentingPage implements OnInit {
   async getLocationsNearby() {
     // check internet
     if (!navigator.onLine) {
-      alert('Tidak ada jaringan internet');
+      this.msgResponse = {
+        type: 'offline',
+        msg: Dictionary.offline
+      };
       return;
     }
 
@@ -121,11 +142,21 @@ export class NomorPentingPage implements OnInit {
             this.dataLokasiTerdekat = res['data']['items'];
           } else {
             this.dataEmpty = true;
+            this.msgResponse = {
+              type: 'empty',
+              msg: Dictionary.empty
+            };
           }
           loader.dismiss();
         },
         err => {
           loader.dismiss();
+          if (err) {
+            this.msgResponse = {
+              type: 'server-error',
+              msg: Dictionary.internalError
+            };
+          }
         }
       );
   }
@@ -134,7 +165,10 @@ export class NomorPentingPage implements OnInit {
   async filterNomorPenting(type: string, id: number) {
     // check internet
     if (!navigator.onLine) {
-      alert('Tidak ada jaringan internet');
+      this.msgResponse = {
+        type: 'offline',
+        msg: Dictionary.empty
+      };
       return;
     }
 
@@ -152,11 +186,21 @@ export class NomorPentingPage implements OnInit {
           this.dataNomorPenting = res['data']['items'];
         } else {
           this.dataEmpty = true;
+          this.msgResponse = {
+            type: 'empty',
+            msg: Dictionary.empty
+          };
         }
         loader.dismiss();
       },
       err => {
         loader.dismiss();
+        if (err) {
+          this.msgResponse = {
+            type: 'server-error',
+            msg: Dictionary.internalError
+          };
+        }
       }
     );
   }
@@ -220,10 +264,10 @@ export class NomorPentingPage implements OnInit {
         this.callNumber
           .callNumber(phone, true)
           .then()
-          .catch(err => this.showToast('Terjadi kesalahan'));
+          .catch(err => this.showToast(Dictionary.terjadi_kesalahan));
       })
       .catch(() => {
-        this.showToast('Silahkan periksa kembali permission anda');
+        this.showToast(Dictionary.error_permission);
       });
   }
 
@@ -242,7 +286,7 @@ export class NomorPentingPage implements OnInit {
         this.sms.send(phone, '', options);
       })
       .catch(() => {
-        this.showToast('Silahkan periksa kembali permission anda');
+        this.showToast(Dictionary.error_permission);
       });
   }
 
@@ -270,7 +314,10 @@ export class NomorPentingPage implements OnInit {
   CariAreas(event: string) {
     // check internet
     if (!navigator.onLine) {
-      alert('Tidak ada jaringan internet');
+      this.msgResponse = {
+        type: 'offline',
+        msg: Dictionary.offline
+      };
       return;
     }
 
@@ -291,10 +338,19 @@ export class NomorPentingPage implements OnInit {
           this.dataNomorPenting = res['data']['items'];
         } else {
           this.dataEmpty = true;
+          this.msgResponse = {
+            type: 'empty',
+            msg: Dictionary.empty
+          };
         }
       },
       err => {
-        this.showToast('Terjadi Kesalahan');
+        if (err) {
+          this.msgResponse = {
+            type: 'server-error',
+            msg: Dictionary.internalError
+          };
+        }
       }
     );
   }
