@@ -53,7 +53,7 @@ export class NomorPentingPage implements OnInit {
     // this.loadMap();
   }
 
-  //Called when view is left
+  // Called when view is left
   ionViewWillLeave() {
     // Unregister the custom back button action for this page
     this.currentContent = 'telepon';
@@ -167,9 +167,9 @@ export class NomorPentingPage implements OnInit {
       dataArea[0] = type area
       dataArea[1] = id area
     */
-    let dataArea = data.split(' ');
-    let typeArea = dataArea[0];
-    let idArea = dataArea[1];
+    const dataArea = data.split(' ');
+    const typeArea = dataArea[0];
+    const idArea = dataArea[1];
 
     this.filterNomorPenting(typeArea, idArea);
   }
@@ -185,11 +185,11 @@ export class NomorPentingPage implements OnInit {
 
   // create dynamic phone numbers
   createButtons(type: string, data: any) {
-    let buttons = [];
-    for (let index in data) {
+    const buttons = [];
+    for (const index in data) {
       // selection get only type phone
       if (type === 'call' && data[index].type === 'phone') {
-        let button = {
+        const button = {
           text: data[index].phone_number,
           icon: 'call',
           handler: () => {
@@ -199,7 +199,7 @@ export class NomorPentingPage implements OnInit {
         buttons.push(button);
       } else if (type === 'message' && data[index].type === 'message') {
         // selection get only type message
-        let button = {
+        const button = {
           text: data[index].phone_number,
           icon: 'mail',
           handler: () => {

@@ -23,10 +23,9 @@ export class LoginPage implements OnInit {
   submitted = false;
 
   // show password
-  type: string = 'password';
-  passwordShown: boolean = false;
+  type = 'password';
+  passwordShown = false;
   token_fcm: string;
-  // public onlineOffline: boolean = navigator.onLine;
 
   public app_version = environment.VERSION_APP;
   constructor(
@@ -51,7 +50,6 @@ export class LoginPage implements OnInit {
       this.type = 'password';
     }
   }
-  // end of show password
 
   ionViewWillEnter() {
     this.menuCtrl.enable(false);
@@ -132,7 +130,7 @@ export class LoginPage implements OnInit {
       return;
     }
 
-    let disconnectSubscription = this.network.onDisconnect().subscribe(() => {
+    const disconnectSubscription = this.network.onDisconnect().subscribe(() => {
       alert('network was disconnected :-(');
     });
 

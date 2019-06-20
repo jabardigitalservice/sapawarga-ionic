@@ -175,8 +175,8 @@ export class HomeResultsPage {
   private launchApp(appUrl: string) {
     // check if the platform is ios or android, else open the web url
     if (this.platform.is('android')) {
-      let appId = appUrl;
-      let appStarter = (window as any).startApp.set({ application: appId });
+      const appId = appUrl;
+      const appStarter = (window as any).startApp.set({ application: appId });
       appStarter.start(
         function(msg) {},
         function(err) {
