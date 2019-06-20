@@ -29,11 +29,9 @@ export class NotifikasiPage implements OnInit {
     public navCtrl: NavController
   ) {}
 
-  ngOnInit() {
-    this.getNotifikasi();
-  }
+  ngOnInit() {}
 
-  ionViewDidEnter() {
+  ionViewWillEnter() {
     this.getNotifikasi();
 
     // listen and render component
@@ -86,10 +84,11 @@ export class NotifikasiPage implements OnInit {
   }
 
   async getNotifikasi() {
+    // get local
+    const localNotifikasi = this.notifikasiService.getLocalNotifikasi();
+
     // check internet
     if (!navigator.onLine) {
-      // get local
-      const localNotifikasi = this.notifikasiService.getLocalNotifikasi();
       if (localNotifikasi.length > 0) {
         this.dataNotifikasi = localNotifikasi;
       } else {
@@ -108,10 +107,16 @@ export class NotifikasiPage implements OnInit {
 
     this.notifikasiService.getListNotifikasi().subscribe(
       res => {
-        if (res['data']['items'].length) {
-          // Sync API data with local data
-
-          this.dataNotifikasi = res['data']['items'];
+        const listNotifikasi = res['data']['items'];
+        if (listNotifikasi.length) {
+          // Update API data with local data
+          this.dataNotifikasi = listNotifikasi.map(notifikasi => {
+            const oldNotifikasi = localNotifikasi.find(
+              elmt => elmt.id === notifikasi.id
+            );
+            notifikasi['read'] = oldNotifikasi ? oldNotifikasi.read : false;
+            return notifikasi;
+          });
 
           // save to local
           this.notifikasiService.saveLocalNotifikasi(

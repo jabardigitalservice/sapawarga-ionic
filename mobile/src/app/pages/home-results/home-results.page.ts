@@ -33,7 +33,7 @@ export class HomeResultsPage implements OnInit {
     },
     zoom: false
   };
-  notifNumber: 0;
+  unreadNotif: 0;
 
   constructor(
     public navCtrl: NavController,
@@ -102,12 +102,12 @@ export class HomeResultsPage implements OnInit {
   }
 
   ngOnInit() {
-    this.notifNumber = this.notifikasiService.getNotifikasiNumber();
+    this.unreadNotif = this.notifikasiService.getNotifikasiNumber();
   }
 
   ionViewDidEnter() {
     this.interval = setInterval(() => {
-      this.notifNumber = this.notifikasiService.getNotifikasiNumber();
+      this.unreadNotif = this.notifikasiService.getNotifikasiNumber();
     }, 3000);
   }
 
