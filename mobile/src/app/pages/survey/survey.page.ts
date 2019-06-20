@@ -58,7 +58,7 @@ export class SurveyPage implements OnInit {
     // check internet
     if (!navigator.onLine) {
       // get local
-      // this.dataSurvey = this.surveyService.getLocalPolling();
+      this.dataSurvey = this.surveyService.getLocalSurvey();
       return;
     }
 
@@ -76,6 +76,9 @@ export class SurveyPage implements OnInit {
       res => {
         if (res['data']['items'].length) {
           this.dataSurvey = this.dataSurvey.concat(res['data']['items']);
+
+          // save to local
+          this.surveyService.saveLocalSurvey(this.dataSurvey);
         } else {
           this.dataEmpty = true;
         }

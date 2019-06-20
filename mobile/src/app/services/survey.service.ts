@@ -4,6 +4,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 
+const SURVEY = 'data-survey';
 @Injectable({
   providedIn: 'root'
 })
@@ -14,6 +15,16 @@ export class SurveyService {
     return this.http
       .get<any>(`${environment.API_URL}/survey?page=${page}`)
       .pipe(catchError(this.handleError));
+  }
+
+  // save SURVEY into local storage
+  saveLocalSurvey(data: object) {
+    localStorage.setItem(SURVEY, JSON.stringify(data));
+  }
+
+  // get SURVEY into local storage
+  getLocalSurvey() {
+    return JSON.parse(localStorage.getItem(SURVEY));
   }
 
   private handleError(error: HttpErrorResponse) {
