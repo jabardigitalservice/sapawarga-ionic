@@ -6,7 +6,8 @@ import {
   ToastController,
   ActionSheetController,
   NavController,
-  AlertController
+  AlertController,
+  Platform
 } from '@ionic/angular';
 import { environment } from '../../../environments/environment';
 // plugin
@@ -40,6 +41,8 @@ export class AspirasiFormPage implements OnInit {
 
   isEdit = false;
 
+  backButton: any;
+
   constructor(
     private formBuilder: FormBuilder,
     private aspirasiService: AspirasiService,
@@ -51,8 +54,21 @@ export class AspirasiFormPage implements OnInit {
     private camera: Camera,
     private transfer: FileTransfer,
     private navCtrl: NavController,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private platform: Platform
   ) {}
+
+  ionViewDidEnter() {
+    // handle hardware backbutton
+    this.backButton = this.platform.backButton.subscribeWithPriority(1, () => {
+      this.backMyAspirasi();
+    });
+  }
+
+  // unsubscribe backButton
+  ionViewWillLeave() {
+    this.backButton.unsubscribe();
+  }
 
   ngOnInit() {
     this.formAddAspirasi = this.formBuilder.group({
@@ -114,7 +130,11 @@ export class AspirasiFormPage implements OnInit {
   }
 
   backMyAspirasi() {
-    this.confirmationDraft();
+    if (this.formAddAspirasi.dirty) {
+      this.confirmationDraft();
+    } else {
+      this.navCtrl.back();
+    }
   }
 
   // convenience getter for easy access to form fields
@@ -294,11 +314,11 @@ export class AspirasiFormPage implements OnInit {
     const fileTransfer: FileTransferObject = this.transfer.create();
 
     // format file name using regex
-    let fileNameFormat = imageData
+    const fileNameFormat = imageData
       .substr(imageData.lastIndexOf('/') + 1)
       .split(/[?#]/)[0];
 
-    let options: FileUploadOptions = {
+    const options: FileUploadOptions = {
       fileKey: 'file',
       fileName: fileNameFormat,
       chunkedMode: false,
@@ -316,11 +336,11 @@ export class AspirasiFormPage implements OnInit {
       .upload(imageData, `${environment.API_URL}/attachments`, options)
       .then(
         data => {
-          let response = JSON.parse(data.response);
+          const response = JSON.parse(data.response);
           // success
           loading.dismiss();
           if (response['success'] === true) {
-            let image = {
+            const image = {
               type: 'photo',
               path: response['data']['path']
             };
@@ -337,7 +357,7 @@ export class AspirasiFormPage implements OnInit {
         },
         err => {
           loading.dismiss();
-          let data = JSON.parse(err.body);
+          const data = JSON.parse(err.body);
           if (data.data.file[0]) {
             this.showToast(data.data.file[0]);
           } else {

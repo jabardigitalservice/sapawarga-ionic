@@ -19,22 +19,22 @@ export class SurveyPage implements OnInit {
     'http://35.247.135.93.xip.io:5001/view/#!/forms/5d038b3f5d65dc01009ef904';
 
   options: InAppBrowserOptions = {
-    location: 'yes', //Or 'no'
-    hidden: 'no', //Or  'yes'
+    location: 'yes', // Or 'no'
+    hidden: 'no', // Or  'yes'
     hideurlbar: 'yes',
     clearcache: 'yes',
     clearsessioncache: 'yes',
-    zoom: 'no', //Android only ,shows browser zoom controls
+    zoom: 'no', // Android only ,shows browser zoom controls
     hardwareback: 'yes',
     mediaPlaybackRequiresUserAction: 'no',
-    shouldPauseOnSuspend: 'no', //Android only
-    closebuttoncaption: 'Close', //iOS only
-    disallowoverscroll: 'no', //iOS only
-    toolbar: 'yes', //iOS only
-    enableViewportScale: 'no', //iOS only
-    allowInlineMediaPlayback: 'no', //iOS only
-    presentationstyle: 'pagesheet', //iOS only
-    fullscreen: 'yes' //Windows only
+    shouldPauseOnSuspend: 'no', // Android only
+    closebuttoncaption: 'Close', // iOS only
+    disallowoverscroll: 'no', // iOS only
+    toolbar: 'yes', // iOS only
+    enableViewportScale: 'no', // iOS only
+    allowInlineMediaPlayback: 'no', // iOS only
+    presentationstyle: 'pagesheet', // iOS only
+    fullscreen: 'yes' // Windows only
   };
 
   constructor(private router: Router, private iab: InAppBrowser) {
@@ -46,7 +46,7 @@ export class SurveyPage implements OnInit {
   ionViewDidEnter() {}
 
   public openWithCordovaBrowser(url: string) {
-    let target = '_self';
+    const target = '_self';
     this.iab.create(url, target, this.options);
   }
 

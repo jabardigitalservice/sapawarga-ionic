@@ -24,6 +24,12 @@ export class PollingService {
       .pipe(catchError(this.handleError));
   }
 
+  putPollingAnswer(id: number, answerId: string): Observable<any> {
+    return this.http
+      .put(`${environment.API_URL}/polling/${id}/vote`, { id: answerId })
+      .pipe(catchError(this.handleError));
+  }
+
   // save Broadcast into local storage
   saveLocalPolling(data: object) {
     localStorage.setItem(POLLING, JSON.stringify(data));

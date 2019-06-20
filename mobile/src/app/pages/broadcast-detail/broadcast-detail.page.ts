@@ -62,7 +62,7 @@ export class BroadcastDetailPage implements OnInit {
   SetRead(id: number) {
     console.log('id parser' + id);
     if (this.checkRead(id) === false) {
-      let data = {
+      const data = {
         id: id,
         read: true
       };

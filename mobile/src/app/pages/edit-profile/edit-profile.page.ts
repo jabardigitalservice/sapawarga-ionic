@@ -168,7 +168,7 @@ export class EditProfilePage implements OnInit {
     this.getKelurahan(this.dataProfile.kec_id);
   }
 
-  //Called when view is left
+  // Called when view is left
   ionViewWillLeave() {
     // Unregister the custom back button action for this page
     this.navCtrl.navigateForward('/tabs/akun');
@@ -181,10 +181,12 @@ export class EditProfilePage implements OnInit {
         this.getKecamatan(this.f.kabkota_id.value);
         // clear old value
         this.f.kec_id.setValue(0);
+        break;
       case 'kecamatan':
         this.getKelurahan(this.f.kec_id.value);
         // clear old value
         this.f.kel_id.setValue(0);
+        break;
     }
   }
 
@@ -255,7 +257,7 @@ export class EditProfilePage implements OnInit {
         // check if status 422
         if (err.status === 422) {
           // get data from server
-          let data = err.data;
+          const data = err.data;
           // check unvalid email / username
           if (data.username && data.email) {
             this.showToast(`${data.email[0]} & ${data.username[0]}`);
@@ -384,11 +386,11 @@ export class EditProfilePage implements OnInit {
     const fileTransfer: FileTransferObject = this.transfer.create();
 
     // format file name using regex
-    let fileNameFormat = imageData
+    const fileNameFormat = imageData
       .substr(imageData.lastIndexOf('/') + 1)
       .split(/[?#]/)[0];
 
-    let options: FileUploadOptions = {
+    const options: FileUploadOptions = {
       fileKey: 'image',
       fileName: fileNameFormat,
       chunkedMode: false,
@@ -402,7 +404,7 @@ export class EditProfilePage implements OnInit {
       .upload(imageData, `${environment.API_URL}/user/me/photo`, options)
       .then(
         data => {
-          let response = JSON.parse(data.response);
+          const response = JSON.parse(data.response);
           // success
           loading.dismiss();
           if (response['success'] === true) {
@@ -429,9 +431,9 @@ export class EditProfilePage implements OnInit {
   }
 
   convertNumber(value) {
-    let str = '' + value;
-    let pad = '000';
-    let ans = pad.substring(0, pad.length - str.length) + str;
+    const str = '' + value;
+    const pad = '000';
+    const ans = pad.substring(0, pad.length - str.length) + str;
     return ans;
   }
 

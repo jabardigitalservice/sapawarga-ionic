@@ -25,7 +25,9 @@ export class PollingPage implements OnInit {
     private toastCtrl: ToastController
   ) {}
 
-  ngOnInit() {
+  ngOnInit() {}
+
+  ionViewDidEnter() {
     this.getListPolling();
   }
 
