@@ -7,28 +7,31 @@ before_script:
   - cp mobile/.env-sample mobile/.env
   - while read a ; do echo ${a//%GOOGLE_MAPS_ANDROID_API_KEY%/$GOOGLE_MAPS_ANDROID_API_KEY} ; done < mobile/.env > mobile/.env.t ; mv mobile/.env.t mobile/.env
   - cat mobile/.env
+  - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
   - apk add --no-cache py-pip python-dev libffi-dev openssl-dev gcc libc-dev make
   - pip install docker-compose
 
 stages:
-  - test
+  - prepare
   - build
+  - test
 
-lint:
-  stage: test
-  only:
-    changes:
-      - "*.ts"
+build_docker:
+  stage: prepare
   script:
-    - docker-compose exec app npm run lint
+    - cd mobile
+    - COMPOSE_HTTP_TIMEOUT=500 docker-compose up -d --build
+    - docker images
+    - docker-compose push
 
-build_debug:
+build_apk:
   stage: build
   only:
     - master
   script:
     - cd mobile
-    - COMPOSE_HTTP_TIMEOUT=500 docker-compose up -d --build
+    - docker-compose pull
+    - docker images
     - docker-compose exec -T app ionic cordova platform add android
     - docker-compose exec -T app sed -i -e "s/com.google.firebase:firebase-core:10.+/com.google.firebase:firebase-core:12.0.1/g" platforms/android/project.properties
     - docker-compose exec -T app sed -i -e "s/com.google.firebase:firebase-messaging:10.+/com.google.firebase:firebase-messaging:12.0.1/g" platforms/android/project.properties
@@ -40,3 +43,14 @@ build_debug:
   artifacts:
     paths:
       - mobile/platforms/android/app/build/outputs/apk/debug/app-debug.apk
+
+lint:
+  stage: test
+  only:
+    changes:
+      - "*.ts"
+  script:
+    - cd mobile
+    - docker-compose pull
+    - docker images
+    - docker-compose exec -T app npm run lint
