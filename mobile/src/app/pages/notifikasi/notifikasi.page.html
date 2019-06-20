@@ -8,6 +8,12 @@
 </ion-header>
 
 <ion-content padding>
+  <app-message-control
+    *ngIf="msgResponse.type"
+    [type]="msgResponse.type"
+    [message]="msgResponse.msg"
+  ></app-message-control>
+
   <ion-list>
     <ion-item
       *ngFor="let notifikasi of dataNotifikasi; let i = index"
