@@ -5,6 +5,9 @@ export enum Dictionary {
   internalError = 'server sedang dalam perbaikan',
   failed_save = 'Data gagal tersimpan',
 
+  // confirmation message
+  logout = 'Apakah Anda yakin ingin keluar dari aplikasi Sapawarga?',
+
   // message handle error
   terjadi_kesalahan = 'Terjadi kesalahan',
   error_permission = 'Silahkan periksa kembali permission anda',
