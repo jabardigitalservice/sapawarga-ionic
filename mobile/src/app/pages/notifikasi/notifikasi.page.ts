@@ -28,16 +28,16 @@ export class NotifikasiPage implements OnInit {
     this.dataNotifikasi = this.notifikasiService.getLocalNotifikasi() || [];
 
     // listen and render component
-    this.interval = setInterval(() => {
-      this.dataNotifikasi = this.notifikasiService.getLocalNotifikasi() || [];
-    }, 3000);
+    // this.interval = setInterval(() => {
+    //   this.dataNotifikasi = this.notifikasiService.getLocalNotifikasi() || [];
+    // }, 3000);
   }
 
   ionViewWillLeave() {
-    window.clearInterval(this.interval);
+    // window.clearInterval(this.interval);
   }
 
-  goToDetail(meta: any) {
+  goToDetail(index: number, meta: any) {
     if (meta.target === 'survey' || meta.target === 'polling') {
       let navigationParams = [];
       navigationParams = [`/${meta.target}`, meta.id];
@@ -45,6 +45,8 @@ export class NotifikasiPage implements OnInit {
     } else if (meta.target === 'url') {
       this.launchWeb(meta.url);
     }
+    this.dataNotifikasi[index].read = true;
+    this.notifikasiService.saveLocalNotifikasi(JSON.stringify(this.dataNotifikasi));
   }
 
   getImageURL(targetName: string) {
