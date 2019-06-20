@@ -57,4 +57,5 @@ lint:
     - cd mobile
     - docker-compose pull
     - docker images
+    - COMPOSE_HTTP_TIMEOUT=500 docker-compose up -d
     - docker-compose exec -T app npm run lint
