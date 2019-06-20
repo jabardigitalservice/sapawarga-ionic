@@ -50,7 +50,7 @@ export class SurveyPage implements OnInit {
     this.iab.create(url, target, this.options);
   }
 
-  // go to detail with param id
+  // go to detail survey with param id
   goDetail(id: number) {
     this.router.navigate(['/survey', id]);
   }
