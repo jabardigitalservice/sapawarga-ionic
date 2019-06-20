@@ -107,7 +107,7 @@ export class HomeResultsPage implements OnInit {
   ionViewDidEnter() {
     this.interval = setInterval(() => {
       this.notifNumber = this.notifikasiService.getNotifikasiNumber();
-    }, 5000);
+    }, 3000);
   }
 
   ionViewWillLeave() {
