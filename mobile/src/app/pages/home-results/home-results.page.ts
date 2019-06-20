@@ -28,7 +28,8 @@ export class HomeResultsPage {
     effect: 'flip',
     autoplay: {
       delay: 3000
-    }
+    },
+    zoom: false
   };
 
   constructor(
