@@ -9,6 +9,7 @@ export interface Survey {
   meta: null;
   status: number;
   status_label: string;
+  votes_count: number;
   created_at: number;
   updated_at: number;
 }
