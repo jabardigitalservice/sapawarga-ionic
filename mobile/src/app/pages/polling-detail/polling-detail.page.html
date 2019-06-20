@@ -13,6 +13,12 @@
 </ion-header>
 
 <ion-content>
+  <app-message-control
+    *ngIf="msgResponse.type"
+    [type]="msgResponse.type"
+    [message]="msgResponse.msg"
+  ></app-message-control>
+
   <ion-card *ngIf="dataPolling">
     <ion-list>
       <ion-radio-group>

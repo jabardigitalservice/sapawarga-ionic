@@ -13,7 +13,11 @@
 </ion-header>
 
 <ion-content>
-  <div class="ion-text-center" *ngIf="dataEmpty">Tidak ada Aspirasi</div>
+  <app-message-control
+    *ngIf="msgResponse.type"
+    [type]="msgResponse.type"
+    [message]="msgResponse.msg"
+  ></app-message-control>
 
   <!-- Data to display after skeleton screen -->
   <ion-card *ngFor="let aspirasi of dataAspirasi; let i = index">
