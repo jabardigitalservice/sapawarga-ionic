@@ -404,12 +404,12 @@ export class EditProfilePage implements OnInit {
             this.showToast('Foto berhasil disimpan');
             this.image = response['data']['photo_url'];
           } else {
-            this.showToast(Dictionary.max_upload_foto);
+            this.showToast(Dictionary.max_upload_photo);
           }
         },
         err => {
           loading.dismiss();
-          this.showToast(Dictionary.max_upload_foto);
+          this.showToast(Dictionary.max_upload_photo);
         }
       );
   }

@@ -27,7 +27,7 @@ export enum Dictionary {
   have_done_vote = 'Anda sudah melakukan polling ini sebelumnya',
 
   // edit profile message
-  max_upload_foto = 'Foto profile yang diupload melebihi batas max. file',
+  max_upload_photo = 'Foto profile yang diupload melebihi batas max. file',
 
   // view profile message
   complete_sosmed = 'Mohon lengkapi akun sosial media anda',
