@@ -194,9 +194,9 @@ export class ViewProfilePage implements OnInit {
   }
 
   convertNumber(value) {
-    let str = '' + value;
-    let pad = '000';
-    let ans = pad.substring(0, pad.length - str.length) + str;
+    const str = '' + value;
+    const pad = '000';
+    const ans = pad.substring(0, pad.length - str.length) + str;
     return ans;
   }
 

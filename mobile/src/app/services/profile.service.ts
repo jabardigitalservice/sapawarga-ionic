@@ -19,7 +19,7 @@ export class ProfileService {
   getProfile(): Observable<Profile[]> {
     return this.http.get<Profile[]>(`${environment.API_URL}/user/me`).pipe(
       catchError(e => {
-        let status = e.status;
+        const status = e.status;
         if (status === 401) {
           console.log('You are not authorized for this!');
           // this.logout();

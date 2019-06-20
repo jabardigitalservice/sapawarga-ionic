@@ -11,15 +11,24 @@ before_script:
   - pip install docker-compose
 
 stages:
+  - test
   - build
+
+lint:
+  stage: test
+  only:
+    changes:
+      - "*.ts"
+  script:
+    - docker-compose exec app npm run lint
 
 build_debug:
   stage: build
-  only: 
+  only:
     - master
   script:
     - cd mobile
-    - COMPOSE_HTTP_TIMEOUT=200 docker-compose up -d --build
+    - COMPOSE_HTTP_TIMEOUT=500 docker-compose up -d --build
     - docker-compose exec -T app ionic cordova platform add android
     - docker-compose exec -T app sed -i -e "s/com.google.firebase:firebase-core:10.+/com.google.firebase:firebase-core:12.0.1/g" platforms/android/project.properties
     - docker-compose exec -T app sed -i -e "s/com.google.firebase:firebase-messaging:10.+/com.google.firebase:firebase-messaging:12.0.1/g" platforms/android/project.properties

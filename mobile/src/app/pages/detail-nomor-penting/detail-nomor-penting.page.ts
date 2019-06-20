@@ -78,7 +78,7 @@ export class DetailNomorPentingPage implements OnInit {
 
   goToMap(title: string, lat: number, long: number, category: string) {
     if (lat && long) {
-      let navigationExtras: NavigationExtras = {
+      const navigationExtras: NavigationExtras = {
         state: {
           latlng: {
             lat: lat,
