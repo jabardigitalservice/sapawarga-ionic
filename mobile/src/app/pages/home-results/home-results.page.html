@@ -6,7 +6,7 @@
     <ion-buttons slot="end">
       <ion-button shape="round" color="dark" (click)="goNotifikasi()">
         <ion-icon name="notifications" class="color-grey"></ion-icon>
-        <ion-badge color="danger">5</ion-badge>
+        <ion-badge *ngIf="notifNumber > 0" color="danger">{{ notifNumber }}</ion-badge>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>

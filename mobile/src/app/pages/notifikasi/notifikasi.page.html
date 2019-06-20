@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
+      <ion-back-button defaultHref="home-results"></ion-back-button>
     </ion-buttons>
     <ion-title>Notifikasi</ion-title>
   </ion-toolbar>
@@ -19,11 +19,9 @@
           src="{{ getImageURL(notifikasi['meta']['target']) }}"
         />
       </ion-avatar>
-      <ion-text
-        [ngClass]="{ 'unread': !notifikasi['read'] }"
-        item-end
-        >{{ notifikasi["title"] }}</ion-text
-      >
+      <ion-text [ngClass]="{ unread: !notifikasi['read'] }" item-end>{{
+        notifikasi["title"]
+      }}</ion-text>
     </ion-item>
   </ion-list>
 </ion-content>

@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NavController, Platform, LoadingController } from '@ionic/angular';
 
 import { Pages } from '../../interfaces/pages';
 import { ProfileService } from 'src/app/services/profile.service';
+import { NotifikasiService } from '../../services/notifikasi.service';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 
 @Component({
@@ -10,8 +11,9 @@ import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
   templateUrl: './home-results.page.html',
   styleUrls: ['./home-results.page.scss']
 })
-export class HomeResultsPage {
+export class HomeResultsPage implements OnInit {
   public appPages: Array<Pages>;
+  interval: any;
   themeCover = [
     {
       slide: 'assets/img/banner-01.png'
@@ -30,11 +32,13 @@ export class HomeResultsPage {
       delay: 3000
     }
   };
+  notifNumber: 0;
 
   constructor(
     public navCtrl: NavController,
     private platform: Platform,
     private profileService: ProfileService,
+    private notifikasiService: NotifikasiService,
     public loadingCtrl: LoadingController,
     private inAppBrowser: InAppBrowser
   ) {
@@ -94,6 +98,20 @@ export class HomeResultsPage {
     if (!localStorage.getItem('PROFILE')) {
       this.getDataProfile();
     }
+  }
+
+  ngOnInit() {
+    this.notifNumber = this.notifikasiService.getNotifikasiNumber();
+  }
+
+  ionViewDidEnter() {
+    this.interval = setInterval(() => {
+      this.notifNumber = this.notifikasiService.getNotifikasiNumber();
+    }, 5000);
+  }
+
+  ionViewWillLeave() {
+    window.clearInterval(this.interval);
   }
 
   // Go to layanan

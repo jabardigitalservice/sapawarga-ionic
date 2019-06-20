@@ -62,4 +62,14 @@ export class NotifikasiService {
       }
     }
   }
+
+  getNotifikasiNumber() {
+    const dataNotif = this.getLocalNotifikasi();
+    const unreadCount = dataNotif.reduce(
+      (count: number, notif: Notifikasi) =>
+        notif.read === false ? ++count : count,
+      0
+    );
+    return unreadCount;
+  }
 }
