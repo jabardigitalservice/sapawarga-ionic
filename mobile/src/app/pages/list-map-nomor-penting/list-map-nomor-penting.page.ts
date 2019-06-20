@@ -82,9 +82,9 @@ export class ListMapNomorPentingPage implements OnInit {
   }
 
   loadMap(markers: object) {
-    let POINTS: BaseArrayClass<any> = new BaseArrayClass<any>(markers);
+    const POINTS: BaseArrayClass<any> = new BaseArrayClass<any>(markers);
 
-    let bounds: ILatLng[] = POINTS.map((data: any, idx: number) => {
+    const bounds: ILatLng[] = POINTS.map((data: any, idx: number) => {
       return data.position;
     });
 
@@ -102,11 +102,11 @@ export class ListMapNomorPentingPage implements OnInit {
       }
     });
     POINTS.forEach((data: any) => {
-      let marker: Marker = this.map.addMarkerSync(data);
-      marker.on(GoogleMapsEvent.INFO_CLICK).subscribe(data => {
+      const marker: Marker = this.map.addMarkerSync(data);
+      marker.on(GoogleMapsEvent.INFO_CLICK).subscribe(respon => {
         // get data marker
-        let marker: Marker = <Marker>data[1];
-        this.router.navigate(['/nomor-penting', marker.get('id')]);
+        const markerData: Marker = <Marker>respon[1];
+        this.router.navigate(['/nomor-penting', markerData.get('id')]);
       });
     });
   }
@@ -181,10 +181,10 @@ export class ListMapNomorPentingPage implements OnInit {
 
   // create dynamic markers
   createMarkers(data: object) {
-    let markers = [];
-    for (let index in data) {
+    const markers = [];
+    for (const index in data) {
       if (data) {
-        let marker = {
+        const marker = {
           id: data[index].id,
           position: {
             lat: data[index].latitude,

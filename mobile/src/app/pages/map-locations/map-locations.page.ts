@@ -68,7 +68,7 @@ export class MapLocationsPage implements OnInit {
 
   loadMap() {
     // load map
-    let options: GoogleMapOptions = {
+    const options: GoogleMapOptions = {
       center: this.latlong,
       camera: {
         target: this.latlong,
@@ -85,7 +85,7 @@ export class MapLocationsPage implements OnInit {
     this.map = GoogleMaps.create('map_canvas', options);
 
     // add marker
-    let marker: Marker = this.map.addMarkerSync({
+    this.map.addMarkerSync({
       title: this.title,
       animation: GoogleMapsAnimation.BOUNCE,
       position: this.latlong,

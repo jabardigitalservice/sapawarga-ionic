@@ -14,7 +14,7 @@ import {
 })
 export class ExpandableComponent implements OnInit {
   @ViewChild('expandWrapper', { read: ElementRef }) expandWrapper: ElementRef;
-  @Input('expanded') expanded: boolean = false;
+  @Input() expanded = false;
 
   constructor(public renderer: Renderer2) {}
 

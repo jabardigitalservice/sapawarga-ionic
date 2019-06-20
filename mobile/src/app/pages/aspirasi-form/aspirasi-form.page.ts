@@ -314,11 +314,11 @@ export class AspirasiFormPage implements OnInit {
     const fileTransfer: FileTransferObject = this.transfer.create();
 
     // format file name using regex
-    let fileNameFormat = imageData
+    const fileNameFormat = imageData
       .substr(imageData.lastIndexOf('/') + 1)
       .split(/[?#]/)[0];
 
-    let options: FileUploadOptions = {
+    const options: FileUploadOptions = {
       fileKey: 'file',
       fileName: fileNameFormat,
       chunkedMode: false,
@@ -336,11 +336,11 @@ export class AspirasiFormPage implements OnInit {
       .upload(imageData, `${environment.API_URL}/attachments`, options)
       .then(
         data => {
-          let response = JSON.parse(data.response);
+          const response = JSON.parse(data.response);
           // success
           loading.dismiss();
           if (response['success'] === true) {
-            let image = {
+            const image = {
               type: 'photo',
               path: response['data']['path']
             };
@@ -357,7 +357,7 @@ export class AspirasiFormPage implements OnInit {
         },
         err => {
           loading.dismiss();
-          let data = JSON.parse(err.body);
+          const data = JSON.parse(err.body);
           if (data.data.file[0]) {
             this.showToast(data.data.file[0]);
           } else {
