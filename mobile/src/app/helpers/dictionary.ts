@@ -26,5 +26,11 @@ export enum Dictionary {
   have_done_vote = 'Anda sudah melakukan polling ini sebelumnya',
 
   // edit profile message
-  max_upload_foto = 'Foto profile yang diupload melebihi batas max. file'
+  max_upload_foto = 'Foto profile yang diupload melebihi batas max. file',
+
+  // login message
+  forgot_password = 'Tuliskan email anda untuk mengatur ulang kata sandi',
+  success_forgot_password = 'Email was sended successfully.',
+  disconnected = 'network was disconnected :-(',
+  comfirmation_login = 'Pastikan input data terisi dengan benar'
 }

@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 import { environment } from '../../../environments/environment';
 import { Network } from '@ionic-native/network/ngx';
 import { FCM } from '@ionic-native/fcm/ngx';
+import { Dictionary } from '../../helpers/dictionary';
 
 @Component({
   selector: 'app-login',
@@ -76,7 +77,7 @@ export class LoginPage implements OnInit {
   async forgotPass() {
     const alert = await this.alertCtrl.create({
       header: 'Lupa Kata Sandi?',
-      message: 'Tuliskan email anda untuk mengatur ulang kata sandi',
+      message: Dictionary.forgot_password,
       inputs: [
         {
           name: 'email',
@@ -102,7 +103,7 @@ export class LoginPage implements OnInit {
             loader.onWillDismiss().then(async l => {
               const toast = await this.toastCtrl.create({
                 showCloseButton: true,
-                message: 'Email was sended successfully.',
+                message: Dictionary.success_forgot_password,
                 duration: 3000,
                 position: 'bottom'
               });
@@ -126,12 +127,12 @@ export class LoginPage implements OnInit {
 
     // check internet
     if (!navigator.onLine) {
-      this.showToast('Offline', 'Tidak ada koneksi internet');
+      this.showToast('Offline', Dictionary.offline);
       return;
     }
 
     const disconnectSubscription = this.network.onDisconnect().subscribe(() => {
-      alert('network was disconnected :-(');
+      alert(Dictionary.disconnected);
     });
 
     // stop disconnect watch
@@ -150,7 +151,7 @@ export class LoginPage implements OnInit {
           this.navCtrl.navigateRoot(['/tabs']['home']);
         } else {
           loader.dismiss();
-          this.showToast('Login', 'Pastikan input data terisi dengan benar');
+          this.showToast('Login', Dictionary.comfirmation_login);
         }
       },
       err => {
