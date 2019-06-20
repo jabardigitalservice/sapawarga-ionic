@@ -7,6 +7,8 @@ import {
   InAppBrowserOptions
 } from '@ionic-native/in-app-browser/ngx';
 import { SurveyService } from '../../services/survey.service';
+import { Survey } from '../../interfaces/survey';
+import { LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-survey',
@@ -14,10 +16,11 @@ import { SurveyService } from '../../services/survey.service';
   styleUrls: ['./survey.page.scss']
 })
 export class SurveyPage implements OnInit {
-  records: [];
+  dataSurvey: Survey[];
+  currentPage = 1;
+  maximumPages: number;
 
-  url =
-    'http://35.247.135.93.xip.io:5001/view/#!/forms/5d038b3f5d65dc01009ef904';
+  dataEmpty = false;
 
   options: InAppBrowserOptions = {
     location: 'yes', // Or 'no'
@@ -35,28 +38,86 @@ export class SurveyPage implements OnInit {
     enableViewportScale: 'no', // iOS only
     allowInlineMediaPlayback: 'no', // iOS only
     presentationstyle: 'pagesheet', // iOS only
-    fullscreen: 'yes' // Windows only
+    fullscreen: 'yes', // Windows only
+    toolbartranslucent: 'yes'
   };
 
   constructor(
-    private router: Router,
     private surveyService: SurveyService,
-    private iab: InAppBrowser
+    private iab: InAppBrowser,
+    public loadingCtrl: LoadingController
   ) {
-    this.records = records;
+    this.dataSurvey = [];
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.getListSurvey();
+  }
+
+  async getListSurvey(infiniteScroll?) {
+    // check internet
+    if (!navigator.onLine) {
+      // get local
+      // this.dataSurvey = this.surveyService.getLocalPolling();
+      return;
+    }
+
+    const loader = await this.loadingCtrl.create({
+      duration: 10000
+    });
+
+    if (!infiniteScroll) {
+      loader.present();
+    }
+
+    this.dataEmpty = false;
+
+    this.surveyService.getListSurvey(this.currentPage).subscribe(
+      res => {
+        if (res['data']['items'].length) {
+          this.dataSurvey = this.dataSurvey.concat(res['data']['items']);
+        } else {
+          this.dataEmpty = true;
+        }
+        // set count page
+        this.maximumPages = res['data']['_meta'].pageCount;
+        loader.dismiss();
+        // stop infinite scroll
+        if (infiniteScroll) {
+          infiniteScroll.target.complete();
+        }
+      },
+      err => {
+        loader.dismiss();
+        // stop infinite scroll
+        if (infiniteScroll) {
+          infiniteScroll.target.complete();
+        }
+      }
+    );
+  }
 
   ionViewDidEnter() {}
 
-  public openWithCordovaBrowser(url: string) {
+  // go to detail surveyy with param id
+  goDetail(url: string) {
+    console.log(url);
+    // this.router.navigate(['/survey', id]);
     const target = '_self';
     this.iab.create(url, target, this.options);
   }
 
-  // go to detail surveyy with param id
-  goDetail(id: number) {
-    this.router.navigate(['/survey', id]);
+  // infinite scroll
+  doInfinite(event) {
+    if (this.currentPage === this.maximumPages) {
+      event.target.disabled = true;
+      return;
+    }
+    // increase page
+    this.currentPage++;
+
+    setTimeout(() => {
+      this.getListSurvey(event);
+    }, 2000);
   }
 }
