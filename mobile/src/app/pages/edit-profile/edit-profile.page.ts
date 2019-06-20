@@ -20,6 +20,7 @@ import {
   FileTransferObject
 } from '@ionic-native/file-transfer/ngx';
 import { environment } from '../../../environments/environment';
+import { Dictionary } from '../../helpers/dictionary';
 
 const TOKEN_KEY = 'auth-token';
 @Component({
@@ -234,7 +235,7 @@ export class EditProfilePage implements OnInit {
 
     // check internet
     if (!navigator.onLine) {
-      this.showToast('Tidak ada koneksi internet');
+      this.showToast(Dictionary.offline);
       return;
     }
 
@@ -245,10 +246,10 @@ export class EditProfilePage implements OnInit {
     this.profileService.editProfile(form).subscribe(
       res => {
         if (res.status === 200) {
-          this.showToast('Data berhasil tersimpan');
+          this.showToast(Dictionary.success_save);
           this.navCtrl.navigateForward('/tabs/akun');
         } else {
-          this.showToast('Data gagal tersimpan');
+          this.showToast(Dictionary.failed_save);
         }
         loader.dismiss();
       },
@@ -269,9 +270,7 @@ export class EditProfilePage implements OnInit {
             this.f.username.setErrors({ notValid: true });
           }
         } else {
-          this.showToast(
-            'Data gagal tersimpan periksa kembali koneksi internet anda'
-          );
+          this.showToast(Dictionary.external_error);
         }
       }
     );
@@ -290,9 +289,7 @@ export class EditProfilePage implements OnInit {
         loader.dismiss();
       },
       err => {
-        this.showToast(
-          'Terjadi kesalahan periksa kembali koneksi internet anda'
-        );
+        this.showToast(Dictionary.check_internal);
         loader.dismiss();
       }
     );
@@ -305,9 +302,7 @@ export class EditProfilePage implements OnInit {
         this.dataKecamatan = res['data']['items'];
       },
       err => {
-        this.showToast(
-          'Terjadi kesalahan periksa kembali koneksi internet anda'
-        );
+        this.showToast(Dictionary.check_internal);
       }
     );
   }
@@ -319,9 +314,7 @@ export class EditProfilePage implements OnInit {
         this.dataKelurahan = res['data']['items'];
       },
       err => {
-        this.showToast(
-          'Terjadi kesalahan periksa kembali koneksi internet anda'
-        );
+        this.showToast(Dictionary.check_internal);
       }
     );
   }
@@ -411,14 +404,12 @@ export class EditProfilePage implements OnInit {
             this.showToast('Foto berhasil disimpan');
             this.image = response['data']['photo_url'];
           } else {
-            this.showToast(
-              'Foto profile yang diupload melebihi batas max. file'
-            );
+            this.showToast(Dictionary.max_upload_photo);
           }
         },
         err => {
           loading.dismiss();
-          this.showToast('Foto profile yang diupload melebihi batas max. file');
+          this.showToast(Dictionary.max_upload_photo);
         }
       );
   }
