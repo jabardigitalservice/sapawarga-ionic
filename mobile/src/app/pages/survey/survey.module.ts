@@ -8,6 +8,7 @@ import { IonicModule } from '@ionic/angular';
 import { SurveyPage } from './survey.page';
 
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
+import { SharedModule } from '../../shared/shared.module';
 
 const routes: Routes = [
   {
@@ -21,7 +22,8 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     IonicModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    SharedModule
   ],
   providers: [InAppBrowser],
   declarations: [SurveyPage]

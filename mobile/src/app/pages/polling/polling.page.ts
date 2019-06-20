@@ -40,13 +40,15 @@ export class PollingPage implements OnInit {
   async getListPolling(infiniteScroll?) {
     // check internet
     if (!navigator.onLine) {
-      this.msgResponse = {
-        type: 'offline',
-        msg: Dictionary.offline
-      };
-
       // get local
-      this.dataPolling = this.pollingService.getLocalPolling();
+      if (this.pollingService.getLocalPolling()) {
+        this.dataPolling = this.pollingService.getLocalPolling();
+      } else {
+        this.msgResponse = {
+          type: 'offline',
+          msg: Dictionary.offline
+        };
+      }
       return;
     }
 

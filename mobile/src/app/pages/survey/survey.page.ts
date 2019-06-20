@@ -6,6 +6,7 @@ import {
 import { SurveyService } from '../../services/survey.service';
 import { Survey } from '../../interfaces/survey';
 import { LoadingController } from '@ionic/angular';
+import { Dictionary } from '../../helpers/dictionary';
 
 @Component({
   selector: 'app-survey',
@@ -18,6 +19,11 @@ export class SurveyPage implements OnInit {
   maximumPages: number;
 
   dataEmpty = false;
+
+  msgResponse = {
+    type: '',
+    msg: ''
+  };
 
   options: InAppBrowserOptions = {
     location: 'yes', // Or 'no'
@@ -55,7 +61,14 @@ export class SurveyPage implements OnInit {
     // check internet
     if (!navigator.onLine) {
       // get local
-      this.dataSurvey = this.surveyService.getLocalSurvey();
+      if (this.surveyService.getLocalSurvey()) {
+        this.dataSurvey = this.surveyService.getLocalSurvey();
+      } else {
+        this.msgResponse = {
+          type: 'offline',
+          msg: Dictionary.offline
+        };
+      }
       return;
     }
 
@@ -78,6 +91,10 @@ export class SurveyPage implements OnInit {
           this.surveyService.saveLocalSurvey(this.dataSurvey);
         } else {
           this.dataEmpty = true;
+          this.msgResponse = {
+            type: 'empty',
+            msg: Dictionary.empty
+          };
         }
         // set count page
         this.maximumPages = res['data']['_meta'].pageCount;
@@ -92,6 +109,13 @@ export class SurveyPage implements OnInit {
         // stop infinite scroll
         if (infiniteScroll) {
           infiniteScroll.target.complete();
+        }
+
+        if (err) {
+          this.msgResponse = {
+            type: 'server-error',
+            msg: Dictionary.internalError
+          };
         }
       }
     );
