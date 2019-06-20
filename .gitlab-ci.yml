@@ -29,8 +29,8 @@ build_docker:
 
 build_apk:
   stage: build
-  only:
-    - master
+  # only:
+  #   - master
   script:
     - cd mobile
     - docker-compose pull
@@ -50,9 +50,9 @@ build_apk:
 
 lint:
   stage: test
-  only:
-    changes:
-      - "*.ts"
+  # only:
+  #   changes:
+  #     - "*.ts"
   script:
     - cd mobile
     - docker-compose pull
