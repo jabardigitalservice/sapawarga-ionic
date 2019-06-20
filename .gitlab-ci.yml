@@ -18,7 +18,7 @@ lint:
   stage: test
   only:
     changes:
-      - '*.ts'
+      - "*.ts"
   script:
     - docker-compose exec app npm run lint
 
