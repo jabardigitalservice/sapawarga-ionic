@@ -3,7 +3,9 @@ import { ActivatedRoute } from '@angular/router';
 import {
   ToastController,
   NavController,
-  LoadingController
+  LoadingController,
+  Platform,
+  AlertController
 } from '@ionic/angular';
 import { PollingService } from '../../services/polling.service';
 import { Polling } from '../../interfaces/polling';
@@ -18,13 +20,16 @@ export class PollingDetailPage implements OnInit {
   dataPolling: Polling;
 
   dataAnswer: any;
+  backButton: any;
 
   constructor(
     private route: ActivatedRoute,
     public toastCtrl: ToastController,
     private navCtrl: NavController,
     private pollingService: PollingService,
-    public loadingCtrl: LoadingController
+    public loadingCtrl: LoadingController,
+    private platform: Platform,
+    private alertController: AlertController
   ) {}
 
   id: number;
@@ -35,6 +40,18 @@ export class PollingDetailPage implements OnInit {
     });
 
     this.getDetailPolling();
+  }
+
+  ionViewDidEnter() {
+    // handle hardware backbutton
+    this.backButton = this.platform.backButton.subscribeWithPriority(1, () => {
+      this.confirmation();
+    });
+  }
+
+  // unsubscribe backButton
+  ionViewWillLeave() {
+    this.backButton.unsubscribe();
   }
 
   async getDetailPolling() {
@@ -102,6 +119,36 @@ export class PollingDetailPage implements OnInit {
           }
         }
       );
+  }
+
+  async confirmation() {
+    // check if vote ischecked
+    if (!this.dataAnswer) {
+      this.navCtrl.back();
+      return;
+    }
+
+    const alert = await this.alertController.create({
+      header: 'Konfirmasi',
+      message:
+        'Anda belum mengisi polling. Apakah anda ingin meninggalkan halaman polling?',
+      buttons: [
+        {
+          text: 'Batal',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {}
+        },
+        {
+          text: 'Lanjut',
+          handler: () => {
+            this.navCtrl.back();
+          }
+        }
+      ]
+    });
+
+    await alert.present();
   }
 
   async showToast(msg: string) {
