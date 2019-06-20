@@ -4,7 +4,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: registry.gitlab.com/jdsteam/sapa-warga/sapawarga-app/sapawarga-ionic:${IMAGETAG}
+    image: registry.gitlab.com/jdsteam/sapa-warga/sapawarga-ionic/sapawarga-ionic:${IMAGETAG}
     env_file:
       - .env
     ports:
