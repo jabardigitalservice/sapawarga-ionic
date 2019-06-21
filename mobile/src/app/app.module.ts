@@ -5,9 +5,10 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
+
+import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
-
 import { Network } from '@ionic-native/network/ngx';
 
 import { AppComponent } from './app.component';
@@ -28,7 +29,11 @@ import {
   FileTransferObject
 } from '@ionic-native/file-transfer/ngx';
 @NgModule({
-  declarations: [AppComponent, MenuNavbarComponent, MenuNavbarAspirasiComponent],
+  declarations: [
+    AppComponent,
+    MenuNavbarComponent,
+    MenuNavbarAspirasiComponent
+  ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -52,7 +57,8 @@ import {
     FileTransfer,
     FileTransferObject,
     File,
-    Camera
+    Camera,
+    InAppBrowser
   ],
   bootstrap: [AppComponent]
 })

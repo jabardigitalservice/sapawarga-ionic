@@ -1,22 +1,33 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
+      <ion-back-button defaultHref="/tabs"></ion-back-button>
     </ion-buttons>
-    <ion-title>notifikasi</ion-title>
+    <ion-title>Notifikasi</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
+  <app-message-control
+    *ngIf="msgResponse.type"
+    [type]="msgResponse.type"
+    [message]="msgResponse.msg"
+  ></app-message-control>
+
   <ion-list>
     <ion-item
-      *ngFor="let record of records"
-      (click)="goToDetail(record['target'])"
+      *ngFor="let notifikasi of dataNotifikasi; let i = index"
+      (click)="goToDetail(i, notifikasi['meta'])"
     >
       <ion-avatar item-start class="ion-margin-end">
-        <img class="icon-img" src="{{ record['image_url'] }}" />
+        <img
+          class="icon-img"
+          src="{{ getImageURL(notifikasi['meta']['target']) }}"
+        />
       </ion-avatar>
-      <ion-text item-end>{{ record['title'] }}</ion-text>
+      <ion-text [ngClass]="{ unread: !notifikasi['read'] }" item-end>{{
+        notifikasi["title"]
+      }}</ion-text>
     </ion-item>
   </ion-list>
 </ion-content>
