@@ -58,4 +58,4 @@ build_apk:
     - if ! [[ -e platforms/android/app/build/outputs/apk/release/app-release-unsigned.apk ]]; then exit 1; fi
   artifacts:
     paths:
-      - platforms/android/app/build/outputs/apk/release/app-release-unsigned.apk
+      - mobile/platforms/android/app/build/outputs/apk/release/app-release-unsigned.apk
