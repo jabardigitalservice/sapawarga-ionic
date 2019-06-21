@@ -9,22 +9,16 @@
 
 <ion-content>
   <app-message-control
-  *ngIf="msgResponse.type"
-  [type]="msgResponse.type"
-  [message]="msgResponse.msg"
-></app-message-control>
+    *ngIf="msgResponse.type"
+    [type]="msgResponse.type"
+    [message]="msgResponse.msg"
+  ></app-message-control>
 
   <ion-card *ngFor="let survey of dataSurvey; let i = index">
     <ion-item>
       <ion-text
         ><p>{{ survey.title }}</p>
-        <ion-note
-          >{{
-            survey.survey_count > 0 ? survey.votes_count : 0
-          }}
-          surveyors</ion-note
-        ></ion-text
-      >
+      </ion-text>
       <ion-button
         fill="solid"
         slot="end"
