@@ -7,6 +7,7 @@ import {
   AlertController
 } from '@ionic/angular';
 import { Router } from '@angular/router';
+import { Dictionary } from '../../helpers/dictionary';
 
 @Component({
   selector: 'app-menu-navbar',
@@ -41,7 +42,7 @@ export class MenuNavbarComponent implements OnInit {
 
   async confirmLogout() {
     const alert = await this.alertController.create({
-      message: 'Apakah Anda yakin ingin keluar dari aplikasi Sapawarga?',
+      message: Dictionary.logout,
       buttons: [
         {
           text: 'Batalkan',

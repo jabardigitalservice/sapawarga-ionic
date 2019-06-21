@@ -3,32 +3,51 @@ image: docker:latest
 services:
   - docker:dind
 
+variables:
+  IMAGETAG: $CI_COMMIT_REF_SLUG
+
 before_script:
   - cp mobile/.env-sample mobile/.env
   - while read a ; do echo ${a//%GOOGLE_MAPS_ANDROID_API_KEY%/$GOOGLE_MAPS_ANDROID_API_KEY} ; done < mobile/.env > mobile/.env.t ; mv mobile/.env.t mobile/.env
   - cat mobile/.env
+  - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
   - apk add --no-cache py-pip python-dev libffi-dev openssl-dev gcc libc-dev make
   - pip install docker-compose
 
 stages:
+  - prepare
   - test
   - build
 
+build_docker:
+  stage: prepare
+  script:
+    - cd mobile
+    - COMPOSE_HTTP_TIMEOUT=500 docker-compose build
+    - docker images
+    - docker-compose push
+
 lint:
   stage: test
-  only:
-    changes:
-      - "*.ts"
+  # only:
+  #   changes:
+  #     - "*.ts"
   script:
-    - docker-compose exec app npm run lint
+    - cd mobile
+    - docker-compose pull
+    - docker images
+    - COMPOSE_HTTP_TIMEOUT=500 docker-compose up -d
+    - docker-compose exec -T app npm run lint
 
-build_debug:
+build_apk:
   stage: build
   only:
     - master
   script:
     - cd mobile
-    - COMPOSE_HTTP_TIMEOUT=500 docker-compose up -d --build
+    - docker-compose pull
+    - docker images
+    - COMPOSE_HTTP_TIMEOUT=500 docker-compose up -d
     - docker-compose exec -T app ionic cordova platform add android
     - docker-compose exec -T app sed -i -e "s/com.google.firebase:firebase-core:10.+/com.google.firebase:firebase-core:12.0.1/g" platforms/android/project.properties
     - docker-compose exec -T app sed -i -e "s/com.google.firebase:firebase-messaging:10.+/com.google.firebase:firebase-messaging:12.0.1/g" platforms/android/project.properties
@@ -36,7 +55,7 @@ build_debug:
     - docker-compose exec -T app sed -i -e "s/com.google.android.gms:play-services-location:15.0.1/com.google.android.gms:play-services-location:12.0.1/g" platforms/android/project.properties
     - docker-compose exec -T app sed -i -e "s/com.google.firebase:firebase-core:10.+/com.google.firebase:firebase-core:12.0.1/g" platforms/android/cordova-plugin-fcm-with-dependecy-updated/jds-FCMPlugin.gradle
     - docker-compose exec -T app npm run build:android:prod --release
-    - if ! [[ -e platforms/android/app/build/outputs/apk/debug/app-debug.apk ]]; then exit 1; fi
+    - if ! [[ -e mobile/platforms/android/app/build/outputs/apk/release/app-release-unsigned.apk ]]; then exit 1; fi
   artifacts:
     paths:
-      - mobile/platforms/android/app/build/outputs/apk/debug/app-debug.apk
+      - mobile/mobile/platforms/android/app/build/outputs/apk/release/app-release-unsigned.apk

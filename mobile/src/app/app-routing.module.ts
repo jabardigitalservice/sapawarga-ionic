@@ -5,7 +5,6 @@ import { AuthGuard } from './guards/auth.guard';
 const routes: Routes = [
   { path: 'login', loadChildren: './pages/login/login.module#LoginPageModule' },
   { path: '', loadChildren: './tabs/tabs.module#TabsPageModule' },
-  { path: 'about', loadChildren: './pages/about/about.module#AboutPageModule' },
   {
     path: 'edit-profile',
     loadChildren:

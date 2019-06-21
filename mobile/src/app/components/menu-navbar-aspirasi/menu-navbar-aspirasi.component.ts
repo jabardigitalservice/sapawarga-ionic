@@ -7,6 +7,7 @@ import {
 } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { AspirasiService } from '../../services/aspirasi.service';
+import { Dictionary } from '../../helpers/dictionary';
 
 @Component({
   selector: 'app-menu-navbar-aspirasi',
@@ -28,7 +29,7 @@ export class MenuNavbarAspirasiComponent implements OnInit {
   editAspirasi() {
     // check internet
     if (!navigator.onLine) {
-      this.showToast('Tidak ada koneksi internet');
+      this.showToast(Dictionary.offline);
       return;
     }
 
@@ -42,22 +43,20 @@ export class MenuNavbarAspirasiComponent implements OnInit {
 
   deleteAspirasi() {
     if (!navigator.onLine) {
-      alert('Tidak ada jaringan internet');
+      alert(Dictionary.offline);
       return;
     }
 
     const id = this.navParams.get('dataAspirasi').id;
     this.aspirasiService.deleteAspirasi(id).subscribe(
       res => {
-        this.showToast('Aspirasi berhasil dihapus');
+        this.showToast(Dictionary.aspirasi_success_delete);
 
         this.router.navigate(['aspirasi-user']);
         this.popover.dismiss();
       },
       err => {
-        this.showToast(
-          'Aspirasi gagal dihapus, periksa kembali koneksi internet Anda'
-        );
+        this.showToast(Dictionary.aspirasi_failed);
         this.popover.dismiss();
       }
     );
@@ -65,7 +64,7 @@ export class MenuNavbarAspirasiComponent implements OnInit {
 
   async confirmDeleteAspirasi() {
     const alert = await this.alertController.create({
-      message: 'Apakah Anda yakin ingin menghapus aspirasi ini?',
+      message: Dictionary.aspirasi_confirm,
       buttons: [
         {
           text: 'Batalkan',
