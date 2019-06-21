@@ -7,6 +7,8 @@ import { IonicModule } from '@ionic/angular';
 
 import { OnboardingPage } from './onboarding.page';
 
+import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
+
 const routes: Routes = [
   {
     path: '',
@@ -21,6 +23,7 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes)
   ],
+  providers: [ScreenOrientation],
   declarations: [OnboardingPage]
 })
 export class OnboardingPageModule {}
