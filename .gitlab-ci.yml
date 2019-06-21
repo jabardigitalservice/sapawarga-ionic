@@ -23,15 +23,15 @@ build_docker:
   stage: prepare
   script:
     - cd mobile
-    - COMPOSE_HTTP_TIMEOUT=500 docker-compose build
+    - COMPOSE_HTTP_TIMEOUT=500 docker-compose build --no-cache
     - docker images
     - docker-compose push
 
 lint:
   stage: test
-  # only:
-  #   changes:
-  #     - "*.ts"
+  only:
+    changes:
+      - "**/*.ts"
   script:
     - cd mobile
     - docker-compose pull
