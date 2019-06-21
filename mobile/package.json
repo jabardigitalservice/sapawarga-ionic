@@ -1,14 +1,16 @@
 {
   "name": "sapa-warga",
   "description": "Aplikasi untuk sapa warga - Jabar Digital Service",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "author": "Jabar Digital Service",
   "homepage": "https://ionictheme.com",
   "scripts": {
     "ng": "ng",
     "start": "ng serve --host 0.0.0.0 --port 4200",
-    "build:android:prod": "ionic cordova build android --prod",
-    "build-clean:android:prod": "rm -rf platforms && ionic cordova build android --prod",
+    "build:android:prod-debug": "ionic cordova build android --prod",
+    "build-clean:android:prod-debug": "rm -rf platforms && ionic cordova build android --prod",
+    "build:android:prod-release": "ionic cordova build android --prod --release",
+    "build-clean:android:prod-release": "rm -rf platforms && ionic cordova build android --prod --release",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
