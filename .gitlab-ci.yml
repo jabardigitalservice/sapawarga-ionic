@@ -56,14 +56,11 @@ build_apk:
     - docker-compose exec -T app sed -i -e "s/com.google.firebase:firebase-core:10.+/com.google.firebase:firebase-core:12.0.1/g" platforms/android/cordova-plugin-fcm-with-dependecy-updated/jds-FCMPlugin.gradle
     - docker-compose exec -T app npm run build:android:prod-release
     - if ! [[ -e platforms/android/app/build/outputs/apk/release/app-release-unsigned.apk ]]; then exit 1; fi
-    - echo $KEYSTORE_URL
     - wget $KEYSTORE_URL
-    - echo $KEYSTORE_FILENAME
     - if ! [[ -e $KEYSTORE_FILENAME ]]; then exit 1; fi
-    - echo $KEYSTORE_PASSPHRASE
-    - jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore $KEYSTORE_FILENAME -storepass '$KEYSTORE_PASSPHRASE' platforms/android/app/build/outputs/apk/release/app-release-unsigned.apk SapaWarga
-    - zipalign -v 4 platforms/android/app/build/outputs/apk/release/app-release-unsigned.apk app-release-signed.apk
-    - apksigner verify app-release-signed.apk
+    - docker-compose exec -T app jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore $KEYSTORE_FILENAME -storepass '$KEYSTORE_PASSPHRASE' platforms/android/app/build/outputs/apk/release/app-release-unsigned.apk SapaWarga
+    - docker-compose exec -T app zipalign -v 4 platforms/android/app/build/outputs/apk/release/app-release-unsigned.apk app-release-signed.apk
+    - docker-compose exec -T app apksigner verify app-release-signed.apk
   artifacts:
     paths:
       - mobile/platforms/android/app/build/outputs/apk/release/app-release-signed.apk
