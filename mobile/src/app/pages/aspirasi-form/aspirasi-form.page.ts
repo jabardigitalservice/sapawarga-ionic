@@ -246,7 +246,7 @@ export class AspirasiFormPage implements OnInit {
 
   async uploadAspirasi() {
     if (this.images.length >= 5) {
-      this.showToast('Anda hanya dapat menyertakan maksimal lima gambar saja');
+      this.showToast('Anda hanya dapat menyertakan maksimal lima foto saja');
       return;
     }
 
