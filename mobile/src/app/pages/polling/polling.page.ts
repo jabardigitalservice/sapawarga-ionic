@@ -67,7 +67,11 @@ export class PollingPage implements OnInit {
     this.pollingService.getListPolling(this.currentPage).subscribe(
       res => {
         if (res['data']['items'].length) {
-          this.dataPolling = this.dataPolling.concat(res['data']['items']);
+          if (infiniteScroll) {
+            this.dataPolling = this.dataPolling.concat(res['data']['items']);
+          } else {
+            this.dataPolling = res['data']['items'];
+          }
 
           // save to local
           this.pollingService.saveLocalPolling(this.dataPolling);
