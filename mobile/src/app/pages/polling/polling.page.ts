@@ -85,6 +85,10 @@ export class PollingPage implements OnInit {
         // set count page
         this.maximumPages = res['data']['_meta'].pageCount;
         loader.dismiss();
+        // stop infinite scroll
+        if (infiniteScroll) {
+          infiniteScroll.target.complete();
+        }
       },
       err => {
         loader.dismiss();
@@ -104,7 +108,41 @@ export class PollingPage implements OnInit {
       return;
     }
 
-    this.router.navigate(['/polling', id]);
+    this.CheckVote(id);
+  }
+
+  CheckVote(id: number) {
+    // check internet
+    if (!navigator.onLine) {
+      this.msgResponse = {
+        type: 'offline',
+        msg: Dictionary.offline
+      };
+      return;
+    }
+
+    // check jika belum pernah vote polling
+    this.pollingService.getCheckPolling(id).subscribe(
+      res => {
+        console.log(res);
+        if (res['status'] === 200) {
+          if (res['data']['is_voted'] === false) {
+            this.router.navigate(['/polling', id]);
+          } else {
+            this.showToast(Dictionary.have_done_vote);
+          }
+        }
+      },
+      err => {
+        if (err) {
+          this.msgResponse = {
+            type: 'server-error',
+            msg: Dictionary.internalError
+          };
+        }
+        // return null;
+      }
+    );
   }
 
   // infinite scroll

@@ -24,6 +24,12 @@ export class PollingService {
       .pipe(catchError(this.handleError));
   }
 
+  getCheckPolling(id: number): Observable<Polling> {
+    return this.http
+      .get<Polling>(`${environment.API_URL}/polling/${id}/vote`)
+      .pipe(catchError(this.handleError));
+  }
+
   putPollingAnswer(id: number, answerId: string): Observable<any> {
     return this.http
       .put(`${environment.API_URL}/polling/${id}/vote`, { id: answerId })
