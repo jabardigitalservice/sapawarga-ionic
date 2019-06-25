@@ -125,7 +125,6 @@ export class PollingPage implements OnInit {
     // check jika belum pernah vote polling
     this.pollingService.getCheckPolling(id).subscribe(
       res => {
-        console.log(res);
         if (res['status'] === 200) {
           if (res['data']['is_voted'] === false) {
             this.router.navigate(['/polling', id]);
