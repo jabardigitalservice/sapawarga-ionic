@@ -41,8 +41,8 @@ lint:
 
 build_apk:
   stage: build
-  # only:
-  #   - master
+  only:
+    - master
   script:
     - cd mobile
     - docker-compose pull
