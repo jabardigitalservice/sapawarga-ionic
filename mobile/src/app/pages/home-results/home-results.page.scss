@@ -50,7 +50,7 @@
   margin-bottom: 10px;
 }
 
-// tablet mode
+// tablet mode v1
 @media only screen and (min-width: 625px) {
   :host {
     ion-icon {
@@ -68,5 +68,20 @@
 
   .label-menu {
     font-size: 15px;
+  }
+}
+
+// tablet mode v2
+@media only screen and (min-width: 380px) {
+  .logo-app {
+    height: 40px;
+  }
+
+  .icon-img {
+    max-width: 60%;
+  }
+
+  .label-menu {
+    font-size: 13px;
   }
 }
