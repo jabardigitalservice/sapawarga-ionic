@@ -81,7 +81,7 @@ export class AspirasiFormPage implements OnInit {
           Validators.pattern(/^[A-Za-z0-9 ]+$/)
         ]
       ],
-      description: ['', [Validators.required, Validators.maxLength(280)]],
+      description: ['', [Validators.required]],
       category_id: [null, [Validators.required]],
       kabkota_id: [null],
       kec_id: [null],
@@ -246,6 +246,7 @@ export class AspirasiFormPage implements OnInit {
 
   async uploadAspirasi() {
     if (this.images.length >= 5) {
+      this.showToast('Anda hanya dapat menyertakan maksimal lima gambar saja');
       return;
     }
 
