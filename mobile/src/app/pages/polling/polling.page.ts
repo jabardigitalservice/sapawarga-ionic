@@ -36,6 +36,7 @@ export class PollingPage implements OnInit {
   ngOnInit() {}
 
   ionViewDidEnter() {
+    this.currentPage = 1;
     this.getListPolling();
   }
 
