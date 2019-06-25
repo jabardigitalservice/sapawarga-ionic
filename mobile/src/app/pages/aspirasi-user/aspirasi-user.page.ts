@@ -26,12 +26,17 @@ export class AspirasiUserPage implements OnInit {
     public loadingCtrl: LoadingController,
     public toastCtrl: ToastController,
     private router: Router
-  ) {}
+  ) {
+    this.dataAspirasi = [];
+  }
 
   ngOnInit() {}
 
   ionViewDidEnter() {
-    this.dataAspirasi = [];
+    this.msgResponse = {
+      type: '',
+      msg: ''
+    };
     this.getListAspirasi();
   }
 

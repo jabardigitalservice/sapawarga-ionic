@@ -21,6 +21,7 @@ import { Aspirasi } from '../../interfaces/aspirasi';
 import { ProfileService } from '../../services/profile.service';
 import { Profile } from '../../interfaces/profile';
 import { ActivatedRoute } from '@angular/router';
+import { Dictionary } from '../../helpers/dictionary';
 
 const TOKEN_KEY = 'auth-token';
 @Component({
@@ -81,7 +82,7 @@ export class AspirasiFormPage implements OnInit {
           Validators.pattern(/^[A-Za-z0-9 ]+$/)
         ]
       ],
-      description: ['', [Validators.required, Validators.maxLength(280)]],
+      description: ['', [Validators.required]],
       category_id: [null, [Validators.required]],
       kabkota_id: [null],
       kec_id: [null],
@@ -155,9 +156,7 @@ export class AspirasiFormPage implements OnInit {
         loader.dismiss();
       },
       err => {
-        this.showToast(
-          'Terjadi kesalahan periksa kembali koneksi internet anda'
-        );
+        this.showToast(Dictionary.check_internal);
         loader.dismiss();
       }
     );
@@ -173,7 +172,7 @@ export class AspirasiFormPage implements OnInit {
 
     // check internet
     if (!navigator.onLine) {
-      this.showToast('Tidak ada koneksi internet');
+      this.showToast(Dictionary.offline);
       return;
     }
 
@@ -192,10 +191,10 @@ export class AspirasiFormPage implements OnInit {
     this.aspirasiService.PostAspirasi(this.formAddAspirasi.value).subscribe(
       res => {
         if (res.status === 201) {
-          this.showToast('Data berhasil tersimpan');
+          this.showToast(Dictionary.success_save);
           this.navCtrl.back();
         } else {
-          this.showToast('Data gagal tersimpan');
+          this.showToast(Dictionary.failed_save);
         }
         loader.dismiss();
       },
@@ -205,9 +204,7 @@ export class AspirasiFormPage implements OnInit {
         if (err.status === 422) {
           // get data from server
         } else {
-          this.showToast(
-            'Data gagal tersimpan periksa kembali koneksi internet anda'
-          );
+          this.showToast(Dictionary.external_error);
         }
       }
     );
@@ -223,10 +220,10 @@ export class AspirasiFormPage implements OnInit {
       .subscribe(
         res => {
           if (res.status === 200) {
-            this.showToast('Data berhasil tersimpan');
+            this.showToast(Dictionary.success_save);
             this.navCtrl.back();
           } else {
-            this.showToast('Data gagal tersimpan');
+            this.showToast(Dictionary.failed_save);
           }
           loader.dismiss();
         },
@@ -236,9 +233,7 @@ export class AspirasiFormPage implements OnInit {
           if (err.status === 422) {
             // get data from server
           } else {
-            this.showToast(
-              'Data gagal tersimpan periksa kembali koneksi internet anda'
-            );
+            this.showToast(Dictionary.external_error);
           }
         }
       );
@@ -246,6 +241,7 @@ export class AspirasiFormPage implements OnInit {
 
   async uploadAspirasi() {
     if (this.images.length >= 5) {
+      this.showToast(Dictionary.aspirasi_limit_upload);
       return;
     }
 
@@ -293,7 +289,7 @@ export class AspirasiFormPage implements OnInit {
       imageData => {
         // check internet
         if (!navigator.onLine) {
-          this.showToast('Tidak ada koneksi internet');
+          this.showToast(Dictionary.offline);
           return;
         }
 
@@ -350,9 +346,7 @@ export class AspirasiFormPage implements OnInit {
             // insert array images to form attachments
             this.f.attachments.setValue(this.images);
           } else {
-            this.showToast(
-              'Foto profile yang diupload melebihi batas max. file'
-            );
+            this.showToast(Dictionary.max_upload_photo);
           }
         },
         err => {
@@ -361,7 +355,7 @@ export class AspirasiFormPage implements OnInit {
           if (data.data.file[0]) {
             this.showToast(data.data.file[0]);
           } else {
-            this.showToast('Terjadi Kesalahan');
+            this.showToast(Dictionary.check_internal);
           }
         }
       );
@@ -378,7 +372,7 @@ export class AspirasiFormPage implements OnInit {
   async confirmationSend() {
     const alert = await this.alertController.create({
       header: 'Konfirmasi',
-      message: 'apakah anda setuju untuk memberikan aspirasi untuk jawa barat?',
+      message: Dictionary.aspirasi_msg_send,
       buttons: [
         {
           text: 'Batal',
@@ -403,8 +397,7 @@ export class AspirasiFormPage implements OnInit {
   async confirmationDraft() {
     const alert = await this.alertController.create({
       header: 'Konfirmasi',
-      message:
-        'Anda belum menyelesaikan posting Anda. Apakah ingin menyimpan sebagai draft?',
+      message: Dictionary.aspirasi_msg_draft,
       buttons: [
         {
           text: 'Batal',
