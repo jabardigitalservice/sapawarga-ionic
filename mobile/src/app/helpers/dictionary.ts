@@ -8,12 +8,16 @@ export enum Dictionary {
   external_error = 'Data gagal tersimpan periksa kembali koneksi internet anda',
   check_internal = 'Terjadi kesalahan periksa kembali koneksi internet anda',
   confirm_gps = 'Untuk melanjutkan, mohon untuk mengaktifkan gps anda',
+  max_upload_photo = 'Foto yang diupload melebihi batas max. file',
 
   // aspirasi message
   aspirasi_success_delete = 'Aspirasi berhasil dihapus',
   aspirasi_failed = 'Aspirasi gagal dihapus, periksa kembali koneksi internet Anda',
   aspirasi_confirm = 'Apakah Anda yakin ingin menghapus aspirasi ini?',
   empty_aspirasi = 'Belum ada aspirasi yang dibuat',
+  aspirasi_limit_upload = 'Anda hanya dapat menyertakan maksimal lima foto saja',
+  aspirasi_msg_send = 'apakah anda setuju untuk memberikan aspirasi untuk jawa barat?',
+  aspirasi_msg_draft = 'Anda belum menyelesaikan posting Anda. Apakah ingin menyimpan sebagai draft?',
 
   // confirmation message
   logout = 'Apakah Anda yakin ingin keluar dari aplikasi Sapawarga?',
@@ -25,9 +29,6 @@ export enum Dictionary {
   // polling message
   success_polling = 'Terima kasih anda sudah mengisi polling',
   have_done_vote = 'Anda sudah melakukan polling ini sebelumnya',
-
-  // edit profile message
-  max_upload_photo = 'Foto profile yang diupload melebihi batas max. file',
 
   // view profile message
   complete_sosmed = 'Mohon lengkapi akun sosial media anda',
