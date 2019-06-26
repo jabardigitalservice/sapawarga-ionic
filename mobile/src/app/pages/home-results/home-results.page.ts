@@ -5,6 +5,7 @@ import { Pages } from '../../interfaces/pages';
 import { ProfileService } from '../../services/profile.service';
 import { NotifikasiService } from '../../services/notifikasi.service';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home-results',
@@ -62,7 +63,8 @@ export class HomeResultsPage implements OnInit {
     private profileService: ProfileService,
     private notifikasiService: NotifikasiService,
     public loadingCtrl: LoadingController,
-    private inAppBrowser: InAppBrowser
+    private inAppBrowser: InAppBrowser,
+    private router: Router
   ) {
     this.appPages = [
       {
@@ -236,6 +238,10 @@ export class HomeResultsPage implements OnInit {
 
   goToNews() {
     this.navCtrl.navigateForward('news');
+  }
+
+  goToDetailNews(id: number) {
+    this.router.navigate(['/news', id]);
   }
 
   async getDataProfile() {

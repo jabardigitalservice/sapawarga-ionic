@@ -63,18 +63,6 @@
   height: 60px;
   border-radius: 4px;
 }
-
-.source-title {
-  display: inline-flex;
-  align-items: center;
-  font-size: 10px;
-}
-
-.source-icon {
-  width: 17px;
-  margin-right: 3px;
-}
-
 // tablet mode v1
 @media only screen and (min-width: 625px) {
   :host {
