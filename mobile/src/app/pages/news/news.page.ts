@@ -9,22 +9,22 @@ export class NewsPage implements OnInit {
   dummyData = [
     {
       id: 1,
-      title: 'Pose Ridwan Kamil Mejeng ',
+      title: 'Pose Ridwan Kamil Mejeng terus ',
       image: 'assets/img/aspirasi/aspirasi2.jpg'
     },
     {
       id: 2,
-      title: 'Pose Ridwan Kamil Mejeng ',
+      title: 'Pose Ridwan Kamil Mejeng terus',
       image: 'assets/img/aspirasi/aspirasi2.jpg'
     },
     {
       id: 3,
-      title: 'Pose Ridwan Kamil Mejeng ',
+      title: 'Pose Ridwan Kamil Mejeng terus',
       image: 'assets/img/aspirasi/aspirasi2.jpg'
     },
     {
       id: 4,
-      title: 'Pose Ridwan Kamil Mejeng ',
+      title: 'Pose Ridwan Kamil Mejeng terus',
       image: 'assets/img/aspirasi/aspirasi2.jpg'
     }
   ];
