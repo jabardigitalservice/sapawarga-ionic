@@ -1,0 +1,40 @@
+.headline {
+  position: relative;
+}
+
+.img-head {
+  max-height: 165px;
+}
+
+.img-grid {
+  max-height: 120px;
+}
+
+.card-title {
+  position: absolute;
+  // top: 36%;
+  bottom: 22%;
+  margin-left: 15px;
+  font-size: 2em;
+  width: 100%;
+  font-weight: bold;
+  color: #fff;
+}
+
+.card-subtitle {
+  font-size: 1em;
+  position: absolute;
+  // top: 52%;
+  bottom: 15%;
+  width: 100%;
+  color: #fff;
+  margin-left: 15px;
+}
+
+.news-img {
+  max-width: 60px;
+  height: 60px;
+  border-radius: 4px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}

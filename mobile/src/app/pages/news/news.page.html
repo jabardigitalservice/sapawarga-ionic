@@ -1,9 +1,45 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>news</ion-title>
+  <ion-toolbar
+    ><ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Indeks Berita</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content>
+  <ion-card class="headline ion-margin-top">
+    <img
+      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRqqtjyWlHu1k4dCwHwGLuCUcP6lsSxalNnq4vuyKVS-yAE8LAQ"
+      class="img-head"
+    />
+    <div class="card-title">São Paulo</div>
+    <div class="card-subtitle">41 Listings</div>
+  </ion-card>
 
+  <ion-grid class="ion-margin-top">
+    <ion-row small class="text-dark">
+      <ion-col size="6" no-padding *ngFor="let data of dummyData">
+        <ion-card>
+          <img [src]="data.image" class="img-grid" />
+
+          <ion-card-content>
+            <p class="text-dark">{{ data.title }}</p>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-card
+    class="text-dark min-mt-5 ion-margin-bottom"
+    *ngFor="let data of dummyData"
+  >
+    <ion-item>
+      <ion-text class="mb-5">
+        <p>{{ data.title }}</p>
+      </ion-text>
+      <img slot="end" [src]="data.image" alt="icon" class="news-img" />
+    </ion-item>
+  </ion-card>
 </ion-content>

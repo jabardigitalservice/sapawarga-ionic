@@ -234,6 +234,10 @@ export class HomeResultsPage implements OnInit {
     });
   }
 
+  goToNews() {
+    this.navCtrl.navigateForward('news');
+  }
+
   async getDataProfile() {
     const loader = await this.loadingCtrl.create({
       duration: 10000
