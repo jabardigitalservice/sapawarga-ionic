@@ -5,6 +5,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { Notifikasi } from '../../interfaces/notifikasi';
 import { NotifikasiService } from '../../services/notifikasi.service';
 import { Dictionary } from '../../helpers/dictionary';
+import { Constants } from '../../helpers/constants';
 
 @Component({
   selector: 'app-notifikasi',
@@ -26,7 +27,8 @@ export class NotifikasiPage implements OnInit {
     private platform: Platform,
     private router: Router,
     public loadingCtrl: LoadingController,
-    public navCtrl: NavController
+    public navCtrl: NavController,
+    public constants: Constants
   ) {}
 
   ngOnInit() {}
@@ -77,9 +79,9 @@ export class NotifikasiPage implements OnInit {
   }
 
   launchWeb(url: string) {
-    // check if the platform is ios or android, else open the web url
+    const target = '_self';
     this.platform.ready().then(() => {
-      this.inAppBrowser.create(url, '_system');
+      this.inAppBrowser.create(url, target, this.constants.inAppBrowserOptions);
     });
   }
 
