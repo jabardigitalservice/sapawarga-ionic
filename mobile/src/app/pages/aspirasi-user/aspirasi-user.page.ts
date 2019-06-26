@@ -40,6 +40,17 @@ export class AspirasiUserPage implements OnInit {
     this.getListAspirasi();
   }
 
+  ionViewWillLeave() {
+    this.msgResponse = {
+      type: '',
+      msg: ''
+    };
+    this.dataAspirasi = [];
+    this.dataEmpty = false;
+    this.currentPage = 1;
+    this.maximumPages = null;
+  }
+
   // get data broadcasts
   async getListAspirasi(infiniteScroll?: any) {
     // check internet

@@ -80,7 +80,7 @@ export class PollingPage implements OnInit {
           this.dataEmpty = true;
           this.msgResponse = {
             type: 'empty',
-            msg: Dictionary.empty_aspirasi
+            msg: Dictionary.polling_empty
           };
         }
         // set count page

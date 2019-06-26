@@ -19,6 +19,9 @@ export enum Dictionary {
   aspirasi_msg_send = 'apakah anda setuju untuk memberikan aspirasi untuk jawa barat?',
   aspirasi_msg_draft = 'Anda belum menyelesaikan posting Anda. Apakah ingin menyimpan sebagai draft?',
 
+  // polling
+  polling_empty = 'Belum ada polling yang dibuat',
+
   // confirmation message
   logout = 'Apakah Anda yakin ingin keluar dari aplikasi Sapawarga?',
 
