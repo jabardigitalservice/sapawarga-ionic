@@ -38,7 +38,7 @@
 }
 
 .icon-img {
-  max-width: 70%;
+  max-width: 55%;
   border-radius: 8px;
   box-shadow: 0 3px 4px rgba(var(--ion-color-dark-rgb), 0.25);
   margin-bottom: 4px;
@@ -68,20 +68,5 @@
 
   .label-menu {
     font-size: 15px;
-  }
-}
-
-// tablet mode v2
-@media only screen and (min-width: 380px) {
-  .logo-app {
-    height: 40px;
-  }
-
-  .icon-img {
-    max-width: 60%;
-  }
-
-  .label-menu {
-    font-size: 13px;
   }
 }

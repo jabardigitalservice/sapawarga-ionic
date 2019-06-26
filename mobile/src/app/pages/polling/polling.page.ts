@@ -36,6 +36,7 @@ export class PollingPage implements OnInit {
   ngOnInit() {}
 
   ionViewDidEnter() {
+    this.currentPage = 1;
     this.getListPolling();
   }
 
@@ -67,7 +68,11 @@ export class PollingPage implements OnInit {
     this.pollingService.getListPolling(this.currentPage).subscribe(
       res => {
         if (res['data']['items'].length) {
-          this.dataPolling = this.dataPolling.concat(res['data']['items']);
+          if (infiniteScroll) {
+            this.dataPolling = this.dataPolling.concat(res['data']['items']);
+          } else {
+            this.dataPolling = res['data']['items'];
+          }
 
           // save to local
           this.pollingService.saveLocalPolling(this.dataPolling);
@@ -81,6 +86,10 @@ export class PollingPage implements OnInit {
         // set count page
         this.maximumPages = res['data']['_meta'].pageCount;
         loader.dismiss();
+        // stop infinite scroll
+        if (infiniteScroll) {
+          infiniteScroll.target.complete();
+        }
       },
       err => {
         loader.dismiss();
@@ -100,7 +109,40 @@ export class PollingPage implements OnInit {
       return;
     }
 
-    this.router.navigate(['/polling', id]);
+    this.CheckVote(id);
+  }
+
+  CheckVote(id: number) {
+    // check internet
+    if (!navigator.onLine) {
+      this.msgResponse = {
+        type: 'offline',
+        msg: Dictionary.offline
+      };
+      return;
+    }
+
+    // check jika belum pernah vote polling
+    this.pollingService.getCheckPolling(id).subscribe(
+      res => {
+        if (res['status'] === 200) {
+          if (res['data']['is_voted'] === false) {
+            this.router.navigate(['/polling', id]);
+          } else {
+            this.showToast(Dictionary.have_done_vote);
+          }
+        }
+      },
+      err => {
+        if (err) {
+          this.msgResponse = {
+            type: 'server-error',
+            msg: Dictionary.internalError
+          };
+        }
+        // return null;
+      }
+    );
   }
 
   // infinite scroll
