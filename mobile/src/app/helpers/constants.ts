@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class Constants {
-  public inAppBrowserOptions:any = {
+  public inAppBrowserOptions: any = {
     location: 'yes', // Or 'no'
     hidden: 'no', // Or  'yes'
     hideurlbar: 'yes',
