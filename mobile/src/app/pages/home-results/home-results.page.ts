@@ -25,6 +25,27 @@ export class HomeResultsPage implements OnInit {
       slide: 'assets/img/banner-03.png'
     }
   ];
+
+  dummyHeadlines = [
+    {
+      id: 1,
+      title: 'Pose Ridwan Kamil Mejeng di Depan Mobil klasik VW',
+      image: 'assets/img/aspirasi/aspirasi2.jpg',
+      source: 'detik.com'
+    },
+    {
+      id: 2,
+      title: 'Pose Ridwan Kamil Mejeng di Depan Mobil klasik VW',
+      image: 'assets/img/aspirasi/aspirasi1.jpg',
+      source: 'detik.com'
+    },
+    {
+      id: 3,
+      title: 'Pose Ridwan Kamil Mejeng di Depan Mobil klasik VW',
+      image: 'assets/img/aspirasi/aspirasi3.jpg',
+      source: 'detik.com'
+    }
+  ];
   logoApp = 'assets/icon/logo.png';
   slideOpts = {
     effect: 'flip',

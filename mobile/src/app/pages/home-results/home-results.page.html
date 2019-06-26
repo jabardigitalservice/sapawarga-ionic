@@ -6,7 +6,9 @@
     <ion-buttons slot="end">
       <ion-button shape="round" color="dark" (click)="goNotifikasi()">
         <ion-icon name="notifications" class="color-grey"></ion-icon>
-        <ion-badge *ngIf="unreadNotif > 0" color="danger">{{ unreadNotif }}</ion-badge>
+        <ion-badge *ngIf="unreadNotif > 0" color="danger">{{
+          unreadNotif
+        }}</ion-badge>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
@@ -32,4 +34,38 @@
       <ion-text class="label-menu" color="dark">{{ page.title }}</ion-text>
     </ion-col>
   </ion-row>
+
+  <div>
+    <ion-item>
+      <h4 slot="start">Berita</h4>
+      <ion-button fill="clear" slot="end" color="success"
+        >Lihat Semua</ion-button
+      >
+    </ion-item>
+
+    <ion-card
+      class="text-dark min-mt-5 ion-margin-bottom"
+      *ngFor="let headline of dummyHeadlines"
+    >
+      <ion-item>
+        <ion-text class="mb-5"
+          ><p>{{ headline.title }}</p>
+          <ion-note class="source-title"
+            ><img
+              src="assets/icon/detik.png"
+              class="source-icon"
+              alt="sumber"
+            />
+            {{ headline.source }}</ion-note
+          ></ion-text
+        >
+        <img
+          slot="end"
+          [src]="headline.image"
+          alt="icon"
+          class="headlines-img"
+        />
+      </ion-item>
+    </ion-card>
+  </div>
 </ion-content>
