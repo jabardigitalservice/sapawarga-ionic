@@ -236,7 +236,6 @@ export class HomeResultsPage implements OnInit {
         loader.dismiss();
       },
       err => {
-        console.log(err);
         loader.dismiss();
       }
     );
@@ -254,12 +253,10 @@ export class HomeResultsPage implements OnInit {
       res => {
         if (res['status'] === 200) {
           this.dataNews = res['data']['items'];
-          console.log(this.dataNews);
         }
         this.isLoading = false;
       },
       err => {
-        console.log(err);
         this.isLoading = false;
       }
     );
