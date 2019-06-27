@@ -107,30 +107,16 @@ export class NotifikasiPage implements OnInit {
     });
     loader.present();
 
-    this.notifikasiService.getListNotifikasi().subscribe(
+    this.notifikasiService.getNotifikasi().subscribe(
       res => {
-        const listNotifikasi = res['data']['items'];
-        if (listNotifikasi.length) {
-          // Update API data with local data
-          this.dataNotifikasi = listNotifikasi.map(notifikasi => {
-            const oldNotifikasi = localNotifikasi.find(
-              elmt => elmt.id === notifikasi.id
-            );
-            notifikasi['read'] = oldNotifikasi ? oldNotifikasi.read : false;
-            return notifikasi;
-          });
-
-          // save to local
-          this.notifikasiService.saveLocalNotifikasi(
-            JSON.stringify(this.dataNotifikasi)
-          );
-        } else {
+        loader.dismiss();
+        this.dataNotifikasi = res;
+        if (!this.dataNotifikasi.length) {
           this.msgResponse = {
             type: 'empty',
             msg: Dictionary.empty
           };
         }
-        loader.dismiss();
       },
       err => {
         loader.dismiss();
