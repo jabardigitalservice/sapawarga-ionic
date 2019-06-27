@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { NewsService } from '../../services/news.service';
+import { News } from '../../interfaces/news';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-news-detail',
@@ -26,7 +29,30 @@ export class NewsDetailPage implements OnInit {
       source: 'detik.com'
     }
   ];
-  constructor() {}
 
-  ngOnInit() {}
+  dataNews: News;
+  constructor(
+    private route: ActivatedRoute,
+    private newsService: NewsService
+  ) {}
+
+  ngOnInit() {
+    this.route.params.subscribe(params => {
+      this.getDetailNews(params['id']);
+    });
+  }
+
+  getDetailNews(id: number) {
+    this.newsService.getDetailNews(id).subscribe(
+      res => {
+        if (res['status'] === 200) {
+          this.dataNews = res['data'];
+          console.log(this.dataNews);
+        }
+      },
+      err => {
+        console.log(err);
+      }
+    );
+  }
 }

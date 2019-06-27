@@ -47,7 +47,7 @@
       class="text-dark min-mt-5 ion-margin-bottom"
       *ngFor="let headline of dataNews"
     >
-      <ion-item (click)="goToDetailNews(1)">
+      <ion-item (click)="goToDetailNews(headline.id)">
         <ion-text class="mb-5"
           ><p>{{ headline.title }}</p>
           <ion-note class="source-title"

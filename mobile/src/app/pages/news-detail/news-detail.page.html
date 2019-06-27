@@ -7,15 +7,12 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <img
-    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRqqtjyWlHu1k4dCwHwGLuCUcP6lsSxalNnq4vuyKVS-yAE8LAQ"
-    class="img-news"
-  />
+<ion-content *ngIf="dataNews">
+  <img [src]="dataNews.cover_path_url" class="img-news" />
 
   <div padding class="box-shadow">
     <div class="card-title">
-      Lorem ipsum dolor sit amet consectetur adipisicing elit.
+      {{ dataNews.title }}
     </div>
 
     <ion-item class="mt-5 mb-5">
@@ -28,35 +25,7 @@
       >
     </ion-item>
 
-    <ion-text class="content-news">
-      Jakarta - Gubernur Jawa Barat Ridwan Kamil atau hangat disapa Kang Emil
-      kedapatan berfoto bersama di depan mobil klasik besutan Volkswagen. Bukan
-      VW Beetle atau VW Kodok, melainkan Karmann Ghia tipe 14 jenis Convertible.
-      Hal ini diketahui melalui akun jejaring sosial Instagram miliknya yang
-      diunggah pada Kamis (06/06/2019) yang disebut mobil itu adalah milik putra
-      sulung Ridwan Kamil, Emmeril Kahn Mumtadz. “Jalan-jalan naik mobil antik
-      milik Eril. Olehnya dijadikan bisnis sewa mobil pengantin untuk menambah
-      biaya kuliahnya,” sepenggal cuitan dalam caption foto seperti dilihat
-      detikcom. Menarik garis ke belakang Karmann Ghia tipe 14 diproduksi selama
-      19 tahun, masa pakai yang cukup lama untuk model mobil klasik yang luar
-      biasa tersebut. Karmann Ghia menggabungkan sasis dan mekanik dari Tipe 1
-      (beetle) dengan gaya oleh Carrozzerria Ghia Italia dan bodywork buatan
-      tangan oleh Karmann. Karena garis organik khas Karmann Ghia, butuh hampir
-      dua tahun untuk mendapatkan mobil dalam produksi massal. Persiapan
-      produksi ini dibuat dalam kerja sama erat antara Perusahaan Karmann dan
-      Volkswagen. Presentasi sebenarnya dari model produksi kepada publik adalah
-      pada tahun 1955. Produksi mobil dimulai pada bulan Agustus 1955. Model
-      pertama memiliki 30HP flat berpendingin udara 4-silinder, mesin diambil
-      dari model Beetle. Basis mobil itu adalah basis Volkswagen Beetle yang
-      dimodifikasi tempat pengerjaan body Karmann Ghia. Pada tahun 1956 Karmann
-      Ghia ke-10.000 diproduksi pada 22 Oktober 1956. Ini hanya 14 bulan setelah
-      diperkenalkan pada tahun 1955. Pada tahun 1957, Karmann Ghia convertible
-      diperkenalkan di International Motor Show ke-38 di Frankfurt dan
-      produksinya dimulai pada tanggal 1 November tahun itu. Selama masa
-      produksinya, desainnya sedikit berubah seiring berjalannya waktu, sebagian
-      besar karena perubahan tuntutan keamanan. Produksi Karmann Ghia tipe 14
-      berakhir pada tanggal 31 Juli 1974.
-    </ion-text>
+    <div [innerHTML]="dataNews.content"></div>
   </div>
 
   <div class="news-other">
