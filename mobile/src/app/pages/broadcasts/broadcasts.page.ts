@@ -40,6 +40,12 @@ export class BroadcastsPage implements OnInit {
   }
 
   ionViewDidEnter() {
+    this.dataEmpty = false;
+    this.msgResponse = {
+      type: '',
+      msg: ''
+    };
+
     this.dataRead = this.broadcastService.getBroadcast() || [];
     this.getNomorBroadcasts();
 
