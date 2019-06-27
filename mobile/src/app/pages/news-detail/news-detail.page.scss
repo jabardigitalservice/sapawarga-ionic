@@ -10,7 +10,13 @@
   ion-button {
     --background: var(--ion-color-tertiary-contrast);
     color: #707070;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 2px 16px rgba(0, 0, 0, 0.12);
+  }
+
+  ion-card {
+    border-radius: 5px;
+
+    background: white;
   }
 }
 
@@ -52,4 +58,21 @@
 .content-news {
   color: #707070;
   font-size: 0.9em;
+}
+
+.headlines-img-more {
+  max-width: 60px;
+  height: 60px;
+  border-radius: 4px;
+}
+
+.source-title-more {
+  display: inline-flex;
+  align-items: center;
+  font-size: 10px;
+}
+
+.source-icon-more {
+  width: 17px;
+  margin-right: 3px;
 }

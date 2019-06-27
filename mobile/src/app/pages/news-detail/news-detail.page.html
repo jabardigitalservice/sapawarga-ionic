@@ -59,24 +59,25 @@
     </ion-text>
   </div>
 
-  <div padding class="news-other">
-    <ion-button expand="full" class="mb-5 mt-5 bg-white"
-      >Berita Lainnya</ion-button
-    >
+  <div class="news-other">
+    <div padding>
+      <ion-button expand="full" class="mb-5 mt-5 bg-white"
+        >Berita Lainnya</ion-button
+      >
+    </div>
 
-    <h5>Berita Terbaru</h5>
-
+    <h5 padding class="min-mt-5">Berita Terbaru</h5>
     <ion-card
       class="text-dark min-mt-5 ion-margin-bottom"
       *ngFor="let headline of dummyHeadlines"
     >
       <ion-item>
-        <ion-text class="mb-5"
+        <ion-text class="mb-5 ml-10"
           ><p>{{ headline.title }}</p>
-          <ion-note class="source-title"
+          <ion-note class="source-title-more"
             ><img
               src="assets/icon/detik.png"
-              class="source-icon"
+              class="source-icon-more"
               alt="sumber"
             />
             {{ headline.source }}</ion-note
@@ -86,7 +87,7 @@
           slot="end"
           [src]="headline.image"
           alt="icon"
-          class="headlines-img"
+          class="headlines-img-more"
         />
       </ion-item>
     </ion-card>
