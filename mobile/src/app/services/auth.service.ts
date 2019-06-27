@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { map, catchError } from 'rxjs/operators';
+import { map, catchError, tap } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 import { throwError, Observable, BehaviorSubject } from 'rxjs';
 import { Storage } from '@ionic/storage';
@@ -46,10 +46,19 @@ export class AuthService {
 
   // logout and clear session
   logout() {
-    localStorage.clear();
-    // onboarding page will not be displayed anymore
-    localStorage.setItem('has-onboarding', 'true');
-    this.authenticationState.next(false);
+    const httpPost = this.http
+      .post(`${environment.API_URL}/user/logout`, null)
+      .pipe(
+        tap(res => {
+          localStorage.clear();
+          // onboarding page will not be displayed anymore
+          localStorage.setItem('has-onboarding', 'true');
+          this.authenticationState.next(false);
+        }),
+        catchError(this.handleError)
+      );
+
+    return httpPost;
   }
 
   isAuthenticated() {

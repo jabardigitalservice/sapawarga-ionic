@@ -13,6 +13,7 @@ import { Network } from '@ionic-native/network/ngx';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
+import { Constants } from './helpers/constants';
 import { IonicStorageModule } from '@ionic/storage';
 
 // Components
@@ -58,7 +59,8 @@ import {
     FileTransferObject,
     File,
     Camera,
-    InAppBrowser
+    InAppBrowser,
+    Constants
   ],
   bootstrap: [AppComponent]
 })
