@@ -52,7 +52,7 @@ export class NotifikasiPage implements OnInit {
       navigationParams = [`/${meta.target}`, meta.id];
       this.router.navigate(navigationParams);
     } else if (meta.target === 'survey' || meta.target === 'url') {
-      this.launchWeb(meta.url);
+      this.launchWeb(meta);
     }
     this.dataNotifikasi[index].read = true;
     this.notifikasiService.saveLocalNotifikasi(
@@ -78,10 +78,13 @@ export class NotifikasiPage implements OnInit {
     }
   }
 
-  launchWeb(url: string) {
-    const target = '_self';
+  launchWeb(meta: any) {
     this.platform.ready().then(() => {
-      this.inAppBrowser.create(url, target, this.constants.inAppBrowserOptions);
+      if (meta.target === 'url') {
+        this.inAppBrowser.create(meta.url, '_system');
+      } else {
+        this.inAppBrowser.create(meta.url, '_self', this.constants.inAppBrowserOptions);
+      }
     });
   }
 
