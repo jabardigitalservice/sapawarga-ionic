@@ -20,7 +20,7 @@ export enum Dictionary {
   aspirasi_msg_draft = 'Anda belum menyelesaikan posting Anda. Apakah ingin menyimpan sebagai draft?',
 
   // polling
-  polling_empty = 'Belum ada polling yang dibuat',
+  polling_empty = 'Belum ada polling yang diterima',
 
   // confirmation message
   logout = 'Apakah Anda yakin ingin keluar dari aplikasi Sapawarga?',

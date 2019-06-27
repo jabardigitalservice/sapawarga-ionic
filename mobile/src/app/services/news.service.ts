@@ -17,6 +17,12 @@ export class NewsService {
       .pipe(catchError(this.handleError));
   }
 
+  getNewsFeatured(limit: number): Observable<News[]> {
+    return this.http
+      .get<News[]>(`${environment.API_MOCK}/news/featured?limit=${limit}`)
+      .pipe(catchError(this.handleError));
+  }
+
   getDetailNews(id: number): Observable<News> {
     return this.http
       .get<News>(`${environment.API_MOCK}/news/${id}`)
