@@ -83,7 +83,11 @@ export class NotifikasiPage implements OnInit {
       if (meta.target === 'url') {
         this.inAppBrowser.create(meta.url, '_system');
       } else {
-        this.inAppBrowser.create(meta.url, '_self', this.constants.inAppBrowserOptions);
+        this.inAppBrowser.create(
+          meta.url,
+          '_self',
+          this.constants.inAppBrowserOptions
+        );
       }
     });
   }
