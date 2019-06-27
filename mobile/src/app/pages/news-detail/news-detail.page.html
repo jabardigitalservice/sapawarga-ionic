@@ -38,23 +38,23 @@
     <h5 padding class="min-mt-5">Berita Terbaru</h5>
     <ion-card
       class="text-dark min-mt-5 ion-margin-bottom"
-      *ngFor="let headline of dummyHeadlines"
+      *ngFor="let news of dataListNews"
     >
       <ion-item>
         <ion-text class="mb-5 ml-10"
-          ><p>{{ headline.title }}</p>
+          ><p>{{ news.title }}</p>
           <ion-note class="source-title-more"
             ><img
-              src="assets/icon/detik.png"
+              [src]="news.channel.icon_url"
               class="source-icon-more"
               alt="sumber"
             />
-            {{ headline.source }}</ion-note
+            {{ news.channel.website }}</ion-note
           ></ion-text
         >
         <img
           slot="end"
-          [src]="headline.image"
+          [src]="news.cover_path_url"
           alt="icon"
           class="headlines-img-more"
         />

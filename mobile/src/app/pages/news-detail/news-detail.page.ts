@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { NewsService } from '../../services/news.service';
 import { News } from '../../interfaces/news';
 import { ActivatedRoute } from '@angular/router';
+import { Dictionary } from '../../helpers/dictionary';
+import { LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-news-detail',
@@ -30,28 +32,60 @@ export class NewsDetailPage implements OnInit {
     }
   ];
 
+  isLoading = false;
+
   dataNews: News;
+  dataListNews: News[];
   constructor(
     private route: ActivatedRoute,
-    private newsService: NewsService
+    private newsService: NewsService,
+    private loadingCtrl: LoadingController
   ) {}
 
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.getDetailNews(params['id']);
     });
+
+    this.getNewsList();
   }
 
-  getDetailNews(id: number) {
+  async getDetailNews(id: number) {
+    const loader = await this.loadingCtrl.create({
+      duration: 10000
+    });
+    loader.present();
     this.newsService.getDetailNews(id).subscribe(
       res => {
         if (res['status'] === 200) {
           this.dataNews = res['data'];
-          console.log(this.dataNews);
         }
+        loader.dismiss();
       },
       err => {
-        console.log(err);
+        loader.dismiss();
+      }
+    );
+  }
+
+  getNewsList() {
+    // check internet
+    if (!navigator.onLine) {
+      alert(Dictionary.offline);
+      return;
+    }
+
+    this.isLoading = true;
+
+    this.newsService.getListNews().subscribe(
+      res => {
+        if (res['status'] === 200) {
+          this.dataListNews = res['data']['items'];
+        }
+        this.isLoading = false;
+      },
+      err => {
+        this.isLoading = false;
       }
     );
   }
