@@ -45,7 +45,7 @@
 
     <ion-card
       class="text-dark min-mt-5 ion-margin-bottom"
-      *ngFor="let headline of dummyHeadlines"
+      *ngFor="let headline of dataNews"
     >
       <ion-item>
         <ion-text class="mb-5"
@@ -56,12 +56,12 @@
               class="source-icon"
               alt="sumber"
             />
-            {{ headline.source }}</ion-note
+            {{ headline.channel.name }}</ion-note
           ></ion-text
         >
         <img
           slot="end"
-          [src]="headline.image"
+          [src]="headline.cover_path_url"
           alt="icon"
           class="headlines-img"
         />

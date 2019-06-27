@@ -5,6 +5,8 @@ import { Pages } from '../../interfaces/pages';
 import { ProfileService } from '../../services/profile.service';
 import { NotifikasiService } from '../../services/notifikasi.service';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
+import { NewsService } from '../../services/news.service';
+import { News } from '../../interfaces/news';
 
 @Component({
   selector: 'app-home-results',
@@ -26,26 +28,6 @@ export class HomeResultsPage implements OnInit {
     }
   ];
 
-  dummyHeadlines = [
-    {
-      id: 1,
-      title: 'Pose Ridwan Kamil Mejeng di Depan Mobil klasik VW',
-      image: 'assets/img/aspirasi/aspirasi2.jpg',
-      source: 'detik.com'
-    },
-    {
-      id: 2,
-      title: 'Pose Ridwan Kamil Mejeng di Depan Mobil klasik VW',
-      image: 'assets/img/aspirasi/aspirasi1.jpg',
-      source: 'detik.com'
-    },
-    {
-      id: 3,
-      title: 'Pose Ridwan Kamil Mejeng di Depan Mobil klasik VW',
-      image: 'assets/img/aspirasi/aspirasi3.jpg',
-      source: 'detik.com'
-    }
-  ];
   logoApp = 'assets/icon/logo.png';
   slideOpts = {
     effect: 'flip',
@@ -55,12 +37,14 @@ export class HomeResultsPage implements OnInit {
     zoom: false
   };
   unreadNotif: 0;
+  dataNews: News;
 
   constructor(
     public navCtrl: NavController,
     private platform: Platform,
     private profileService: ProfileService,
     private notifikasiService: NotifikasiService,
+    private newsService: NewsService,
     public loadingCtrl: LoadingController,
     private inAppBrowser: InAppBrowser
   ) {
@@ -124,6 +108,7 @@ export class HomeResultsPage implements OnInit {
 
   ngOnInit() {
     this.unreadNotif = this.notifikasiService.getNotifikasiNumber();
+    this.getDataNews();
   }
 
   ionViewDidEnter() {
@@ -252,6 +237,20 @@ export class HomeResultsPage implements OnInit {
       err => {
         console.log(err);
         loader.dismiss();
+      }
+    );
+  }
+
+  getDataNews() {
+    this.newsService.getListNews().subscribe(
+      res => {
+        if (res['status'] === 200) {
+          this.dataNews = res['data']['items'];
+          console.log(this.dataNews);
+        }
+      },
+      err => {
+        console.log(err);
       }
     );
   }
