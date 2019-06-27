@@ -17,6 +17,12 @@ export class NewsService {
       .pipe(catchError(this.handleError));
   }
 
+  getNewsFeatured(limit: number): Observable<News[]> {
+    return this.http
+      .get<News[]>(`${environment.API_MOCK}/news/featured?limit=${limit}`)
+      .pipe(catchError(this.handleError));
+  }
+
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
       // A client-side or network error occurred. Handle it accordingly.
