@@ -48,11 +48,17 @@ export class NotifikasiPage implements OnInit {
 
   goToDetail(index: number, meta: any) {
     if (meta.target === 'polling') {
-      let navigationParams = [];
-      navigationParams = [`/${meta.target}`, meta.id];
+      const navigationParams = [`/${meta.target}`];
+      if (meta.id) {
+        navigationParams.push(meta.id);
+      }
       this.router.navigate(navigationParams);
     } else if (meta.target === 'survey' || meta.target === 'url') {
-      this.launchWeb(meta);
+      if (meta.target === 'survey' && !meta.url) {
+        this.router.navigate([`/${meta.target}`]);
+      } else {
+        this.launchWeb(meta);
+      }
     }
     this.dataNotifikasi[index].read = true;
     this.notifikasiService.saveLocalNotifikasi(
