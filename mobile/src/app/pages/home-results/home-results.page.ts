@@ -7,6 +7,7 @@ import { NotifikasiService } from '../../services/notifikasi.service';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { NewsService } from '../../services/news.service';
 import { News } from '../../interfaces/news';
+import { Dictionary } from '../../helpers/dictionary';
 
 @Component({
   selector: 'app-home-results',
@@ -37,6 +38,7 @@ export class HomeResultsPage implements OnInit {
     zoom: false
   };
   unreadNotif: 0;
+  isLoading = false;
   dataNews: News;
 
   constructor(
@@ -108,10 +110,12 @@ export class HomeResultsPage implements OnInit {
 
   ngOnInit() {
     this.unreadNotif = this.notifikasiService.getNotifikasiNumber();
-    this.getDataNews();
   }
 
   ionViewDidEnter() {
+    // get data headlines berita
+    this.getNewsFeatured();
+
     this.interval = setInterval(() => {
       this.unreadNotif = this.notifikasiService.getNotifikasiNumber();
     }, 3000);
@@ -119,6 +123,7 @@ export class HomeResultsPage implements OnInit {
 
   ionViewWillLeave() {
     window.clearInterval(this.interval);
+    this.isLoading = false;
   }
 
   // Go to layanan
@@ -235,22 +240,28 @@ export class HomeResultsPage implements OnInit {
         loader.dismiss();
       },
       err => {
-        console.log(err);
         loader.dismiss();
       }
     );
   }
 
-  getDataNews() {
-    this.newsService.getListNews().subscribe(
+  getNewsFeatured() {
+    // check internet
+    if (!navigator.onLine) {
+      alert(Dictionary.offline);
+      return;
+    }
+
+    this.isLoading = true;
+    this.newsService.getNewsFeatured(3).subscribe(
       res => {
         if (res['status'] === 200) {
           this.dataNews = res['data']['items'];
-          console.log(this.dataNews);
         }
+        this.isLoading = false;
       },
       err => {
-        console.log(err);
+        this.isLoading = false;
       }
     );
   }

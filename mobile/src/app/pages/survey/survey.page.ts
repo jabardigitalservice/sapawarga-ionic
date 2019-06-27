@@ -7,6 +7,7 @@ import { SurveyService } from '../../services/survey.service';
 import { Survey } from '../../interfaces/survey';
 import { LoadingController } from '@ionic/angular';
 import { Dictionary } from '../../helpers/dictionary';
+import { Constants } from '../../helpers/constants';
 
 @Component({
   selector: 'app-survey',
@@ -25,30 +26,11 @@ export class SurveyPage implements OnInit {
     msg: ''
   };
 
-  options: InAppBrowserOptions = {
-    location: 'yes', // Or 'no'
-    hidden: 'no', // Or  'yes'
-    hideurlbar: 'yes',
-    clearcache: 'yes',
-    clearsessioncache: 'yes',
-    zoom: 'no', // Android only ,shows browser zoom controls
-    hardwareback: 'yes',
-    mediaPlaybackRequiresUserAction: 'no',
-    shouldPauseOnSuspend: 'no', // Android only
-    closebuttoncaption: 'Close', // iOS only
-    disallowoverscroll: 'no', // iOS only
-    toolbar: 'yes', // iOS only
-    enableViewportScale: 'no', // iOS only
-    allowInlineMediaPlayback: 'no', // iOS only
-    presentationstyle: 'pagesheet', // iOS only
-    fullscreen: 'yes', // Windows only
-    toolbartranslucent: 'yes'
-  };
-
   constructor(
     private surveyService: SurveyService,
     private iab: InAppBrowser,
-    public loadingCtrl: LoadingController
+    public loadingCtrl: LoadingController,
+    public constants: Constants
   ) {
     this.dataSurvey = [];
   }
@@ -125,10 +107,9 @@ export class SurveyPage implements OnInit {
 
   // go to detail surveyy with param id
   goDetail(url: string) {
-    console.log(url);
     // this.router.navigate(['/survey', id]);
     const target = '_self';
-    this.iab.create(url, target, this.options);
+    this.iab.create(url, target, this.constants.inAppBrowserOptions);
   }
 
   // infinite scroll

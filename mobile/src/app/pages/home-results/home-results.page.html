@@ -35,7 +35,10 @@
     </ion-col>
   </ion-row>
 
-  <div>
+  <div text-center class="ion-margin-bottom ion-margin-top" *ngIf="!dataNews">
+    <img src="assets/icon/loading.svg" alt="loading" *ngIf="isLoading" />
+  </div>
+  <div *ngIf="dataNews">
     <ion-item>
       <h5 slot="start">Berita</h5>
       <ion-button fill="clear" slot="end" color="success" (click)="goToNews()"
@@ -52,11 +55,11 @@
           ><p>{{ headline.title }}</p>
           <ion-note class="source-title"
             ><img
-              src="assets/icon/detik.png"
+              [src]="headline.channel.icon_url"
               class="source-icon"
               alt="sumber"
             />
-            {{ headline.channel.name }}</ion-note
+            {{ headline.channel.website }}</ion-note
           ></ion-text
         >
         <img
