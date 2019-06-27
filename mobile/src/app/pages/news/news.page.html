@@ -34,13 +34,13 @@
 
   <ion-card
     class="text-dark ion-margin-top ion-margin-bottom"
-    *ngFor="let data of dummyData"
+    *ngFor="let new of dataNews"
   >
     <ion-item>
       <ion-text class="mb-5">
-        <p>{{ data.title }}</p>
+        <p>{{ new.title }}</p>
       </ion-text>
-      <img slot="end" [src]="data.image" alt="icon" class="news-img" />
+      <img slot="end" [src]="new.cover_path_url" alt="icon" class="news-img" />
     </ion-item>
   </ion-card>
 </ion-content>

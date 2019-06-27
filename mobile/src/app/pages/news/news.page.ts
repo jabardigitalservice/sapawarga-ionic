@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { NewsService } from '../../services/news.service';
+import { News } from '../../interfaces/news';
 
 @Component({
   selector: 'app-news',
@@ -28,8 +30,25 @@ export class NewsPage implements OnInit {
       image: 'assets/img/aspirasi/aspirasi2.jpg'
     }
   ];
+  dataNews: News;
 
-  constructor() {}
+  constructor(private newsService: NewsService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.getListNews();
+  }
+
+  getListNews() {
+    this.newsService.getListNews().subscribe(
+      res => {
+        if (res['status'] === 200) {
+          this.dataNews = res['data']['items'];
+          console.log(this.dataNews);
+        }
+      },
+      err => {
+        console.log(err);
+      }
+    );
+  }
 }
