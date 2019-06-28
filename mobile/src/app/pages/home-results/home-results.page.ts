@@ -8,6 +8,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { NewsService } from '../../services/news.service';
 import { News } from '../../interfaces/news';
 import { Dictionary } from '../../helpers/dictionary';
+import { RssFeedService } from 'src/app/services/rss-feed.service';
 
 @Component({
   selector: 'app-home-results',
@@ -73,7 +74,8 @@ export class HomeResultsPage implements OnInit {
     private notifikasiService: NotifikasiService,
     private newsService: NewsService,
     public loadingCtrl: LoadingController,
-    private inAppBrowser: InAppBrowser
+    private inAppBrowser: InAppBrowser,
+    private rssFeedService: RssFeedService
   ) {
     this.appPages = [
       {
@@ -280,6 +282,26 @@ export class HomeResultsPage implements OnInit {
           this.dataNews = res['data']['items'];
         }
         this.isLoading = false;
+      },
+      err => {
+        this.isLoading = false;
+      }
+    );
+  }
+
+  getDataRss() {
+    // check internet
+    if (!navigator.onLine) {
+      alert(Dictionary.offline);
+      return;
+    }
+
+    const url = 'https://www.djjb.de/index.rss';
+
+    this.isLoading = true;
+    this.rssFeedService.getFeedContent(url).subscribe(
+      res => {
+        console.log(res);
       },
       err => {
         this.isLoading = false;
