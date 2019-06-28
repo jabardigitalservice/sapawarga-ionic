@@ -38,6 +38,28 @@
   <div text-center class="ion-margin-bottom ion-margin-top" *ngIf="!dataNews">
     <img src="assets/icon/loading.svg" alt="loading" *ngIf="isLoading" />
   </div>
+
+  <div>
+    <ion-item>
+      <h5 slot="start">Humas Jabar</h5>
+      <ion-button fill="clear" slot="end" color="success"
+        >Lihat Semua</ion-button
+      >
+    </ion-item>
+    <ion-slides [options]="sliderConfigHumas">
+      <ion-slide *ngFor="let humas of dataHumas">
+        <!-- <div *ngIf="cat.expanded"> -->
+        <div>
+          <img src="assets/img/berita_dummy.png" />
+          <ion-item>
+            <ion-text class="min-mt-5 title-humas">{{ humas.title }}</ion-text>
+            <ion-button slot="end" color="primary">Baca</ion-button>
+          </ion-item>
+        </div>
+      </ion-slide>
+    </ion-slides>
+  </div>
+
   <div *ngIf="dataNews">
     <ion-item>
       <h5 slot="start">Berita</h5>

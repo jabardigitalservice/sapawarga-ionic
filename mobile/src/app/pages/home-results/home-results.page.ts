@@ -29,6 +29,25 @@ export class HomeResultsPage implements OnInit {
     }
   ];
 
+  dataHumas = [
+    {
+      id: 1,
+      title: 'Penuhi Undangan MUI, Gubernur Ridwan Kamil dan Ustadz …'
+    },
+    {
+      id: 1,
+      title: 'Penuhi Undangan MUI, Gubernur Ridwan Kamil dan Ustadz …'
+    },
+    {
+      id: 1,
+      title: 'Penuhi Undangan MUI, Gubernur Ridwan Kamil dan Ustadz …'
+    },
+    {
+      id: 1,
+      title: 'Penuhi Undangan MUI, Gubernur Ridwan Kamil dan Ustadz …'
+    }
+  ];
+
   logoApp = 'assets/icon/logo.png';
   slideOpts = {
     effect: 'flip',
@@ -37,6 +56,12 @@ export class HomeResultsPage implements OnInit {
     },
     zoom: false
   };
+
+  sliderConfigHumas = {
+    slidesPerView: 1.2,
+    centeredSlides: true
+  };
+
   unreadNotif: 0;
   isLoading = false;
   dataNews: News;
