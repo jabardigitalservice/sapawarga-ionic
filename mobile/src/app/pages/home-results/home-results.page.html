@@ -48,7 +48,7 @@
 
     <ion-card
       class="text-dark min-mt-5 ion-margin-bottom"
-      *ngFor="let headline of dataNews"
+      *ngFor="let headline of dataNews | slice: 0:2"
     >
       <ion-item>
         <ion-text class="mb-5"

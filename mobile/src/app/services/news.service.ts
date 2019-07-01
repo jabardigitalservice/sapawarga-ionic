@@ -13,13 +13,13 @@ export class NewsService {
 
   getListNews(): Observable<News[]> {
     return this.http
-      .get<News[]>(`${environment.API_MOCK}/news`)
+      .get<News[]>(`${environment.API_URL}/news`)
       .pipe(catchError(this.handleError));
   }
 
-  getNewsFeatured(limit: number): Observable<News[]> {
+  getNewsFeatured(limit?: number): Observable<News[]> {
     return this.http
-      .get<News[]>(`${environment.API_MOCK}/news/featured?limit=${limit}`)
+      .get<News[]>(`${environment.API_URL}/news/featured?limit=${limit}`)
       .pipe(catchError(this.handleError));
   }
 
