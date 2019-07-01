@@ -18,9 +18,9 @@
 
 .card-title {
   position: absolute;
-  // top: 36%;
   bottom: 15%;
   padding-left: 15px;
+  padding-right: 15px;
   font-size: 1.2em;
   width: 100%;
   font-weight: bold;
@@ -33,4 +33,8 @@
   border-radius: 4px;
   margin-top: 10px;
   margin-bottom: 10px;
+}
+
+.desc-featured {
+  height: 100px;
 }

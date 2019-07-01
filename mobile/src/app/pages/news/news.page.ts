@@ -30,12 +30,27 @@ export class NewsPage implements OnInit {
       image: 'assets/img/aspirasi/aspirasi2.jpg'
     }
   ];
-  dataNews: News;
+  dataFeatured: News[];
+  dataNews: News[];
 
   constructor(private newsService: NewsService) {}
 
   ngOnInit() {
+    this.getListFeatured();
     this.getListNews();
+  }
+
+  getListFeatured() {
+    this.newsService.getNewsFeatured().subscribe(
+      res => {
+        if (res['status'] === 200) {
+          this.dataFeatured = res['data']['items'];
+        }
+      },
+      err => {
+        console.log(err);
+      }
+    );
   }
 
   getListNews() {
@@ -43,7 +58,6 @@ export class NewsPage implements OnInit {
       res => {
         if (res['status'] === 200) {
           this.dataNews = res['data']['items'];
-          console.log(this.dataNews);
         }
       },
       err => {

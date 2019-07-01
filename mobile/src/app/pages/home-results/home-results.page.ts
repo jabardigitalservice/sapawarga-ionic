@@ -232,6 +232,11 @@ export class HomeResultsPage implements OnInit {
   }
 
   goToNews() {
+    // check internet
+    if (!navigator.onLine) {
+      alert(Dictionary.offline);
+      return;
+    }
     this.navCtrl.navigateForward('news');
   }
 

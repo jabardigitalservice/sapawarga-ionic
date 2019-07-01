@@ -18,9 +18,16 @@ export class NewsService {
   }
 
   getNewsFeatured(limit?: number): Observable<News[]> {
-    return this.http
-      .get<News[]>(`${environment.API_URL}/news/featured?limit=${limit}`)
-      .pipe(catchError(this.handleError));
+    let URL: string;
+
+    // check param limit
+    if (limit) {
+      URL = `${environment.API_URL}/news/featured?limit=${limit}`;
+    } else {
+      URL = `${environment.API_URL}/news/featured`;
+    }
+
+    return this.http.get<News[]>(URL).pipe(catchError(this.handleError));
   }
 
   private handleError(error: HttpErrorResponse) {
