@@ -41,7 +41,8 @@ export class HomeResultsPage implements OnInit {
 
   sliderConfigHumas = {
     slidesPerView: 1.2,
-    centeredSlides: true
+    centeredSlides: true,
+    spaceBetween: 10
   };
 
   unreadNotif: 0;
