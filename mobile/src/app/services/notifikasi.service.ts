@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Observable, throwError, BehaviorSubject } from 'rxjs';
+import { Observer, Observable, throwError, BehaviorSubject } from 'rxjs';
 import { Notifikasi } from '../interfaces/notifikasi';
 import { catchError } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
@@ -14,10 +14,44 @@ export class NotifikasiService {
 
   constructor(private http: HttpClient) {}
 
-  getListNotifikasi(): Observable<Notifikasi[]> {
+  getAPINotifikasi(): Observable<Notifikasi[]> {
     return this.http
       .get<Notifikasi[]>(`${environment.API_URL}/notifications`)
       .pipe(catchError(this.handleError));
+  }
+
+  getNotifikasi(): Observable<Notifikasi[]> {
+    return Observable.create((observer: Observer<Notifikasi[]>) => {
+      this.getAPINotifikasi().subscribe(
+        res => {
+          let result = null;
+          const localNotifikasi = this.getLocalNotifikasi();
+
+          const listNotifikasi = res['data']['items'];
+          if (listNotifikasi.length) {
+            // Update API data with local data
+            result = listNotifikasi.map(notifikasi => {
+              const oldNotifikasi = localNotifikasi.find(
+                elmt => elmt.id === notifikasi.id
+              );
+              notifikasi['read'] = oldNotifikasi ? oldNotifikasi.read : false;
+              return notifikasi;
+            });
+            // save to local
+            this.saveLocalNotifikasi(JSON.stringify(result));
+
+            observer.next(result);
+            observer.complete();
+          } else {
+            observer.next([]);
+            observer.complete();
+          }
+        },
+        err => {
+          observer.error(err);
+        }
+      );
+    });
   }
 
   saveLocalNotifikasi(data: string) {
@@ -33,14 +67,6 @@ export class NotifikasiService {
     return JSON.parse(localNotifikasi);
   }
 
-  setNotifikasiBadge(data: boolean) {
-    this.notifikasiState.next(data);
-  }
-
-  getNotifikasiBadge() {
-    return this.notifikasiState.value;
-  }
-
   saveReceivedNotifikasi(data: any) {
     const newNotif: Notifikasi = {
       target: data.target,
@@ -54,6 +80,14 @@ export class NotifikasiService {
     notifData.unshift(newNotif);
     this.saveLocalNotifikasi(JSON.stringify(notifData));
     this.updateNotifikasiBadge();
+  }
+
+  setNotifikasiBadge(data: boolean) {
+    this.notifikasiState.next(data);
+  }
+
+  getNotifikasiBadge() {
+    return this.notifikasiState.value;
   }
 
   updateNotifikasiBadge() {

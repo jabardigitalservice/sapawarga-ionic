@@ -109,7 +109,14 @@ export class HomeResultsPage implements OnInit {
   }
 
   ngOnInit() {
-    this.unreadNotif = this.notifikasiService.getNotifikasiNumber();
+    this.notifikasiService.getNotifikasi().subscribe(
+      res => {
+        this.unreadNotif = this.notifikasiService.getNotifikasiNumber();
+      },
+      err => {
+        this.unreadNotif = this.notifikasiService.getNotifikasiNumber();
+      }
+    );
   }
 
   ionViewDidEnter() {
