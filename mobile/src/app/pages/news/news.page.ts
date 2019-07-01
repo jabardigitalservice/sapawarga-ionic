@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NewsService } from '../../services/news.service';
 import { News } from '../../interfaces/news';
+import { Dictionary } from '../../helpers/dictionary';
 
 @Component({
   selector: 'app-news',
@@ -8,30 +9,13 @@ import { News } from '../../interfaces/news';
   styleUrls: ['./news.page.scss']
 })
 export class NewsPage implements OnInit {
-  dummyData = [
-    {
-      id: 1,
-      title: 'Pose Ridwan Kamil Mejeng terus ',
-      image: 'assets/img/aspirasi/aspirasi2.jpg'
-    },
-    {
-      id: 2,
-      title: 'Pose Ridwan Kamil Mejeng terus',
-      image: 'assets/img/aspirasi/aspirasi2.jpg'
-    },
-    {
-      id: 3,
-      title: 'Pose Ridwan Kamil Mejeng terus',
-      image: 'assets/img/aspirasi/aspirasi2.jpg'
-    },
-    {
-      id: 4,
-      title: 'Pose Ridwan Kamil Mejeng terus',
-      image: 'assets/img/aspirasi/aspirasi2.jpg'
-    }
-  ];
   dataFeatured: News[];
   dataNews: News[];
+
+  msgResponse = {
+    type: '',
+    msg: ''
+  };
 
   constructor(private newsService: NewsService) {}
 
@@ -43,12 +27,22 @@ export class NewsPage implements OnInit {
   getListFeatured() {
     this.newsService.getNewsFeatured().subscribe(
       res => {
-        if (res['status'] === 200) {
+        if (res['status'] === 200 && res['data']['items'].length) {
           this.dataFeatured = res['data']['items'];
+        } else {
+          this.msgResponse = {
+            type: 'empty',
+            msg: Dictionary.empty_aspirasi
+          };
         }
       },
       err => {
-        console.log(err);
+        if (err) {
+          this.msgResponse = {
+            type: 'server-error',
+            msg: Dictionary.internalError
+          };
+        }
       }
     );
   }
@@ -56,12 +50,22 @@ export class NewsPage implements OnInit {
   getListNews() {
     this.newsService.getListNews().subscribe(
       res => {
-        if (res['status'] === 200) {
+        if (res['status'] === 200 && res['data']['items'].length) {
           this.dataNews = res['data']['items'];
+        } else {
+          this.msgResponse = {
+            type: 'empty',
+            msg: Dictionary.empty_aspirasi
+          };
         }
       },
       err => {
-        console.log(err);
+        if (err) {
+          this.msgResponse = {
+            type: 'server-error',
+            msg: Dictionary.internalError
+          };
+        }
       }
     );
   }
