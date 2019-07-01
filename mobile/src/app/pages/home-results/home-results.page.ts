@@ -125,14 +125,15 @@ export class HomeResultsPage implements OnInit {
         this.unreadNotif = this.notifikasiService.getNotifikasiNumber();
       }
     );
-    this.unreadNotif = this.notifikasiService.getNotifikasiNumber();
+
+    // get data news
+    this.getNewsFeatured();
+
+    // get data humas
     this.getDataHumas();
   }
 
   ionViewDidEnter() {
-    // get data headlines berita
-    // this.getNewsFeatured();
-
     this.interval = setInterval(() => {
       this.unreadNotif = this.notifikasiService.getNotifikasiNumber();
     }, 3000);
