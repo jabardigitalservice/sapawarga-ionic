@@ -117,6 +117,14 @@ export class HomeResultsPage implements OnInit {
   }
 
   ngOnInit() {
+    this.notifikasiService.getNotifikasi().subscribe(
+      res => {
+        this.unreadNotif = this.notifikasiService.getNotifikasiNumber();
+      },
+      err => {
+        this.unreadNotif = this.notifikasiService.getNotifikasiNumber();
+      }
+    );
     this.unreadNotif = this.notifikasiService.getNotifikasiNumber();
     this.getDataHumas();
   }
