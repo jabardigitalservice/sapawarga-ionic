@@ -39,7 +39,7 @@
     <img src="assets/icon/loading.svg" alt="loading" *ngIf="isLoading" />
   </div>
 
-  <div>
+  <div *ngIf="dataHumas">
     <ion-item>
       <h5 slot="start">Humas Jabar</h5>
       <ion-button fill="clear" slot="end" color="success"
@@ -48,12 +48,17 @@
     </ion-item>
     <ion-slides [options]="sliderConfigHumas">
       <ion-slide *ngFor="let humas of dataHumas">
-        <!-- <div *ngIf="cat.expanded"> -->
         <div>
-          <img src="assets/img/berita_dummy.png" />
+          <img class="img-humas" [src]="humas.thumbnail" />
+          <!-- <img [src]="'assets/img/berita_dummy.png'" /> -->
           <ion-item>
-            <ion-text class="min-mt-5 title-humas">{{ humas.title }}</ion-text>
-            <ion-button slot="end" color="primary">Baca</ion-button>
+            <ion-text class="title-humas"
+              >{{ humas.title | slice: 0:53
+              }}{{ humas.title.length > 53 ? '...' : '' }}</ion-text
+            >
+            <ion-button slot="end" color="primary" (click)="goTohumas()"
+              >Baca</ion-button
+            >
           </ion-item>
         </div>
       </ion-slide>

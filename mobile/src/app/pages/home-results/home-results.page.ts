@@ -8,7 +8,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { NewsService } from '../../services/news.service';
 import { News } from '../../interfaces/news';
 import { Dictionary } from '../../helpers/dictionary';
-import { RssFeedService } from 'src/app/services/rss-feed.service';
+import { HumasJabar } from '../../interfaces/humas-jabar';
 
 @Component({
   selector: 'app-home-results',
@@ -30,25 +30,6 @@ export class HomeResultsPage implements OnInit {
     }
   ];
 
-  dataHumas = [
-    {
-      id: 1,
-      title: 'Penuhi Undangan MUI, Gubernur Ridwan Kamil dan Ustadz …'
-    },
-    {
-      id: 1,
-      title: 'Penuhi Undangan MUI, Gubernur Ridwan Kamil dan Ustadz …'
-    },
-    {
-      id: 1,
-      title: 'Penuhi Undangan MUI, Gubernur Ridwan Kamil dan Ustadz …'
-    },
-    {
-      id: 1,
-      title: 'Penuhi Undangan MUI, Gubernur Ridwan Kamil dan Ustadz …'
-    }
-  ];
-
   logoApp = 'assets/icon/logo.png';
   slideOpts = {
     effect: 'flip',
@@ -65,7 +46,8 @@ export class HomeResultsPage implements OnInit {
 
   unreadNotif: 0;
   isLoading = false;
-  dataNews: News;
+  dataNews: News[];
+  dataHumas: HumasJabar[];
 
   constructor(
     public navCtrl: NavController,
@@ -74,8 +56,7 @@ export class HomeResultsPage implements OnInit {
     private notifikasiService: NotifikasiService,
     private newsService: NewsService,
     public loadingCtrl: LoadingController,
-    private inAppBrowser: InAppBrowser,
-    private rssFeedService: RssFeedService
+    private inAppBrowser: InAppBrowser
   ) {
     this.appPages = [
       {
@@ -137,11 +118,12 @@ export class HomeResultsPage implements OnInit {
 
   ngOnInit() {
     this.unreadNotif = this.notifikasiService.getNotifikasiNumber();
+    this.getDataHumas();
   }
 
   ionViewDidEnter() {
     // get data headlines berita
-    this.getNewsFeatured();
+    // this.getNewsFeatured();
 
     this.interval = setInterval(() => {
       this.unreadNotif = this.notifikasiService.getNotifikasiNumber();
@@ -289,23 +271,26 @@ export class HomeResultsPage implements OnInit {
     );
   }
 
-  getDataRss() {
+  getDataHumas() {
     // check internet
     if (!navigator.onLine) {
       alert(Dictionary.offline);
       return;
     }
 
-    const url = 'https://www.djjb.de/index.rss';
-
     this.isLoading = true;
-    this.rssFeedService.getFeedContent(url).subscribe(
+    this.newsService.getNewsHumas().subscribe(
       res => {
-        console.log(res);
+        if (res['status'] === 200) {
+          this.dataHumas = res['data']['items'];
+        }
+        this.isLoading = false;
       },
       err => {
         this.isLoading = false;
       }
     );
   }
+
+  goTohumas() {}
 }
