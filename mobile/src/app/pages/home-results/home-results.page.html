@@ -50,7 +50,7 @@
       <ion-slide *ngFor="let humas of dataHumas">
         <div>
           <img class="img-humas" [src]="humas.thumbnail" />
-          <ion-item>
+          <ion-item class="list-headline-jabar">
             <ion-text class="title-humas"
               >{{ humas.title | slice: 0:35
               }}{{ humas.title.length > 35 ? '...' : '' }}</ion-text

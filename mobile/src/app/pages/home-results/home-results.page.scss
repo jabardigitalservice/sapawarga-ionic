@@ -1,7 +1,6 @@
 :host {
   ion-item {
     --border-color: transparent;
-    --padding-start: unset;
   }
 
   ion-card {
@@ -32,6 +31,10 @@
     --background: #00b7f0;
     --padding-start: 2em;
     --padding-end: 2em;
+  }
+
+  .list-headline-jabar {
+    --padding-start: unset;
   }
 }
 
