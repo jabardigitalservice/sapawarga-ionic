@@ -40,7 +40,7 @@
   </div>
   <div *ngIf="dataNews">
     <ion-item>
-      <h5 slot="start">Berita</h5>
+      <h5 class="bold" slot="start">Berita</h5>
       <ion-button fill="clear" slot="end" color="success"
         >Lihat Semua</ion-button
       >
@@ -48,11 +48,11 @@
 
     <ion-card
       class="text-dark min-mt-5 ion-margin-bottom"
-      *ngFor="let headline of dataNews | slice: 0:2"
+      *ngFor="let headline of dataNews"
     >
       <ion-item>
         <ion-text class="mb-5"
-          ><p>{{ headline.title }}</p>
+          ><p class="bold headline-title">{{ headline.title }}</p>
           <ion-note class="source-title"
             ><img
               [src]="headline.channel.icon_url"
