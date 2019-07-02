@@ -4,6 +4,7 @@ import { Observable, throwError } from 'rxjs';
 import { News } from '../interfaces/news';
 import { catchError } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
+import { HumasJabar } from '../interfaces/humas-jabar';
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +21,12 @@ export class NewsService {
   getNewsFeatured(limit?: number): Observable<News[]> {
     return this.http
       .get<News[]>(`${environment.API_URL}/news/featured?limit=${limit}`)
+      .pipe(catchError(this.handleError));
+  }
+
+  getNewsHumas(): Observable<HumasJabar[]> {
+    return this.http
+      .get<HumasJabar[]>(`${environment.API_MOCK}/news-jabar`)
       .pipe(catchError(this.handleError));
   }
 
