@@ -8,6 +8,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { NewsService } from '../../services/news.service';
 import { News } from '../../interfaces/news';
 import { Dictionary } from '../../helpers/dictionary';
+import { HumasJabar } from '../../interfaces/humas-jabar';
 
 @Component({
   selector: 'app-home-results',
@@ -37,9 +38,18 @@ export class HomeResultsPage implements OnInit {
     },
     zoom: false
   };
+
+  sliderConfigHumas = {
+    slidesPerView: 1.2,
+    centeredSlides: true,
+    spaceBetween: 10,
+    zoom: false
+  };
+
   unreadNotif: 0;
   isLoading = false;
-  dataNews: News;
+  dataNews: News[];
+  dataHumas: HumasJabar[];
 
   constructor(
     public navCtrl: NavController,
@@ -117,12 +127,15 @@ export class HomeResultsPage implements OnInit {
         this.unreadNotif = this.notifikasiService.getNotifikasiNumber();
       }
     );
+
+    // get data news
+    this.getNewsFeatured();
+
+    // get data humas
+    this.getDataHumas();
   }
 
   ionViewDidEnter() {
-    // get data headlines berita
-    this.getNewsFeatured();
-
     this.interval = setInterval(() => {
       this.unreadNotif = this.notifikasiService.getNotifikasiNumber();
     }, 3000);
@@ -277,4 +290,27 @@ export class HomeResultsPage implements OnInit {
       }
     );
   }
+
+  getDataHumas() {
+    // check internet
+    if (!navigator.onLine) {
+      alert(Dictionary.offline);
+      return;
+    }
+
+    this.isLoading = true;
+    this.newsService.getNewsHumas().subscribe(
+      res => {
+        if (res['status'] === 200) {
+          this.dataHumas = res['data']['items'];
+        }
+        this.isLoading = false;
+      },
+      err => {
+        this.isLoading = false;
+      }
+    );
+  }
+
+  goTohumas() {}
 }

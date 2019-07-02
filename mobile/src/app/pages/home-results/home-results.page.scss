@@ -1,10 +1,7 @@
 :host {
-  ion-content {
-    --background: var(--ion-color-light);
-  }
-
   ion-item {
     --border-color: transparent;
+    --padding-start: unset;
   }
 
   ion-card {
@@ -29,6 +26,12 @@
 
   ion-button {
     text-transform: none;
+  }
+
+  .blues-color {
+    --background: #00b7f0;
+    --padding-start: 2em;
+    --padding-end: 2em;
   }
 }
 
@@ -56,6 +59,11 @@
   display: block;
   font-size: 13px;
   margin-bottom: 10px;
+  color: #707070;
+}
+
+.headline-title {
+  font-size: 13px;
 }
 
 .headlines-img {
@@ -73,6 +81,19 @@
 .source-icon {
   width: 17px;
   margin-right: 3px;
+}
+
+.title-humas {
+  font-size: 0.8em;
+  color: #707070;
+}
+
+.img-humas {
+  border-radius: 6px;
+}
+
+.min-mt-14 {
+  margin-top: -12px;
 }
 
 // tablet mode v1

@@ -4,6 +4,7 @@ import { Observable, throwError } from 'rxjs';
 import { News } from '../interfaces/news';
 import { catchError } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
+import { HumasJabar } from '../interfaces/humas-jabar';
 
 @Injectable({
   providedIn: 'root'
@@ -28,6 +29,12 @@ export class NewsService {
     }
 
     return this.http.get<News[]>(URL).pipe(catchError(this.handleError));
+  }
+
+  getNewsHumas(): Observable<HumasJabar[]> {
+    return this.http
+      .get<HumasJabar[]>(`${environment.API_MOCK}/news-jabar`)
+      .pipe(catchError(this.handleError));
   }
 
   private handleError(error: HttpErrorResponse) {
