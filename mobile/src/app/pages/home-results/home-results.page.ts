@@ -52,7 +52,7 @@ export class HomeResultsPage implements OnInit {
   isLoading = false;
   dataNews: News[];
   dataHumas: HumasJabar[];
-  humas_URL = 'http://humas.jabarprov.go.id/';
+  humas_URL = 'http://humas.jabarprov.go.id/terkini';
 
   constructor(
     public navCtrl: NavController,
