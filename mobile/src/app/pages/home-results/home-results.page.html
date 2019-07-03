@@ -55,7 +55,10 @@
               >{{ humas.title | slice: 0:35
               }}{{ humas.title.length > 35 ? '...' : '' }}</ion-text
             >
-            <ion-button slot="end" class="blues-color" (click)="goTohumas()"
+            <ion-button
+              slot="end"
+              class="blues-color"
+              (click)="goTohumas(humas.url)"
               >Baca</ion-button
             >
           </ion-item>

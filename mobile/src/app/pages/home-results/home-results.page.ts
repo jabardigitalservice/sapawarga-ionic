@@ -10,6 +10,7 @@ import { News } from '../../interfaces/news';
 import { Router } from '@angular/router';
 import { Dictionary } from '../../helpers/dictionary';
 import { HumasJabar } from '../../interfaces/humas-jabar';
+import { Constants } from '../../helpers/constants';
 
 @Component({
   selector: 'app-home-results',
@@ -60,7 +61,8 @@ export class HomeResultsPage implements OnInit {
     private newsService: NewsService,
     public loadingCtrl: LoadingController,
     private inAppBrowser: InAppBrowser,
-    private router: Router
+    private router: Router,
+    public constants: Constants
   ) {
     this.appPages = [
       {
@@ -318,5 +320,8 @@ export class HomeResultsPage implements OnInit {
     );
   }
 
-  goTohumas() {}
+  goTohumas(url: string) {
+    const target = '_self';
+    this.inAppBrowser.create(url, target, this.constants.inAppBrowserOptions);
+  }
 }

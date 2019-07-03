@@ -51,8 +51,6 @@ export class NewsDetailPage implements OnInit {
     });
 
     this.getNewsList();
-
-    console.log(this.util.timeAgo(1560734471));
   }
 
   async getDetailNews(id: number) {
