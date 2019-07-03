@@ -3,7 +3,7 @@ import { NewsService } from '../../services/news.service';
 import { News } from '../../interfaces/news';
 import { ActivatedRoute } from '@angular/router';
 import { Dictionary } from '../../helpers/dictionary';
-import { LoadingController } from '@ionic/angular';
+import { LoadingController, NavController } from '@ionic/angular';
 import { UtilitiesService } from '../../services/utilities.service';
 
 @Component({
@@ -36,12 +36,13 @@ export class NewsDetailPage implements OnInit {
   isLoading = false;
 
   dataNews: News;
-  dataListNews: News[];
+  dataFeatured: News[];
   constructor(
     private route: ActivatedRoute,
     private newsService: NewsService,
     private loadingCtrl: LoadingController,
-    private util: UtilitiesService
+    private util: UtilitiesService,
+    private navCtrl: NavController
   ) {}
 
   ngOnInit() {
@@ -84,10 +85,10 @@ export class NewsDetailPage implements OnInit {
 
     this.isLoading = true;
 
-    this.newsService.getListNews(1).subscribe(
+    this.newsService.getNewsFeatured(2).subscribe(
       res => {
         if (res['status'] === 200) {
-          this.dataListNews = res['data']['items'];
+          this.dataFeatured = res['data']['items'];
         }
         this.isLoading = false;
       },
@@ -95,6 +96,15 @@ export class NewsDetailPage implements OnInit {
         this.isLoading = false;
       }
     );
+  }
+
+  goToListNews() {
+    // check internet
+    if (!navigator.onLine) {
+      alert(Dictionary.offline);
+      return;
+    }
+    this.navCtrl.navigateForward('news');
   }
 
   goToDetail(id: number) {

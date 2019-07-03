@@ -34,7 +34,10 @@
 
   <div class="news-other">
     <div padding>
-      <ion-button expand="full" class="mb-5 mt-5 bg-white"
+      <ion-button
+        expand="full"
+        class="mb-5 mt-5 bg-white"
+        (click)="goToListNews()"
         >Berita Lainnya</ion-button
       >
     </div>
@@ -42,7 +45,7 @@
     <h5 padding class="min-mt-5">Berita Terbaru</h5>
     <ion-card
       class="text-dark min-mt-5 ion-margin-bottom"
-      *ngFor="let news of dataListNews"
+      *ngFor="let news of dataFeatured"
       (click)="goToDetail(news.id)"
     >
       <ion-item>

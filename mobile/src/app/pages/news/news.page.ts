@@ -3,6 +3,7 @@ import { NewsService } from '../../services/news.service';
 import { News } from '../../interfaces/news';
 import { Dictionary } from '../../helpers/dictionary';
 import { LoadingController } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-news',
@@ -22,7 +23,8 @@ export class NewsPage implements OnInit {
 
   constructor(
     private newsService: NewsService,
-    private loadingCtrl: LoadingController
+    private loadingCtrl: LoadingController,
+    private router: Router
   ) {
     this.dataNews = [];
   }
@@ -106,6 +108,10 @@ export class NewsPage implements OnInit {
         }
       }
     );
+  }
+
+  goToDetailNews(id: number) {
+    this.router.navigate(['/news', id]);
   }
 
   // infinite scroll
