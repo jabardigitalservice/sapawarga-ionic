@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NewsService } from '../../services/news.service';
 import { News } from '../../interfaces/news';
 import { Dictionary } from '../../helpers/dictionary';
+import { LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-news',
@@ -11,17 +12,28 @@ import { Dictionary } from '../../helpers/dictionary';
 export class NewsPage implements OnInit {
   dataFeatured: News[];
   dataNews: News[];
+  currentPage = 1;
+  maximumPages: number;
 
   msgResponse = {
     type: '',
     msg: ''
   };
 
-  constructor(private newsService: NewsService) {}
+  constructor(
+    private newsService: NewsService,
+    private loadingCtrl: LoadingController
+  ) {
+    this.dataNews = [];
+  }
 
   ngOnInit() {
     this.getListFeatured();
     this.getListNews();
+  }
+
+  ionViewWillLeave() {
+    this.currentPage = 1;
   }
 
   getListFeatured() {
@@ -29,6 +41,9 @@ export class NewsPage implements OnInit {
       res => {
         if (res['status'] === 200 && res['data']['items'].length) {
           this.dataFeatured = res['data']['items'];
+
+          // set count page
+          this.maximumPages = res['data']['_meta'].pageCount;
         } else {
           this.msgResponse = {
             type: 'empty',
@@ -47,19 +62,42 @@ export class NewsPage implements OnInit {
     );
   }
 
-  getListNews() {
-    this.newsService.getListNews().subscribe(
+  async getListNews(infiniteScroll?) {
+    if (!navigator.onLine) {
+      alert(Dictionary.offline);
+      return;
+    }
+
+    const loader = await this.loadingCtrl.create({
+      duration: 10000
+    });
+
+    if (!infiniteScroll) {
+      loader.present();
+    }
+
+    this.newsService.getListNews(this.currentPage).subscribe(
       res => {
-        if (res['status'] === 200 && res['data']['items'].length) {
-          this.dataNews = res['data']['items'];
+        if (res['data']['items'].length) {
+          if (infiniteScroll) {
+            this.dataNews = this.dataNews.concat(res['data']['items']);
+          } else {
+            this.dataNews = res['data']['items'];
+          }
         } else {
           this.msgResponse = {
             type: 'empty',
             msg: Dictionary.empty_aspirasi
           };
         }
+        loader.dismiss();
+        // stop infinite scroll
+        if (infiniteScroll) {
+          infiniteScroll.target.complete();
+        }
       },
       err => {
+        loader.dismiss();
         if (err) {
           this.msgResponse = {
             type: 'server-error',
@@ -68,5 +106,19 @@ export class NewsPage implements OnInit {
         }
       }
     );
+  }
+
+  // infinite scroll
+  doInfinite(event) {
+    if (this.currentPage === this.maximumPages) {
+      event.target.disabled = true;
+      return;
+    }
+    // increase page
+    this.currentPage++;
+
+    setTimeout(() => {
+      this.getListNews(event);
+    }, 2000);
   }
 }

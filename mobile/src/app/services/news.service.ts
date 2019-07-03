@@ -12,9 +12,9 @@ import { HumasJabar } from '../interfaces/humas-jabar';
 export class NewsService {
   constructor(private http: HttpClient) {}
 
-  getListNews(): Observable<News[]> {
+  getListNews(page: number): Observable<News[]> {
     return this.http
-      .get<News[]>(`${environment.API_URL}/news`)
+      .get<News[]>(`${environment.API_URL}/news?page=${page}`)
       .pipe(catchError(this.handleError));
   }
 

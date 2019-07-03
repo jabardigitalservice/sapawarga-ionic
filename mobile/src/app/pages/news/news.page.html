@@ -20,7 +20,6 @@
       {{ dataFeatured[0]?.title }}
     </div>
   </ion-card>
-  <hr />
 
   <ion-grid>
     <ion-row small class="text-dark">
@@ -39,7 +38,7 @@
                 class="source-icon"
                 alt="sumber"
               />
-              {{ data.channel.website }}</ion-note
+              {{ data.channel.name }}</ion-note
             >
           </ion-card-content>
         </ion-card>
@@ -63,7 +62,7 @@
             class="source-icon"
             alt="sumber"
           />
-          {{ data.channel.website }}</ion-note
+          {{ data.channel.name }}</ion-note
         >
       </ion-text>
       <img
@@ -74,4 +73,12 @@
       />
     </ion-item>
   </ion-card>
+
+  <ion-infinite-scroll threshold="100px" (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content
+      loadingSpinner="bubbles"
+      loadingText="Sedang mengambil data..."
+    >
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 </ion-content>
