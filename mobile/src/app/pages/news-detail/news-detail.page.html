@@ -24,7 +24,7 @@
             alt="sumber"
           />
           detik.com <br />
-          2 jam yang lalu
+          {{ util.timeAgo(dataNews.created_at * 1000) }}
         </ion-note></ion-text
       >
     </ion-item>

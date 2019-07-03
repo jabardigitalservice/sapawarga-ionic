@@ -33,7 +33,13 @@ export class NewsService {
 
   getDetailNews(id: number): Observable<News> {
     return this.http
-      .get<News>(`${environment.API_MOCK}/featured/${id}`)
+      .get<News>(`${environment.API_URL}/news/${id}`)
+      .pipe(catchError(this.handleError));
+  }
+
+  getNewsHumas(): Observable<HumasJabar[]> {
+    return this.http
+      .get<HumasJabar[]>(`${environment.API_MOCK}/news-jabar`)
       .pipe(catchError(this.handleError));
   }
 

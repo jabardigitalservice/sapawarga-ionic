@@ -132,6 +132,9 @@ export class HomeResultsPage implements OnInit {
 
     // get data news
     this.getNewsFeatured();
+
+    // get data humas
+    this.getDataHumas();
   }
 
   ionViewDidEnter() {
@@ -285,6 +288,27 @@ export class HomeResultsPage implements OnInit {
       res => {
         if (res['status'] === 200) {
           this.dataNews = res['data']['items'];
+        }
+        this.isLoading = false;
+      },
+      err => {
+        this.isLoading = false;
+      }
+    );
+  }
+
+  getDataHumas() {
+    // check internet
+    if (!navigator.onLine) {
+      alert(Dictionary.offline);
+      return;
+    }
+
+    this.isLoading = true;
+    this.newsService.getNewsHumas().subscribe(
+      res => {
+        if (res['status'] === 200) {
+          this.dataHumas = res['data']['items'];
         }
         this.isLoading = false;
       },

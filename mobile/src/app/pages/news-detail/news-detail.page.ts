@@ -4,10 +4,7 @@ import { News } from '../../interfaces/news';
 import { ActivatedRoute } from '@angular/router';
 import { Dictionary } from '../../helpers/dictionary';
 import { LoadingController } from '@ionic/angular';
-
-// plugin moment date
-import * as moment from 'moment';
-// import 'moment/locale/pt-br';
+import { UtilitiesService } from '../../services/utilities.service';
 
 @Component({
   selector: 'app-news-detail',
@@ -43,18 +40,18 @@ export class NewsDetailPage implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private newsService: NewsService,
-    private loadingCtrl: LoadingController
+    private loadingCtrl: LoadingController,
+    private util: UtilitiesService
   ) {}
 
   ngOnInit() {
-    const date = '2019-04-09 02:57:00';
-    console.log(moment(date).fromNow()); // pt-BR
-
     this.route.params.subscribe(params => {
       this.getDetailNews(params['id']);
     });
 
     this.getNewsList();
+
+    console.log(this.util.timeAgo(1560734471));
   }
 
   async getDetailNews(id: number) {
