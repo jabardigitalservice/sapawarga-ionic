@@ -322,6 +322,12 @@ export class HomeResultsPage implements OnInit {
   }
 
   goTohumas(url: string) {
+    // check internet
+    if (!navigator.onLine) {
+      alert(Dictionary.offline);
+      return;
+    }
+
     const target = '_self';
     this.inAppBrowser.create(url, target, this.constants.inAppBrowserOptions);
   }

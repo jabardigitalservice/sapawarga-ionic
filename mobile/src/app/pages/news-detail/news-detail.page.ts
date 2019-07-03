@@ -99,6 +99,12 @@ export class NewsDetailPage implements OnInit {
   }
 
   source_url(url: string) {
+    // check internet
+    if (!navigator.onLine) {
+      alert(Dictionary.offline);
+      return;
+    }
+
     const target = '_self';
     this.iab.create(url, target, this.constants.inAppBrowserOptions);
   }
