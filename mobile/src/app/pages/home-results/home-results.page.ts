@@ -52,6 +52,7 @@ export class HomeResultsPage implements OnInit {
   isLoading = false;
   dataNews: News[];
   dataHumas: HumasJabar[];
+  humas_URL = 'http://humas.jabarprov.go.id/';
 
   constructor(
     public navCtrl: NavController,

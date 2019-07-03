@@ -17,13 +17,13 @@
 
     <ion-item class="mt-5 mb-5">
       <ion-text>
-        <ion-note class="source-title"
+        <ion-note class="source-title" (click)="source_url(dataNews.source_url)"
           ><img
             [src]="dataNews.channel.icon_url"
             class="source-icon"
             alt="sumber"
           />
-          detik.com <br />
+          {{ dataNews.channel.name }} <br />
           {{ util.timeAgo(dataNews.created_at * 1000) }}
         </ion-note></ion-text
       >

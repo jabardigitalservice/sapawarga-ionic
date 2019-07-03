@@ -7,6 +7,9 @@ import { IonicModule } from '@ionic/angular';
 
 import { NewsDetailPage } from './news-detail.page';
 
+// plugin in app browser
+import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
+
 const routes: Routes = [
   {
     path: '',
@@ -21,6 +24,7 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [NewsDetailPage]
+  declarations: [NewsDetailPage],
+  providers: [InAppBrowser]
 })
 export class NewsDetailPageModule {}

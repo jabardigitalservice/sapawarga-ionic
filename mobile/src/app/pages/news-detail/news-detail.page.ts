@@ -5,6 +5,8 @@ import { ActivatedRoute } from '@angular/router';
 import { Dictionary } from '../../helpers/dictionary';
 import { LoadingController, NavController } from '@ionic/angular';
 import { UtilitiesService } from '../../services/utilities.service';
+import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
+import { Constants } from 'src/app/helpers/constants';
 
 @Component({
   selector: 'app-news-detail',
@@ -12,27 +14,6 @@ import { UtilitiesService } from '../../services/utilities.service';
   styleUrls: ['./news-detail.page.scss']
 })
 export class NewsDetailPage implements OnInit {
-  dummyHeadlines = [
-    {
-      id: 1,
-      title: 'Pose Ridwan Kamil Mejeng di Depan Mobil klasik VW',
-      image: 'assets/img/aspirasi/aspirasi2.jpg',
-      source: 'detik.com'
-    },
-    {
-      id: 2,
-      title: 'Pose Ridwan Kamil Mejeng di Depan Mobil klasik VW',
-      image: 'assets/img/aspirasi/aspirasi1.jpg',
-      source: 'detik.com'
-    },
-    {
-      id: 3,
-      title: 'Pose Ridwan Kamil Mejeng di Depan Mobil klasik VW',
-      image: 'assets/img/aspirasi/aspirasi3.jpg',
-      source: 'detik.com'
-    }
-  ];
-
   isLoading = false;
 
   dataNews: News;
@@ -42,7 +23,9 @@ export class NewsDetailPage implements OnInit {
     private newsService: NewsService,
     private loadingCtrl: LoadingController,
     public util: UtilitiesService,
-    private navCtrl: NavController
+    private navCtrl: NavController,
+    private iab: InAppBrowser,
+    public constants: Constants
   ) {}
 
   ngOnInit() {
@@ -113,5 +96,10 @@ export class NewsDetailPage implements OnInit {
 
   goToDetail(id: number) {
     this.getDetailNews(id);
+  }
+
+  source_url(url: string) {
+    const target = '_self';
+    this.iab.create(url, target, this.constants.inAppBrowserOptions);
   }
 }

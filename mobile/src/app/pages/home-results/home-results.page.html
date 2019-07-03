@@ -42,7 +42,11 @@
   <div class="min-mt-14" *ngIf="dataHumas">
     <ion-item>
       <h5 class="bold" slot="start">Humas Jabar</h5>
-      <ion-button fill="clear" slot="end" color="success"
+      <ion-button
+        fill="clear"
+        slot="end"
+        color="success"
+        (click)="goTohumas(humas_URL)"
         >Lihat Semua</ion-button
       >
     </ion-item>
