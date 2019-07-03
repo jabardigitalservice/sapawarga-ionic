@@ -27,20 +27,20 @@
         <ion-card class="desc-featured">
           <img [src]="data?.cover_path_url" class="img-grid" />
 
-          <ion-card-content>
-            <p class="text-dark text-featured">
+          <ion-card-content class="box-featured">
+            <p class="text-dark text-featured box-text-featured">
               {{ data.title | slice: 0:35
               }}{{ data.title.length > 35 ? '...' : '' }}
             </p>
-            <ion-note class="ion-margin-top source-title"
-              ><img
-                [src]="data.channel.icon_url"
-                class="source-icon"
-                alt="sumber"
-              />
-              {{ data.channel.name }}</ion-note
-            >
           </ion-card-content>
+          <ion-note class="ion-margin-top source-title-featured"
+            ><img
+              [src]="data.channel.icon_url"
+              class="source-icon"
+              alt="sumber"
+            />
+            {{ data.channel.name }}</ion-note
+          >
         </ion-card>
       </ion-col>
     </ion-row>
