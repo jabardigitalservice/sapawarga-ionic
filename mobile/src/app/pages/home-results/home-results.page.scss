@@ -1,8 +1,4 @@
 :host {
-  ion-content {
-    --background: var(--ion-color-light);
-  }
-
   ion-item {
     --border-color: transparent;
   }
@@ -30,6 +26,16 @@
   ion-button {
     text-transform: none;
   }
+
+  .blues-color {
+    --background: #00b7f0;
+    --padding-start: 2em;
+    --padding-end: 2em;
+  }
+
+  .list-headline-jabar {
+    --padding-start: unset;
+  }
 }
 
 .section {
@@ -56,6 +62,11 @@
   display: block;
   font-size: 13px;
   margin-bottom: 10px;
+  color: #707070;
+}
+
+.headline-title {
+  font-size: 13px;
 }
 
 .headlines-img {
@@ -76,11 +87,16 @@
 }
 
 .title-humas {
-  font-size: 0.9em;
+  font-size: 0.8em;
+  color: #707070;
 }
 
 .img-humas {
   border-radius: 6px;
+}
+
+.min-mt-14 {
+  margin-top: -12px;
 }
 
 // tablet mode v1

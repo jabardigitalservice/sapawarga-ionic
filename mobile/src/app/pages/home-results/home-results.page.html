@@ -39,9 +39,9 @@
     <img src="assets/icon/loading.svg" alt="loading" *ngIf="isLoading" />
   </div>
 
-  <div *ngIf="dataHumas">
+  <div class="min-mt-14" *ngIf="dataHumas">
     <ion-item>
-      <h5 slot="start">Humas Jabar</h5>
+      <h5 class="bold" slot="start">Humas Jabar</h5>
       <ion-button fill="clear" slot="end" color="success"
         >Lihat Semua</ion-button
       >
@@ -50,12 +50,12 @@
       <ion-slide *ngFor="let humas of dataHumas">
         <div>
           <img class="img-humas" [src]="humas.thumbnail" />
-          <ion-item>
+          <ion-item class="list-headline-jabar">
             <ion-text class="title-humas"
-              >{{ humas.title | slice: 0:53
-              }}{{ humas.title.length > 53 ? '...' : '' }}</ion-text
+              >{{ humas.title | slice: 0:35
+              }}{{ humas.title.length > 35 ? '...' : '' }}</ion-text
             >
-            <ion-button slot="end" color="primary" (click)="goTohumas()"
+            <ion-button slot="end" class="blues-color" (click)="goTohumas()"
               >Baca</ion-button
             >
           </ion-item>
@@ -66,7 +66,7 @@
 
   <div *ngIf="dataNews">
     <ion-item>
-      <h5 slot="start">Berita</h5>
+      <h5 class="bold" slot="start">Berita</h5>
       <ion-button fill="clear" slot="end" color="success"
         >Lihat Semua</ion-button
       >
@@ -74,11 +74,14 @@
 
     <ion-card
       class="text-dark min-mt-5 ion-margin-bottom"
-      *ngFor="let headline of dataNews | slice: 0:2"
+      *ngFor="let headline of dataNews"
     >
       <ion-item>
         <ion-text class="mb-5"
-          ><p>{{ headline.title }}</p>
+          ><p class="bold headline-title">
+            {{ headline.title | slice: 0:45
+            }}{{ headline.title.length > 45 ? '...' : '' }}
+          </p>
           <ion-note class="source-title"
             ><img
               [src]="headline.channel.icon_url"

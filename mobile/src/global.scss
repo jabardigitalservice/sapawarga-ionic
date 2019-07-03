@@ -57,7 +57,10 @@ ion-item {
   width: 100%;
 }
 
-.bold,
+.bold {
+  font-weight: bold !important;
+}
+
 .fw500 {
   font-weight: 500 !important;
 }
