@@ -244,6 +244,15 @@ export class HomeResultsPage implements OnInit {
     });
   }
 
+  goToNews() {
+    // check internet
+    if (!navigator.onLine) {
+      alert(Dictionary.offline);
+      return;
+    }
+    this.navCtrl.navigateForward('news');
+  }
+
   async getDataProfile() {
     const loader = await this.loadingCtrl.create({
       duration: 10000

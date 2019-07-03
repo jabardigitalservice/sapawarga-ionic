@@ -100,7 +100,8 @@ const routes: Routes = [
     path: 'aspirasi-form',
     loadChildren:
       './pages/aspirasi-form/aspirasi-form.module#AspirasiFormPageModule'
-  }
+  },
+  { path: 'news', loadChildren: './pages/news/news.module#NewsPageModule' }
 ];
 
 @NgModule({

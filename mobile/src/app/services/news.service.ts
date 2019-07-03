@@ -12,16 +12,23 @@ import { HumasJabar } from '../interfaces/humas-jabar';
 export class NewsService {
   constructor(private http: HttpClient) {}
 
-  getListNews(): Observable<News[]> {
+  getListNews(page: number): Observable<News[]> {
     return this.http
-      .get<News[]>(`${environment.API_URL}/news`)
+      .get<News[]>(`${environment.API_URL}/news?page=${page}`)
       .pipe(catchError(this.handleError));
   }
 
   getNewsFeatured(limit?: number): Observable<News[]> {
-    return this.http
-      .get<News[]>(`${environment.API_URL}/news/featured?limit=${limit}`)
-      .pipe(catchError(this.handleError));
+    let URL: string;
+
+    // check param limit
+    if (limit) {
+      URL = `${environment.API_URL}/news/featured?limit=${limit}`;
+    } else {
+      URL = `${environment.API_URL}/news/featured`;
+    }
+
+    return this.http.get<News[]>(URL).pipe(catchError(this.handleError));
   }
 
   getNewsHumas(): Observable<HumasJabar[]> {

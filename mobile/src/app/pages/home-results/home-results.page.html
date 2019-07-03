@@ -67,7 +67,7 @@
   <div *ngIf="dataNews">
     <ion-item>
       <h5 class="bold" slot="start">Berita</h5>
-      <ion-button fill="clear" slot="end" color="success"
+      <ion-button fill="clear" slot="end" color="success" (click)="goToNews()"
         >Lihat Semua</ion-button
       >
     </ion-item>
@@ -88,7 +88,7 @@
               class="source-icon"
               alt="sumber"
             />
-            {{ headline.channel.website }}</ion-note
+            {{ headline.channel.name }}</ion-note
           ></ion-text
         >
         <img
