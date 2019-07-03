@@ -2,6 +2,10 @@
   ion-item {
     --border-color: transparent;
   }
+
+  .card-content-md {
+    padding-bottom: unset !important;
+  }
 }
 
 .headline {
@@ -20,7 +24,7 @@
   position: absolute;
   bottom: 15%;
   padding-left: 15px;
-  padding-right: 15px;
+  padding-right: 55px;
   font-size: 1.2em;
   width: 100%;
   font-weight: bold;
@@ -36,5 +40,25 @@
 }
 
 .desc-featured {
-  height: 100px;
+  height: 90%;
+}
+
+.text-featured {
+  font-size: 0.8em;
+}
+
+.text-title {
+  font-size: 0.9em;
+}
+
+.source-title {
+  display: inline-flex;
+  align-items: center;
+  font-size: 10px;
+  margin-top: 5px;
+}
+
+.source-icon {
+  width: 17px;
+  margin-right: 3px;
 }
