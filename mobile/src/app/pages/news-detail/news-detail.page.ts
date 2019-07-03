@@ -5,6 +5,10 @@ import { ActivatedRoute } from '@angular/router';
 import { Dictionary } from '../../helpers/dictionary';
 import { LoadingController } from '@ionic/angular';
 
+// plugin moment date
+import * as moment from 'moment';
+// import 'moment/locale/pt-br';
+
 @Component({
   selector: 'app-news-detail',
   templateUrl: './news-detail.page.html',
@@ -43,6 +47,9 @@ export class NewsDetailPage implements OnInit {
   ) {}
 
   ngOnInit() {
+    const date = '2019-04-09 02:57:00';
+    console.log(moment(date).fromNow()); // pt-BR
+
     this.route.params.subscribe(params => {
       this.getDetailNews(params['id']);
     });

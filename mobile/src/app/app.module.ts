@@ -29,11 +29,13 @@ import {
   FileTransfer,
   FileTransferObject
 } from '@ionic-native/file-transfer/ngx';
+import { DateAgoPipe } from './pipes/date-ago.pipe';
 @NgModule({
   declarations: [
     AppComponent,
     MenuNavbarComponent,
-    MenuNavbarAspirasiComponent
+    MenuNavbarAspirasiComponent,
+    DateAgoPipe
   ],
   imports: [
     BrowserModule,
