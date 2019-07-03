@@ -48,11 +48,17 @@ export class NotifikasiPage implements OnInit {
 
   goToDetail(index: number, meta: any) {
     if (meta.target === 'polling') {
-      let navigationParams = [];
-      navigationParams = [`/${meta.target}`, meta.id];
+      const navigationParams = [`/${meta.target}`];
+      if (meta.id) {
+        navigationParams.push(meta.id);
+      }
       this.router.navigate(navigationParams);
     } else if (meta.target === 'survey' || meta.target === 'url') {
-      this.launchWeb(meta.url);
+      if (meta.target === 'survey' && !meta.url) {
+        this.router.navigate([`/${meta.target}`]);
+      } else {
+        this.launchWeb(meta);
+      }
     }
     this.dataNotifikasi[index].read = true;
     this.notifikasiService.saveLocalNotifikasi(
@@ -78,10 +84,17 @@ export class NotifikasiPage implements OnInit {
     }
   }
 
-  launchWeb(url: string) {
-    const target = '_self';
+  launchWeb(meta: any) {
     this.platform.ready().then(() => {
-      this.inAppBrowser.create(url, target, this.constants.inAppBrowserOptions);
+      if (meta.target === 'url') {
+        this.inAppBrowser.create(meta.url, '_system');
+      } else {
+        this.inAppBrowser.create(
+          meta.url,
+          '_self',
+          this.constants.inAppBrowserOptions
+        );
+      }
     });
   }
 
@@ -107,30 +120,16 @@ export class NotifikasiPage implements OnInit {
     });
     loader.present();
 
-    this.notifikasiService.getListNotifikasi().subscribe(
+    this.notifikasiService.getNotifikasi().subscribe(
       res => {
-        const listNotifikasi = res['data']['items'];
-        if (listNotifikasi.length) {
-          // Update API data with local data
-          this.dataNotifikasi = listNotifikasi.map(notifikasi => {
-            const oldNotifikasi = localNotifikasi.find(
-              elmt => elmt.id === notifikasi.id
-            );
-            notifikasi['read'] = oldNotifikasi ? oldNotifikasi.read : false;
-            return notifikasi;
-          });
-
-          // save to local
-          this.notifikasiService.saveLocalNotifikasi(
-            JSON.stringify(this.dataNotifikasi)
-          );
-        } else {
+        loader.dismiss();
+        this.dataNotifikasi = res;
+        if (!this.dataNotifikasi.length) {
           this.msgResponse = {
             type: 'empty',
             msg: Dictionary.empty
           };
         }
-        loader.dismiss();
       },
       err => {
         loader.dismiss();

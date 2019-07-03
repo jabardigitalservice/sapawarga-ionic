@@ -8,25 +8,39 @@
 </ion-header>
 
 <ion-content>
-  <ion-card class="headline ion-margin-top">
-    <img
-      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRqqtjyWlHu1k4dCwHwGLuCUcP6lsSxalNnq4vuyKVS-yAE8LAQ"
-      class="img-head"
-    />
-    <div class="card-title">
-      Lorem ipsum dolor sit amet consectetur adipisicing elit.
+  <app-message-control
+    *ngIf="msgResponse.type"
+    [type]="msgResponse.type"
+    [message]="msgResponse.msg"
+  ></app-message-control>
+
+  <ion-card class="headline ion-margin-top" *ngIf="dataFeatured">
+    <img [src]="dataFeatured[0]?.cover_path_url" class="img-head" />
+    <div class="text-title card-title">
+      {{ dataFeatured[0]?.title }}
     </div>
   </ion-card>
 
-  <ion-grid class="ion-margin-top">
+  <ion-grid>
     <ion-row small class="text-dark">
-      <ion-col size="6" no-padding *ngFor="let data of dummyData">
-        <ion-card>
-          <img [src]="data.image" class="img-grid" />
+      <ion-col size="6" no-padding *ngFor="let data of dataFeatured">
+        <ion-card class="desc-featured">
+          <img [src]="data?.cover_path_url" class="img-grid" />
 
-          <ion-card-content>
-            <p class="text-dark">{{ data.title }}</p>
+          <ion-card-content class="box-featured">
+            <p class="text-dark text-featured box-text-featured">
+              {{ data.title | slice: 0:35
+              }}{{ data.title.length > 35 ? '...' : '' }}
+            </p>
           </ion-card-content>
+          <ion-note class="ion-margin-top source-title-featured"
+            ><img
+              [src]="data.channel.icon_url"
+              class="source-icon"
+              alt="sumber"
+            />
+            {{ data.channel.name }}</ion-note
+          >
         </ion-card>
       </ion-col>
     </ion-row>
@@ -34,13 +48,37 @@
 
   <ion-card
     class="text-dark ion-margin-top ion-margin-bottom"
-    *ngFor="let new of dataNews"
+    *ngFor="let data of dataNews"
   >
     <ion-item>
       <ion-text class="mb-5">
-        <p>{{ new.title }}</p>
+        <p class="text-title">
+          {{ data.title | slice: 0:45
+          }}{{ data.title.length > 45 ? '...' : '' }}
+        </p>
+        <ion-note class="ion-margin-top source-title"
+          ><img
+            [src]="data.channel.icon_url"
+            class="source-icon"
+            alt="sumber"
+          />
+          {{ data.channel.name }}</ion-note
+        >
       </ion-text>
-      <img slot="end" [src]="new.cover_path_url" alt="icon" class="news-img" />
+      <img
+        slot="end"
+        [src]="data?.cover_path_url"
+        alt="icon"
+        class="news-img"
+      />
     </ion-item>
   </ion-card>
+
+  <ion-infinite-scroll threshold="100px" (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content
+      loadingSpinner="bubbles"
+      loadingText="Sedang mengambil data..."
+    >
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 </ion-content>

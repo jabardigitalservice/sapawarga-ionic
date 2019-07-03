@@ -2,6 +2,10 @@
   ion-item {
     --border-color: transparent;
   }
+
+  .card-content-md {
+    padding-bottom: unset !important;
+  }
 }
 
 .headline {
@@ -18,9 +22,9 @@
 
 .card-title {
   position: absolute;
-  // top: 36%;
   bottom: 15%;
   padding-left: 15px;
+  padding-right: 55px;
   font-size: 1.2em;
   width: 100%;
   font-weight: bold;
@@ -33,4 +37,41 @@
   border-radius: 4px;
   margin-top: 10px;
   margin-bottom: 10px;
+}
+
+.desc-featured {
+  height: 90%;
+  position: relative;
+}
+
+.text-featured {
+  font-size: 0.8em;
+  height: 30%;
+  padding-bottom: 25px;
+}
+
+.text-title {
+  font-size: 0.9em;
+}
+
+.source-title {
+  display: inline-flex;
+  align-items: center;
+  font-size: 10px;
+  margin-top: 5px;
+}
+
+.source-title-featured {
+  position: absolute;
+  bottom: 0;
+  display: inline-flex;
+  align-items: center;
+  font-size: 10px;
+  margin-top: 5px;
+  margin: 0 0 5px 14px;
+}
+
+.source-icon {
+  width: 17px;
+  margin-right: 3px;
 }
