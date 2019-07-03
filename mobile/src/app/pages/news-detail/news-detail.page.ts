@@ -41,7 +41,7 @@ export class NewsDetailPage implements OnInit {
     private route: ActivatedRoute,
     private newsService: NewsService,
     private loadingCtrl: LoadingController,
-    private util: UtilitiesService,
+    public util: UtilitiesService,
     private navCtrl: NavController
   ) {}
 
@@ -54,6 +54,12 @@ export class NewsDetailPage implements OnInit {
   }
 
   async getDetailNews(id: number) {
+    // check internet
+    if (!navigator.onLine) {
+      alert(Dictionary.offline);
+      return;
+    }
+
     const loader = await this.loadingCtrl.create({
       duration: 10000
     });
