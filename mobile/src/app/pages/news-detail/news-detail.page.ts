@@ -55,6 +55,9 @@ export class NewsDetailPage implements OnInit {
       duration: 10000
     });
     loader.present();
+
+    this.dataNews = null;
+
     this.newsService.getDetailNews(id).subscribe(
       res => {
         if (res['status'] === 200) {
@@ -77,7 +80,7 @@ export class NewsDetailPage implements OnInit {
 
     this.isLoading = true;
 
-    this.newsService.getListNews().subscribe(
+    this.newsService.getListNews(1).subscribe(
       res => {
         if (res['status'] === 200) {
           this.dataListNews = res['data']['items'];
@@ -88,5 +91,9 @@ export class NewsDetailPage implements OnInit {
         this.isLoading = false;
       }
     );
+  }
+
+  goToDetail(id: number) {
+    this.getDetailNews(id);
   }
 }

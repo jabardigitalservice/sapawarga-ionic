@@ -11,6 +11,7 @@
     --background: var(--ion-color-tertiary-contrast);
     color: #707070;
     box-shadow: 0 2px 16px rgba(0, 0, 0, 0.12);
+    text-transform: none;
   }
 
   ion-card {
@@ -73,6 +74,6 @@
 }
 
 .source-icon-more {
-  width: 17px;
+  width: 18px;
   margin-right: 3px;
 }

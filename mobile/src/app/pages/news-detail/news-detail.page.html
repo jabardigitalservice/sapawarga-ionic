@@ -18,7 +18,11 @@
     <ion-item class="mt-5 mb-5">
       <ion-text>
         <ion-note class="source-title"
-          ><img src="assets/icon/detik.png" class="source-icon" alt="sumber" />
+          ><img
+            [src]="dataNews.channel.icon_url"
+            class="source-icon"
+            alt="sumber"
+          />
           detik.com <br />
           2 jam yang lalu
         </ion-note></ion-text
@@ -39,6 +43,7 @@
     <ion-card
       class="text-dark min-mt-5 ion-margin-bottom"
       *ngFor="let news of dataListNews"
+      (click)="goToDetail(news.id)"
     >
       <ion-item>
         <ion-text class="mb-5 ml-10"
@@ -49,7 +54,7 @@
               class="source-icon-more"
               alt="sumber"
             />
-            {{ news.channel.website }}</ion-note
+            {{ news.channel.name }}</ion-note
           ></ion-text
         >
         <img
