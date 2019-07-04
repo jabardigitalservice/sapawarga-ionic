@@ -122,14 +122,14 @@ export class NotifikasiPage implements OnInit {
 
     this.notifikasiService.getNotifikasi().subscribe(
       res => {
-        loader.dismiss();
         this.dataNotifikasi = res;
-        if (!this.dataNotifikasi.length) {
+        if (!this.dataNotifikasi.length && localNotifikasi.length === 0) {
           this.msgResponse = {
             type: 'empty',
             msg: Dictionary.empty
           };
         }
+        loader.dismiss();
       },
       err => {
         loader.dismiss();

@@ -14,7 +14,11 @@
     [message]="msgResponse.msg"
   ></app-message-control>
 
-  <ion-card class="headline ion-margin-top" *ngIf="dataFeatured">
+  <ion-card
+    class="headline ion-margin-top"
+    *ngIf="dataFeatured"
+    (click)="goToDetailNews(dataFeatured[0].id)"
+  >
     <img [src]="dataFeatured[0]?.cover_path_url" class="img-head" />
     <div class="text-title card-title">
       {{ dataFeatured[0]?.title }}
@@ -24,7 +28,7 @@
   <ion-grid>
     <ion-row small class="text-dark">
       <ion-col size="6" no-padding *ngFor="let data of dataFeatured">
-        <ion-card class="desc-featured">
+        <ion-card class="desc-featured" (click)="goToDetailNews(data.id)">
           <img [src]="data?.cover_path_url" class="img-grid" />
 
           <ion-card-content class="box-featured">
@@ -49,6 +53,7 @@
   <ion-card
     class="text-dark ion-margin-top ion-margin-bottom"
     *ngFor="let data of dataNews"
+    (click)="goToDetailNews(data.id)"
   >
     <ion-item>
       <ion-text class="mb-5">

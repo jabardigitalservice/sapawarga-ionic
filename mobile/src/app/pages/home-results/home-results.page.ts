@@ -7,8 +7,10 @@ import { NotifikasiService } from '../../services/notifikasi.service';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { NewsService } from '../../services/news.service';
 import { News } from '../../interfaces/news';
+import { Router } from '@angular/router';
 import { Dictionary } from '../../helpers/dictionary';
 import { HumasJabar } from '../../interfaces/humas-jabar';
+import { Constants } from '../../helpers/constants';
 
 @Component({
   selector: 'app-home-results',
@@ -50,6 +52,7 @@ export class HomeResultsPage implements OnInit {
   isLoading = false;
   dataNews: News[];
   dataHumas: HumasJabar[];
+  humas_URL = 'http://humas.jabarprov.go.id/terkini';
 
   constructor(
     public navCtrl: NavController,
@@ -58,7 +61,9 @@ export class HomeResultsPage implements OnInit {
     private notifikasiService: NotifikasiService,
     private newsService: NewsService,
     public loadingCtrl: LoadingController,
-    private inAppBrowser: InAppBrowser
+    private inAppBrowser: InAppBrowser,
+    private router: Router,
+    public constants: Constants
   ) {
     this.appPages = [
       {
@@ -253,6 +258,10 @@ export class HomeResultsPage implements OnInit {
     this.navCtrl.navigateForward('news');
   }
 
+  goToDetailNews(id: number) {
+    this.router.navigate(['/news', id]);
+  }
+
   async getDataProfile() {
     const loader = await this.loadingCtrl.create({
       duration: 10000
@@ -312,5 +321,14 @@ export class HomeResultsPage implements OnInit {
     );
   }
 
-  goTohumas() {}
+  goTohumas(url: string) {
+    // check internet
+    if (!navigator.onLine) {
+      alert(Dictionary.offline);
+      return;
+    }
+
+    const target = '_self';
+    this.inAppBrowser.create(url, target, this.constants.inAppBrowserOptions);
+  }
 }

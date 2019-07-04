@@ -42,7 +42,11 @@
   <div class="min-mt-14" *ngIf="dataHumas">
     <ion-item>
       <h5 class="bold" slot="start">Humas Jabar</h5>
-      <ion-button fill="clear" slot="end" color="success"
+      <ion-button
+        fill="clear"
+        slot="end"
+        color="success"
+        (click)="goTohumas(humas_URL)"
         >Lihat Semua</ion-button
       >
     </ion-item>
@@ -55,7 +59,10 @@
               >{{ humas.title | slice: 0:35
               }}{{ humas.title.length > 35 ? '...' : '' }}</ion-text
             >
-            <ion-button slot="end" class="blues-color" (click)="goTohumas()"
+            <ion-button
+              slot="end"
+              class="blues-color"
+              (click)="goTohumas(humas.url)"
               >Baca</ion-button
             >
           </ion-item>
@@ -76,7 +83,7 @@
       class="text-dark min-mt-5 ion-margin-bottom"
       *ngFor="let headline of dataNews"
     >
-      <ion-item>
+      <ion-item (click)="goToDetailNews(headline.id)">
         <ion-text class="mb-5"
           ><p class="bold headline-title">
             {{ headline.title | slice: 0:45
