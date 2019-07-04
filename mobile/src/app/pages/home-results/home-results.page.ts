@@ -241,11 +241,16 @@ export class HomeResultsPage implements OnInit {
     }
   }
 
-  // open browser
+  // open browser in app
   private launchweb(webUrl: string) {
     // check if the platform is ios or android, else open the web url
     this.platform.ready().then(() => {
-      this.inAppBrowser.create(webUrl, '_system');
+      const target = '_self';
+      this.inAppBrowser.create(
+        webUrl,
+        target,
+        this.constants.inAppBrowserOptions
+      );
     });
   }
 
@@ -259,6 +264,11 @@ export class HomeResultsPage implements OnInit {
   }
 
   goToDetailNews(id: number) {
+    // check internet
+    if (!navigator.onLine) {
+      alert(Dictionary.offline);
+      return;
+    }
     this.router.navigate(['/news', id]);
   }
 
@@ -296,6 +306,7 @@ export class HomeResultsPage implements OnInit {
       },
       err => {
         this.isLoading = false;
+        alert(Dictionary.check_internal);
       }
     );
   }
@@ -317,6 +328,7 @@ export class HomeResultsPage implements OnInit {
       },
       err => {
         this.isLoading = false;
+        alert(Dictionary.check_internal);
       }
     );
   }
@@ -328,7 +340,6 @@ export class HomeResultsPage implements OnInit {
       return;
     }
 
-    const target = '_self';
-    this.inAppBrowser.create(url, target, this.constants.inAppBrowserOptions);
+    this.launchweb(url);
   }
 }
