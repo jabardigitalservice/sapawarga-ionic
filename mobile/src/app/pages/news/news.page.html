@@ -19,7 +19,11 @@
     *ngIf="dataFeatured"
     (click)="goToDetailNews(dataFeatured[0].id)"
   >
-    <img [src]="dataFeatured[0]?.cover_path_url" class="img-head" />
+    <img
+      [src]="dataFeatured[0]?.cover_path_url"
+      onError="this.src='assets/img/placeholder_image.png';"
+      class="img-head"
+    />
     <div class="text-title card-title">
       {{ dataFeatured[0]?.title }}
     </div>
@@ -29,7 +33,11 @@
     <ion-row small class="text-dark">
       <ion-col size="6" no-padding *ngFor="let data of dataFeatured">
         <ion-card class="desc-featured" (click)="goToDetailNews(data.id)">
-          <img [src]="data?.cover_path_url" class="img-grid" />
+          <img
+            [src]="data?.cover_path_url"
+            onError="this.src='assets/img/placeholder_image.png';"
+            class="img-grid"
+          />
 
           <ion-card-content class="box-featured">
             <p class="text-dark text-featured box-text-featured">
@@ -41,6 +49,7 @@
             ><img
               [src]="data.channel.icon_url"
               class="source-icon"
+              onError="this.src='assets/img/placeholder_image.png';"
               alt="sumber"
             />
             {{ data.channel.name }}</ion-note
@@ -65,6 +74,7 @@
           ><img
             [src]="data.channel.icon_url"
             class="source-icon"
+            onError="this.src='assets/img/placeholder_image.png';"
             alt="sumber"
           />
           {{ data.channel.name }}</ion-note
@@ -73,6 +83,7 @@
       <img
         slot="end"
         [src]="data?.cover_path_url"
+        onError="this.src='assets/img/placeholder_image.png';"
         alt="icon"
         class="news-img"
       />
