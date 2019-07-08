@@ -62,13 +62,13 @@
 
           <ion-item class="list-headline-jabar">
             <ion-text class="title-humas"
-              >{{ humas.title | slice: 0:35
-              }}{{ humas.title.length > 35 ? '...' : '' }}</ion-text
+              >{{ humas.post_title | slice: 0:35
+              }}{{ humas.post_title.length > 35 ? '...' : '' }}</ion-text
             >
             <ion-button
               slot="end"
               class="blues-color"
-              (click)="goTohumas(humas.url)"
+              (click)="goTohumas(humas.slug)"
               >Baca</ion-button
             >
           </ion-item>

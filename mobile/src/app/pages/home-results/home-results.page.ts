@@ -319,17 +319,16 @@ export class HomeResultsPage implements OnInit {
     }
 
     this.isLoading = true;
-    this.newsService.getNewsHumas().subscribe(
-      res => {
-        if (res['status'] === 200) {
-          this.dataHumas = res['data']['items'];
-        }
+    this.newsService
+      .getDataNativeHttp()
+      .then(res => {
+        const respon = JSON.parse(res.data);
+        this.dataHumas = Object.values(respon);
         this.isLoading = false;
-      },
-      err => {
+      })
+      .catch(err => {
         this.isLoading = false;
-      }
-    );
+      });
   }
 
   goTohumas(url: string) {

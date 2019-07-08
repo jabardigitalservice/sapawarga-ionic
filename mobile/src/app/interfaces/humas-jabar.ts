@@ -1,8 +1,7 @@
 export interface HumasJabar {
-  id: number;
-  title: string;
+  ID: number;
+  post_title: string;
   thumbnail: string;
-  url: string;
-  created_at: number;
-  updated_at: number;
+  slug: string;
+  tgl_publish: number;
 }

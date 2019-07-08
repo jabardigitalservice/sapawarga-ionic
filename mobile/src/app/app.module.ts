@@ -29,6 +29,7 @@ import {
   FileTransfer,
   FileTransferObject
 } from '@ionic-native/file-transfer/ngx';
+import { HTTP } from '@ionic-native/http/ngx';
 @NgModule({
   declarations: [
     AppComponent,
@@ -60,7 +61,8 @@ import {
     File,
     Camera,
     InAppBrowser,
-    Constants
+    Constants,
+    HTTP
   ],
   bootstrap: [AppComponent]
 })
