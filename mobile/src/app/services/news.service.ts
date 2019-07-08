@@ -39,7 +39,7 @@ export class NewsService {
 
   getNewsHumas(): Observable<HumasJabar[]> {
     return this.http
-      .get<HumasJabar[]>(`${environment.API_MOCK}/news-jabar`)
+      .get<HumasJabar[]>(`${environment.API_URL}/news-jabar`)
       .pipe(catchError(this.handleError));
   }
 
@@ -55,6 +55,6 @@ export class NewsService {
       );
     }
     // return an observable with a user-facing error message
-    return throwError(error.error);
+    return throwError(error);
   }
 }

@@ -328,7 +328,6 @@ export class HomeResultsPage implements OnInit {
       },
       err => {
         this.isLoading = false;
-        alert(Dictionary.check_internal);
       }
     );
   }
