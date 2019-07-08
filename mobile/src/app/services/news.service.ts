@@ -55,6 +55,6 @@ export class NewsService {
       );
     }
     // return an observable with a user-facing error message
-    return throwError(error.error);
+    return throwError(error);
   }
 }
