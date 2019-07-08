@@ -1,16 +1,23 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
+import { Observable, throwError, from } from 'rxjs';
 import { News } from '../interfaces/news';
-import { catchError } from 'rxjs/operators';
+import { catchError, finalize } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 import { HumasJabar } from '../interfaces/humas-jabar';
+import { HTTP } from '@ionic-native/http/ngx';
+import { Platform } from '@ionic/angular';
 
+const URL_HUMAS = 'http://humas.jabarprov.go.id/api/berita-terkini';
 @Injectable({
   providedIn: 'root'
 })
 export class NewsService {
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private nativeHttp: HTTP,
+    private platform: Platform
+  ) {}
 
   getListNews(page: number): Observable<News[]> {
     return this.http
@@ -41,6 +48,14 @@ export class NewsService {
     return this.http
       .get<HumasJabar[]>(`${environment.API_URL}/news-jabar`)
       .pipe(catchError(this.handleError));
+  }
+
+  getDataNativeHttp() {
+    return this.nativeHttp.get(
+      URL_HUMAS,
+      {},
+      { 'Content-Type': 'application/json' }
+    );
   }
 
   private handleError(error: HttpErrorResponse) {
