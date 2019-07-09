@@ -271,6 +271,12 @@ export class HomeResultsPage implements OnInit {
       alert(Dictionary.offline);
       return;
     }
+
+    if (this.isLoading.news) {
+      alert(Dictionary.terjadi_kesalahan);
+      return;
+    }
+
     this.navCtrl.navigateForward('news');
   }
 
@@ -370,6 +376,11 @@ export class HomeResultsPage implements OnInit {
     // check internet
     if (!navigator.onLine) {
       alert(Dictionary.offline);
+      return;
+    }
+
+    if (this.isLoading.humas) {
+      alert(Dictionary.terjadi_kesalahan);
       return;
     }
 
