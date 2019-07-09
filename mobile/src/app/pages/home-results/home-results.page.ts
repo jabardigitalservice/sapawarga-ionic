@@ -58,6 +58,10 @@ export class HomeResultsPage implements OnInit {
   dataHumas: HumasJabar[];
   humas_URL = 'http://humas.jabarprov.go.id/terkini';
 
+  // name local storage
+  NEWS = 'news-headlines';
+  HUMAS = 'humas-headlines';
+
   constructor(
     public navCtrl: NavController,
     private platform: Platform,
@@ -299,7 +303,12 @@ export class HomeResultsPage implements OnInit {
   getNewsFeatured() {
     // check internet
     if (!navigator.onLine) {
-      alert(Dictionary.offline);
+      // get local
+      if (this.newsService.getLocal(this.NEWS)) {
+        this.dataNews = JSON.parse(this.newsService.getLocal(this.NEWS));
+      } else {
+        alert(Dictionary.offline);
+      }
       return;
     }
 
@@ -308,12 +317,18 @@ export class HomeResultsPage implements OnInit {
       res => {
         if (res['status'] === 200 && res['data']['items'].length) {
           this.dataNews = res['data']['items'];
+          // save to local
+          this.newsService.saveLocal(this.NEWS, this.dataNews);
           this.isLoading.news = false;
         }
       },
       err => {
         setTimeout(() => {
           alert(Dictionary.check_internal);
+          // get local
+          if (this.newsService.getLocal(this.NEWS)) {
+            this.dataNews = JSON.parse(this.newsService.getLocal(this.NEWS));
+          }
         }, 3000);
       }
     );
@@ -322,7 +337,12 @@ export class HomeResultsPage implements OnInit {
   getDataHumas() {
     // check internet
     if (!navigator.onLine) {
-      alert(Dictionary.offline);
+      // get local
+      if (this.newsService.getLocal(this.HUMAS)) {
+        this.dataHumas = JSON.parse(this.newsService.getLocal(this.HUMAS));
+      } else {
+        alert(Dictionary.offline);
+      }
       return;
     }
 
@@ -333,10 +353,17 @@ export class HomeResultsPage implements OnInit {
         if (res) {
           const respon = JSON.parse(res.data);
           this.dataHumas = Object.values(respon);
+          // save to local
+          this.newsService.saveLocal(this.HUMAS, this.dataHumas);
           this.isLoading.humas = false;
         }
       })
-      .catch(err => {});
+      .catch(err => {
+        // get local
+        if (this.newsService.getLocal(this.HUMAS)) {
+          this.dataHumas = JSON.parse(this.newsService.getLocal(this.HUMAS));
+        }
+      });
   }
 
   goTohumas(url: string) {

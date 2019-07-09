@@ -58,6 +58,16 @@ export class NewsService {
     );
   }
 
+  // save data headlines into local storage
+  saveLocal(name: string, data: object) {
+    localStorage.setItem(name, JSON.stringify(data));
+  }
+
+  // get data headlines into local storage
+  getLocal(name: string) {
+    return localStorage.getItem(name) ? localStorage.getItem(name) : '';
+  }
+
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
       // A client-side or network error occurred. Handle it accordingly.
