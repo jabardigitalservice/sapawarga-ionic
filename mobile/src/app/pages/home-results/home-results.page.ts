@@ -49,7 +49,11 @@ export class HomeResultsPage implements OnInit {
   };
 
   unreadNotif: 0;
-  isLoading = false;
+  // isLoading = false;
+  isLoading = {
+    humas: false,
+    news: false
+  };
   dataNews: News[];
   dataHumas: HumasJabar[];
   humas_URL = 'http://humas.jabarprov.go.id/terkini';
@@ -148,7 +152,10 @@ export class HomeResultsPage implements OnInit {
 
   ionViewWillLeave() {
     window.clearInterval(this.interval);
-    this.isLoading = false;
+    this.isLoading = {
+      humas: false,
+      news: false
+    };
   }
 
   // Go to layanan
@@ -296,17 +303,18 @@ export class HomeResultsPage implements OnInit {
       return;
     }
 
-    this.isLoading = true;
+    this.isLoading.news = true;
     this.newsService.getNewsFeatured(3).subscribe(
       res => {
-        if (res['status'] === 200) {
+        if (res['status'] === 200 && res['data']['items'].length) {
           this.dataNews = res['data']['items'];
+          this.isLoading.news = false;
         }
-        this.isLoading = false;
       },
       err => {
-        this.isLoading = false;
-        alert(Dictionary.check_internal);
+        setTimeout(() => {
+          alert(Dictionary.check_internal);
+        }, 3000);
       }
     );
   }
@@ -318,17 +326,17 @@ export class HomeResultsPage implements OnInit {
       return;
     }
 
-    this.isLoading = true;
+    this.isLoading.humas = true;
     this.newsService
       .getDataNativeHttp()
       .then(res => {
-        const respon = JSON.parse(res.data);
-        this.dataHumas = Object.values(respon);
-        this.isLoading = false;
+        if (res) {
+          const respon = JSON.parse(res.data);
+          this.dataHumas = Object.values(respon);
+          this.isLoading.humas = false;
+        }
       })
-      .catch(err => {
-        this.isLoading = false;
-      });
+      .catch(err => {});
   }
 
   goTohumas(url: string) {

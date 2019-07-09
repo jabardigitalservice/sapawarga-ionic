@@ -35,10 +35,6 @@
     </ion-col>
   </ion-row>
 
-  <div text-center class="ion-margin-bottom ion-margin-top" *ngIf="!dataNews">
-    <img src="assets/icon/loading.svg" alt="loading" *ngIf="isLoading" />
-  </div>
-
   <div class="min-mt-14">
     <ion-item>
       <h5 class="bold" slot="start">Humas Jabar</h5>
@@ -52,7 +48,7 @@
     </ion-item>
 
     <!-- Skeleton screen humas jabar -->
-    <div padding class="min-mt-5">
+    <div padding class="min-mt-5" *ngIf="isLoading.humas">
       <ion-thumbnail
         slot="end"
         alt="icon"
@@ -110,7 +106,10 @@
     </ion-item>
 
     <!-- Skeleton screen news -->
-    <ion-card class="text-dark min-mt-5 ion-margin-bottom">
+    <ion-card
+      class="text-dark min-mt-5 ion-margin-bottom"
+      *ngIf="isLoading.news"
+    >
       <ion-item>
         <ion-text class="mb-5" style="width: 90%;">
           <ion-skeleton-text
