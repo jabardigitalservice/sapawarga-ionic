@@ -37,8 +37,10 @@ export enum Dictionary {
   complete_sosmed = 'Mohon lengkapi akun sosial media anda',
 
   // login message
-  forgot_password = 'Tuliskan email anda untuk mengatur ulang kata sandi',
+  // tslint:disable-next-line:max-line-length
+  forgot_password = 'Anda dapat menghubungi Call Center Sapawarga <strong>08103848327</strong> atau menghubungi email berikut <strong>jabargital@gmail.com</strong>',
   success_forgot_password = 'Email was sended successfully.',
   disconnected = 'network was disconnected :-(',
-  confirmation_login = 'Pastikan input data terisi dengan benar'
+  confirmation_login = 'Pastikan input data terisi dengan benar',
+  hak_cipta = 'Hak Cipta Pemerintah Provinsi Jawa Barat 2019'
 }

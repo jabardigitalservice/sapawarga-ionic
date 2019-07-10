@@ -27,6 +27,7 @@ export class LoginPage implements OnInit {
   type = 'password';
   passwordShown = false;
   token_fcm: string;
+  hakCipta = Dictionary.hak_cipta;
 
   public app_version = environment.VERSION_APP;
   constructor(
@@ -78,41 +79,7 @@ export class LoginPage implements OnInit {
     const alert = await this.alertCtrl.create({
       header: 'Lupa Kata Sandi?',
       message: Dictionary.forgot_password,
-      inputs: [
-        {
-          name: 'email',
-          type: 'email',
-          placeholder: 'Email'
-        }
-      ],
-      buttons: [
-        {
-          text: 'Batal',
-          role: 'batal',
-          cssClass: 'secondary',
-          handler: () => {}
-        },
-        {
-          text: 'Konfirmasi',
-          handler: async () => {
-            const loader = await this.loadingCtrl.create({
-              duration: 2000
-            });
-
-            loader.present();
-            loader.onWillDismiss().then(async l => {
-              const toast = await this.toastCtrl.create({
-                showCloseButton: true,
-                message: Dictionary.success_forgot_password,
-                duration: 3000,
-                position: 'bottom'
-              });
-
-              toast.present();
-            });
-          }
-        }
-      ]
+      buttons: ['OK']
     });
 
     await alert.present();
