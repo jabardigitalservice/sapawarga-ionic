@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-bantuan',
@@ -9,9 +10,10 @@ export class BantuanPage implements OnInit {
   @ViewChild('content') private content: any;
 
   public items: any = [];
-  constructor() {
+  constructor(private route: ActivatedRoute) {
     this.items = [
       {
+        id: 1,
         title: 'Bagaimana caranya masuk ke akun Sapawarga saya?',
         description:
           // tslint:disable-next-line:max-line-length
@@ -19,6 +21,7 @@ export class BantuanPage implements OnInit {
         expanded: false
       },
       {
+        id: 2,
         title: 'Bagaimana cara melihat nomor penting di sekitar lokasi saya?',
         description:
           // tslint:disable-next-line:max-line-length
@@ -26,6 +29,7 @@ export class BantuanPage implements OnInit {
         expanded: false
       },
       {
+        id: 3,
         title: 'Bagaimana cara melihat detail lokasi pada nomor penting? ',
         description:
           // tslint:disable-next-line:max-line-length
@@ -33,6 +37,7 @@ export class BantuanPage implements OnInit {
         expanded: false
       },
       {
+        id: 4,
         title: 'Bagaimana cara memperbarui profil akun saya?  ',
         description:
           // tslint:disable-next-line:max-line-length
@@ -40,6 +45,7 @@ export class BantuanPage implements OnInit {
         expanded: false
       },
       {
+        id: 5,
         title: 'Bagaimana cara memperbarui aspirasi yang sudah dibuat?',
         description:
           // tslint:disable-next-line:max-line-length
@@ -47,12 +53,13 @@ export class BantuanPage implements OnInit {
         expanded: false
       },
       {
+        id: 6,
         title:
           'Bagaimana jika ada kendala tidak dapat mengakses fitur pada Aplikasi Sapawarga?',
         description:
           // tslint:disable-next-line:max-line-length
           '<p>Jawab :</p> <p>Ada dapat menghubungi call center dengan  <a href="tel:08103848327"><strong>08103848327</strong></a>  atau menghubungi email berikut  <a href="mailto:digital.service@jabarprov.go.id"><strong>digital.service@jabarprov.go.id</strong></a></p>',
-        expanded: true
+        expanded: false
       }
     ];
   }
@@ -60,8 +67,13 @@ export class BantuanPage implements OnInit {
   ngOnInit() {}
 
   ionViewDidEnter() {
-    console.log('masuk');
-    this.scrollToBottomOnInit();
+    this.route.queryParamMap.subscribe(params => {
+      if (params['params']['data']) {
+        const infoError = this.items.find(x => x.id === 6);
+        this.expandItem(infoError);
+        this.scrollToBottomOnInit();
+      }
+    });
   }
 
   expandItem(item): void {
