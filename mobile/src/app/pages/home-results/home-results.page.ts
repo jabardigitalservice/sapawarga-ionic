@@ -49,10 +49,18 @@ export class HomeResultsPage implements OnInit {
   };
 
   unreadNotif: 0;
-  isLoading = false;
+  // isLoading = false;
+  isLoading = {
+    humas: false,
+    news: false
+  };
   dataNews: News[];
   dataHumas: HumasJabar[];
   humas_URL = 'http://humas.jabarprov.go.id/terkini';
+
+  // name local storage
+  NEWS = 'news-headlines';
+  HUMAS = 'humas-headlines';
 
   constructor(
     public navCtrl: NavController,
@@ -148,7 +156,10 @@ export class HomeResultsPage implements OnInit {
 
   ionViewWillLeave() {
     window.clearInterval(this.interval);
-    this.isLoading = false;
+    this.isLoading = {
+      humas: false,
+      news: false
+    };
   }
 
   // Go to layanan
@@ -260,6 +271,12 @@ export class HomeResultsPage implements OnInit {
       alert(Dictionary.offline);
       return;
     }
+
+    if (this.isLoading.news) {
+      alert(Dictionary.terjadi_kesalahan);
+      return;
+    }
+
     this.navCtrl.navigateForward('news');
   }
 
@@ -292,21 +309,33 @@ export class HomeResultsPage implements OnInit {
   getNewsFeatured() {
     // check internet
     if (!navigator.onLine) {
-      alert(Dictionary.offline);
+      // get local
+      if (this.newsService.getLocal(this.NEWS)) {
+        this.dataNews = JSON.parse(this.newsService.getLocal(this.NEWS));
+      } else {
+        alert(Dictionary.offline);
+      }
       return;
     }
 
-    this.isLoading = true;
+    this.isLoading.news = true;
     this.newsService.getNewsFeatured(3).subscribe(
       res => {
-        if (res['status'] === 200) {
+        if (res['status'] === 200 && res['data']['items'].length) {
           this.dataNews = res['data']['items'];
+          // save to local
+          this.newsService.saveLocal(this.NEWS, this.dataNews);
+          this.isLoading.news = false;
         }
-        this.isLoading = false;
       },
       err => {
-        this.isLoading = false;
-        alert(Dictionary.check_internal);
+        setTimeout(() => {
+          alert(Dictionary.check_internal);
+          // get local
+          if (this.newsService.getLocal(this.NEWS)) {
+            this.dataNews = JSON.parse(this.newsService.getLocal(this.NEWS));
+          }
+        }, 3000);
       }
     );
   }
@@ -314,20 +343,32 @@ export class HomeResultsPage implements OnInit {
   getDataHumas() {
     // check internet
     if (!navigator.onLine) {
-      alert(Dictionary.offline);
+      // get local
+      if (this.newsService.getLocal(this.HUMAS)) {
+        this.dataHumas = JSON.parse(this.newsService.getLocal(this.HUMAS));
+      } else {
+        alert(Dictionary.offline);
+      }
       return;
     }
 
-    this.isLoading = true;
+    this.isLoading.humas = true;
     this.newsService
       .getDataNativeHttp()
       .then(res => {
-        const respon = JSON.parse(res.data);
-        this.dataHumas = Object.values(respon);
-        this.isLoading = false;
+        if (res) {
+          const respon = JSON.parse(res.data);
+          this.dataHumas = Object.values(respon);
+          // save to local
+          this.newsService.saveLocal(this.HUMAS, this.dataHumas);
+          this.isLoading.humas = false;
+        }
       })
       .catch(err => {
-        this.isLoading = false;
+        // get local
+        if (this.newsService.getLocal(this.HUMAS)) {
+          this.dataHumas = JSON.parse(this.newsService.getLocal(this.HUMAS));
+        }
       });
   }
 
@@ -335,6 +376,11 @@ export class HomeResultsPage implements OnInit {
     // check internet
     if (!navigator.onLine) {
       alert(Dictionary.offline);
+      return;
+    }
+
+    if (this.isLoading.humas) {
+      alert(Dictionary.terjadi_kesalahan);
       return;
     }
 
