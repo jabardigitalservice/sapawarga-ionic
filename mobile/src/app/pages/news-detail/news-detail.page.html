@@ -8,7 +8,11 @@
 </ion-header>
 
 <ion-content *ngIf="dataNews">
-  <img [src]="dataNews.cover_path_url" class="img-news" />
+  <img
+    [src]="dataNews.cover_path_url"
+    onError="this.src='assets/img/placeholder_image.png';"
+    class="img-news"
+  />
 
   <div padding class="box-shadow">
     <div class="card-title">
@@ -21,7 +25,7 @@
           ><img
             [src]="dataNews.channel.icon_url"
             class="source-icon"
-            onError="this.src='assets/img/placeholder_image.png';"
+            onError="this.src='assets/img/placeholder_image_portrait.png';"
             alt="sumber"
           />
           {{ dataNews.channel.name }} <br />
@@ -66,7 +70,7 @@
             ><img
               [src]="news.channel.icon_url"
               class="source-icon-more"
-              onError="this.src='assets/img/placeholder_image.png';"
+              onError="this.src='assets/img/placeholder_image_portrait.png';"
               alt="sumber"
             />
             {{ news.channel.name }}</ion-note
@@ -75,7 +79,7 @@
         <img
           slot="end"
           [src]="news.cover_path_url"
-          onError="this.src='assets/img/placeholder_image.png';"
+          onError="this.src='assets/img/placeholder_image_portrait.png';"
           alt="icon"
           class="headlines-img-more"
         />

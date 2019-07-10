@@ -11,7 +11,7 @@ export class LaporPage implements OnInit {
   contentsLapor = [
     {
       nameInit: 'lapor',
-      name: 'Lapor via Website',
+      name: 'Laporan via Lapor',
       url: 'https://www.lapor.go.id',
       logo: 'assets/icon/lapor-icon.jpg',
       description:
@@ -19,17 +19,8 @@ export class LaporPage implements OnInit {
         'Sarana aspirasi dan pengaduan berbasis media sosial bertujuan agar masyarakat dapat berpartisipasi untuk pengawasan program dan kinerja pemerintah dalam penyelenggaraan pembangunan dan pelayanan publik.'
     },
     {
-      nameInit: 'qlue',
-      name: 'Lapor via Qlue',
-      url: 'org.qluein.android',
-      logo: 'assets/icon/lapor-qlue.jpg',
-      description:
-        // tslint:disable-next-line:max-line-length
-        'Aplikasi media sosial untuk melaporkan permasalahan kota kepada pemerintah, pihak swasta ataupun saling berbagi informasi sesama warga di lingkungan sekitar. Anda bisa membuat laporan berupa keluhan atau masukan untuk pemerintah dan swasta.'
-    },
-    {
       nameInit: 'jqr',
-      name: 'Lapor via Jabar Quick Respon',
+      name: 'Laporan via Jabar Quick Response',
       url: 'https://jabarqr.id',
       logo: 'assets/icon/jqr.png',
       description:
