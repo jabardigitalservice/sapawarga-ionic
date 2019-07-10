@@ -27,10 +27,13 @@
 <ion-content>
   <!-- list telepon -->
   <div>
-    <ion-item *ngIf="!msgResponse.type">
+    <ion-item>
       <ion-label>Filter</ion-label>
-      <ion-select (ionChange)="filterAreas($event.detail.value)">
-        <ion-select-option value="kabkota_id {{ kabkota_id }}" selected
+      <ion-select
+        placeholder="Pilih Filter"
+        (ionChange)="filterAreas($event.detail.value)"
+      >
+        <ion-select-option value="kabkota_id {{ kabkota_id }}"
           >Kab/Kota</ion-select-option
         >
         <ion-select-option value="kec_id {{ kecamatan_id }}"

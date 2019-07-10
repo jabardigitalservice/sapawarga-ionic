@@ -177,6 +177,10 @@ export class NomorPentingPage implements OnInit {
     });
     loader.present();
 
+    this.msgResponse = {
+      type: '',
+      msg: ''
+    };
     this.dataEmpty = false;
 
     this.nomorPentingService.filterNomorPenting(type, id).subscribe(
