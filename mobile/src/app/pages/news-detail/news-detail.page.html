@@ -17,7 +17,7 @@
 
     <ion-item class="mt-5 mb-5">
       <ion-text>
-        <ion-note class="source-title" (click)="source_url(dataNews.source_url)"
+        <ion-note class="source-title"
           ><img
             [src]="dataNews.channel.icon_url"
             class="source-icon"
@@ -35,6 +35,13 @@
 
   <div class="news-other">
     <div padding>
+      <ion-button
+        expand="full"
+        class="mb-5 mt-5 bg-white"
+        (click)="source_url(dataNews.source_url)"
+        >Sumber Asli</ion-button
+      >
+
       <ion-button
         expand="full"
         class="mb-5 mt-5 bg-white"
