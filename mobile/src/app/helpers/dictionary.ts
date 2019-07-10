@@ -38,7 +38,7 @@ export enum Dictionary {
 
   // login message
   // tslint:disable-next-line:max-line-length
-  forgot_password = 'Anda dapat menghubungi Call Center Sapawarga <strong>08103848327</strong> atau menghubungi email berikut <strong>jabargital@gmail.com</strong>',
+  forgot_password = 'Anda dapat menghubungi Call Center Sapawarga <a href="tel:08103848327"><strong>08103848327</strong></a>  atau menghubungi email berikut  <a href="mailto:jabargital@gmail.com"><strong>jabargital@gmail.com</strong></a>',
   success_forgot_password = 'Email was sended successfully.',
   disconnected = 'network was disconnected :-(',
   confirmation_login = 'Pastikan input data terisi dengan benar',
