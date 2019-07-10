@@ -10,7 +10,7 @@ import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 export class OnboardingPage implements OnInit {
   slides = [
     {
-      title: 'Selamat datang di Sapa Warga',
+      title: 'Selamat datang di Sapawarga',
       description: 'Menghubungkan Anda dengan Pemerintah Provinsi Jawa Barat',
       titleColor: '#000000'
     },
