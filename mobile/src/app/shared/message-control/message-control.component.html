@@ -5,7 +5,10 @@
     {{ message }}
   </p>
 
-  <ion-button class="blues-color" (click)="goToHelp(true)"
+  <ion-button
+    class="blues-color"
+    *ngIf="type === 'server-error'"
+    (click)="goToHelp(true)"
     >Akses Bantuan</ion-button
   >
 </div>

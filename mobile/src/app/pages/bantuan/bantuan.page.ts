@@ -10,6 +10,14 @@ export class BantuanPage implements OnInit {
   constructor() {
     this.items = [
       {
+        title:
+          'Bagaimana jika ada kendala tidak dapat mengakses fitur pada Aplikasi Sapawarga?',
+        description:
+          // tslint:disable-next-line:max-line-length
+          '<p>Jawab :</p> <p>Ada dapat menghubungi call center dengan  <a href="tel:08103848327"><strong>08103848327</strong></a>  atau menghubungi email berikut  <a href="mailto:digital.service@jabarprov.go.id"><strong>digital.service@jabarprov.go.id</strong></a></p>',
+        expanded: false
+      },
+      {
         title: 'Bagaimana caranya masuk ke akun Sapawarga saya?',
         description:
           // tslint:disable-next-line:max-line-length
