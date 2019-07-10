@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-bantuan',
@@ -6,17 +6,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./bantuan.page.scss']
 })
 export class BantuanPage implements OnInit {
+  @ViewChild('content') private content: any;
+
   public items: any = [];
   constructor() {
     this.items = [
-      {
-        title:
-          'Bagaimana jika ada kendala tidak dapat mengakses fitur pada Aplikasi Sapawarga?',
-        description:
-          // tslint:disable-next-line:max-line-length
-          '<p>Jawab :</p> <p>Ada dapat menghubungi call center dengan  <a href="tel:08103848327"><strong>08103848327</strong></a>  atau menghubungi email berikut  <a href="mailto:digital.service@jabarprov.go.id"><strong>digital.service@jabarprov.go.id</strong></a></p>',
-        expanded: false
-      },
       {
         title: 'Bagaimana caranya masuk ke akun Sapawarga saya?',
         description:
@@ -51,11 +45,24 @@ export class BantuanPage implements OnInit {
           // tslint:disable-next-line:max-line-length
           '<p>Jawab :</p> <p>Aspirasi yang telah dibuat dapat diperbarui atau diperbaiki jika statusnya adalah Draft. Caranya:</p> <p>1. Pilih menu Aspirasi</p> <p>2. Pilih menu Aspirasi pribadi</p> <p>3. Pilih aspirasi yang ingin diperbaiki (status aspirasi draft).</p>',
         expanded: false
+      },
+      {
+        title:
+          'Bagaimana jika ada kendala tidak dapat mengakses fitur pada Aplikasi Sapawarga?',
+        description:
+          // tslint:disable-next-line:max-line-length
+          '<p>Jawab :</p> <p>Ada dapat menghubungi call center dengan  <a href="tel:08103848327"><strong>08103848327</strong></a>  atau menghubungi email berikut  <a href="mailto:digital.service@jabarprov.go.id"><strong>digital.service@jabarprov.go.id</strong></a></p>',
+        expanded: true
       }
     ];
   }
 
   ngOnInit() {}
+
+  ionViewDidEnter() {
+    console.log('masuk');
+    this.scrollToBottomOnInit();
+  }
 
   expandItem(item): void {
     if (item.expanded) {
@@ -70,5 +77,9 @@ export class BantuanPage implements OnInit {
         return listItem;
       });
     }
+  }
+
+  scrollToBottomOnInit() {
+    this.content.scrollToBottom(300);
   }
 }
