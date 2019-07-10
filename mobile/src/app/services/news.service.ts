@@ -44,18 +44,22 @@ export class NewsService {
       .pipe(catchError(this.handleError));
   }
 
-  getNewsHumas(): Observable<HumasJabar[]> {
-    return this.http
-      .get<HumasJabar[]>(`${environment.API_URL}/news-jabar`)
-      .pipe(catchError(this.handleError));
-  }
-
   getDataNativeHttp() {
     return this.nativeHttp.get(
       URL_HUMAS,
       {},
       { 'Content-Type': 'application/json' }
     );
+  }
+
+  // save data headlines into local storage
+  saveLocal(name: string, data: object) {
+    localStorage.setItem(name, JSON.stringify(data));
+  }
+
+  // get data headlines into local storage
+  getLocal(name: string) {
+    return localStorage.getItem(name) ? localStorage.getItem(name) : '';
   }
 
   private handleError(error: HttpErrorResponse) {
