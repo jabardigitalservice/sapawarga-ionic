@@ -156,10 +156,6 @@ export class HomeResultsPage implements OnInit {
 
   ionViewWillLeave() {
     window.clearInterval(this.interval);
-    this.isLoading = {
-      humas: false,
-      news: false
-    };
   }
 
   // Go to layanan
