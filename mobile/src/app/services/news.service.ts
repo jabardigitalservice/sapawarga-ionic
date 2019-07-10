@@ -44,12 +44,6 @@ export class NewsService {
       .pipe(catchError(this.handleError));
   }
 
-  getNewsHumas(): Observable<HumasJabar[]> {
-    return this.http
-      .get<HumasJabar[]>(`${environment.API_URL}/news-jabar`)
-      .pipe(catchError(this.handleError));
-  }
-
   getDataNativeHttp() {
     return this.nativeHttp.get(
       URL_HUMAS,
