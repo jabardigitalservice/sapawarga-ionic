@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-message-control',
@@ -9,7 +10,11 @@ export class MessageControlComponent implements OnInit {
   @Input() type: string;
   @Input() message: string;
 
-  constructor() {}
+  constructor(private navCtrl: NavController) {}
 
   ngOnInit() {}
+
+  goToHelp(data: boolean) {
+    this.navCtrl.navigateForward('tabs/bantuan');
+  }
 }
