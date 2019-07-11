@@ -13,6 +13,7 @@ import { environment } from '../../../environments/environment';
 import { Network } from '@ionic-native/network/ngx';
 import { FCM } from '@ionic-native/fcm/ngx';
 import { Dictionary } from '../../helpers/dictionary';
+import { AppVersion } from '@ionic-native/app-version/ngx';
 
 @Component({
   selector: 'app-login',
@@ -29,7 +30,7 @@ export class LoginPage implements OnInit {
   token_fcm: string;
   hakCipta = Dictionary.hak_cipta;
 
-  public app_version = environment.VERSION_APP;
+  public app_version = null;
   constructor(
     public navCtrl: NavController,
     public menuCtrl: MenuController,
@@ -40,8 +41,17 @@ export class LoginPage implements OnInit {
     private auth: AuthService,
     public router: Router,
     private network: Network,
-    private fcm: FCM
-  ) {}
+    private fcm: FCM,
+    public appVersion: AppVersion
+  ) {
+    // this.app_version = appVersion.getVersionNumber();
+    this.appVersion
+      .getVersionNumber()
+      .then(res => {
+        this.app_version = res;
+      })
+      .catch(err => {});
+  }
 
   public showPassword() {
     this.passwordShown = !this.passwordShown;

@@ -26,6 +26,7 @@
     "@angular/platform-browser-dynamic": "^7.2.2",
     "@angular/router": "^7.2.2",
     "@ionic-native/app-availability": "^5.3.0",
+    "@ionic-native/app-version": "^5.9.0",
     "@ionic-native/call-number": "^5.4.0",
     "@ionic-native/camera": "^5.3.0",
     "@ionic-native/core": "^5.0.0",
@@ -50,6 +51,7 @@
     "com.lampa.startapp": "^6.1.6",
     "cordova-android": "7.1.4",
     "cordova-open-native-settings": "^1.5.2",
+    "cordova-plugin-app-version": "0.1.9",
     "cordova-plugin-appavailability": "^0.4.2",
     "cordova-plugin-camera": "^4.0.3",
     "cordova-plugin-device": "^2.0.2",
@@ -141,7 +143,8 @@
       },
       "cordova-plugin-fcm-with-dependecy-updated": {},
       "cordova-plugin-screen-orientation": {},
-      "cordova-plugin-advanced-http": {}
+      "cordova-plugin-advanced-http": {},
+      "cordova-plugin-app-version": {}
     }
   }
 }
