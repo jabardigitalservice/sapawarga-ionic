@@ -58,7 +58,7 @@ export class BantuanPage implements OnInit {
           'Bagaimana jika ada kendala tidak dapat mengakses fitur pada Aplikasi Sapawarga?',
         description:
           // tslint:disable-next-line:max-line-length
-          '<p>Jawab :</p> <p>Ada dapat menghubungi call center dengan  <a href="tel:08103848327"><strong>08103848327</strong></a>  atau menghubungi email berikut  <a href="mailto:digital.service@jabarprov.go.id"><strong>digital.service@jabarprov.go.id</strong></a></p>',
+          '<p>Jawab :</p> <p>Ada dapat menghubungi call center dengan nomor <a href="tel:08943091801"><strong>08943091801</strong></a> atau melalui email <a href="mailto:digital.service@jabarprov.go.id"><strong>digital.service@jabarprov.go.id</strong></a></p>',
         expanded: false
       }
     ];
@@ -69,9 +69,11 @@ export class BantuanPage implements OnInit {
   ionViewDidEnter() {
     this.route.queryParamMap.subscribe(params => {
       if (params['params']['data']) {
-        const infoError = this.items.find(x => x.id === 6);
+        const infoError = this.items.find((x: any) => x.id === 6);
         this.expandItem(infoError);
-        this.scrollToBottomOnInit();
+        setTimeout(() => {
+          this.scrollToBottomOnInit();
+        }, 500);
       }
     });
   }
@@ -92,6 +94,6 @@ export class BantuanPage implements OnInit {
   }
 
   scrollToBottomOnInit() {
-    this.content.scrollToBottom(300);
+    this.content.scrollToBottom(500);
   }
 }
