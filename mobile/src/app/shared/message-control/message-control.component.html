@@ -4,4 +4,11 @@
   <p class="section">
     {{ message }}
   </p>
+
+  <ion-button
+    class="blues-color"
+    *ngIf="type === 'server-error'"
+    (click)="goToHelp(true)"
+    >Akses Bantuan</ion-button
+  >
 </div>

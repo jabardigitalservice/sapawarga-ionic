@@ -330,6 +330,7 @@ export class HomeResultsPage implements OnInit {
           // get local
           if (this.newsService.getLocal(this.NEWS)) {
             this.dataNews = JSON.parse(this.newsService.getLocal(this.NEWS));
+            this.isLoading.news = false;
           }
         }, 3000);
       }
@@ -364,6 +365,7 @@ export class HomeResultsPage implements OnInit {
         // get local
         if (this.newsService.getLocal(this.HUMAS)) {
           this.dataHumas = JSON.parse(this.newsService.getLocal(this.HUMAS));
+          this.isLoading.humas = false;
         }
       });
   }
