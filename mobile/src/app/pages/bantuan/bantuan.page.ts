@@ -58,7 +58,7 @@ export class BantuanPage implements OnInit {
           'Bagaimana jika ada kendala tidak dapat mengakses fitur pada Aplikasi Sapawarga?',
         description:
           // tslint:disable-next-line:max-line-length
-          '<p>Jawab :</p> <p>Ada dapat menghubungi call center dengan nomor <a href="tel:08943091801"><strong>08943091801</strong></a> atau melalui email <a href="mailto:digital.service@jabarprov.go.id"><strong>digital.service@jabarprov.go.id</strong></a></p>',
+          '<p>Jawab :</p> <p>Anda dapat menghubungi call center dengan nomor <a href="tel:08943091801"><strong>08943091801</strong></a> atau melalui email <a href="mailto:digital.service@jabarprov.go.id"><strong>digital.service@jabarprov.go.id</strong></a></p>',
         expanded: false
       }
     ];
