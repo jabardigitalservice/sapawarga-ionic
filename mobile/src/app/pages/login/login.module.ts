@@ -6,6 +6,9 @@ import { IonicModule } from '@ionic/angular';
 
 import { LoginPage } from './login.page';
 
+// plugin
+import { AppVersion } from '@ionic-native/app-version/ngx';
+
 const routes: Routes = [
   {
     path: '',
@@ -21,6 +24,7 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes)
   ],
+  providers: [AppVersion],
   declarations: [LoginPage]
 })
 export class LoginPageModule {}
