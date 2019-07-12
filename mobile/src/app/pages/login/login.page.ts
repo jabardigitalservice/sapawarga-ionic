@@ -44,7 +44,6 @@ export class LoginPage implements OnInit {
     private fcm: FCM,
     public appVersion: AppVersion
   ) {
-    // this.app_version = appVersion.getVersionNumber();
     this.appVersion
       .getVersionNumber()
       .then(res => {
