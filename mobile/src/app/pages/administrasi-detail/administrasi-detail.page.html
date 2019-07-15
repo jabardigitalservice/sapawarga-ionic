@@ -1,12 +1,12 @@
 <ion-header>
-    <ion-toolbar color="light">
-      <ion-buttons slot="start">
-        <ion-back-button></ion-back-button>
-      </ion-buttons>
-      <ion-title>Detail Administrasi</ion-title>
-    </ion-toolbar>
-  </ion-header>
-  
+  <ion-toolbar color="light">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Detail Administrasi</ion-title>
+  </ion-toolbar>
+</ion-header>
+
 <ion-content>
   <ion-card>
     <ion-card-header>
@@ -14,6 +14,11 @@
         {{ record['title'] }}
       </ion-card-title>
     </ion-card-header>
-    <div class="administration-detail" [innerHtml] = "record['detail']"></div>
+    <div class="administration-detail" [innerHtml]="record['detail']"></div>
+    <div padding>
+      <ion-button expand="full" color="success" (click)="goToInstantion()"
+        >Menuju {{ record['name'] }}</ion-button
+      >
+    </div>
   </ion-card>
 </ion-content>

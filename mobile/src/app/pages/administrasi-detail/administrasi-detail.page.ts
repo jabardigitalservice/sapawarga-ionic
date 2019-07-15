@@ -6,15 +6,13 @@ import records from '../../../assets/data/administrasi';
 @Component({
   selector: 'app-administrasi-detail',
   templateUrl: './administrasi-detail.page.html',
-  styleUrls: ['./administrasi-detail.page.scss'],
+  styleUrls: ['./administrasi-detail.page.scss']
 })
 export class AdministrasiDetailPage implements OnInit {
   id: number;
   record = {};
 
-  constructor(
-    private route: ActivatedRoute,
-  ) { }
+  constructor(private route: ActivatedRoute) {}
 
   ngOnInit() {
     this.route.params.subscribe(params => {
@@ -28,4 +26,7 @@ export class AdministrasiDetailPage implements OnInit {
     this.record = records[id - 1];
   }
 
+  goToInstantion() {
+    console.log('click');
+  }
 }
