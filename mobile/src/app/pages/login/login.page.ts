@@ -14,6 +14,7 @@ import { Network } from '@ionic-native/network/ngx';
 import { FCM } from '@ionic-native/fcm/ngx';
 import { Dictionary } from '../../helpers/dictionary';
 
+import { Constants } from '../../helpers/constants';
 // plugin
 import { AppVersion } from '@ionic-native/app-version/ngx';
 import {
@@ -51,7 +52,8 @@ export class LoginPage implements OnInit {
     private fcm: FCM,
     private platform: Platform,
     public appVersion: AppVersion,
-    private downloader: Downloader
+    private downloader: Downloader,
+    private constants: Constants
   ) {
     this.appVersion
       .getVersionNumber()
@@ -147,12 +149,8 @@ export class LoginPage implements OnInit {
   }
 
   downloadPdf() {
-    const downloadUrl =
-      'https://drive.google.com/uc?export=download&id=1T8Dq8L28LmivAppMaSPbIvznyzqihgbF';
-    // const downloadUrl = 'https://www.axmag.com/download/pdfurl-guide.pdf';
-
     const request: DownloadRequest = {
-      uri: downloadUrl,
+      uri: this.constants.URL_USER_GUIDE,
       title: 'User Manual Sapawarga',
       description: '',
       mimeType: '',

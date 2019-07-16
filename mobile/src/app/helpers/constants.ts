@@ -21,4 +21,7 @@ export class Constants {
     fullscreen: 'yes', // Windows only
     toolbartranslucent: 'yes'
   };
+
+  public URL_USER_GUIDE =
+    'https://drive.google.com/uc?export=download&id=1T8Dq8L28LmivAppMaSPbIvznyzqihgbF';
 }
