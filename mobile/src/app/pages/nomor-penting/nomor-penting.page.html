@@ -73,7 +73,7 @@
             <ion-note>{{ nomor_penting.address }}</ion-note>
           </div>
         </div>
-        <div class="d-inline-f" slot="end">
+        <div class="d-inline-f" slot="end" *ngIf="nomor_penting.phone_numbers">
           <ion-buttons *ngIf="checkcount('phone', nomor_penting.phone_numbers)">
             <ion-button
               shape="round"
