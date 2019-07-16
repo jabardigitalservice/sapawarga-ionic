@@ -105,9 +105,17 @@
     </div>
   </div>
 
-  <ion-text color="dark">
-    <p class="text-buttom" (click)="downloadPdf()">
-      <a><strong>unduh panduan sapawarga</strong></a>
+  <ion-text class="text-buttom">
+    <p class="min-mb-5">
+      <a color="dark" class="underline"><strong>Term of Service</strong></a> |
+      <a color="dark" class="underline" (click)="launchweb()"
+        ><strong>Privacy Policy</strong></a
+      >
+    </p>
+    <p>
+      <a color="dark" class="underline" (click)="downloadPdf()"
+        ><strong>unduh panduan sapawarga</strong></a
+      >
     </p>
   </ion-text>
 </ion-content>

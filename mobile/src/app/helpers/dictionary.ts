@@ -42,5 +42,7 @@ export enum Dictionary {
   success_forgot_password = 'Email was sended successfully.',
   disconnected = 'network was disconnected :-(',
   confirmation_login = 'Pastikan input data terisi dengan benar',
-  hak_cipta = 'Hak Cipta Pemerintah Provinsi Jawa Barat 2019'
+  hak_cipta = 'Hak Cipta Pemerintah Provinsi Jawa Barat 2019',
+  success_download = 'File berhasil terunduh',
+  unsuccess_download = 'File gagal terunduh'
 }

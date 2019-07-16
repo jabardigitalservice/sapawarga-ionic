@@ -9,6 +9,7 @@ import { LoginPage } from './login.page';
 // plugin
 import { AppVersion } from '@ionic-native/app-version/ngx';
 import { Downloader } from '@ionic-native/downloader/ngx';
+import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 
 const routes: Routes = [
   {
@@ -25,7 +26,7 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes)
   ],
-  providers: [AppVersion, Downloader],
+  providers: [AppVersion, Downloader, InAppBrowser],
   declarations: [LoginPage]
 })
 export class LoginPageModule {}

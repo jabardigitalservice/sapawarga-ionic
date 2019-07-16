@@ -22,6 +22,7 @@ import {
   DownloadRequest,
   NotificationVisibility
 } from '@ionic-native/downloader/ngx';
+import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 
 @Component({
   selector: 'app-login',
@@ -53,7 +54,8 @@ export class LoginPage implements OnInit {
     private platform: Platform,
     public appVersion: AppVersion,
     private downloader: Downloader,
-    private constants: Constants
+    private constants: Constants,
+    private inAppBrowser: InAppBrowser
   ) {
     this.appVersion
       .getVersionNumber()
@@ -149,23 +151,57 @@ export class LoginPage implements OnInit {
   }
 
   downloadPdf() {
-    const request: DownloadRequest = {
-      uri: this.constants.URL_USER_GUIDE,
-      title: 'User Manual Sapawarga',
-      description: '',
-      mimeType: '',
-      visibleInDownloadsUi: true,
-      notificationVisibility: NotificationVisibility.VisibleNotifyCompleted,
-      destinationInExternalPublicDir: {
-        dirType: 'Download',
-        subPath: 'user_manual_sapawarga.pdf'
-      }
-    };
+    // check internet
+    if (!navigator.onLine) {
+      this.showToast('Offline', Dictionary.offline);
+      return;
+    }
 
-    this.downloader
-      .download(request)
-      .then((location: string) => console.log('File downloaded at:' + location))
-      .catch((error: any) => console.error(error));
+    // check if the platform is ios or android, else open the web url
+    this.platform.ready().then(() => {
+      const request: DownloadRequest = {
+        uri: this.constants.URL_USER_GUIDE,
+        title: 'User Manual Sapawarga',
+        description: '',
+        mimeType: '',
+        visibleInDownloadsUi: true,
+        notificationVisibility: NotificationVisibility.VisibleNotifyCompleted,
+        destinationInExternalPublicDir: {
+          dirType: 'Download',
+          subPath: 'user_manual_sapawarga.pdf'
+        }
+      };
+
+      this.downloader
+        .download(request)
+        .then(
+          (location: string) =>
+            this.showToast('Unduh Panduan', Dictionary.success_download)
+          // this.showToast(Dictionary)
+        )
+        .catch((error: any) =>
+          this.showToast('Unduh Panduan', Dictionary.unsuccess_download)
+        );
+    });
+  }
+
+  // open browser in app
+  launchweb() {
+    // check internet
+    if (!navigator.onLine) {
+      this.showToast('Offline', Dictionary.offline);
+      return;
+    }
+
+    // check if the platform is ios or android, else open the web url
+    this.platform.ready().then(() => {
+      const target = '_self';
+      this.inAppBrowser.create(
+        this.constants.URL_PRIVACY_POLICY,
+        target,
+        this.constants.inAppBrowserOptions
+      );
+    });
   }
 
   async showToast(title: string, msg: string) {

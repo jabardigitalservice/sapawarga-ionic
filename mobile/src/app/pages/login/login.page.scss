@@ -23,11 +23,18 @@ ion-item {
   --border-color: var(--ion-color-dark);
 }
 
+.underline {
+  text-decoration: underline;
+}
+
 .text-buttom {
   text-align: center;
   font-size: 12px;
   position: absolute;
   bottom: 0;
   width: 90%;
-  text-decoration: underline;
+}
+
+.min-mb-5 {
+  margin-bottom: -5px;
 }

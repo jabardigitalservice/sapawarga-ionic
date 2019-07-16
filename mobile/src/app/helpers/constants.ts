@@ -24,4 +24,7 @@ export class Constants {
 
   public URL_USER_GUIDE =
     'https://drive.google.com/uc?export=download&id=1T8Dq8L28LmivAppMaSPbIvznyzqihgbF';
+
+  public URL_PRIVACY_POLICY =
+    'https://digitalservice.jabarprov.go.id/index.php/privacy-policy-2/';
 }
