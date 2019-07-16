@@ -5,15 +5,22 @@ import {
   MenuController,
   ToastController,
   AlertController,
-  LoadingController
+  LoadingController,
+  Platform
 } from '@ionic/angular';
 import { AuthService } from './../../services/auth.service';
 import { Router } from '@angular/router';
-import { environment } from '../../../environments/environment';
 import { Network } from '@ionic-native/network/ngx';
 import { FCM } from '@ionic-native/fcm/ngx';
 import { Dictionary } from '../../helpers/dictionary';
+
+// plugin
 import { AppVersion } from '@ionic-native/app-version/ngx';
+import {
+  Downloader,
+  DownloadRequest,
+  NotificationVisibility
+} from '@ionic-native/downloader/ngx';
 
 @Component({
   selector: 'app-login',
@@ -42,7 +49,9 @@ export class LoginPage implements OnInit {
     public router: Router,
     private network: Network,
     private fcm: FCM,
-    public appVersion: AppVersion
+    private platform: Platform,
+    public appVersion: AppVersion,
+    private downloader: Downloader
   ) {
     this.appVersion
       .getVersionNumber()
@@ -135,6 +144,30 @@ export class LoginPage implements OnInit {
         this.showToast('Login', err.data.password[0]);
       }
     );
+  }
+
+  downloadPdf() {
+    const downloadUrl =
+      'https://drive.google.com/uc?export=download&id=1T8Dq8L28LmivAppMaSPbIvznyzqihgbF';
+    // const downloadUrl = 'https://www.axmag.com/download/pdfurl-guide.pdf';
+
+    const request: DownloadRequest = {
+      uri: downloadUrl,
+      title: 'User Manual Sapawarga',
+      description: '',
+      mimeType: '',
+      visibleInDownloadsUi: true,
+      notificationVisibility: NotificationVisibility.VisibleNotifyCompleted,
+      destinationInExternalPublicDir: {
+        dirType: 'Download',
+        subPath: 'user_manual_sapawarga.pdf'
+      }
+    };
+
+    this.downloader
+      .download(request)
+      .then((location: string) => console.log('File downloaded at:' + location))
+      .catch((error: any) => console.error(error));
   }
 
   async showToast(title: string, msg: string) {
