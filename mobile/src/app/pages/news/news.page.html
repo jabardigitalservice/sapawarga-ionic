@@ -31,7 +31,7 @@
 
   <ion-grid>
     <ion-row small class="text-dark">
-      <ion-col size="6" no-padding *ngFor="let data of dataFeatured">
+      <ion-col size="6" no-padding *ngFor="let data of dataFeatured | slice: 1">
         <ion-card class="desc-featured" (click)="goToDetailNews(data.id)">
           <img
             [src]="data?.cover_path_url"
@@ -59,36 +59,38 @@
     </ion-row>
   </ion-grid>
 
-  <ion-card
-    class="text-dark ion-margin-top ion-margin-bottom"
-    *ngFor="let data of dataNews"
-    (click)="goToDetailNews(data.id)"
-  >
-    <ion-item>
-      <ion-text class="mb-5">
-        <p class="text-title">
-          {{ data.title | slice: 0:45
-          }}{{ data.title.length > 45 ? '...' : '' }}
-        </p>
-        <ion-note class="ion-margin-top source-title"
-          ><img
-            [src]="data.channel.icon_url"
-            class="source-icon"
-            onError="this.src='assets/img/placeholder_image_portrait.png';"
-            alt="sumber"
-          />
-          {{ data.channel.name }}</ion-note
-        >
-      </ion-text>
-      <img
-        slot="end"
-        [src]="data?.cover_path_url"
-        onError="this.src='assets/img/placeholder_image_portrait.png';"
-        alt="icon"
-        class="news-img"
-      />
-    </ion-item>
-  </ion-card>
+  <div *ngFor="let data of dataNews">
+    <ion-card
+      class="text-dark ion-margin-top ion-margin-bottom"
+      *ngIf="data.featured === 0"
+      (click)="goToDetailNews(data.id)"
+    >
+      <ion-item>
+        <ion-text class="mb-5">
+          <p class="text-title">
+            {{ data.title | slice: 0:45
+            }}{{ data.title.length > 45 ? '...' : '' }}
+          </p>
+          <ion-note class="ion-margin-top source-title"
+            ><img
+              [src]="data.channel.icon_url"
+              class="source-icon"
+              onError="this.src='assets/img/placeholder_image_portrait.png';"
+              alt="sumber"
+            />
+            {{ data.channel.name }}</ion-note
+          >
+        </ion-text>
+        <img
+          slot="end"
+          [src]="data?.cover_path_url"
+          onError="this.src='assets/img/placeholder_image_portrait.png';"
+          alt="icon"
+          class="news-img"
+        />
+      </ion-item>
+    </ion-card>
+  </div>
 
   <ion-infinite-scroll threshold="100px" (ionInfinite)="doInfinite($event)">
     <ion-infinite-scroll-content
