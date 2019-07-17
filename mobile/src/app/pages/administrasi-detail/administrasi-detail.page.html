@@ -8,7 +8,7 @@
 </ion-header>
 
 <ion-content>
-  <ion-card>
+  <ion-card *ngIf="record">
     <ion-card-header>
       <ion-card-title class="administration-title">
         {{ record['title'] }}
@@ -16,7 +16,10 @@
     </ion-card-header>
     <div class="administration-detail" [innerHtml]="record['detail']"></div>
     <div padding>
-      <ion-button expand="full" color="success" (click)="goToInstantion()"
+      <ion-button
+        expand="full"
+        color="success"
+        (click)="goToInstantion(record['name'])"
         >Menuju {{ record['name'] }}</ion-button
       >
     </div>

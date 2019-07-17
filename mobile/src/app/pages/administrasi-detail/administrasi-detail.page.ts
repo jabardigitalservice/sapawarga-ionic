@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import records from '../../../assets/data/administrasi';
 
@@ -12,7 +12,7 @@ export class AdministrasiDetailPage implements OnInit {
   id: number;
   record = {};
 
-  constructor(private route: ActivatedRoute) {}
+  constructor(private route: ActivatedRoute, private router: Router) {}
 
   ngOnInit() {
     this.route.params.subscribe(params => {
@@ -26,7 +26,10 @@ export class AdministrasiDetailPage implements OnInit {
     this.record = records[id - 1];
   }
 
-  goToInstantion() {
-    console.log('click');
+  goToInstantion(name: string) {
+    this.router.navigate([
+      '/nomor-penting',
+      `by-user-location?instansi=${name}`
+    ]);
   }
 }

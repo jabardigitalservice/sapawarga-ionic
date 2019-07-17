@@ -37,7 +37,7 @@ export class NomorPentingService {
       .pipe(catchError(this.handleError));
   }
 
-  getDetailNomorPenting(id: number): Observable<NomorPenting> {
+  getDetailNomorPenting(id: string): Observable<NomorPenting> {
     return this.http
       .get<NomorPenting>(`${environment.API_URL}/phone-books/${id}`)
       .pipe(catchError(this.handleError));
