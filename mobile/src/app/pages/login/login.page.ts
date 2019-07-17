@@ -160,7 +160,7 @@ export class LoginPage implements OnInit {
     // check if the platform is ios or android, else open the web url
     this.platform.ready().then(() => {
       const request: DownloadRequest = {
-        uri: this.constants.URL_USER_GUIDE,
+        uri: this.constants.URL.userGuide,
         title: 'User Manual Sapawarga',
         description: '',
         mimeType: '',
@@ -186,7 +186,7 @@ export class LoginPage implements OnInit {
   }
 
   // open browser in app
-  launchweb() {
+  launchweb(name: string) {
     // check internet
     if (!navigator.onLine) {
       this.showToast('Offline', Dictionary.offline);
@@ -197,7 +197,9 @@ export class LoginPage implements OnInit {
     this.platform.ready().then(() => {
       const target = '_self';
       this.inAppBrowser.create(
-        this.constants.URL_PRIVACY_POLICY,
+        name === 'tos'
+          ? this.constants.URL.termOfService
+          : this.constants.URL.privacyPolicy,
         target,
         this.constants.inAppBrowserOptions
       );
