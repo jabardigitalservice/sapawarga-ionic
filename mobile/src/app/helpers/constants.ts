@@ -21,4 +21,13 @@ export class Constants {
     fullscreen: 'yes', // Windows only
     toolbartranslucent: 'yes'
   };
+
+  public URL: any = {
+    userGuide:
+      'https://drive.google.com/uc?export=download&id=1T8Dq8L28LmivAppMaSPbIvznyzqihgbF',
+    termOfService:
+      'https://digitalservice.jabarprov.go.id/index.php/term-of-service/',
+    privacyPolicy:
+      'https://digitalservice.jabarprov.go.id/index.php/privacy-policy-2/'
+  };
 }

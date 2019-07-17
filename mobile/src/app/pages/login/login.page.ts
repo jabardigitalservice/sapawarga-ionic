@@ -5,15 +5,24 @@ import {
   MenuController,
   ToastController,
   AlertController,
-  LoadingController
+  LoadingController,
+  Platform
 } from '@ionic/angular';
 import { AuthService } from './../../services/auth.service';
 import { Router } from '@angular/router';
-import { environment } from '../../../environments/environment';
 import { Network } from '@ionic-native/network/ngx';
 import { FCM } from '@ionic-native/fcm/ngx';
 import { Dictionary } from '../../helpers/dictionary';
+
+import { Constants } from '../../helpers/constants';
+// plugin
 import { AppVersion } from '@ionic-native/app-version/ngx';
+import {
+  Downloader,
+  DownloadRequest,
+  NotificationVisibility
+} from '@ionic-native/downloader/ngx';
+import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 
 @Component({
   selector: 'app-login',
@@ -42,7 +51,11 @@ export class LoginPage implements OnInit {
     public router: Router,
     private network: Network,
     private fcm: FCM,
-    public appVersion: AppVersion
+    private platform: Platform,
+    public appVersion: AppVersion,
+    private downloader: Downloader,
+    private constants: Constants,
+    private inAppBrowser: InAppBrowser
   ) {
     this.appVersion
       .getVersionNumber()
@@ -135,6 +148,62 @@ export class LoginPage implements OnInit {
         this.showToast('Login', err.data.password[0]);
       }
     );
+  }
+
+  downloadPdf() {
+    // check internet
+    if (!navigator.onLine) {
+      this.showToast('Offline', Dictionary.offline);
+      return;
+    }
+
+    // check if the platform is ios or android, else open the web url
+    this.platform.ready().then(() => {
+      const request: DownloadRequest = {
+        uri: this.constants.URL.userGuide,
+        title: 'User Manual Sapawarga',
+        description: '',
+        mimeType: '',
+        visibleInDownloadsUi: true,
+        notificationVisibility: NotificationVisibility.VisibleNotifyCompleted,
+        destinationInExternalPublicDir: {
+          dirType: 'Download',
+          subPath: 'user_manual_sapawarga.pdf'
+        }
+      };
+
+      this.downloader
+        .download(request)
+        .then(
+          (location: string) =>
+            this.showToast('Unduh Panduan', Dictionary.success_download)
+          // this.showToast(Dictionary)
+        )
+        .catch((error: any) =>
+          this.showToast('Unduh Panduan', Dictionary.unsuccess_download)
+        );
+    });
+  }
+
+  // open browser in app
+  launchweb(name: string) {
+    // check internet
+    if (!navigator.onLine) {
+      this.showToast('Offline', Dictionary.offline);
+      return;
+    }
+
+    // check if the platform is ios or android, else open the web url
+    this.platform.ready().then(() => {
+      const target = '_self';
+      this.inAppBrowser.create(
+        name === 'tos'
+          ? this.constants.URL.termOfService
+          : this.constants.URL.privacyPolicy,
+        target,
+        this.constants.inAppBrowserOptions
+      );
+    });
   }
 
   async showToast(title: string, msg: string) {
