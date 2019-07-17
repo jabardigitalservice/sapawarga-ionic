@@ -27,7 +27,7 @@
 <ion-content>
   <!-- list telepon -->
   <div>
-    <ion-item>
+    <ion-item *ngIf="msgResponse.type !== 'server-error'">
       <ion-label>Filter</ion-label>
       <ion-select
         placeholder="Pilih Filter"

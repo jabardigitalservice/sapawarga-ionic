@@ -106,6 +106,7 @@
     horizontal="end"
     slot="fixed"
     (click)="AddAspirasi()"
+    *ngIf="msgResponse.type !== 'server-error'"
   >
     <ion-fab-button color="success">
       <ion-icon name="add"></ion-icon>
