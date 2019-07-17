@@ -15,7 +15,7 @@ import { Dictionary } from '../../helpers/dictionary';
   styleUrls: ['./detail-nomor-penting.page.scss']
 })
 export class DetailNomorPentingPage implements OnInit {
-  id: number;
+  id: string;
   dataNomorPenting: NomorPenting;
   msgResponse = {
     type: '',
@@ -60,10 +60,8 @@ export class DetailNomorPentingPage implements OnInit {
         if (res['data']) {
           this.dataNomorPenting = res['data'];
         } else {
-          this.msgResponse = {
-            type: 'empty',
-            msg: Dictionary.empty
-          };
+          // jika data null
+          this.navCtrl.back();
         }
         loader.dismiss();
       },
