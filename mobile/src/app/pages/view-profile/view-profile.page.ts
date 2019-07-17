@@ -22,6 +22,10 @@ import { Dictionary } from '../../helpers/dictionary';
 })
 export class ViewProfilePage implements OnInit {
   dataProfile: Profile;
+  msgResponse = {
+    type: '',
+    msg: ''
+  };
 
   constructor(
     public loadingCtrl: LoadingController,
@@ -43,6 +47,11 @@ export class ViewProfilePage implements OnInit {
   }
 
   ionViewDidEnter() {
+    this.msgResponse = {
+      type: '',
+      msg: ''
+    };
+
     if (!navigator.onLine) {
       // get data profile from local storage
       this.dataProfile = this.profileService.getLocalProfile();
@@ -124,6 +133,15 @@ export class ViewProfilePage implements OnInit {
   }
 
   async getDataProfile(event) {
+    // check internet
+    if (!navigator.onLine) {
+      this.msgResponse = {
+        type: 'offline',
+        msg: Dictionary.offline
+      };
+      return;
+    }
+
     const loader = await this.loadingCtrl.create({
       duration: 10000
     });
@@ -146,8 +164,13 @@ export class ViewProfilePage implements OnInit {
         }
       },
       err => {
-        console.log(err);
         loader.dismiss();
+        if (err) {
+          this.msgResponse = {
+            type: 'server-error',
+            msg: Dictionary.internalError
+          };
+        }
       }
     );
   }
