@@ -31,7 +31,7 @@
 
   <ion-grid>
     <ion-row small class="text-dark">
-      <ion-col size="6" no-padding *ngFor="let data of dataFeatured">
+      <ion-col size="6" no-padding *ngFor="let data of dataFeatured | slice: 1">
         <ion-card class="desc-featured" (click)="goToDetailNews(data.id)">
           <img
             [src]="data?.cover_path_url"
