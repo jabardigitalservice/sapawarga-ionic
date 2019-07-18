@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.sapawarga.jds" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.sapawarga.jds" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:android="http://schemas.android.com/apk/res/android" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Sapawarga</name>
     <description>Aplikasi Sapawarga</description>
     <author email="jds@jabarprov.go.id" href="https://digitalservice.jabarprov.go.id">Jabar Digital Service</author>
@@ -20,6 +20,9 @@
     <preference name="AutoHideSplashScreen" value="false" />
     <preference name="FadeSplashScreen" value="true" />
     <preference name="ShowSplashScreen" value="true" />
+    <edit-config file="AndroidManifest.xml" mode="merge" target="/manifest/application/activity[@android:name='MainActivity']">
+        <activity android:windowSoftInputMode="adjustPan" />
+    </edit-config>
     <preference name="GOOGLE_MAPS_ANDROID_API_KEY" value="%GOOGLE_MAPS_ANDROID_API_KEY%" />
     <preference name="GOOGLE_MAPS_IOS_API_KEY" value="****" />
     <platform name="android">
