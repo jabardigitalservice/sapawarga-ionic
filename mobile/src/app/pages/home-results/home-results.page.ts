@@ -22,13 +22,13 @@ export class HomeResultsPage implements OnInit {
   interval: any;
   themeCover = [
     {
-      slide: 'assets/img/banner-01.png'
+      slide: 'assets/img/banner-01.jpg'
     },
     {
-      slide: 'assets/img/banner-02.png'
+      slide: 'assets/img/banner-02.jpg'
     },
     {
-      slide: 'assets/img/banner-03.png'
+      slide: 'assets/img/banner-03.jpg'
     }
   ];
 
