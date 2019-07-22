@@ -75,6 +75,12 @@ export class NomorPentingPage implements OnInit {
       return;
     }
 
+    // clear state
+    this.msgResponse = {
+      type: '',
+      msg: ''
+    };
+
     const loader = await this.loadingCtrl.create({
       duration: 10000
     });

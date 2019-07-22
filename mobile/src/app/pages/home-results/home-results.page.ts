@@ -240,8 +240,8 @@ export class HomeResultsPage implements OnInit {
       const appId = appUrl;
       const appStarter = (window as any).startApp.set({ application: appId });
       appStarter.start(
-        function(msg) {},
-        function(err) {
+        function (msg) { },
+        function (err) {
           window.open(`market://details?id=${appId}`, '_system');
         }
       );
@@ -326,7 +326,6 @@ export class HomeResultsPage implements OnInit {
       },
       err => {
         setTimeout(() => {
-          alert(Dictionary.check_internal);
           // get local
           if (this.newsService.getLocal(this.NEWS)) {
             this.dataNews = JSON.parse(this.newsService.getLocal(this.NEWS));
