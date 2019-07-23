@@ -75,36 +75,6 @@ export class HomeResultsPage implements OnInit {
   ) {
     this.appPages = [
       {
-        title: 'E-samsat',
-        url: '',
-        icon: 'assets/icon/SW-E-samsat.png'
-      },
-      {
-        title: 'Perizinan',
-        url: 'https://dpmptsp.jabarprov.go.id/sicantik/main/pendaftaranbaru ',
-        icon: 'assets/icon/SW-IJIN.png'
-      },
-      {
-        title: 'Administrasi',
-        url: '',
-        icon: 'assets/icon/SW-ADMINISTRASI.png'
-      },
-      {
-        title: 'Nomor penting',
-        url: '',
-        icon: 'assets/icon/SW-NOPENTING.png'
-      },
-      {
-        title: 'Info harga',
-        url: 'id.bigio.priangan',
-        icon: 'assets/icon/SW-Info-harga.png'
-      },
-      {
-        title: 'Info lelang',
-        url: 'https://lpse.jabarprov.go.id/eproc4',
-        icon: 'assets/icon/SW-LELANG.png'
-      },
-      {
         title: 'Lapor',
         url: '',
         icon: 'assets/icon/SW-LAPOR.png'
@@ -123,6 +93,36 @@ export class HomeResultsPage implements OnInit {
         title: 'Polling',
         url: '',
         icon: 'assets/icon/SW-POLLING.png'
+      },
+      {
+        title: 'Nomor penting',
+        url: '',
+        icon: 'assets/icon/SW-NOPENTING.png'
+      },
+      {
+        title: 'Info harga',
+        url: 'id.bigio.priangan',
+        icon: 'assets/icon/SW-Info-harga.png'
+      },
+      {
+        title: 'Info lelang',
+        url: 'https://lpse.jabarprov.go.id/eproc4',
+        icon: 'assets/icon/SW-LELANG.png'
+      },
+      {
+        title: 'E-samsat',
+        url: '',
+        icon: 'assets/icon/SW-E-samsat.png'
+      },
+      {
+        title: 'Perizinan',
+        url: 'https://dpmptsp.jabarprov.go.id/sicantik/main/pendaftaranbaru ',
+        icon: 'assets/icon/SW-IJIN.png'
+      },
+      {
+        title: 'Administrasi',
+        url: '',
+        icon: 'assets/icon/SW-ADMINISTRASI.png'
       }
     ];
 

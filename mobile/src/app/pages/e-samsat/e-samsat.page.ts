@@ -10,6 +10,12 @@ import { Platform } from '@ionic/angular';
 export class ESamsatPage implements OnInit {
   items = [
     {
+      nameInit: 'sambara',
+      name: 'Pembayaran Pajak via Sambara',
+      url: 'id.go.bapenda.sambara',
+      logo: 'assets/icon/sambara.png'
+    },
+    {
       nameInit: 'tokopedia',
       name: 'Pembayaran Pajak via Tokopedia',
       url: 'https://www.tokopedia.com/pajak/samsat/jawa-barat',
@@ -20,18 +26,12 @@ export class ESamsatPage implements OnInit {
       name: 'Pembayaran Pajak via Bukalapak',
       url: 'https://www.bukalapak.com/bukajabar/e-samsat',
       logo: 'assets/icon/bukalapak.svg'
-    },
-    {
-      nameInit: 'sambara',
-      name: 'Pembayaran Pajak via Sambara',
-      url: 'id.go.bapenda.sambara',
-      logo: 'assets/icon/sambara.png'
     }
   ];
 
-  constructor(private platform: Platform, private inAppBrowser: InAppBrowser) {}
+  constructor(private platform: Platform, private inAppBrowser: InAppBrowser) { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   selectLapor(name: string, url: string) {
     switch (name) {
@@ -64,8 +64,8 @@ export class ESamsatPage implements OnInit {
       const appId = appUrl;
       const appStarter = (window as any).startApp.set({ application: appId });
       appStarter.start(
-        function(msg) {},
-        function(err) {
+        function (msg) { },
+        function (err) {
           window.open(`market://details?id=${appId}`, '_system');
         }
       );

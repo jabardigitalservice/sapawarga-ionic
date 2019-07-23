@@ -1,145 +1,145 @@
 <ion-header>
-  <ion-toolbar color="light">
-    <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
-    </ion-buttons>
-    <ion-title>Aspirasi</ion-title>
-    <ion-buttons slot="end" (click)="goMyAspirasi()">
-      <ion-button shape="round" color="dark">
-        <ion-icon name="bookmarks"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-  </ion-toolbar>
+	<ion-toolbar color="light">
+		<ion-buttons slot="start">
+			<ion-back-button></ion-back-button>
+		</ion-buttons>
+		<ion-title>Aspirasi</ion-title>
+		<ion-buttons slot="end" (click)="goMyAspirasi()">
+			<ion-button shape="round" color="dark">
+				<ion-icon name="bookmarks"></ion-icon>
+			</ion-button>
+		</ion-buttons>
+	</ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <app-message-control
-    *ngIf="msgResponse.type"
-    [type]="msgResponse.type"
-    [message]="msgResponse.msg"
-  ></app-message-control>
+	<app-message-control
+		*ngIf="msgResponse.type"
+		[type]="msgResponse.type"
+		[message]="msgResponse.msg"
+	></app-message-control>
 
-  <!-- Data to display after skeleton screen -->
-  <ion-card *ngFor="let aspirasi of dataAspirasi; let i = index">
-    <img
-      *ngIf="!offline"
-      class="img-cover"
-      src="{{
-        aspirasi.attachments !== null
-          ? aspirasi.attachments[0].url
-          : '../../../assets/img/placeholder_image.png'
-      }}"
-      (click)="goDetail(aspirasi.id)"
-    />
-    <img
-      *ngIf="offline"
-      class="img-cover"
-      src="../../../assets/img/placeholder_image.png"
-      (click)="goDetail(aspirasi.id)"
-    />
-    <ion-card-header>
-      <ion-card-subtitle class="dark-read" (click)="goDetail(aspirasi.id)">{{
-        aspirasi.category.name
-      }}</ion-card-subtitle>
-      <ion-card-title (click)="goDetail(aspirasi.id)">{{
-        aspirasi.title
-      }}</ion-card-title>
-    </ion-card-header>
+	<!-- Data to display after skeleton screen -->
+	<ion-card *ngFor="let aspirasi of dataAspirasi; let i = index">
+		<img
+			*ngIf="!offline"
+			class="img-cover"
+			src="{{
+				aspirasi.attachments !== null
+					? aspirasi.attachments[0].url
+					: '../../../assets/img/placeholder_image.png'
+			}}"
+			(click)="goDetail(aspirasi.id)"
+		/>
+		<img
+			*ngIf="offline"
+			class="img-cover"
+			src="../../../assets/img/placeholder_image.png"
+			(click)="goDetail(aspirasi.id)"
+		/>
+		<ion-card-header>
+			<ion-card-subtitle class="dark-read" (click)="goDetail(aspirasi.id)">{{
+				aspirasi.category.name
+			}}</ion-card-subtitle>
+			<ion-card-title (click)="goDetail(aspirasi.id)">{{
+				aspirasi.title
+			}}</ion-card-title>
+		</ion-card-header>
 
-    <ion-card-content>
-      <div class="address" (click)="goDetail(aspirasi.id)">
-        {{ aspirasi.kabkota.name }}, {{ aspirasi.kecamatan.name }},
-        {{ aspirasi.kelurahan.name }}
-      </div>
+		<ion-card-content>
+			<div class="address" (click)="goDetail(aspirasi.id)">
+				{{ aspirasi.kabkota.name }}, {{ aspirasi.kecamatan.name }},
+				{{ aspirasi.kelurahan.name }}
+			</div>
 
-      <div class="author">
-        <ion-label>Oleh {{ aspirasi.author.name }}</ion-label>
-      </div>
+			<div class="author">
+				<ion-label>Oleh {{ aspirasi.author.name }}</ion-label>
+			</div>
 
-      <div class="d-inline-f">
-        <ion-icon
-          name="heart"
-          [color]="checkStateLike(aspirasi.id) ? 'danger' : 'medium'"
-          class="icon-heart"
-          (click)="
-            doLike(
-              aspirasi.id,
-              checkStateLike(aspirasi.id),
-              aspirasi.likes_count
-            )
-          "
-        ></ion-icon>
-        <p class="text-like" *ngIf="checkCountLike(aspirasi.id)">
-          {{ checkCountLike(aspirasi.id) }}
-          orang menyukai ini.
-        </p>
-      </div>
-    </ion-card-content>
-  </ion-card>
+			<div class="d-inline-f">
+				<ion-icon
+					name="heart"
+					[color]="checkStateLike(aspirasi.id) ? 'danger' : 'medium'"
+					class="icon-heart"
+					(click)="
+						doLike(
+							aspirasi.id,
+							checkStateLike(aspirasi.id),
+							aspirasi.likes_count
+						)
+					"
+				></ion-icon>
+				<p class="text-like">
+					{{ checkCountLike(aspirasi.id) }}
+					orang menyukai ini.
+				</p>
+			</div>
+		</ion-card-content>
+	</ion-card>
 
-  <!-- Skeleton screen -->
-  <div *ngIf="!dataAspirasi">
-    <ion-card>
-      <ion-thumbnail slot="start" style="width: 100%; height: 160px;">
-        <ion-skeleton-text animated></ion-skeleton-text>
-      </ion-thumbnail>
-      <ion-card-header>
-        <ion-card-subtitle class="dark-read">
-          <ion-skeleton-text animated style="width: 40%"></ion-skeleton-text>
-        </ion-card-subtitle>
-        <ion-card-title>
-          <ion-skeleton-text animated style="width: 90%"></ion-skeleton-text>
-          <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
-        </ion-card-title>
-      </ion-card-header>
+	<!-- Skeleton screen -->
+	<div *ngIf="!dataAspirasi">
+		<ion-card>
+			<ion-thumbnail slot="start" style="width: 100%; height: 160px;">
+				<ion-skeleton-text animated></ion-skeleton-text>
+			</ion-thumbnail>
+			<ion-card-header>
+				<ion-card-subtitle class="dark-read">
+					<ion-skeleton-text animated style="width: 40%"></ion-skeleton-text>
+				</ion-card-subtitle>
+				<ion-card-title>
+					<ion-skeleton-text animated style="width: 90%"></ion-skeleton-text>
+					<ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+				</ion-card-title>
+			</ion-card-header>
 
-      <ion-card-content style="padding-top: 0">
-        <div style="margin: 15px 0">
-          <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
-          <ion-skeleton-text animated style="width: 30%"></ion-skeleton-text>
-        </div>
-        <div>
-          <ion-skeleton-text animated style="width: 40%"></ion-skeleton-text>
-        </div>
-      </ion-card-content>
-    </ion-card>
+			<ion-card-content style="padding-top: 0">
+				<div style="margin: 15px 0">
+					<ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+					<ion-skeleton-text animated style="width: 30%"></ion-skeleton-text>
+				</div>
+				<div>
+					<ion-skeleton-text animated style="width: 40%"></ion-skeleton-text>
+				</div>
+			</ion-card-content>
+		</ion-card>
 
-    <ion-card>
-      <ion-thumbnail slot="start" style="width: 100%; height: 160px;">
-        <ion-skeleton-text animated></ion-skeleton-text>
-      </ion-thumbnail>
-      <ion-card-header>
-        <ion-card-subtitle class="dark-read">
-          <ion-skeleton-text animated style="width: 40%"></ion-skeleton-text>
-        </ion-card-subtitle>
-        <ion-card-title>
-          <ion-skeleton-text animated style="width: 90%"></ion-skeleton-text>
-          <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
-        </ion-card-title>
-      </ion-card-header>
+		<ion-card>
+			<ion-thumbnail slot="start" style="width: 100%; height: 160px;">
+				<ion-skeleton-text animated></ion-skeleton-text>
+			</ion-thumbnail>
+			<ion-card-header>
+				<ion-card-subtitle class="dark-read">
+					<ion-skeleton-text animated style="width: 40%"></ion-skeleton-text>
+				</ion-card-subtitle>
+				<ion-card-title>
+					<ion-skeleton-text animated style="width: 90%"></ion-skeleton-text>
+					<ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+				</ion-card-title>
+			</ion-card-header>
 
-      <ion-card-content style="padding-top: 0">
-        <div style="margin: 15px 0">
-          <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
-          <ion-skeleton-text animated style="width: 30%"></ion-skeleton-text>
-        </div>
-        <div>
-          <ion-skeleton-text animated style="width: 40%"></ion-skeleton-text>
-        </div>
-      </ion-card-content>
-    </ion-card>
-  </div>
+			<ion-card-content style="padding-top: 0">
+				<div style="margin: 15px 0">
+					<ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+					<ion-skeleton-text animated style="width: 30%"></ion-skeleton-text>
+				</div>
+				<div>
+					<ion-skeleton-text animated style="width: 40%"></ion-skeleton-text>
+				</div>
+			</ion-card-content>
+		</ion-card>
+	</div>
 
-  <!-- infinite scroll -->
-  <ion-infinite-scroll
-    threshold="100px"
-    (ionInfinite)="doInfinite($event)"
-    *ngIf="dataAspirasi"
-  >
-    <ion-infinite-scroll-content
-      loadingSpinner="bubbles"
-      loadingText="Sedang mengambil data..."
-    >
-    </ion-infinite-scroll-content>
-  </ion-infinite-scroll>
+	<!-- infinite scroll -->
+	<ion-infinite-scroll
+		threshold="100px"
+		(ionInfinite)="doInfinite($event)"
+		*ngIf="dataAspirasi"
+	>
+		<ion-infinite-scroll-content
+			loadingSpinner="bubbles"
+			loadingText="Sedang mengambil data..."
+		>
+		</ion-infinite-scroll-content>
+	</ion-infinite-scroll>
 </ion-content>
