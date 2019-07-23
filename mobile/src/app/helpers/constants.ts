@@ -24,7 +24,7 @@ export class Constants {
 
   public URL: any = {
     userGuide:
-      'https://drive.google.com/uc?export=download&id=1T8Dq8L28LmivAppMaSPbIvznyzqihgbF',
+      'https://drive.google.com/uc?export=download&id=1rFPMmLGHpK0X6c1NftzdSrYQAHcPIzSU',
     termOfService:
       'https://digitalservice.jabarprov.go.id/index.php/term-of-service/',
     privacyPolicy:
