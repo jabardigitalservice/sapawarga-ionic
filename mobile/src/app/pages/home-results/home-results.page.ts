@@ -11,6 +11,8 @@ import { Router } from '@angular/router';
 import { Dictionary } from '../../helpers/dictionary';
 import { HumasJabar } from '../../interfaces/humas-jabar';
 import { Constants } from '../../helpers/constants';
+import { DomSanitizer } from '@angular/platform-browser';
+import { YoutubeVideoPlayer } from '@ionic-native/youtube-video-player/ngx';
 
 @Component({
   selector: 'app-home-results',
@@ -106,7 +108,8 @@ export class HomeResultsPage implements OnInit {
     public loadingCtrl: LoadingController,
     private inAppBrowser: InAppBrowser,
     private router: Router,
-    public constants: Constants
+    public constants: Constants,
+    private youtube: YoutubeVideoPlayer
   ) {
     this.appPages = [
       {
@@ -417,5 +420,15 @@ export class HomeResultsPage implements OnInit {
     }
 
     this.launchweb(url);
+  }
+
+  // handleUnsafeVideo(id: number) {
+  //   const video_url = this.dataVideoPost.find(x => x.id === id).video_url;
+  //   console.log(video_url);
+  //   return this.domSanitizer.bypassSecurityTrustResourceUrl(video_url);
+  // }
+
+  openYoutube(id: string) {
+    this.youtube.openVideo(id);
   }
 }
