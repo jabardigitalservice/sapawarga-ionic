@@ -48,6 +48,13 @@ export class HomeResultsPage implements OnInit {
     zoom: false
   };
 
+  sliderConfigVideoPost = {
+    slidesPerView: 1.2,
+    centeredSlides: true,
+    spaceBetween: 10,
+    zoom: false
+  };
+
   unreadNotif: 0;
   // isLoading = false;
   isLoading = {
@@ -56,6 +63,34 @@ export class HomeResultsPage implements OnInit {
   };
   dataNews: News[];
   dataHumas: HumasJabar[];
+  dataVideoPost = [
+    {
+      'id': 1,
+      'title': 'Piala Humas Jabar dalam rangka refleksi 1 Tahun Jabar Juara',
+      'category_id': 1,
+      'category': {
+        'id': 1,
+        'name': 'Kegiatan Pimpinan Daerah'
+      },
+      'video_url': 'https://www.youtube.com/watch?v=ybkP7VmVeBg',
+      'likes_count': 10,
+      'views_count': 1000,
+      'thumbnail': 'assets/img/banner-02.jpg'
+    },
+    {
+      'id': 2,
+      'title': 'Piala Humas Jabar dalam rangka refleksi 2 Tahun Jabar Juara',
+      'category_id': 1,
+      'category': {
+        'id': 1,
+        'name': 'Kegiatan Pimpinan Daerah'
+      },
+      'video_url': 'https://www.youtube.com/watch?v=ybkP7VmVeBg',
+      'likes_count': 100,
+      'views_count': 1000,
+      'thumbnail': 'assets/img/banner-02.jpg'
+    },
+  ];
   humas_URL = 'http://humas.jabarprov.go.id/terkini';
 
   // name local storage

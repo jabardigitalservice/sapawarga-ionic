@@ -1,125 +1,138 @@
 :host {
-  ion-item {
-    --border-color: transparent;
-  }
+	ion-item {
+		--border-color: transparent;
+	}
 
-  ion-card {
-    border-radius: 5px;
+	ion-card {
+		border-radius: 5px;
 
-    background: white;
-  }
+		background: white;
+	}
 
-  ion-toolbar {
-    ion-searchbar {
-      display: inline-block;
-      width: 100%;
-    }
-  }
+	ion-toolbar {
+		ion-searchbar {
+			display: inline-block;
+			width: 100%;
+		}
+	}
 
-  ion-col {
-    padding-left: unset;
-    padding-top: 10px;
-    padding-bottom: unset;
-    padding-right: unset;
-  }
+	ion-col {
+		padding-left: unset;
+		padding-top: 10px;
+		padding-bottom: unset;
+		padding-right: unset;
+	}
 
-  ion-button {
-    text-transform: none;
-  }
+	ion-button {
+		text-transform: none;
+	}
 
-  .blues-color {
-    --background: #00b7f0;
-    --padding-start: 2em;
-    --padding-end: 2em;
-  }
+	.blues-color {
+		--background: #00b7f0;
+		--padding-start: 2em;
+		--padding-end: 2em;
+	}
 
-  .list-headline-jabar {
-    --padding-start: unset;
-  }
+	.list-headline-jabar {
+		--padding-start: unset;
+	}
 }
 
 .section {
-  margin-left: 10px;
-  margin-right: 10px;
+	margin-left: 10px;
+	margin-right: 10px;
 }
 
 .color-grey {
-  color: #767676;
+	color: #767676;
 }
 
 .logo-app {
-  height: 45px;
+	height: 45px;
 }
 
 .icon-img {
-  max-width: 55%;
-  border-radius: 8px;
-  box-shadow: 0 3px 4px rgba(var(--ion-color-dark-rgb), 0.25);
-  margin-bottom: 4px;
+	max-width: 55%;
+	border-radius: 8px;
+	box-shadow: 0 3px 4px rgba(var(--ion-color-dark-rgb), 0.25);
+	margin-bottom: 4px;
 }
 
 .label-menu {
-  display: block;
-  font-size: 13px;
-  margin-bottom: 10px;
-  color: #707070;
+	display: block;
+	font-size: 13px;
+	margin-bottom: 10px;
+	color: #707070;
 }
 
 .thumbnail-image {
-  border-radius: 4px;
+	border-radius: 4px;
 }
 
 .headline-title {
-  font-size: 13px;
+	font-size: 13px;
 }
 
 .headlines-img {
-  max-width: 60px;
-  height: 60px;
-  border-radius: 4px;
+	max-width: 60px;
+	height: 60px;
+	border-radius: 4px;
 }
 
 .source-title {
-  display: inline-flex;
-  align-items: center;
-  font-size: 10px;
+	display: inline-flex;
+	align-items: center;
+	font-size: 10px;
 }
 
 .source-icon {
-  width: 17px;
-  margin-right: 3px;
+	width: 17px;
+	margin-right: 3px;
 }
 
 .title-humas {
-  font-size: 0.8em;
-  color: #707070;
+	font-size: 0.8em;
+	color: #707070;
+}
+
+.title-video-post {
+	font-size: 0.8em;
 }
 
 .img-humas {
-  border-radius: 6px;
+	border-radius: 6px;
 }
 
 .min-mt-14 {
-  margin-top: -12px;
+	margin-top: -12px;
+}
+
+.icon-heart {
+	// margin-top: 3px;
+	font-size: 20px;
+}
+
+.text-like {
+	font-size: 10px;
 }
 
 // tablet mode v1
 @media only screen and (min-width: 625px) {
-  :host {
-    ion-icon {
-      font-size: 25px;
-    }
-  }
+	:host {
+		ion-icon {
+			font-size: 25px;
+		}
+	}
 
-  .logo-app {
-    height: 50px;
-  }
+	.logo-app {
+		height: 50px;
+	}
 
-  .icon-img {
-    max-width: 60%;
-  }
+	.icon-img {
+		max-width: 60%;
+	}
 
-  .label-menu {
-    font-size: 15px;
-  }
+	.label-menu {
+		font-size: 15px;
+	}
 }
