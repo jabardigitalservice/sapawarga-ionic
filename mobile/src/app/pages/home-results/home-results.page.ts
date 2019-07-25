@@ -52,9 +52,8 @@ export class HomeResultsPage implements OnInit {
   };
 
   sliderConfigVideoPost = {
-    slidesPerView: 1.3,
-    centeredSlides: true,
-    spaceBetween: 10,
+    slidesPerView: 1.2,
+    spaceBetween: 5,
     zoom: false
   };
 
@@ -427,8 +426,8 @@ export class HomeResultsPage implements OnInit {
       err => {
         setTimeout(() => {
           // get local
-          if (this.videoPostService.getLocal(this.NEWS)) {
-            this.dataVideoPost = JSON.parse(this.videoPostService.getLocal(this.NEWS));
+          if (this.videoPostService.getLocal(this.VIDEO_POST)) {
+            this.dataVideoPost = JSON.parse(this.videoPostService.getLocal(this.VIDEO_POST));
             this.isLoading.videoPost = false;
           }
         }, 3000);
@@ -441,7 +440,7 @@ export class HomeResultsPage implements OnInit {
   }
 
   getThumbUrl(url: string) {
-    return `https://img.youtube.com/vi/${this.parsingDataUrl(url)}/mqdefault.jpg`;
+    return `https://img.youtube.com/vi/${this.parsingDataUrl(url)}/maxresdefault.jpg`;
   }
 
   openYoutube(url: string) {

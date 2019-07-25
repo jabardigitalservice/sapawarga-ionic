@@ -214,7 +214,6 @@
 			<ion-slide *ngFor="let data of dataVideoPost">
 				<div>
 					<ion-card style=" position: relative;">
-						<!-- <div> -->
 						<img
 							[src]="getThumbUrl(data.video_url)"
 							onError="this.src='assets/img/placeholder_image.png';"
@@ -229,7 +228,6 @@
 								(click)="openYoutube(data.video_url)"
 							/>
 						</div>
-						<!-- </div> -->
 
 						<ion-item class="list-headline-jabar">
 							<ion-text class="title-video-post"
