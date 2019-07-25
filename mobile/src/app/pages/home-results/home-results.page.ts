@@ -11,8 +11,9 @@ import { Router } from '@angular/router';
 import { Dictionary } from '../../helpers/dictionary';
 import { HumasJabar } from '../../interfaces/humas-jabar';
 import { Constants } from '../../helpers/constants';
-import { DomSanitizer } from '@angular/platform-browser';
 import { YoutubeVideoPlayer } from '@ionic-native/youtube-video-player/ngx';
+import { VideoPost } from '../../interfaces/video-post';
+import { VideoPostService } from '../../services/video-post.service';
 
 @Component({
   selector: 'app-home-results',
@@ -51,7 +52,7 @@ export class HomeResultsPage implements OnInit {
   };
 
   sliderConfigVideoPost = {
-    slidesPerView: 1.2,
+    slidesPerView: 1.3,
     centeredSlides: true,
     spaceBetween: 10,
     zoom: false
@@ -61,43 +62,18 @@ export class HomeResultsPage implements OnInit {
   // isLoading = false;
   isLoading = {
     humas: false,
-    news: false
+    news: false,
+    videoPost: false
   };
   dataNews: News[];
   dataHumas: HumasJabar[];
-  dataVideoPost = [
-    {
-      'id': 1,
-      'title': 'Piala Humas Jabar dalam rangka refleksi 1 Tahun Jabar Juara',
-      'category_id': 1,
-      'category': {
-        'id': 1,
-        'name': 'Kegiatan Pimpinan Daerah'
-      },
-      'video_url': 'https://www.youtube.com/watch?v=ybkP7VmVeBg',
-      'likes_count': 10,
-      'views_count': 1000,
-      'thumbnail': 'assets/img/banner-02.jpg'
-    },
-    {
-      'id': 2,
-      'title': 'Piala Humas Jabar dalam rangka refleksi 2 Tahun Jabar Juara',
-      'category_id': 1,
-      'category': {
-        'id': 1,
-        'name': 'Kegiatan Pimpinan Daerah'
-      },
-      'video_url': 'https://www.youtube.com/watch?v=ybkP7VmVeBg',
-      'likes_count': 100,
-      'views_count': 1000,
-      'thumbnail': 'assets/img/banner-02.jpg'
-    },
-  ];
+  dataVideoPost: VideoPost[];
   humas_URL = 'http://humas.jabarprov.go.id/terkini';
 
   // name local storage
   NEWS = 'news-headlines';
   HUMAS = 'humas-headlines';
+  VIDEO_POST = 'video-post';
 
   constructor(
     public navCtrl: NavController,
@@ -109,7 +85,8 @@ export class HomeResultsPage implements OnInit {
     private inAppBrowser: InAppBrowser,
     private router: Router,
     public constants: Constants,
-    private youtube: YoutubeVideoPlayer
+    private youtube: YoutubeVideoPlayer,
+    private videoPostService: VideoPostService
   ) {
     this.appPages = [
       {
@@ -184,6 +161,8 @@ export class HomeResultsPage implements OnInit {
 
     // get data humas
     this.getDataHumas();
+
+    this.getVideoPost();
   }
 
   ionViewDidEnter() {
@@ -422,15 +401,55 @@ export class HomeResultsPage implements OnInit {
     this.launchweb(url);
   }
 
+
+  getVideoPost() {
+    // check internet
+    if (!navigator.onLine) {
+      // get local
+      if (this.videoPostService.getLocal(this.VIDEO_POST)) {
+        this.dataVideoPost = JSON.parse(this.videoPostService.getLocal(this.VIDEO_POST));
+      } else {
+        alert(Dictionary.offline);
+      }
+      return;
+    }
+
+    this.isLoading.videoPost = true;
+    this.videoPostService.getListvideoPost().subscribe(
+      res => {
+        if (res['status'] === 200 && res['data']['items'].length) {
+          this.dataVideoPost = res['data']['items'];
+          // save to local
+          this.videoPostService.saveLocal(this.VIDEO_POST, this.dataVideoPost);
+          this.isLoading.videoPost = false;
+        }
+      },
+      err => {
+        setTimeout(() => {
+          // get local
+          if (this.videoPostService.getLocal(this.NEWS)) {
+            this.dataVideoPost = JSON.parse(this.videoPostService.getLocal(this.NEWS));
+            this.isLoading.videoPost = false;
+          }
+        }, 3000);
+      }
+    );
+  }
+
   private parsingDataUrl(id: string) {
     return id.split('=')[1];
   }
 
   getThumbUrl(url: string) {
-    return `https://img.youtube.com/vi/${this.parsingDataUrl(url)}/0.jpg`;
+    return `https://img.youtube.com/vi/${this.parsingDataUrl(url)}/mqdefault.jpg`;
   }
 
   openYoutube(url: string) {
+    // check internet
+    if (!navigator.onLine) {
+      alert(Dictionary.offline);
+      return;
+    }
     this.youtube.openVideo(this.parsingDataUrl(url));
   }
 }

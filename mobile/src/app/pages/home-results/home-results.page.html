@@ -188,7 +188,7 @@
 		</ion-item>
 
 		<!-- Skeleton screen Video Post -->
-		<div padding class="min-mt-5" *ngIf="!dataVideoPost">
+		<div padding class="min-mt-5" *ngIf="isLoading.videoPost">
 			<ion-thumbnail
 				slot="end"
 				alt="icon"
@@ -213,9 +213,9 @@
 		<ion-slides [options]="sliderConfigVideoPost" *ngIf="dataVideoPost">
 			<ion-slide *ngFor="let data of dataVideoPost">
 				<div>
-					<div style=" position: relative;">
+					<ion-card style=" position: relative;">
+						<!-- <div> -->
 						<img
-							class="thumbnail-image"
 							[src]="getThumbUrl(data.video_url)"
 							onError="this.src='assets/img/placeholder_image.png';"
 							alt="humas"
@@ -229,29 +229,30 @@
 								(click)="openYoutube(data.video_url)"
 							/>
 						</div>
-					</div>
+						<!-- </div> -->
 
-					<ion-item class="list-headline-jabar">
-						<ion-text class="title-video-post"
-							>{{ data.title | slice: 0:35
-							}}{{ data.title.length > 35 ? '...' : '' }}</ion-text
-						>
-						<div
-							slot="end"
-							text-center
-							style="margin-top: 10px; margin-bottom: 10px"
-						>
-							<ion-icon
-								name="heart"
-								[color]="'danger'"
-								class="icon-heart"
-							></ion-icon>
-							<br />
-							<ion-text class="text-like">
-								{{ data.likes_count }} likes</ion-text
+						<ion-item class="list-headline-jabar">
+							<ion-text class="title-video-post"
+								>{{ data.title | slice: 0:35
+								}}{{ data.title.length > 35 ? '...' : '' }}</ion-text
 							>
-						</div>
-					</ion-item>
+							<div
+								slot="end"
+								text-center
+								style="margin-top: 10px; margin-bottom: 10px"
+							>
+								<ion-icon
+									name="heart"
+									[color]="'danger'"
+									class="icon-heart"
+								></ion-icon>
+								<br />
+								<ion-text class="text-like">
+									{{ data.likes_count }} likes</ion-text
+								>
+							</div>
+						</ion-item>
+					</ion-card>
 				</div>
 			</ion-slide>
 		</ion-slides>
