@@ -12,9 +12,9 @@ export class VideoPostService {
 
   constructor(private http: HttpClient) { }
 
-  getListvideoPost(): Observable<VideoPost[]> {
+  getListvideoPost(param: string): Observable<VideoPost[]> {
     return this.http
-      .get<VideoPost[]>(`${environment.API_MOCK}/videos`)
+      .get<VideoPost[]>(`${environment.API_MOCK}/videos?${param}`)
       .pipe(catchError(this.handleError));
   }
 

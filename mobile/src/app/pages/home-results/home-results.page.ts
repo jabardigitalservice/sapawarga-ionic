@@ -161,6 +161,7 @@ export class HomeResultsPage implements OnInit {
     // get data humas
     this.getDataHumas();
 
+    // get data Video Post
     this.getVideoPost();
   }
 
@@ -414,7 +415,7 @@ export class HomeResultsPage implements OnInit {
     }
 
     this.isLoading.videoPost = true;
-    this.videoPostService.getListvideoPost().subscribe(
+    this.videoPostService.getListvideoPost('limit=5').subscribe(
       res => {
         if (res['status'] === 200 && res['data']['items'].length) {
           this.dataVideoPost = res['data']['items'];
