@@ -109,11 +109,22 @@
 
 .icon-heart {
 	// margin-top: 3px;
-	font-size: 20px;
+	font-size: 21px;
 }
 
 .text-like {
-	font-size: 10px;
+	font-size: 11px;
+}
+
+.thumbnail-list {
+	position: absolute;
+	bottom: 35%;
+	left: 2%;
+	width: 100%;
+}
+
+.thumbnail-img {
+	width: 60px;
 }
 
 // tablet mode v1

@@ -422,13 +422,15 @@ export class HomeResultsPage implements OnInit {
     this.launchweb(url);
   }
 
-  // handleUnsafeVideo(id: number) {
-  //   const video_url = this.dataVideoPost.find(x => x.id === id).video_url;
-  //   console.log(video_url);
-  //   return this.domSanitizer.bypassSecurityTrustResourceUrl(video_url);
-  // }
+  private parsingDataUrl(id: string) {
+    return id.split('=')[1];
+  }
 
-  openYoutube(id: string) {
-    this.youtube.openVideo(id);
+  getThumbUrl(url: string) {
+    return `https://img.youtube.com/vi/${this.parsingDataUrl(url)}/0.jpg`;
+  }
+
+  openYoutube(url: string) {
+    this.youtube.openVideo(this.parsingDataUrl(url));
   }
 }

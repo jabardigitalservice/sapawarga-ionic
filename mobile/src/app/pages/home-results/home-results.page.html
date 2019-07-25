@@ -213,20 +213,34 @@
 		<ion-slides [options]="sliderConfigVideoPost" *ngIf="dataVideoPost">
 			<ion-slide *ngFor="let data of dataVideoPost">
 				<div>
-					<img
-						class="thumbnail-image"
-						[src]="data.thumbnail"
-						onError="this.src='assets/img/placeholder_image.png';"
-						alt="humas"
-						(click)="openYoutube('M6eaDwVW90s')"
-					/>
+					<div style=" position: relative;">
+						<img
+							class="thumbnail-image"
+							[src]="getThumbUrl(data.video_url)"
+							onError="this.src='assets/img/placeholder_image.png';"
+							alt="humas"
+							(click)="openYoutube(data.video_url)"
+						/>
+						<div class="thumbnail-list">
+							<img
+								class="thumbnail-img"
+								src="assets/icon/icons_play_button.png"
+								alt="icon play"
+								(click)="openYoutube(data.video_url)"
+							/>
+						</div>
+					</div>
 
 					<ion-item class="list-headline-jabar">
 						<ion-text class="title-video-post"
 							>{{ data.title | slice: 0:35
 							}}{{ data.title.length > 35 ? '...' : '' }}</ion-text
 						>
-						<div slot="end" text-center>
+						<div
+							slot="end"
+							text-center
+							style="margin-top: 10px; margin-bottom: 10px"
+						>
 							<ion-icon
 								name="heart"
 								[color]="'danger'"
@@ -236,8 +250,6 @@
 							<ion-text class="text-like">
 								{{ data.likes_count }} likes</ion-text
 							>
-
-							<!-- <p class="text-like">{{ data.likes_count }} likes</p> -->
 						</div>
 					</ion-item>
 				</div>
