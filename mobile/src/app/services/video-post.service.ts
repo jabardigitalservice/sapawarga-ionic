@@ -9,8 +9,7 @@ import { catchError } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class VideoPostService {
-
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   getListvideoPost(param: string): Observable<VideoPost[]> {
     return this.http
