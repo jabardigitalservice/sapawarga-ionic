@@ -1,16 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { AspirasiService } from '../../services/aspirasi.service';
 import { LoadingController, ToastController } from '@ionic/angular';
+import { Router } from '@angular/router';
 import { Aspirasi } from '../../interfaces/aspirasi';
 import { Dictionary } from '../../helpers/dictionary';
 
 @Component({
-  selector: 'app-aspirasi',
-  templateUrl: './aspirasi.page.html',
-  styleUrls: ['./aspirasi.page.scss']
+  selector: 'app-aspirasi-list',
+  templateUrl: './aspirasi-list.component.html',
+  styleUrls: ['./aspirasi-list.component.scss']
 })
-export class AspirasiPage implements OnInit {
+export class AspirasiListComponent implements OnInit {
   idUser: number;
   dataAspirasi: Aspirasi[];
   dataEmpty = false;
@@ -27,8 +27,6 @@ export class AspirasiPage implements OnInit {
     msg: ''
   };
 
-  currentComponent: string;
-
   constructor(
     private aspirasiService: AspirasiService,
     public loadingCtrl: LoadingController,
@@ -37,17 +35,9 @@ export class AspirasiPage implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.dataAspirasi = [];
     this.idUser = JSON.parse(localStorage.getItem('PROFILE')).id;
-    setTimeout(() => {
-      this.dataAspirasi = [];
-      this.getListAspirasi();
-    }, 2000);
-  }
-
-  ionViewDidEnter() {
-    if (this.aspirasiService.getLocalLikes()) {
-      this.dataLikes = JSON.parse(this.aspirasiService.getLocalLikes());
-    }
+    this.getListAspirasi();
   }
 
   // get data broadcasts
@@ -81,6 +71,14 @@ export class AspirasiPage implements OnInit {
 
     this.dataEmpty = false;
 
+    const loader = await this.loadingCtrl.create({
+      duration: 10000
+    });
+
+    if (!infiniteScroll) {
+      loader.present();
+    }
+
     this.aspirasiService.getListAspirasi(this.currentPage).subscribe(
       res => {
         if (res['data']['items'].length) {
@@ -107,6 +105,7 @@ export class AspirasiPage implements OnInit {
         if (infiniteScroll) {
           infiniteScroll.target.complete();
         }
+        loader.dismiss();
       },
       err => {
         // stop infinite scroll
@@ -197,11 +196,6 @@ export class AspirasiPage implements OnInit {
   // check total likes
   checkCountLike(id: number) {
     return this.dataLikes.find(x => x.id === id).likes_count;
-  }
-
-  segmentChanged(ev: any) {
-    console.log(ev.detail.value);
-    this.currentComponent = ev.detail.value;
   }
 
   async showToast(msg: string) {

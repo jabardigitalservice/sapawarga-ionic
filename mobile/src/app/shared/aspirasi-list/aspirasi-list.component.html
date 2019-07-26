@@ -1,0 +1,52 @@
+<ion-card *ngFor="let aspirasi of dataAspirasi; let i = index">
+  <img
+    *ngIf="!offline"
+    class="img-cover"
+    src="{{
+      aspirasi.attachments !== null
+        ? aspirasi.attachments[0].url
+        : '../../../assets/img/placeholder_image.png'
+    }}"
+    (click)="goDetail(aspirasi.id)"
+  />
+  <img
+    *ngIf="offline"
+    class="img-cover"
+    src="../../../assets/img/placeholder_image.png"
+    (click)="goDetail(aspirasi.id)"
+  />
+  <ion-card-header>
+    <ion-card-subtitle class="dark-read" (click)="goDetail(aspirasi.id)">{{
+      aspirasi.category.name
+    }}</ion-card-subtitle>
+    <ion-card-title (click)="goDetail(aspirasi.id)">{{
+      aspirasi.title
+    }}</ion-card-title>
+  </ion-card-header>
+
+  <ion-card-content>
+    <div class="address" (click)="goDetail(aspirasi.id)">
+      {{ aspirasi.kabkota.name }}, {{ aspirasi.kecamatan.name }},
+      {{ aspirasi.kelurahan.name }}
+    </div>
+
+    <div class="author">
+      <ion-label>Oleh {{ aspirasi.author.name }}</ion-label>
+    </div>
+
+    <div class="d-inline-f">
+      <ion-icon
+        name="heart"
+        [color]="checkStateLike(aspirasi.id) ? 'danger' : 'medium'"
+        class="icon-heart"
+        (click)="
+          doLike(aspirasi.id, checkStateLike(aspirasi.id), aspirasi.likes_count)
+        "
+      ></ion-icon>
+      <p class="text-like">
+        {{ checkCountLike(aspirasi.id) }}
+        orang menyukai ini.
+      </p>
+    </div>
+  </ion-card-content>
+</ion-card>
