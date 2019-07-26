@@ -257,8 +257,8 @@ export class HomeResultsPage implements OnInit {
       const appId = appUrl;
       const appStarter = (window as any).startApp.set({ application: appId });
       appStarter.start(
-        function (msg) { },
-        function (err) {
+        function(msg) {},
+        function(err) {
           window.open(`market://details?id=${appId}`, '_system');
         }
       );
@@ -401,13 +401,14 @@ export class HomeResultsPage implements OnInit {
     this.launchweb(url);
   }
 
-
   getVideoPost() {
     // check internet
     if (!navigator.onLine) {
       // get local
       if (this.videoPostService.getLocal(this.VIDEO_POST)) {
-        this.dataVideoPost = JSON.parse(this.videoPostService.getLocal(this.VIDEO_POST));
+        this.dataVideoPost = JSON.parse(
+          this.videoPostService.getLocal(this.VIDEO_POST)
+        );
       } else {
         alert(Dictionary.offline);
       }
@@ -428,7 +429,9 @@ export class HomeResultsPage implements OnInit {
         setTimeout(() => {
           // get local
           if (this.videoPostService.getLocal(this.VIDEO_POST)) {
-            this.dataVideoPost = JSON.parse(this.videoPostService.getLocal(this.VIDEO_POST));
+            this.dataVideoPost = JSON.parse(
+              this.videoPostService.getLocal(this.VIDEO_POST)
+            );
             this.isLoading.videoPost = false;
           }
         }, 3000);
@@ -441,7 +444,9 @@ export class HomeResultsPage implements OnInit {
   }
 
   getThumbUrl(url: string) {
-    return `https://img.youtube.com/vi/${this.parsingDataUrl(url)}/maxresdefault.jpg`;
+    return `https://img.youtube.com/vi/${this.parsingDataUrl(
+      url
+    )}/maxresdefault.jpg`;
   }
 
   openYoutube(url: string) {
