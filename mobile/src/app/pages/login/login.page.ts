@@ -62,7 +62,7 @@ export class LoginPage implements OnInit {
       .then(res => {
         this.app_version = res;
       })
-      .catch(err => { });
+      .catch(err => {});
   }
 
   public showPassword() {
@@ -151,7 +151,6 @@ export class LoginPage implements OnInit {
 
     this.submitted = false;
     this.onLoginForm.reset();
-
   }
 
   downloadPdf() {
@@ -178,9 +177,8 @@ export class LoginPage implements OnInit {
 
       this.downloader
         .download(request)
-        .then(
-          (location: string) =>
-            this.showToast('Unduh Panduan', Dictionary.success_download)
+        .then((location: string) =>
+          this.showToast('Unduh Panduan', Dictionary.success_download)
         )
         .catch((error: any) =>
           this.showToast('Unduh Panduan', Dictionary.unsuccess_download)
