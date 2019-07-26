@@ -1,10 +1,9 @@
-import { Component } from '@angular/core';
-
-import { Platform, NavController } from '@ionic/angular';
+import { Component, ViewChild } from '@angular/core';
+import { Platform, NavController, IonRouterOutlet, ToastController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
-
+import { Dictionary } from './helpers/dictionary';
 import { Pages } from './interfaces/pages';
 import { AuthService } from './services/auth.service';
 import { FCM } from '@ionic-native/fcm/ngx';
@@ -18,8 +17,10 @@ import { NotifikasiService } from './services/notifikasi.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+  @ViewChild(IonRouterOutlet) routerOutlet: IonRouterOutlet;
   showSplash = true; // <-- show animation
   public appPages: Array<Pages>;
+  public counter = 0;
 
   constructor(
     private platform: Platform,
@@ -31,9 +32,25 @@ export class AppComponent {
     private router: Router,
     private broadcastService: BroadcastService,
     private notifikasiService: NotifikasiService,
-    private inAppBrowser: InAppBrowser
+    private inAppBrowser: InAppBrowser,
+    private toastCtrl: ToastController
   ) {
     this.initializeApp();
+    this.platform.backButton.subscribe(() => {
+      if (this.routerOutlet && this.routerOutlet.canGoBack()) {
+        this.routerOutlet.pop();
+      } else if (this.router.url === '/tabs') {
+        navigator['app'].exitApp();
+      } else {
+        if (this.counter === 0) {
+          this.counter++;
+          this.showToast();
+          setTimeout(() => { this.counter = 0; }, 3000);
+        } else {
+          navigator['app'].exitApp();
+        }
+      }
+    });
   }
 
   initializeApp() {
@@ -89,7 +106,15 @@ export class AppComponent {
           }
         });
       })
-      .catch(() => {});
+      .catch(() => { });
+  }
+
+  async showToast() {
+    const toast = await this.toastCtrl.create({
+      message: Dictionary.msg_exit_app,
+      duration: 3000
+    });
+    toast.present();
   }
 
   logout() {
