@@ -6,6 +6,10 @@
   .header-md:after {
     background-image: unset;
   }
+
+  ion-segment-button {
+    text-transform: capitalize;
+  }
 }
 
 .img-cover {
