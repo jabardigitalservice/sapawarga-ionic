@@ -139,10 +139,6 @@ export class AspirasiPage implements OnInit {
     }
     return datas;
   }
-  // go to my aspirasi
-  goMyAspirasi() {
-    this.router.navigate(['/aspirasi-user']);
-  }
 
   // go to detail with param id
   goDetail(id: number) {
@@ -210,5 +206,14 @@ export class AspirasiPage implements OnInit {
       duration: 2000
     });
     toast.present();
+  }
+
+  AddAspirasi() {
+    // check internet
+    if (!navigator.onLine) {
+      this.showToast(Dictionary.offline);
+      return;
+    }
+    this.router.navigate(['/aspirasi-form']);
   }
 }

@@ -4,11 +4,6 @@
       <ion-back-button></ion-back-button>
     </ion-buttons>
     <ion-title>Aspirasi</ion-title>
-    <ion-buttons slot="end" (click)="goMyAspirasi()">
-      <ion-button shape="round" color="dark">
-        <ion-icon name="bookmarks"></ion-icon>
-      </ion-button>
-    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -29,6 +24,21 @@
   ></app-message-control>
 
   <app-aspirasi-list *ngIf="currentComponent === 'umum'"></app-aspirasi-list>
+
+  <app-my-aspirasi *ngIf="currentComponent === 'myAspirasi'"></app-my-aspirasi>
+
+  <!-- fab placed to the bottom end -->
+  <ion-fab
+    vertical="bottom"
+    horizontal="end"
+    slot="fixed"
+    (click)="AddAspirasi()"
+    *ngIf="msgResponse.type !== 'server-error'"
+  >
+    <ion-fab-button color="success">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 
   <!-- infinite scroll -->
   <ion-infinite-scroll

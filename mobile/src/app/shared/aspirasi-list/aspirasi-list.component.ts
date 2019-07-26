@@ -118,6 +118,7 @@ export class AspirasiListComponent implements OnInit {
             msg: Dictionary.internalError
           };
         }
+        loader.dismiss();
       }
     );
   }
