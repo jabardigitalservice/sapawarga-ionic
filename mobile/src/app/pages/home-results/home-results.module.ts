@@ -8,6 +8,7 @@ import { HomeResultsPage } from './home-results.page';
 
 // plugin app browser
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
+import { YoutubeVideoPlayer } from '@ionic-native/youtube-video-player/ngx';
 
 const routes: Routes = [
   {
@@ -24,7 +25,7 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes)
   ],
-  providers: [InAppBrowser],
+  providers: [InAppBrowser, YoutubeVideoPlayer],
   declarations: [HomeResultsPage]
 })
-export class HomeResultsPageModule {}
+export class HomeResultsPageModule { }
