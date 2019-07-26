@@ -197,6 +197,10 @@ export class AspirasiPage implements OnInit {
     return this.dataLikes.find(x => x.id === id).likes_count;
   }
 
+  segmentChanged(ev: any) {
+    console.log('Segment changed', ev);
+  }
+
   async showToast(msg: string) {
     const toast = await this.toastCtrl.create({
       message: msg,

@@ -2,6 +2,10 @@
   ion-card-header {
     padding-bottom: unset !important;
   }
+
+  .header-md:after {
+    background-image: unset;
+  }
 }
 
 .img-cover {
