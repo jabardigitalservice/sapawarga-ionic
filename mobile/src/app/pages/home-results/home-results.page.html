@@ -98,12 +98,7 @@
   </div>
 
   <div>
-    <ion-item>
-      <h5 class="bold" slot="start">Berita</h5>
-      <ion-button fill="clear" slot="end" color="success" (click)="goToNews()"
-        >Lihat Semua</ion-button
-      >
-    </ion-item>
+    <h5 class="bold pad-l10">Berita</h5>
 
     <!-- Skeleton screen news -->
     <ion-card
@@ -151,7 +146,17 @@
       <ion-slide>
         <div *ngIf="dataNews">
           <ion-card class="text-dark min-mt-5 ion-margin-bottom">
-            <h6 class="bold" slot="start">Berita Jawa Barat</h6>
+            <ion-item class="section-title-news">
+              <p class="bold text-title">Jawa Barat</p>
+              <ion-button
+                fill="clear"
+                slot="end"
+                color="success"
+                (click)="goToNews()"
+                style="font-size: 10px;"
+                >Lihat Semua</ion-button
+              >
+            </ion-item>
 
             <ion-item
               *ngFor="let headline of dataNews"
@@ -190,7 +195,17 @@
       <ion-slide>
         <div *ngIf="dataNews">
           <ion-card class="text-dark min-mt-5 ion-margin-bottom">
-            <h6 class="bold" slot="start">Berita Jawa Barat</h6>
+            <ion-item class="section-title-news">
+              <p class="bold text-title">Bandung</p>
+              <ion-button
+                fill="clear"
+                slot="end"
+                color="success"
+                (click)="goToNews()"
+                style="font-size: 10px;"
+                >Lihat Semua</ion-button
+              >
+            </ion-item>
 
             <ion-item
               *ngFor="let headline of dataNews"
