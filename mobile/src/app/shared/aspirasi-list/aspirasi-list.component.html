@@ -1,52 +1,74 @@
-<ion-card *ngFor="let aspirasi of dataAspirasi; let i = index">
-  <img
-    *ngIf="!offline"
-    class="img-cover"
-    src="{{
-      aspirasi.attachments !== null
-        ? aspirasi.attachments[0].url
-        : '../../../assets/img/placeholder_image.png'
-    }}"
-    (click)="goDetail(aspirasi.id)"
-  />
-  <img
-    *ngIf="offline"
-    class="img-cover"
-    src="../../../assets/img/placeholder_image.png"
-    (click)="goDetail(aspirasi.id)"
-  />
-  <ion-card-header>
-    <ion-card-subtitle class="dark-read" (click)="goDetail(aspirasi.id)">{{
-      aspirasi.category.name
-    }}</ion-card-subtitle>
-    <ion-card-title (click)="goDetail(aspirasi.id)">{{
-      aspirasi.title
-    }}</ion-card-title>
-  </ion-card-header>
+<app-message-control
+  *ngIf="msgResponse.type"
+  [type]="msgResponse.type"
+  [message]="msgResponse.msg"
+></app-message-control>
 
-  <ion-card-content>
-    <div class="address" (click)="goDetail(aspirasi.id)">
-      {{ aspirasi.kabkota.name }}, {{ aspirasi.kecamatan.name }},
-      {{ aspirasi.kelurahan.name }}
-    </div>
+<div class="pt-15" *ngFor="let aspirasi of dataAspirasi; let i = index">
+  <ion-item>
+    <ion-avatar slot="start">
+      <img [src]="'assets/img/user.png'" />
+    </ion-avatar>
+    <ion-text>{{ 'asep' }}</ion-text>
+  </ion-item>
 
-    <div class="author">
-      <ion-label>Oleh {{ aspirasi.author.name }}</ion-label>
-    </div>
+  <div class="pl-16 pr-16 mt-5 mb-5">
+    <img
+      *ngIf="!offline"
+      class="img-cover"
+      src="{{
+        aspirasi.attachments !== null
+          ? aspirasi.attachments[0].url
+          : '../../../assets/img/placeholder_image.png'
+      }}"
+      onError="this.src='assets/img/placeholder_image.png';"
+      (click)="goDetail(aspirasi.id)"
+    />
+    <img
+      *ngIf="offline"
+      class="img-cover"
+      src="../../../assets/img/placeholder_image.png"
+      (click)="goDetail(aspirasi.id)"
+    />
 
-    <div class="d-inline-f">
-      <ion-icon
-        name="heart"
-        [color]="checkStateLike(aspirasi.id) ? 'danger' : 'medium'"
-        class="icon-heart"
-        (click)="
-          doLike(aspirasi.id, checkStateLike(aspirasi.id), aspirasi.likes_count)
-        "
-      ></ion-icon>
-      <p class="text-like">
-        {{ checkCountLike(aspirasi.id) }}
-        orang menyukai ini.
-      </p>
-    </div>
-  </ion-card-content>
-</ion-card>
+    <ion-item class="section-2">
+      <div class="d-inline-f" slot="start">
+        <ion-icon
+          name="heart"
+          [color]="checkStateLike(aspirasi.id) ? 'danger' : 'medium'"
+          class="icon-heart"
+          (click)="
+            doLike(
+              aspirasi.id,
+              checkStateLike(aspirasi.id),
+              aspirasi.likes_count
+            )
+          "
+        ></ion-icon>
+        <p class="text-like">
+          {{ checkCountLike(aspirasi.id) }}
+          likes
+        </p>
+      </div>
+
+      <ion-text slot="end" class="category-text">{{
+        aspirasi.category.name
+      }}</ion-text>
+    </ion-item>
+
+    <ion-text>{{ aspirasi.title }}</ion-text>
+  </div>
+</div>
+
+<!-- infinite scroll -->
+<ion-infinite-scroll
+  threshold="100px"
+  (ionInfinite)="doInfinite($event)"
+  *ngIf="dataAspirasi"
+>
+  <ion-infinite-scroll-content
+    loadingSpinner="bubbles"
+    loadingText="Sedang mengambil data..."
+  >
+  </ion-infinite-scroll-content>
+</ion-infinite-scroll>

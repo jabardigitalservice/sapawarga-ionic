@@ -17,12 +17,6 @@
     </ion-segment-button>
   </ion-segment>
 
-  <app-message-control
-    *ngIf="msgResponse.type"
-    [type]="msgResponse.type"
-    [message]="msgResponse.msg"
-  ></app-message-control>
-
   <app-aspirasi-list *ngIf="currentComponent === 'umum'"></app-aspirasi-list>
 
   <app-my-aspirasi *ngIf="currentComponent === 'myAspirasi'"></app-my-aspirasi>
@@ -33,23 +27,9 @@
     horizontal="end"
     slot="fixed"
     (click)="AddAspirasi()"
-    *ngIf="msgResponse.type !== 'server-error'"
   >
     <ion-fab-button color="success">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>
-
-  <!-- infinite scroll -->
-  <ion-infinite-scroll
-    threshold="100px"
-    (ionInfinite)="doInfinite($event)"
-    *ngIf="dataAspirasi"
-  >
-    <ion-infinite-scroll-content
-      loadingSpinner="bubbles"
-      loadingText="Sedang mengambil data..."
-    >
-    </ion-infinite-scroll-content>
-  </ion-infinite-scroll>
 </ion-content>
