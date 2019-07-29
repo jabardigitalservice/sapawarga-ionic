@@ -37,6 +37,21 @@
   .list-headline-jabar {
     --padding-start: unset;
   }
+
+  h6 {
+    text-align: left;
+    padding-bottom: 15px;
+    margin-left: 15px;
+    margin-right: 15px;
+    border-bottom: 1px solid #dfdfdf;
+  }
+
+  .list-news {
+    --border-color: var(
+      --ion-item-border-color,
+      var(--ion-border-color, var(--ion-color-step-150, rgba(0, 0, 0, 0.13)))
+    );
+  }
 }
 
 .section {

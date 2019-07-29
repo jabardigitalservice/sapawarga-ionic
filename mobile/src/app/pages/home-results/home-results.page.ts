@@ -57,6 +57,12 @@ export class HomeResultsPage implements OnInit {
     zoom: false
   };
 
+  sliderConfigNews = {
+    slidesPerView: 1.3,
+    spaceBetween: 5,
+    zoom: false
+  };
+
   unreadNotif: 0;
   // isLoading = false;
   isLoading = {
