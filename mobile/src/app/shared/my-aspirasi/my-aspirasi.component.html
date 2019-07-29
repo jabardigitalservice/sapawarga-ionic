@@ -4,35 +4,32 @@
   [message]="msgResponse.msg"
 ></app-message-control>
 
-<!-- Data to display after skeleton screen -->
-<ion-card *ngFor="let aspirasi of dataAspirasi">
-  <img
-    class="img-cover"
-    src="{{
-      aspirasi.attachments !== null
-        ? aspirasi.attachments[0].url
-        : '../../../assets/img/placeholder_image.png'
-    }}"
-    (click)="goDetail(aspirasi.id)"
-  />
-  <ion-card-header>
-    <ion-card-subtitle class="dark-read" (click)="goDetail(aspirasi.id)">{{
-      aspirasi.category.name
-    }}</ion-card-subtitle>
-    <ion-card-title (click)="goDetail(aspirasi.id)">{{
-      aspirasi.title
-    }}</ion-card-title>
-  </ion-card-header>
-
-  <ion-card-content style="padding-top: 0">
-    <div (click)="goDetail(aspirasi.id)" style="margin: 15px 0">
-      {{ aspirasi.kabkota.name }}, {{ aspirasi.kecamatan.name }},
-      {{ aspirasi.kelurahan.name }}
-    </div>
-  </ion-card-content>
-  <ion-item>
-    <ion-badge [color]="checkStatus(aspirasi.status)" slot="end">{{
-      aspirasi.status_label
-    }}</ion-badge>
+<div *ngFor="let aspirasi of dataAspirasi">
+  <ion-item (click)="goDetail(aspirasi.id)">
+    <ion-thumbnail slot="start">
+      <img
+        class="img-cover"
+        src="{{
+          aspirasi.attachments !== null
+            ? aspirasi.attachments[0].url
+            : '../../../assets/img/placeholder_image_portrait.png'
+        }}"
+        (click)="goDetail(aspirasi.id)"
+      />
+    </ion-thumbnail>
+    <ion-label>
+      <h2>{{ aspirasi.title }}</h2>
+      <ion-item class="section-2">
+        <p class="font-10">
+          {{ aspirasi.updated_at * 1000 | date: 'd MMM y' }}
+        </p>
+        <ion-badge
+          class="font-10"
+          [color]="checkStatus(aspirasi.status)"
+          slot="end"
+          >{{ aspirasi.status_label }}</ion-badge
+        >
+      </ion-item>
+    </ion-label>
   </ion-item>
-</ion-card>
+</div>

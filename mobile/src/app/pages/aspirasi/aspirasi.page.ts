@@ -22,7 +22,6 @@ export class AspirasiPage implements OnInit {
   ionViewDidEnter() {}
 
   segmentChanged(ev: any) {
-    console.log(ev.detail.value);
     this.currentComponent = ev.detail.value;
   }
 
