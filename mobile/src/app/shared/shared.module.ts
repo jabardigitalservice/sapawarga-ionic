@@ -3,11 +3,21 @@ import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 
 import { MessageControlComponent } from './message-control/message-control.component';
+import { AspirasiListComponent } from './aspirasi-list/aspirasi-list.component';
+import { MyAspirasiComponent } from './my-aspirasi/my-aspirasi.component';
 
 @NgModule({
-  declarations: [MessageControlComponent],
+  declarations: [
+    MessageControlComponent,
+    AspirasiListComponent,
+    MyAspirasiComponent
+  ],
   imports: [CommonModule],
-  exports: [MessageControlComponent],
+  exports: [
+    MessageControlComponent,
+    AspirasiListComponent,
+    MyAspirasiComponent
+  ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class SharedModule {}

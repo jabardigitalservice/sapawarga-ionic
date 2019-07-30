@@ -1,0 +1,77 @@
+<app-message-control
+  *ngIf="msgResponse.type"
+  [type]="msgResponse.type"
+  [message]="msgResponse.msg"
+></app-message-control>
+
+<div class="pt-5" *ngFor="let aspirasi of dataAspirasi; let i = index">
+  <ion-item>
+    <ion-avatar slot="start">
+      <img
+        [src]="prefixUrl + aspirasi.author.photo_url"
+        onError="this.src='assets/img/user.png';"
+      />
+    </ion-avatar>
+    <ion-text>{{ aspirasi.author.name }}</ion-text>
+  </ion-item>
+
+  <div class="pb-10 pl-16 pr-16 mt-5 mb-5">
+    <img
+      *ngIf="!offline"
+      class="img-cover"
+      src="{{
+        aspirasi.attachments !== null
+          ? aspirasi.attachments[0].url
+          : '../../../assets/img/placeholder_image.png'
+      }}"
+      onError="this.src='assets/img/placeholder_image.png';"
+      (click)="goDetail(aspirasi.id)"
+    />
+    <img
+      *ngIf="offline"
+      class="img-cover"
+      src="../../../assets/img/placeholder_image.png"
+      (click)="goDetail(aspirasi.id)"
+    />
+
+    <ion-item class="section-2">
+      <div class="d-inline-f" slot="start">
+        <ion-icon
+          name="heart"
+          [color]="checkStateLike(aspirasi.id) ? 'danger' : 'medium'"
+          class="icon-heart"
+          (click)="
+            doLike(
+              aspirasi.id,
+              checkStateLike(aspirasi.id),
+              aspirasi.likes_count
+            )
+          "
+        ></ion-icon>
+        <p class="text-like">
+          {{ checkCountLike(aspirasi.id) }}
+          likes
+        </p>
+      </div>
+
+      <ion-text slot="end" class="category-text">{{
+        aspirasi.category.name
+      }}</ion-text>
+    </ion-item>
+
+    <ion-text>{{ aspirasi.title }}</ion-text>
+  </div>
+</div>
+
+<!-- infinite scroll -->
+<ion-infinite-scroll
+  threshold="100px"
+  (ionInfinite)="doInfinite($event)"
+  *ngIf="dataAspirasi"
+>
+  <ion-infinite-scroll-content
+    loadingSpinner="bubbles"
+    loadingText="Sedang mengambil data..."
+  >
+  </ion-infinite-scroll-content>
+</ion-infinite-scroll>
