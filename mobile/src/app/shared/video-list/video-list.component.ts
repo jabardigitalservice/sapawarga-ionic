@@ -23,6 +23,11 @@ export class VideoListComponent implements OnInit {
   };
 
   dataVideoPost: VideoPost[];
+  dataLikes = [
+    { id: 1, liked: true, likes_count: 1 },
+    { id: 2, liked: false, likes_count: 1 },
+    { id: 3, liked: false, likes_count: 0 }
+  ];
   VIDEO_POST = 'video-post';
   constructor(
     private videoPostService: VideoPostService,
@@ -88,5 +93,41 @@ export class VideoListComponent implements OnInit {
       return;
     }
     this.youtube.openVideo(this.parsingDataUrl(url));
+  }
+
+  doLike(id: number, checkLike: boolean, totalLike: number) {
+    // check internet
+    if (!navigator.onLine) {
+      alert(Dictionary.offline);
+      return;
+    }
+
+    if (checkLike) {
+      // set unlike
+      this.dataLikes.find(x => x.id === id).liked = false;
+      // set total like
+      this.dataLikes.find(x => x.id === id).likes_count--;
+    } else {
+      // set like
+      this.dataLikes.find(x => x.id === id).liked = true;
+      // set total like + 1
+      this.dataLikes.find(x => x.id === id).likes_count++;
+    }
+
+    // save like to server
+    // this.videoPostService.likeVideo(id).subscribe(res => {}, err => {});
+
+    // save likes to local
+    // this.videoPostService.saveLocalLikes(this.dataLikes);
+  }
+
+  // check if data like/non
+  checkStateLike(id: number) {
+    return this.dataLikes.filter(x => x.id === id && x.liked).length > 0;
+  }
+
+  // check total likes
+  checkCountLike(id: number) {
+    return this.dataLikes.find(x => x.id === id).likes_count;
   }
 }

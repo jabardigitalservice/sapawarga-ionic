@@ -5,6 +5,7 @@ import { VideoPost } from '../interfaces/video-post';
 import { environment } from '../../environments/environment';
 import { catchError } from 'rxjs/operators';
 
+const VIDEO_LIKES = 'video-post-likes';
 @Injectable({
   providedIn: 'root'
 })
@@ -15,6 +16,24 @@ export class VideoPostService {
     return this.http
       .get<VideoPost[]>(`${environment.API_MOCK}/videos?${param}`)
       .pipe(catchError(this.handleError));
+  }
+
+  likeVideo(id: number): Observable<any> {
+    return this.http
+      .post(`${environment.API_URL}/videos/likes/${id}`, {})
+      .pipe(catchError(this.handleError));
+  }
+
+  // save Aspirasi into local storage
+  saveLocalLikes(data: object) {
+    localStorage.setItem(VIDEO_LIKES, JSON.stringify(data));
+  }
+
+  // get Aspirasi into local storage
+  getLocalLikes() {
+    return localStorage.getItem(VIDEO_LIKES)
+      ? localStorage.getItem(VIDEO_LIKES)
+      : '';
   }
 
   // save data headlines into local storage
