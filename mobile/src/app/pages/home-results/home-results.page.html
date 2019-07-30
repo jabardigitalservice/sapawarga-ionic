@@ -1,258 +1,186 @@
 <ion-header>
-	<ion-toolbar color="light">
-		<ion-buttons slot="start">
-			<img [src]="logoApp" class="logo-app" />
-		</ion-buttons>
-		<ion-buttons slot="end">
-			<ion-button shape="round" color="dark" (click)="goNotifikasi()">
-				<ion-icon name="notifications" class="color-grey"></ion-icon>
-				<ion-badge *ngIf="unreadNotif > 0" color="danger">{{
-					unreadNotif
-				}}</ion-badge>
-			</ion-button>
-		</ion-buttons>
-	</ion-toolbar>
+  <ion-toolbar color="light">
+    <ion-buttons slot="start">
+      <img [src]="logoApp" class="logo-app" />
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button shape="round" color="dark" (click)="goNotifikasi()">
+        <ion-icon name="notifications" class="color-grey"></ion-icon>
+        <ion-badge *ngIf="unreadNotif > 0" color="danger">{{
+          unreadNotif
+        }}</ion-badge>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content>
-	<ion-card class="bg-white ion-margin-top">
-		<ion-slides pager="true" [options]="slideOpts" pager="false">
-			<ion-slide *ngFor="let img of themeCover">
-				<img src="{{ img.slide }}" />
-			</ion-slide>
-		</ion-slides>
-	</ion-card>
+  <ion-card class="bg-white ion-margin-top">
+    <ion-slides pager="true" [options]="slideOpts" pager="false">
+      <ion-slide *ngFor="let img of themeCover">
+        <img src="{{ img.slide }}" />
+      </ion-slide>
+    </ion-slides>
+  </ion-card>
 
-	<ion-row text-center small class="text-dark">
-		<ion-col size="3" class="mt-1" no-padding *ngFor="let page of appPages">
-			<img
-				class="icon-img"
-				[src]="page.icon"
-				alt="icon"
-				(click)="goToLayanan(page.title, page.url)"
-			/>
-			<ion-text class="label-menu" color="dark">{{ page.title }}</ion-text>
-		</ion-col>
-	</ion-row>
+  <ion-row text-center small class="text-dark">
+    <ion-col size="3" class="mt-1" no-padding *ngFor="let page of appPages">
+      <img
+        class="icon-img"
+        [src]="page.icon"
+        alt="icon"
+        (click)="goToLayanan(page.title, page.url)"
+      />
+      <ion-text class="label-menu" color="dark">{{ page.title }}</ion-text>
+    </ion-col>
+  </ion-row>
 
-	<div class="min-mt-14">
-		<ion-item>
-			<h5 class="bold" slot="start">Humas Jabar</h5>
-			<ion-button
-				fill="clear"
-				slot="end"
-				color="success"
-				(click)="goTohumas(humas_URL)"
-				>Lihat Semua</ion-button
-			>
-		</ion-item>
+  <div class="min-mt-14">
+    <ion-item>
+      <h5 class="bold" slot="start">Humas Jabar</h5>
+      <ion-button
+        fill="clear"
+        slot="end"
+        color="success"
+        (click)="goTohumas(humas_URL)"
+        >Lihat Semua</ion-button
+      >
+    </ion-item>
 
-		<!-- Skeleton screen humas jabar -->
-		<div padding class="min-mt-5" *ngIf="isLoading.humas">
-			<ion-thumbnail
-				slot="end"
-				alt="icon"
-				class="thumbnail-image"
-				style="width: 100%; height: 110px;"
-			>
-				<ion-skeleton-text></ion-skeleton-text>
-			</ion-thumbnail>
+    <!-- Skeleton screen humas jabar -->
+    <div padding class="min-mt-5" *ngIf="isLoading.humas">
+      <ion-thumbnail
+        slot="end"
+        alt="icon"
+        class="thumbnail-image"
+        style="width: 100%; height: 110px;"
+      >
+        <ion-skeleton-text></ion-skeleton-text>
+      </ion-thumbnail>
 
-			<ion-item class="list-headline-jabar">
-				<ion-text style="width: 90%;">
-					<ion-skeleton-text animated style="width: 100%"></ion-skeleton-text
-					><ion-skeleton-text animated style="width: 100%"></ion-skeleton-text
-				></ion-text>
-				<ion-skeleton-text
-					slot="end"
-					style="width: 20%; height: 50%;"
-				></ion-skeleton-text>
-			</ion-item>
-		</div>
+      <ion-item class="list-headline-jabar">
+        <ion-text style="width: 90%;">
+          <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text
+          ><ion-skeleton-text animated style="width: 100%"></ion-skeleton-text
+        ></ion-text>
+        <ion-skeleton-text
+          slot="end"
+          style="width: 20%; height: 50%;"
+        ></ion-skeleton-text>
+      </ion-item>
+    </div>
 
-		<ion-slides [options]="sliderConfigHumas" *ngIf="dataHumas">
-			<ion-slide *ngFor="let humas of dataHumas">
-				<div>
-					<img
-						class="thumbnail-image"
-						[src]="humas.thumbnail"
-						onError="this.src='assets/img/placeholder_image.png';"
-						alt="humas"
-					/>
+    <ion-slides [options]="sliderConfigHumas" *ngIf="dataHumas">
+      <ion-slide *ngFor="let humas of dataHumas">
+        <div>
+          <img
+            class="thumbnail-image"
+            [src]="humas.thumbnail"
+            onError="this.src='assets/img/placeholder_image.png';"
+            alt="humas"
+          />
 
-					<ion-item class="list-headline-jabar">
-						<ion-text class="title-humas"
-							>{{ humas.post_title | slice: 0:35
-							}}{{ humas.post_title.length > 35 ? '...' : '' }}</ion-text
-						>
-						<ion-button
-							slot="end"
-							class="blues-color"
-							(click)="goTohumas(humas.slug)"
-							>Baca</ion-button
-						>
-					</ion-item>
-				</div>
-			</ion-slide>
-		</ion-slides>
-	</div>
+          <ion-item class="list-headline-jabar">
+            <ion-text class="title-humas"
+              >{{ humas.post_title | slice: 0:35
+              }}{{ humas.post_title.length > 35 ? '...' : '' }}</ion-text
+            >
+            <ion-button
+              slot="end"
+              class="blues-color"
+              (click)="goTohumas(humas.slug)"
+              >Baca</ion-button
+            >
+          </ion-item>
+        </div>
+      </ion-slide>
+    </ion-slides>
+  </div>
 
-	<div>
-		<ion-item>
-			<h5 class="bold" slot="start">Berita</h5>
-			<ion-button fill="clear" slot="end" color="success" (click)="goToNews()"
-				>Lihat Semua</ion-button
-			>
-		</ion-item>
+  <div>
+    <ion-item>
+      <h5 class="bold" slot="start">Berita</h5>
+      <ion-button fill="clear" slot="end" color="success" (click)="goToNews()"
+        >Lihat Semua</ion-button
+      >
+    </ion-item>
 
-		<!-- Skeleton screen news -->
-		<ion-card
-			class="text-dark min-mt-5 ion-margin-bottom"
-			*ngIf="isLoading.news"
-		>
-			<ion-item>
-				<ion-text class="mb-5" style="width: 90%;">
-					<ion-skeleton-text
-						animated
-						class="bold headline-title"
-						style="width: 100%"
-					></ion-skeleton-text>
-					<ion-skeleton-text
-						animated
-						class="bold headline-title"
-						style="width: 100%"
-					></ion-skeleton-text>
-					<ion-note class="source-title" style="width: 20%;"
-						><ion-skeleton-text
-							animated
-							class="bold headline-title"
-							style="width: 100%"
-						></ion-skeleton-text>
+    <!-- Skeleton screen news -->
+    <ion-card
+      class="text-dark min-mt-5 ion-margin-bottom"
+      *ngIf="isLoading.news"
+    >
+      <ion-item>
+        <ion-text class="mb-5" style="width: 90%;">
+          <ion-skeleton-text
+            animated
+            class="bold headline-title"
+            style="width: 100%"
+          ></ion-skeleton-text>
+          <ion-skeleton-text
+            animated
+            class="bold headline-title"
+            style="width: 100%"
+          ></ion-skeleton-text>
+          <ion-note class="source-title" style="width: 20%;"
+            ><ion-skeleton-text
+              animated
+              class="bold headline-title"
+              style="width: 100%"
+            ></ion-skeleton-text>
 
-						<ion-skeleton-text
-							animated
-							class="bold headline-title"
-							style="width: 100%"
-						></ion-skeleton-text> </ion-note
-				></ion-text>
+            <ion-skeleton-text
+              animated
+              class="bold headline-title"
+              style="width: 100%"
+            ></ion-skeleton-text> </ion-note
+        ></ion-text>
 
-				<ion-thumbnail
-					slot="end"
-					alt="icon"
-					class="headlines-img"
-					style="width: 100%;"
-				>
-					<ion-skeleton-text></ion-skeleton-text>
-				</ion-thumbnail>
-			</ion-item>
-		</ion-card>
+        <ion-thumbnail
+          slot="end"
+          alt="icon"
+          class="headlines-img"
+          style="width: 100%;"
+        >
+          <ion-skeleton-text></ion-skeleton-text>
+        </ion-thumbnail>
+      </ion-item>
+    </ion-card>
 
-		<div *ngIf="dataNews">
-			<ion-card
-				class="text-dark min-mt-5 ion-margin-bottom"
-				*ngFor="let headline of dataNews"
-			>
-				<ion-item (click)="goToDetailNews(headline.id)">
-					<ion-text class="mb-5"
-						><p class="bold headline-title">
-							{{ headline.title | slice: 0:45
-							}}{{ headline.title.length > 45 ? '...' : '' }}
-						</p>
-						<ion-note class="source-title"
-							><img
-								[src]="headline.channel.icon_url"
-								onError="this.src='assets/img/placeholder_image_portrait.png';"
-								class="source-icon"
-								alt="sumber"
-							/>
-							{{ headline.channel.name }}</ion-note
-						></ion-text
-					>
+    <div *ngIf="dataNews">
+      <ion-card
+        class="text-dark min-mt-5 ion-margin-bottom"
+        *ngFor="let headline of dataNews"
+      >
+        <ion-item (click)="goToDetailNews(headline.id)">
+          <ion-text class="mb-5"
+            ><p class="bold headline-title">
+              {{ headline.title | slice: 0:45
+              }}{{ headline.title.length > 45 ? '...' : '' }}
+            </p>
+            <ion-note class="source-title"
+              ><img
+                [src]="headline.channel.icon_url"
+                onError="this.src='assets/img/placeholder_image_portrait.png';"
+                class="source-icon"
+                alt="sumber"
+              />
+              {{ headline.channel.name }}</ion-note
+            ></ion-text
+          >
 
-					<img
-						slot="end"
-						[src]="headline.cover_path_url"
-						alt="icon"
-						class="headlines-img"
-						onError="this.src='assets/img/placeholder_image_portrait.png';"
-						alt="humas"
-					/>
-				</ion-item>
-			</ion-card>
-		</div>
-	</div>
+          <img
+            slot="end"
+            [src]="headline.cover_path_url"
+            alt="icon"
+            class="headlines-img"
+            onError="this.src='assets/img/placeholder_image_portrait.png';"
+            alt="humas"
+          />
+        </ion-item>
+      </ion-card>
+    </div>
+  </div>
 
-	<div class="min-mt-14">
-		<ion-item>
-			<h5 class="bold" slot="start">Video Post</h5>
-		</ion-item>
-
-		<!-- Skeleton screen Video Post -->
-		<div padding class="min-mt-5" *ngIf="isLoading.videoPost">
-			<ion-thumbnail
-				slot="end"
-				alt="icon"
-				class="thumbnail-image"
-				style="width: 100%; height: 120px;"
-			>
-				<ion-skeleton-text></ion-skeleton-text>
-			</ion-thumbnail>
-
-			<ion-item class="list-headline-jabar">
-				<ion-text style="width: 90%;">
-					<ion-skeleton-text animated style="width: 100%"></ion-skeleton-text
-					><ion-skeleton-text animated style="width: 100%"></ion-skeleton-text
-				></ion-text>
-				<ion-skeleton-text
-					slot="end"
-					style="width: 20%; height: 50%;"
-				></ion-skeleton-text>
-			</ion-item>
-		</div>
-
-		<ion-slides [options]="sliderConfigVideoPost" *ngIf="dataVideoPost">
-			<ion-slide *ngFor="let data of dataVideoPost">
-				<div>
-					<ion-card style=" position: relative;">
-						<img
-							[src]="getThumbUrl(data.video_url)"
-							onError="this.src='assets/img/placeholder_image.png';"
-							alt="humas"
-							(click)="openYoutube(data.video_url)"
-						/>
-						<div class="thumbnail-list">
-							<img
-								class="thumbnail-img"
-								src="assets/icon/icons_play_button.png"
-								alt="icon play"
-								(click)="openYoutube(data.video_url)"
-							/>
-						</div>
-
-						<ion-item class="list-headline-jabar">
-							<ion-text class="title-video-post"
-								>{{ data.title | slice: 0:35
-								}}{{ data.title.length > 35 ? '...' : '' }}</ion-text
-							>
-							<div
-								slot="end"
-								text-center
-								style="margin-top: 10px; margin-bottom: 10px"
-							>
-								<ion-icon
-									name="heart"
-									[color]="'danger'"
-									class="icon-heart"
-								></ion-icon>
-								<br />
-								<ion-text class="text-like">
-									{{ data.likes_count }} likes</ion-text
-								>
-							</div>
-						</ion-item>
-					</ion-card>
-				</div>
-			</ion-slide>
-		</ion-slides>
-	</div>
+  <app-video-list></app-video-list>
 </ion-content>
