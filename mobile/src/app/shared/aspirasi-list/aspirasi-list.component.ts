@@ -4,6 +4,7 @@ import { LoadingController, ToastController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { Aspirasi } from '../../interfaces/aspirasi';
 import { Dictionary } from '../../helpers/dictionary';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-aspirasi-list',
@@ -26,6 +27,8 @@ export class AspirasiListComponent implements OnInit {
     type: '',
     msg: ''
   };
+
+  prefixUrl = `${environment.API_STORAGE}/image/`;
 
   constructor(
     private aspirasiService: AspirasiService,
