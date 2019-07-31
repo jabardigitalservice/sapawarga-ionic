@@ -94,7 +94,7 @@ export class HomeResultsPage implements OnInit {
         icon: 'assets/icon/SW-LAPOR.png'
       },
       {
-        title: 'Aspirasi',
+        title: 'Usulan',
         url: '',
         icon: 'assets/icon/SW-ASPIRASI.png'
       },
@@ -196,13 +196,13 @@ export class HomeResultsPage implements OnInit {
       case 'Lapor':
         this.goLapor();
         break;
-      case 'Aspirasi':
+      case 'Usulan':
         this.goAspirasi();
         break;
       case 'Administrasi':
         this.goAdministrasi();
         break;
-      case 'Aspirasi':
+      case 'Usulan':
         this.goAspirasi();
         break;
       case 'Polling':
