@@ -14,7 +14,7 @@ export enum Dictionary {
   aspirasi_success_delete = 'Usulan berhasil dihapus',
   aspirasi_failed = 'Usulan gagal dihapus, periksa kembali koneksi internet Anda',
   aspirasi_confirm = 'Apakah Anda yakin ingin menghapus usulan ini?',
-  empty_aspirasi = 'Belum ada Usulan yang dibuat',
+  empty_aspirasi = 'Belum ada usulan yang dibuat',
   aspirasi_limit_upload = 'Anda hanya dapat menyertakan maksimal lima foto saja',
   aspirasi_msg_send = 'apakah anda setuju untuk memberikan usulan untuk jawa barat?',
   aspirasi_msg_draft = 'Anda belum menyelesaikan posting Anda. Apakah ingin menyimpan sebagai draft?',
