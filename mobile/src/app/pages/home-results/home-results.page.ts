@@ -94,7 +94,7 @@ export class HomeResultsPage implements OnInit {
         icon: 'assets/icon/SW-LAPOR.png'
       },
       {
-        title: 'Aspirasi',
+        title: 'Usulan',
         url: '',
         icon: 'assets/icon/SW-ASPIRASI.png'
       },
@@ -117,11 +117,6 @@ export class HomeResultsPage implements OnInit {
         title: 'Info harga',
         url: 'id.bigio.priangan',
         icon: 'assets/icon/SW-Info-harga.png'
-      },
-      {
-        title: 'Info lelang',
-        url: 'https://lpse.jabarprov.go.id/eproc4',
-        icon: 'assets/icon/SW-LELANG.png'
       },
       {
         title: 'E-samsat',
@@ -162,7 +157,7 @@ export class HomeResultsPage implements OnInit {
     this.getDataHumas();
 
     // get data Video Post
-    this.getVideoPost();
+    // this.getVideoPost();
   }
 
   ionViewDidEnter() {
@@ -187,22 +182,19 @@ export class HomeResultsPage implements OnInit {
       case 'Info harga':
         this.launchApp(layananUrl);
         break;
-      case 'Info lelang':
-        this.launchweb(layananUrl);
-        break;
       case 'Nomor penting':
         this.goNomorPenting();
         break;
       case 'Lapor':
         this.goLapor();
         break;
-      case 'Aspirasi':
+      case 'Usulan':
         this.goAspirasi();
         break;
       case 'Administrasi':
         this.goAdministrasi();
         break;
-      case 'Aspirasi':
+      case 'Usulan':
         this.goAspirasi();
         break;
       case 'Polling':

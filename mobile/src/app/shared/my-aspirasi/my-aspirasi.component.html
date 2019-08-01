@@ -5,31 +5,33 @@
 ></app-message-control>
 
 <div *ngFor="let aspirasi of dataAspirasi">
-  <ion-item (click)="goDetail(aspirasi.id)">
-    <ion-thumbnail slot="start">
-      <img
-        class="img-cover"
-        src="{{
-          aspirasi.attachments !== null
-            ? aspirasi.attachments[0].url
-            : '../../../assets/img/placeholder_image_portrait.png'
-        }}"
-        (click)="goDetail(aspirasi.id)"
-      />
-    </ion-thumbnail>
-    <ion-label>
-      <h2>{{ aspirasi.title }}</h2>
-      <ion-item class="section-2">
-        <p class="font-10">
-          {{ aspirasi.updated_at * 1000 | date: 'd MMM y' }}
-        </p>
-        <ion-badge
-          class="font-10"
-          [color]="checkStatus(aspirasi.status)"
-          slot="end"
-          >{{ aspirasi.status_label }}</ion-badge
-        >
-      </ion-item>
-    </ion-label>
-  </ion-item>
+  <ion-card class="box-selector ion-margin-bottom">
+    <ion-item (click)="goDetail(aspirasi.id)">
+      <ion-thumbnail slot="start">
+        <img
+          class="img-cover"
+          src="{{
+            aspirasi.attachments !== null
+              ? aspirasi.attachments[0].url
+              : '../../../assets/img/placeholder_image_portrait.png'
+          }}"
+          (click)="goDetail(aspirasi.id)"
+        />
+      </ion-thumbnail>
+      <ion-label>
+        <h2>{{ aspirasi.title }}</h2>
+        <ion-item class="section-2">
+          <p class="font-10">
+            {{ aspirasi.updated_at * 1000 | date: 'd MMM y' }}
+          </p>
+          <ion-badge
+            class="font-10"
+            [color]="checkStatus(aspirasi.status)"
+            slot="end"
+            >{{ aspirasi.status_label }}</ion-badge
+          >
+        </ion-item>
+      </ion-label>
+    </ion-item>
+  </ion-card>
 </div>

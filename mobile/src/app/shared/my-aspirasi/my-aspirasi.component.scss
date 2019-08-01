@@ -12,10 +12,20 @@
     --padding-start: none;
     --inner-padding-end: none;
   }
+
+  ion-badge {
+    line-height: 15px;
+  }
+}
+
+.box-selector {
+  box-shadow: 1px 6px 13px rgba(var(--ion-color-dark-rgb), 0.15);
 }
 
 .font-10 {
   font-size: 10px;
+  width: 130px;
+  height: 20px;
 }
 
 .img-cover {

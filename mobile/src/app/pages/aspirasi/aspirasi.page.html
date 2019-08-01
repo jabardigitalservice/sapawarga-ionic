@@ -3,20 +3,19 @@
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <ion-title>Aspirasi</ion-title>
+    <ion-title>Usulan</ion-title>
   </ion-toolbar>
-</ion-header>
-
-<ion-content>
   <ion-segment (ionChange)="segmentChanged($event)" style="background: #f4f4f4">
     <ion-segment-button value="umum" checked>
       <ion-label>Umum</ion-label>
     </ion-segment-button>
     <ion-segment-button value="myAspirasi">
-      <ion-label>Aspirasi Saya</ion-label>
+      <ion-label>Usulan Saya</ion-label>
     </ion-segment-button>
   </ion-segment>
+</ion-header>
 
+<ion-content>
   <app-aspirasi-list *ngIf="currentComponent === 'umum'"></app-aspirasi-list>
 
   <app-my-aspirasi *ngIf="currentComponent === 'myAspirasi'"></app-my-aspirasi>
