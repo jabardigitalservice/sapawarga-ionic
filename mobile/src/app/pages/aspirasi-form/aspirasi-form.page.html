@@ -6,7 +6,7 @@
       </ion-button>
     </ion-buttons>
 
-    <ion-title>{{ isEdit ? 'Edit' : 'Tambah' }} Aspirasi</ion-title>
+    <ion-title>{{ isEdit ? 'Edit' : 'Tambah' }} Usulan</ion-title>
     <ion-buttons slot="end" (click)="uploadAspirasi()">
       <ion-button shape="round" color="dark">
         <ion-icon name="attach"></ion-icon>
@@ -85,7 +85,7 @@
             </div>
 
             <ion-item>
-              <ion-label position="floating">Detail Aspirasi</ion-label>
+              <ion-label position="floating">Detail Usulan</ion-label>
               <ion-textarea
                 formControlName="description"
                 rows="7"
@@ -152,7 +152,7 @@
         color="success"
         (click)="confirmationSend()"
       >
-        {{ isEdit ? 'Edit Aspirasi' : 'Kirim Aspirasi' }}
+        {{ isEdit ? 'Edit Usulan' : 'Kirim Usulan' }}
       </ion-button>
     </form>
   </ion-grid>

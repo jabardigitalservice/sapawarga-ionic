@@ -6,11 +6,11 @@ import { Aspirasi } from '../../interfaces/aspirasi';
 import { Dictionary } from '../../helpers/dictionary';
 
 @Component({
-  selector: 'app-aspirasi-user',
-  templateUrl: './aspirasi-user.page.html',
-  styleUrls: ['./aspirasi-user.page.scss']
+  selector: 'app-my-aspirasi',
+  templateUrl: './my-aspirasi.component.html',
+  styleUrls: ['./my-aspirasi.component.scss']
 })
-export class AspirasiUserPage implements OnInit {
+export class MyAspirasiComponent implements OnInit {
   dataAspirasi: Aspirasi[];
   dataEmpty = false;
   currentPage = 1;
@@ -30,7 +30,9 @@ export class AspirasiUserPage implements OnInit {
     this.dataAspirasi = [];
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.getListAspirasi();
+  }
 
   ionViewDidEnter() {
     this.msgResponse = {
@@ -75,6 +77,14 @@ export class AspirasiUserPage implements OnInit {
 
     this.dataEmpty = false;
 
+    const loader = await this.loadingCtrl.create({
+      duration: 10000
+    });
+
+    if (!infiniteScroll) {
+      loader.present();
+    }
+
     this.aspirasiService.getMyListAspirasi(this.currentPage).subscribe(
       res => {
         if (res['data']['items'].length) {
@@ -95,6 +105,7 @@ export class AspirasiUserPage implements OnInit {
         if (infiniteScroll) {
           infiniteScroll.target.complete();
         }
+        loader.dismiss();
       },
       err => {
         // stop infinite scroll
@@ -108,6 +119,7 @@ export class AspirasiUserPage implements OnInit {
             msg: Dictionary.internalError
           };
         }
+        loader.dismiss();
       }
     );
   }
@@ -136,15 +148,6 @@ export class AspirasiUserPage implements OnInit {
       default:
         break;
     }
-  }
-
-  AddAspirasi() {
-    // check internet
-    if (!navigator.onLine) {
-      this.showToast(Dictionary.offline);
-      return;
-    }
-    this.router.navigate(['/aspirasi-form']);
   }
 
   async showToast(msg: string) {

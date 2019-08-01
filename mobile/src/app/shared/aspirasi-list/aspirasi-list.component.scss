@@ -10,16 +10,27 @@
   ion-segment-button {
     text-transform: capitalize;
   }
+
+  ion-item {
+    --border-style: none;
+  }
+
+  .section-2 {
+    --padding-start: none;
+    --inner-padding-end: none;
+    margin-bottom: 5px;
+  }
 }
 
 .img-cover {
+  border-radius: 3px;
   object-fit: cover;
-  max-height: 200px;
+  // max-height: 200px;
 }
 
 .icon-heart {
   margin-top: 3px;
-  font-size: 25px;
+  font-size: 20px;
 }
 
 .address {
@@ -32,7 +43,13 @@
 }
 
 .text-like {
-  margin: 5px;
+  margin: 8px;
+  font-size: 10px;
+}
+
+.category-text {
+  font-size: 15px;
+  color: gray;
 }
 
 .liked {
