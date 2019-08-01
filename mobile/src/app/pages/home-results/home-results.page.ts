@@ -119,11 +119,6 @@ export class HomeResultsPage implements OnInit {
         icon: 'assets/icon/SW-Info-harga.png'
       },
       {
-        title: 'Info lelang',
-        url: 'https://lpse.jabarprov.go.id/eproc4',
-        icon: 'assets/icon/SW-LELANG.png'
-      },
-      {
         title: 'E-samsat',
         url: '',
         icon: 'assets/icon/SW-E-samsat.png'
@@ -162,7 +157,7 @@ export class HomeResultsPage implements OnInit {
     this.getDataHumas();
 
     // get data Video Post
-    this.getVideoPost();
+    // this.getVideoPost();
   }
 
   ionViewDidEnter() {
@@ -186,9 +181,6 @@ export class HomeResultsPage implements OnInit {
         break;
       case 'Info harga':
         this.launchApp(layananUrl);
-        break;
-      case 'Info lelang':
-        this.launchweb(layananUrl);
         break;
       case 'Nomor penting':
         this.goNomorPenting();
