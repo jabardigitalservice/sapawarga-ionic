@@ -2,10 +2,24 @@
   ion-item {
     --border-color: transparent;
   }
+
+  ion-label {
+    color: gray;
+  }
+}
+
+.badge-size {
+  width: 130px;
+  height: 20px;
+  font-size: 10px;
+  line-height: 14px;
 }
 
 .badge-note {
   background: dimgrey;
+  // font-size: 10px;
+  width: 100px;
+  height: 20px;
 }
 
 .author {
@@ -13,11 +27,37 @@
   font-weight: bold;
 }
 
+.img-cover {
+  border-radius: 20px;
+}
+
 .icon-heart {
   margin-top: 3px;
-  font-size: 25px;
+  font-size: 20px;
 }
 
 .text-like {
-  margin: 5px;
+  margin: 8px;
+  font-size: 10px;
+}
+
+.category-text {
+  font-size: 15px;
+  color: gray;
+}
+
+.section-2 {
+  margin-bottom: 5px;
+}
+
+.location {
+  font-size: 10px;
+  color: gray;
+}
+
+.section-desc {
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-bottom: 15px;
+  margin-top: -15px;
 }

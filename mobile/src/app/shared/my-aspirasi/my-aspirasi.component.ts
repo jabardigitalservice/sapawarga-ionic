@@ -126,7 +126,11 @@ export class MyAspirasiComponent implements OnInit {
 
   // go to detail with param id
   goDetail(id: number) {
-    this.router.navigate(['/aspirasi', id]);
+    this.router.navigate(['/aspirasi', id], {
+      queryParams: {
+        myaspirasi: true
+      }
+    });
   }
 
   checkStatus(status: number) {

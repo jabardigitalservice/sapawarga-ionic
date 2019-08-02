@@ -27,6 +27,8 @@ export class AspirasiDetailPage implements OnInit {
     likes_count: number;
   };
 
+  Myaspirasi = false;
+
   offline = false;
 
   constructor(
@@ -45,6 +47,11 @@ export class AspirasiDetailPage implements OnInit {
 
     this.route.params.subscribe(params => {
       this.id = parseInt(params['id'], 10);
+    });
+
+    // get data queryParam
+    this.route.queryParamMap.subscribe(params => {
+      this.Myaspirasi = params['params']['myaspirasi'] ? true : false;
     });
   }
 
