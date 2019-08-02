@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 
 @Component({
   selector: 'app-onboarding',
@@ -36,15 +35,9 @@ export class OnboardingPage implements OnInit {
 
   slideCaptionStyle = ['slide-caption bottom', 'slide-caption top'];
 
-  constructor(
-    private router: Router,
-    private screenOrientation: ScreenOrientation
-  ) {}
+  constructor(private router: Router) {}
 
-  ngOnInit() {
-    // set to portrait
-    this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
-  }
+  ngOnInit() {}
 
   getSlideBackgroundStyle(index) {
     const verticalPos = index % 2 ? 'center' : 'bottom';
@@ -62,7 +55,5 @@ export class OnboardingPage implements OnInit {
   goToLogin() {
     localStorage.setItem('has-onboarding', 'true');
     this.router.navigate(['/login']);
-    // allow user rotate
-    this.screenOrientation.unlock();
   }
 }

@@ -42,7 +42,7 @@
     src="../../../assets/img/placeholder_image.png"
   />
 
-  <ion-item class="section-2" *ngIf="dataAspirasi.status === 10">
+  <ion-item class="section-2" *ngIf="!Myaspirasi && dataAspirasi.status === 10">
     <div class="d-inline-f" slot="start">
       <ion-icon
         name="heart"
@@ -70,23 +70,32 @@
           >{{ dataAspirasi.status_label }}</ion-badge
         >
       </div>
-      <div slot="end" *ngIf="dataAspirasi.status === 3">
+      <div slot="end">
+        <ion-text class="date-text">{{
+          dataAspirasi.updated_at * 1000 | date: 'MMM d, y'
+        }}</ion-text>
+      </div>
+
+      <!-- <div slot="end" *ngIf="dataAspirasi.status === 3">
         <ion-badge
           class="badge-size badge-note"
           (click)="lihatNote(dataAspirasi.approval_note)"
           >Lihat Catatan</ion-badge
         >
-      </div>
+      </div> -->
     </ion-item>
   </div>
 
   <div class="section-desc">
+    <ion-text class="category-text">{{
+      dataAspirasi['category']['name']
+    }}</ion-text>
     <h6 style="font-weight: bold;">{{ dataAspirasi['title'] }}</h6>
     <ion-label class="ion-text-justify">{{
       dataAspirasi['description']
     }}</ion-label>
   </div>
-  <ion-text padding class="location">
+  <ion-text padding class="location" *ngIf="!Myaspirasi">
     {{ dataAspirasi['kabkota']['name'] }},
     {{ dataAspirasi['kecamatan']['name'] }},
     {{ dataAspirasi['kelurahan']['name'] }}
