@@ -196,12 +196,12 @@
         <div *ngIf="dataNews">
           <ion-card class="text-dark min-mt-5 ion-margin-bottom">
             <ion-item class="section-title-news">
-              <p class="bold text-title">Bandung</p>
+              <p class="bold text-title">{{ getUserLocation().name }}</p>
               <ion-button
                 fill="clear"
                 slot="end"
                 color="success"
-                (click)="goToNews()"
+                (click)="goToNews(getUserLocation().id)"
                 style="font-size: 10px;"
                 >Lihat Semua</ion-button
               >

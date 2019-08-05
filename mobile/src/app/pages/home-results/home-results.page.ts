@@ -276,7 +276,7 @@ export class HomeResultsPage implements OnInit {
     });
   }
 
-  goToNews() {
+  goToNews(id?: number) {
     // check internet
     if (!navigator.onLine) {
       alert(Dictionary.offline);
@@ -287,8 +287,14 @@ export class HomeResultsPage implements OnInit {
       alert(Dictionary.terjadi_kesalahan);
       return;
     }
-
-    this.navCtrl.navigateForward('news');
+    if (id) {
+      console.log(id);
+      this.navCtrl.navigateForward('news', {
+        queryParams: { id: id }
+      });
+    } else {
+      this.navCtrl.navigateForward('news');
+    }
   }
 
   goToDetailNews(id: number) {
@@ -454,5 +460,9 @@ export class HomeResultsPage implements OnInit {
       return;
     }
     this.youtube.openVideo(this.parsingDataUrl(url));
+  }
+
+  getUserLocation() {
+    return this.profileService.getLocalProfile().kabkota;
   }
 }

@@ -92,6 +92,11 @@
 }
 
 .headline-title {
+  font-size: 12px;
+  color: grey;
+}
+
+.text-title {
   font-size: 13px;
 }
 
@@ -151,6 +156,10 @@
 
 .thumbnail-img {
   width: 60px;
+}
+
+.pad-l10 {
+  padding-left: 10px;
 }
 
 // tablet mode v1

@@ -3,7 +3,7 @@ import { NewsService } from '../../services/news.service';
 import { News } from '../../interfaces/news';
 import { Dictionary } from '../../helpers/dictionary';
 import { LoadingController } from '@ionic/angular';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-news',
@@ -15,6 +15,7 @@ export class NewsPage implements OnInit {
   dataNews: News[];
   currentPage = 1;
   maximumPages: number;
+  idKabKota = null;
 
   msgResponse = {
     type: '',
@@ -24,12 +25,18 @@ export class NewsPage implements OnInit {
   constructor(
     private newsService: NewsService,
     private loadingCtrl: LoadingController,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) {
     this.dataNews = [];
   }
 
   ngOnInit() {
+    // get data id kab kota
+    this.route.queryParamMap.subscribe(params => {
+      console.log(params);
+    });
+
     this.getListFeatured();
     this.getListNews();
   }
