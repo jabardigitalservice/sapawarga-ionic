@@ -64,26 +64,30 @@
   <div *ngIf="Myaspirasi" style="margin-bottom: 10px">
     <ion-item>
       <div slot="start">
-        <ion-badge
+        <!-- <ion-badge
           class="badge-size"
           [color]="checkStatus(dataAspirasi.status)"
           >{{ dataAspirasi.status_label }}</ion-badge
-        >
+        > -->
+
+        <ion-text [color]="checkStatus(dataAspirasi.status)">
+          {{ dataAspirasi.status_label }}
+        </ion-text>
       </div>
       <div slot="end">
         <ion-text class="date-text">{{
           dataAspirasi.updated_at * 1000 | date: 'MMM d, y'
         }}</ion-text>
       </div>
-
-      <!-- <div slot="end" *ngIf="dataAspirasi.status === 3">
-        <ion-badge
-          class="badge-size badge-note"
-          (click)="lihatNote(dataAspirasi.approval_note)"
-          >Lihat Catatan</ion-badge
-        >
-      </div> -->
     </ion-item>
+
+    <div *ngIf="dataAspirasi.status === 3" class="section-note">
+      <ion-badge
+        class="badge-size badge-note"
+        (click)="lihatNote(dataAspirasi.approval_note)"
+        >Lihat Catatan</ion-badge
+      >
+    </div>
   </div>
 
   <div class="section-desc">
