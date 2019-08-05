@@ -15,73 +15,87 @@
 </ion-header>
 
 <ion-content *ngIf="dataAspirasi">
+  <ion-item style="margin-top: 10px;">
+    <ion-avatar slot="start">
+      <img
+        [src]="prefixUrl + dataAspirasi.author.photo_url"
+        onError="this.src='assets/img/user.png';"
+      />
+    </ion-avatar>
+    <ion-text>{{ dataAspirasi.author.name }}</ion-text>
+  </ion-item>
+
   <img
+    padding
     *ngIf="!offline"
-    class="img-cover"
+    class="img-cover min-mt-5"
     src="{{
       dataAspirasi.attachments !== null
         ? dataAspirasi.attachments[0].url
         : '../../../assets/img/placeholder_image.png'
     }}"
+    onError="this.src='assets/img/placeholder_image.png';"
   />
   <img
     *ngIf="offline"
     class="img-cover"
     src="../../../assets/img/placeholder_image.png"
   />
-  <ion-card>
-    <ion-card-header>
-      <div *ngIf="isMyAspirasi()" style="margin-bottom: 10px">
-        <ion-item no-padding>
-          <div slot="start">
-            <ion-badge [color]="checkStatus(dataAspirasi.status)">{{
-              dataAspirasi.status_label
-            }}</ion-badge>
-          </div>
-          <div slot="end" *ngIf="dataAspirasi.status === 3">
-            <ion-badge
-              class="badge-note"
-              (click)="lihatNote(dataAspirasi.approval_note)"
-              >Lihat Catatan</ion-badge
-            >
-          </div>
-        </ion-item>
-      </div>
-      <ion-card-subtitle class="dark-read">{{
-        dataAspirasi['category']['name']
-      }}</ion-card-subtitle>
-      <ion-card-title>{{ dataAspirasi['title'] }}</ion-card-title>
-    </ion-card-header>
 
-    <ion-card-content style="padding-top: 0">
-      <div style="margin: 15px 0">
-        {{ dataAspirasi['kabkota']['name'] }},
-        {{ dataAspirasi['kecamatan']['name'] }},
-        {{ dataAspirasi['kelurahan']['name'] }}
-      </div>
+  <ion-item class="section-2" *ngIf="!myAspirasi && dataAspirasi.status === 10">
+    <div class="d-inline-f" slot="start">
+      <ion-icon
+        name="heart"
+        [color]="checkStateLike() ? 'danger' : 'medium'"
+        class="icon-heart"
+        (click)="doLike()"
+      ></ion-icon>
+      <p class="text-like">
+        {{ checkCountLike() }}
+        likes
+      </p>
+    </div>
 
-      <div class="author">
-        <ion-label>Oleh {{ dataAspirasi['author']['name'] }}</ion-label>
-      </div>
+    <ion-text slot="end" class="category-text">{{
+      dataAspirasi['category']['name']
+    }}</ion-text>
+  </ion-item>
 
-      <div style="margin: 15px 0">
-        <ion-label class="ion-text-justify">{{
-          dataAspirasi['description']
-        }}</ion-label>
+  <div *ngIf="myAspirasi" style="margin-bottom: 10px">
+    <ion-item>
+      <div slot="start">
+        <ion-text [color]="checkStatus(dataAspirasi.status)">
+          {{ dataAspirasi.status_label }}
+        </ion-text>
       </div>
+      <div slot="end">
+        <ion-text class="date-text">{{
+          dataAspirasi.updated_at * 1000 | date: 'MMM d, y'
+        }}</ion-text>
+      </div>
+    </ion-item>
 
-      <div class="d-inline-f" *ngIf="dataAspirasi.status === 10">
-        <ion-icon
-          name="heart"
-          [color]="checkStateLike() ? 'danger' : 'medium'"
-          class="icon-heart"
-          (click)="doLike()"
-        ></ion-icon>
-        <p class="text-like" *ngIf="checkCountLike()">
-          {{ checkCountLike() }}
-          orang menyukai ini.
-        </p>
-      </div>
-    </ion-card-content>
-  </ion-card>
+    <div *ngIf="dataAspirasi.status === 3" class="section-note">
+      <ion-badge
+        class="badge-size badge-note"
+        (click)="viewNote(dataAspirasi.approval_note)"
+        >Lihat Catatan</ion-badge
+      >
+    </div>
+  </div>
+
+  <div class="section-desc">
+    <ion-text class="category-text">{{
+      dataAspirasi['category']['name']
+    }}</ion-text>
+    <h6 style="font-weight: bold;">{{ dataAspirasi['title'] }}</h6>
+    <ion-label class="ion-text-justify">{{
+      dataAspirasi['description']
+    }}</ion-label>
+  </div>
+  <ion-text padding class="location" *ngIf="!myAspirasi">
+    {{ dataAspirasi['kabkota']['name'] }},
+    {{ dataAspirasi['kecamatan']['name'] }},
+    {{ dataAspirasi['kelurahan']['name'] }}
+  </ion-text>
 </ion-content>

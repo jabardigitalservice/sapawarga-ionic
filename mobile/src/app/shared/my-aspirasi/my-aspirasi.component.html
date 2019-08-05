@@ -15,6 +15,7 @@
               ? aspirasi.attachments[0].url
               : '../../../assets/img/placeholder_image_portrait.png'
           }}"
+          onError="this.src='assets/img/placeholder_image_portrait.png';"
           (click)="goDetail(aspirasi.id)"
         />
       </ion-thumbnail>
