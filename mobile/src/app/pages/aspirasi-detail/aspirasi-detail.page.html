@@ -61,7 +61,7 @@
     }}</ion-text>
   </ion-item>
 
-  <div *ngIf="Myaspirasi" style="margin-bottom: 10px">
+  <div *ngIf="myAspirasi" style="margin-bottom: 10px">
     <ion-item>
       <div slot="start">
         <ion-text [color]="checkStatus(dataAspirasi.status)">
@@ -78,7 +78,7 @@
     <div *ngIf="dataAspirasi.status === 3" class="section-note">
       <ion-badge
         class="badge-size badge-note"
-        (click)="lihatNote(dataAspirasi.approval_note)"
+        (click)="viewNote(dataAspirasi.approval_note)"
         >Lihat Catatan</ion-badge
       >
     </div>
@@ -93,7 +93,7 @@
       dataAspirasi['description']
     }}</ion-label>
   </div>
-  <ion-text padding class="location" *ngIf="!Myaspirasi">
+  <ion-text padding class="location" *ngIf="!myAspirasi">
     {{ dataAspirasi['kabkota']['name'] }},
     {{ dataAspirasi['kecamatan']['name'] }},
     {{ dataAspirasi['kelurahan']['name'] }}

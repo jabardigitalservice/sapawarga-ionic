@@ -27,7 +27,7 @@ export class AspirasiDetailPage implements OnInit {
     likes_count: number;
   };
 
-  Myaspirasi = false;
+  myAspirasi = false;
 
   offline = false;
 
@@ -51,7 +51,7 @@ export class AspirasiDetailPage implements OnInit {
 
     // get data queryParam
     this.route.queryParamMap.subscribe(params => {
-      this.Myaspirasi = params['params']['myaspirasi'] ? true : false;
+      this.myAspirasi = params['params']['myaspirasi'] ? true : false;
     });
   }
 
@@ -232,7 +232,7 @@ export class AspirasiDetailPage implements OnInit {
     return await popover.present();
   }
 
-  async lihatNote(message: string) {
+  async viewNote(message: string) {
     const alert = await this.alertController.create({
       header: 'Ditolak',
       message: message,
