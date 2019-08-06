@@ -30,6 +30,7 @@ import {
   FileTransferObject
 } from '@ionic-native/file-transfer/ngx';
 import { HTTP } from '@ionic-native/http/ngx';
+import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 @NgModule({
   declarations: [
     AppComponent,
@@ -62,7 +63,8 @@ import { HTTP } from '@ionic-native/http/ngx';
     Camera,
     InAppBrowser,
     Constants,
-    HTTP
+    HTTP,
+    ScreenOrientation
   ],
   bootstrap: [AppComponent]
 })

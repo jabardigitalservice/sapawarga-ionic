@@ -27,6 +27,8 @@ export class AspirasiDetailPage implements OnInit {
     likes_count: number;
   };
 
+  myAspirasi = false;
+
   offline = false;
 
   constructor(
@@ -45,6 +47,11 @@ export class AspirasiDetailPage implements OnInit {
 
     this.route.params.subscribe(params => {
       this.id = parseInt(params['id'], 10);
+    });
+
+    // get data queryParam
+    this.route.queryParamMap.subscribe(params => {
+      this.myAspirasi = params['params']['myaspirasi'] ? true : false;
     });
   }
 
@@ -225,7 +232,7 @@ export class AspirasiDetailPage implements OnInit {
     return await popover.present();
   }
 
-  async lihatNote(message: string) {
+  async viewNote(message: string) {
     const alert = await this.alertController.create({
       header: 'Ditolak',
       message: message,

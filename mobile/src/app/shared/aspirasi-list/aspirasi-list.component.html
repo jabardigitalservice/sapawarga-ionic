@@ -5,7 +5,7 @@
 ></app-message-control>
 
 <div class="pt-5" *ngFor="let aspirasi of dataAspirasi; let i = index">
-  <ion-item>
+  <ion-item (click)="goDetail(aspirasi.id)">
     <ion-avatar slot="start">
       <img
         [src]="prefixUrl + aspirasi.author.photo_url"

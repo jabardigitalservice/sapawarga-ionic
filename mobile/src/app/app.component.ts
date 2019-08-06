@@ -1,5 +1,10 @@
 import { Component, ViewChild } from '@angular/core';
-import { Platform, NavController, IonRouterOutlet, ToastController } from '@ionic/angular';
+import {
+  Platform,
+  NavController,
+  IonRouterOutlet,
+  ToastController
+} from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
@@ -10,6 +15,7 @@ import { FCM } from '@ionic-native/fcm/ngx';
 import { Router } from '@angular/router';
 import { BroadcastService } from './services/broadcast.service';
 import { NotifikasiService } from './services/notifikasi.service';
+import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 
 @Component({
   selector: 'app-root',
@@ -29,6 +35,7 @@ export class AppComponent {
     public navCtrl: NavController,
     private authService: AuthService,
     private fcm: FCM,
+    private screenOrientation: ScreenOrientation,
     private router: Router,
     private broadcastService: BroadcastService,
     private notifikasiService: NotifikasiService,
@@ -45,7 +52,9 @@ export class AppComponent {
         if (this.counter === 0) {
           this.counter++;
           this.showToast();
-          setTimeout(() => { this.counter = 0; }, 3000);
+          setTimeout(() => {
+            this.counter = 0;
+          }, 3000);
         } else {
           navigator['app'].exitApp();
         }
@@ -59,6 +68,11 @@ export class AppComponent {
       .then(() => {
         this.statusBar.styleBlackTranslucent();
         this.splashScreen.hide();
+
+        // set to portrait
+        this.screenOrientation.lock(
+          this.screenOrientation.ORIENTATIONS.PORTRAIT
+        );
 
         this.authService.authenticationState.subscribe(state => {
           if (state) {
@@ -106,7 +120,7 @@ export class AppComponent {
           }
         });
       })
-      .catch(() => { });
+      .catch(() => {});
   }
 
   async showToast() {
