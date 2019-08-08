@@ -288,12 +288,12 @@ export class HomeResultsPage implements OnInit {
       return;
     }
     if (id) {
-      console.log(id);
-      this.navCtrl.navigateForward('news', {
+      // console.log(id);
+      this.router.navigate(['news'], {
         queryParams: { id: id }
       });
     } else {
-      this.navCtrl.navigateForward('news');
+      this.router.navigate(['news']);
     }
   }
 

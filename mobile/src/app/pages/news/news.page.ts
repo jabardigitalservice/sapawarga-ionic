@@ -34,7 +34,7 @@ export class NewsPage implements OnInit {
   ngOnInit() {
     // get data id kab kota
     this.route.queryParamMap.subscribe(params => {
-      console.log(params);
+      this.idKabKota = params['params']['id'] ? params['params']['id'] : null;
     });
 
     this.getListFeatured();
