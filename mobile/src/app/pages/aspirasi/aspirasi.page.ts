@@ -10,6 +10,7 @@ import { Dictionary } from '../../helpers/dictionary';
 })
 export class AspirasiPage implements OnInit {
   currentComponent: string;
+  lastComponent: string;
 
   constructor(
     public loadingCtrl: LoadingController,
@@ -19,10 +20,19 @@ export class AspirasiPage implements OnInit {
 
   ngOnInit() {}
 
-  ionViewDidEnter() {}
+  ionViewDidEnter() {
+    if (this.lastComponent) {
+      this.segmentChanged('', this.lastComponent);
+    }
+  }
 
-  segmentChanged(ev: any) {
-    this.currentComponent = ev.detail.value;
+  ionViewDidLeave() {
+    this.lastComponent = this.currentComponent;
+    this.currentComponent = null;
+  }
+
+  segmentChanged(ev: any, current?: string) {
+    this.currentComponent = ev ? ev.detail.value : current;
   }
 
   async showToast(msg: string) {
