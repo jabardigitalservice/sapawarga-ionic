@@ -193,7 +193,7 @@
       </ion-slide>
 
       <ion-slide>
-        <div *ngIf="dataNews">
+        <div *ngIf="dataNewsKabkota">
           <ion-card class="text-dark min-mt-5 ion-margin-bottom">
             <ion-item class="section-title-news">
               <p class="bold text-title">{{ getUserLocation().name }}</p>
@@ -208,7 +208,7 @@
             </ion-item>
 
             <ion-item
-              *ngFor="let headline of dataNews"
+              *ngFor="let headline of dataNewsKabkota"
               (click)="goToDetailNews(headline.id)"
               class="list-news"
             >
