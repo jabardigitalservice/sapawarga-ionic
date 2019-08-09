@@ -107,6 +107,32 @@ export class LoginPage implements OnInit {
     await alert.present();
   }
 
+  async presentAlert(param: string, message?: string) {
+    let messageData = {
+      header: '',
+      message: '',
+      buttons: null
+    };
+
+    if (param === 'forgot') {
+      messageData = {
+        header: 'Lupa Kata Sandi?',
+        message: Dictionary.forgot_password,
+        buttons: ['OK']
+      };
+    } else if (param === 'error') {
+      messageData = {
+        header: 'Error',
+        message: message,
+        buttons: ['OK']
+      };
+    }
+
+    const alert = await this.alertCtrl.create(messageData);
+
+    await alert.present();
+  }
+
   async login() {
     this.submitted = true;
     // check form if invalid
@@ -140,12 +166,12 @@ export class LoginPage implements OnInit {
           this.navCtrl.navigateRoot(['/tabs']['home']);
         } else {
           loader.dismiss();
-          this.showToast('Login', Dictionary.confirmation_login);
+          this.presentAlert('error', Dictionary.confirmation_login);
         }
       },
       err => {
         loader.dismiss();
-        this.showToast('Login', err.data.password[0]);
+        this.presentAlert('error', err.data.password[0]);
       }
     );
 
