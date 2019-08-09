@@ -3,7 +3,7 @@ import { NewsService } from '../../services/news.service';
 import { News } from '../../interfaces/news';
 import { Dictionary } from '../../helpers/dictionary';
 import { LoadingController } from '@ionic/angular';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-news',
@@ -15,6 +15,7 @@ export class NewsPage implements OnInit {
   dataNews: News[];
   currentPage = 1;
   maximumPages: number;
+  idKabKota = null;
 
   msgResponse = {
     type: '',
@@ -24,22 +25,33 @@ export class NewsPage implements OnInit {
   constructor(
     private newsService: NewsService,
     private loadingCtrl: LoadingController,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) {
     this.dataNews = [];
   }
 
   ngOnInit() {
-    this.getListFeatured();
-    this.getListNews();
+    // get data id kab kota
+    this.route.queryParamMap.subscribe(params => {
+      this.idKabKota = params['params']['id'] ? params['params']['id'] : null;
+    });
+
+    if (this.idKabKota) {
+      this.getListFeatured(this.idKabKota);
+      this.getListNews(null, this.idKabKota);
+    } else {
+      this.getListFeatured();
+      this.getListNews();
+    }
   }
 
   ionViewWillLeave() {
     this.currentPage = 1;
   }
 
-  getListFeatured() {
-    this.newsService.getNewsFeatured().subscribe(
+  getListFeatured(idKabKota?: number) {
+    this.newsService.getNewsFeatured(null, idKabKota).subscribe(
       res => {
         if (res['status'] === 200 && res['data']['items'].length) {
           this.dataFeatured = res['data']['items'];
@@ -64,7 +76,7 @@ export class NewsPage implements OnInit {
     );
   }
 
-  async getListNews(infiniteScroll?) {
+  async getListNews(infiniteScroll?, idKabKota?: number) {
     if (!navigator.onLine) {
       alert(Dictionary.offline);
       return;
@@ -78,7 +90,7 @@ export class NewsPage implements OnInit {
       loader.present();
     }
 
-    this.newsService.getListNews(this.currentPage).subscribe(
+    this.newsService.getListNews(this.currentPage, idKabKota).subscribe(
       res => {
         if (res['data']['items'].length) {
           if (infiniteScroll) {

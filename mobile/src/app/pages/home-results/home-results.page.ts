@@ -57,20 +57,27 @@ export class HomeResultsPage implements OnInit {
     zoom: false
   };
 
+  sliderConfigNews = {
+    slidesPerView: 1.3,
+    spaceBetween: 5,
+    zoom: false
+  };
+
   unreadNotif: 0;
-  // isLoading = false;
   isLoading = {
     humas: false,
     news: false,
     videoPost: false
   };
   dataNews: News[];
+  dataNewsKabkota: News[];
   dataHumas: HumasJabar[];
   dataVideoPost: VideoPost[];
   humas_URL = 'http://humas.jabarprov.go.id/terkini';
 
   // name local storage
   NEWS = 'news-headlines';
+  NEWS_KABKOTA = 'news-kabkota-headlines';
   HUMAS = 'humas-headlines';
   VIDEO_POST = 'video-post';
 
@@ -152,6 +159,7 @@ export class HomeResultsPage implements OnInit {
 
     // get data news
     this.getNewsFeatured();
+    this.getNewsFeatured(this.getUserLocation().id);
 
     // get data humas
     this.getDataHumas();
@@ -270,7 +278,7 @@ export class HomeResultsPage implements OnInit {
     });
   }
 
-  goToNews() {
+  goToNews(id?: number) {
     // check internet
     if (!navigator.onLine) {
       alert(Dictionary.offline);
@@ -281,8 +289,13 @@ export class HomeResultsPage implements OnInit {
       alert(Dictionary.terjadi_kesalahan);
       return;
     }
-
-    this.navCtrl.navigateForward('news');
+    if (id) {
+      this.router.navigate(['news'], {
+        queryParams: { id: id }
+      });
+    } else {
+      this.router.navigate(['news']);
+    }
   }
 
   goToDetailNews(id: number) {
@@ -311,12 +324,16 @@ export class HomeResultsPage implements OnInit {
     );
   }
 
-  getNewsFeatured() {
+  getNewsFeatured(idkabkota?: number) {
     // check internet
     if (!navigator.onLine) {
       // get local
-      if (this.newsService.getLocal(this.NEWS)) {
+      if (this.newsService.getLocal(this.NEWS) && !idkabkota) {
         this.dataNews = JSON.parse(this.newsService.getLocal(this.NEWS));
+      } else if (this.newsService.getLocal(this.NEWS) && idkabkota) {
+        this.dataNewsKabkota = JSON.parse(
+          this.newsService.getLocal(this.NEWS_KABKOTA)
+        );
       } else {
         alert(Dictionary.offline);
       }
@@ -324,22 +341,38 @@ export class HomeResultsPage implements OnInit {
     }
 
     this.isLoading.news = true;
-    this.newsService.getNewsFeatured(3).subscribe(
+    this.newsService.getNewsFeatured(3, idkabkota).subscribe(
       res => {
         if (res['status'] === 200 && res['data']['items'].length) {
-          this.dataNews = res['data']['items'];
+          if (idkabkota) {
+            this.dataNewsKabkota = res['data']['items'];
+          } else {
+            this.dataNews = res['data']['items'];
+          }
+
           // save to local
-          this.newsService.saveLocal(this.NEWS, this.dataNews);
+          if (idkabkota) {
+            this.newsService.saveLocal(this.NEWS_KABKOTA, this.dataNewsKabkota);
+          } else {
+            this.newsService.saveLocal(this.NEWS, this.dataNews);
+          }
           this.isLoading.news = false;
         }
       },
       err => {
         setTimeout(() => {
           // get local
-          if (this.newsService.getLocal(this.NEWS)) {
+          if (this.newsService.getLocal(this.NEWS) && !idkabkota) {
             this.dataNews = JSON.parse(this.newsService.getLocal(this.NEWS));
-            this.isLoading.news = false;
+          } else if (
+            this.newsService.getLocal(this.NEWS_KABKOTA) &&
+            idkabkota
+          ) {
+            this.dataNewsKabkota = JSON.parse(
+              this.newsService.getLocal(this.NEWS_KABKOTA)
+            );
           }
+          this.isLoading.news = false;
         }, 3000);
       }
     );
@@ -448,5 +481,9 @@ export class HomeResultsPage implements OnInit {
       return;
     }
     this.youtube.openVideo(this.parsingDataUrl(url));
+  }
+
+  getUserLocation() {
+    return this.profileService.getLocalProfile().kabkota;
   }
 }
