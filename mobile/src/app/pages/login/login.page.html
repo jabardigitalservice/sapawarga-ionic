@@ -1,4 +1,4 @@
-<ion-content padding class="animated fadeIn login auth-page" color="light">
+<ion-content padding class="animated fadeIn login auth-page">
   <div class="theme-bg"></div>
   <div class="auth-content">
     <!-- Logo -->
@@ -11,7 +11,10 @@
     </div>
 
     <!-- Login form -->
-    <div style="background-color: #FFFFFF;padding: 10px 15px 20px;">
+    <ion-card
+      class="box-selector"
+      style="background-color: #FFFFFF;padding: 10px 15px 20px;"
+    >
       <form [formGroup]="onLoginForm" autocomplete="off" class="">
         <ion-item
           no-padding
@@ -88,41 +91,36 @@
       </form>
       <ion-button
         expand="block"
-        color="dark"
+        color="blues"
         tappable
         (click)="login()"
         style="margin-top: 30px"
         >Masuk</ion-button
       >
-    </div>
+    </ion-card>
 
     <p text-center tappable class="paz">
       <ion-text (click)="presentAlert('forgot')">
-        Lupa Kata Sandi?
+        Lupa Kata Sandi ?
       </ion-text>
     </p>
   </div>
 
   <ion-text class="text-buttom">
     <p class="min-mb-5">
-      <a color="dark" class="underline" (click)="launchweb('tos')"
-        ><strong>Term of Service</strong></a
-      >
-      |
-      <a color="dark" class="underline" (click)="launchweb('privacy')"
-        ><strong>Privacy Policy</strong></a
-      >
+      <a (click)="launchweb('tos')">Term of Service </a>
+      &nbsp;&nbsp;|&nbsp;&nbsp;
+      <a (click)="launchweb('privacy')"> Privacy Policy</a>
     </p>
+    <br />
     <p>
-      <a color="dark" class="underline" (click)="downloadPdf()"
-        ><strong>Unduh buku panduan aplikasi Sapawarga</strong></a
-      >
+      <a (click)="downloadPdf()">Unduh buku panduan</a>
     </p>
   </ion-text>
 </ion-content>
 
 <ion-footer>
-  <ion-toolbar color="light">
+  <ion-toolbar>
     <ion-text color="dark">
       <p>Versi {{ app_version }}</p>
       <p>

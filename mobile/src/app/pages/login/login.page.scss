@@ -3,6 +3,18 @@
   .input-password {
     --inner-padding-end: none;
   }
+
+  a {
+    color: #000000;
+  }
+
+  ion-button {
+    text-transform: none;
+  }
+}
+
+.box-selector {
+  box-shadow: 1px 6px 13px rgba(var(--ion-color-dark-rgb), 0.15);
 }
 
 .paz {
@@ -10,6 +22,7 @@
   z-index: 10;
   font-size: 12px;
   padding: 10px;
+  font-weight: bold;
 }
 
 ion-item,
@@ -30,10 +43,6 @@ ion-footer p {
 
 ion-item {
   --border-color: var(--ion-color-dark);
-}
-
-.underline {
-  text-decoration: underline;
 }
 
 .text-buttom {
