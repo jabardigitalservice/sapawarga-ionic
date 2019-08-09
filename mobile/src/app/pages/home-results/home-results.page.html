@@ -98,12 +98,7 @@
   </div>
 
   <div>
-    <ion-item>
-      <h5 class="bold" slot="start">Berita</h5>
-      <ion-button fill="clear" slot="end" color="success" (click)="goToNews()"
-        >Lihat Semua</ion-button
-      >
-    </ion-item>
+    <h5 class="bold pad-l10">Berita</h5>
 
     <!-- Skeleton screen news -->
     <ion-card
@@ -147,39 +142,105 @@
       </ion-item>
     </ion-card>
 
-    <div *ngIf="dataNews">
-      <ion-card
-        class="text-dark min-mt-5 ion-margin-bottom"
-        *ngFor="let headline of dataNews"
-      >
-        <ion-item (click)="goToDetailNews(headline.id)">
-          <ion-text class="mb-5"
-            ><p class="bold headline-title">
-              {{ headline.title | slice: 0:45
-              }}{{ headline.title.length > 45 ? '...' : '' }}
-            </p>
-            <ion-note class="source-title"
-              ><img
-                [src]="headline.channel.icon_url"
-                onError="this.src='assets/img/placeholder_image_portrait.png';"
-                class="source-icon"
-                alt="sumber"
-              />
-              {{ headline.channel.name }}</ion-note
-            ></ion-text
-          >
+    <ion-slides [options]="sliderConfigNews">
+      <ion-slide>
+        <div *ngIf="dataNews">
+          <ion-card class="text-dark min-mt-5 ion-margin-bottom">
+            <ion-item class="section-title-news">
+              <p class="bold text-title">Jawa Barat</p>
+              <ion-button
+                fill="clear"
+                slot="end"
+                color="success"
+                (click)="goToNews()"
+                style="font-size: 10px;"
+                >Lihat Semua</ion-button
+              >
+            </ion-item>
 
-          <img
-            slot="end"
-            [src]="headline.cover_path_url"
-            alt="icon"
-            class="headlines-img"
-            onError="this.src='assets/img/placeholder_image_portrait.png';"
-            alt="humas"
-          />
-        </ion-item>
-      </ion-card>
-    </div>
+            <ion-item
+              *ngFor="let headline of dataNews"
+              (click)="goToDetailNews(headline.id)"
+              class="list-news"
+            >
+              <ion-text class="mb-5"
+                ><p class="bold headline-title">
+                  {{ headline.title | slice: 0:45
+                  }}{{ headline.title.length > 45 ? '...' : '' }}
+                </p>
+                <ion-note class="source-title"
+                  ><img
+                    [src]="headline.channel.icon_url"
+                    onError="this.src='assets/img/placeholder_image_portrait.png';"
+                    class="source-icon"
+                    alt="sumber"
+                  />
+                  {{ headline.channel.name }}</ion-note
+                ></ion-text
+              >
+
+              <img
+                slot="end"
+                [src]="headline.cover_path_url"
+                alt="icon"
+                class="headlines-img"
+                onError="this.src='assets/img/placeholder_image_portrait.png';"
+                alt="humas"
+              />
+            </ion-item>
+          </ion-card>
+        </div>
+      </ion-slide>
+
+      <ion-slide>
+        <div *ngIf="dataNewsKabkota">
+          <ion-card class="text-dark min-mt-5 ion-margin-bottom">
+            <ion-item class="section-title-news">
+              <p class="bold text-title">{{ getUserLocation().name }}</p>
+              <ion-button
+                fill="clear"
+                slot="end"
+                color="success"
+                (click)="goToNews(getUserLocation().id)"
+                style="font-size: 10px;"
+                >Lihat Semua</ion-button
+              >
+            </ion-item>
+
+            <ion-item
+              *ngFor="let headline of dataNewsKabkota"
+              (click)="goToDetailNews(headline.id)"
+              class="list-news"
+            >
+              <ion-text class="mb-5"
+                ><p class="bold headline-title">
+                  {{ headline.title | slice: 0:45
+                  }}{{ headline.title.length > 45 ? '...' : '' }}
+                </p>
+                <ion-note class="source-title"
+                  ><img
+                    [src]="headline.channel.icon_url"
+                    onError="this.src='assets/img/placeholder_image_portrait.png';"
+                    class="source-icon"
+                    alt="sumber"
+                  />
+                  {{ headline.channel.name }}</ion-note
+                ></ion-text
+              >
+
+              <img
+                slot="end"
+                [src]="headline.cover_path_url"
+                alt="icon"
+                class="headlines-img"
+                onError="this.src='assets/img/placeholder_image_portrait.png';"
+                alt="humas"
+              />
+            </ion-item>
+          </ion-card>
+        </div>
+      </ion-slide>
+    </ion-slides>
   </div>
 
   <!-- <div class="min-mt-14">

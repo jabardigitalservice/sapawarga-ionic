@@ -1,41 +1,46 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Observable, throwError, from } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { News } from '../interfaces/news';
-import { catchError, finalize } from 'rxjs/operators';
+import { catchError } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
-import { HumasJabar } from '../interfaces/humas-jabar';
 import { HTTP } from '@ionic-native/http/ngx';
-import { Platform } from '@ionic/angular';
 
 const URL_HUMAS = 'http://humas.jabarprov.go.id/api/berita-terkini';
 @Injectable({
   providedIn: 'root'
 })
 export class NewsService {
-  constructor(
-    private http: HttpClient,
-    private nativeHttp: HTTP,
-    private platform: Platform
-  ) {}
+  constructor(private http: HttpClient, private nativeHttp: HTTP) {}
 
-  getListNews(page: number): Observable<News[]> {
+  getListNews(page: number, idkabkota?: number): Observable<News[]> {
+    let URL: string;
+    // check param limit
+    if (idkabkota) {
+      URL = `&kabkota_id=${idkabkota}`;
+    } else {
+      URL = '';
+    }
+
     return this.http
-      .get<News[]>(`${environment.API_URL}/news?page=${page}`)
+      .get<News[]>(`${environment.API_URL}/news?page=${page + URL}`)
       .pipe(catchError(this.handleError));
   }
 
-  getNewsFeatured(limit?: number): Observable<News[]> {
+  getNewsFeatured(limit?: number, idkabkota?: number): Observable<News[]> {
     let URL: string;
-
     // check param limit
-    if (limit) {
-      URL = `${environment.API_URL}/news/featured?limit=${limit}`;
+    if (limit && !idkabkota) {
+      URL = `?limit=${limit}`;
+    } else if (idkabkota) {
+      URL = `?limit=${limit}&kabkota_id=${idkabkota}`;
     } else {
-      URL = `${environment.API_URL}/news/featured`;
+      URL = '';
     }
 
-    return this.http.get<News[]>(URL).pipe(catchError(this.handleError));
+    return this.http
+      .get<News[]>(`${environment.API_URL}/news/featured${URL}`)
+      .pipe(catchError(this.handleError));
   }
 
   getDetailNews(id: number): Observable<News> {
