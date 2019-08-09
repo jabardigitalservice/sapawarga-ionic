@@ -348,7 +348,6 @@ export class HomeResultsPage implements OnInit {
         if (res['status'] === 200 && res['data']['items'].length) {
           if (idkabkota) {
             this.dataNewsKabkota = res['data']['items'];
-            // console.log(this.dataNewsKabkota);
           } else {
             this.dataNews = res['data']['items'];
           }

@@ -37,16 +37,21 @@ export class NewsPage implements OnInit {
       this.idKabKota = params['params']['id'] ? params['params']['id'] : null;
     });
 
-    this.getListFeatured();
-    this.getListNews();
+    if (this.idKabKota) {
+      this.getListFeatured(this.idKabKota);
+      this.getListNews(null, this.idKabKota);
+    } else {
+      this.getListFeatured();
+      this.getListNews();
+    }
   }
 
   ionViewWillLeave() {
     this.currentPage = 1;
   }
 
-  getListFeatured() {
-    this.newsService.getNewsFeatured().subscribe(
+  getListFeatured(idKabKota?: number) {
+    this.newsService.getNewsFeatured(null, idKabKota).subscribe(
       res => {
         if (res['status'] === 200 && res['data']['items'].length) {
           this.dataFeatured = res['data']['items'];
@@ -71,7 +76,7 @@ export class NewsPage implements OnInit {
     );
   }
 
-  async getListNews(infiniteScroll?) {
+  async getListNews(infiniteScroll?, idKabKota?: number) {
     if (!navigator.onLine) {
       alert(Dictionary.offline);
       return;
@@ -85,7 +90,7 @@ export class NewsPage implements OnInit {
       loader.present();
     }
 
-    this.newsService.getListNews(this.currentPage).subscribe(
+    this.newsService.getListNews(this.currentPage, idKabKota).subscribe(
       res => {
         if (res['data']['items'].length) {
           if (infiniteScroll) {

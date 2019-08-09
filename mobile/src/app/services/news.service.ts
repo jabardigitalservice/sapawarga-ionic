@@ -13,9 +13,17 @@ const URL_HUMAS = 'http://humas.jabarprov.go.id/api/berita-terkini';
 export class NewsService {
   constructor(private http: HttpClient, private nativeHttp: HTTP) {}
 
-  getListNews(page: number): Observable<News[]> {
+  getListNews(page: number, idkabkota?: number): Observable<News[]> {
+    let URL: string;
+    // check param limit
+    if (idkabkota) {
+      URL = `&kabkota_id=${idkabkota}`;
+    } else {
+      URL = '';
+    }
+
     return this.http
-      .get<News[]>(`${environment.API_URL}/news?page=${page}`)
+      .get<News[]>(`${environment.API_URL}/news?page=${page + URL}`)
       .pipe(catchError(this.handleError));
   }
 
