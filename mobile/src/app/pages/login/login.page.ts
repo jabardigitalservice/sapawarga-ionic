@@ -166,13 +166,11 @@ export class LoginPage implements OnInit {
           this.navCtrl.navigateRoot(['/tabs']['home']);
         } else {
           loader.dismiss();
-          // this.showToast('Login', Dictionary.confirmation_login);
           this.presentAlert('error', Dictionary.confirmation_login);
         }
       },
       err => {
         loader.dismiss();
-        // this.showToast('Login', err.data.password[0]);
         this.presentAlert('error', err.data.password[0]);
       }
     );
