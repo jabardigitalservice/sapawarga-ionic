@@ -33,7 +33,6 @@ export class NewsService {
     if (limit && !idkabkota) {
       URL = `?limit=${limit}`;
     } else if (idkabkota) {
-      console.log(idkabkota);
       URL = `?limit=${limit}&kabkota_id=${idkabkota}`;
     } else {
       URL = '';
