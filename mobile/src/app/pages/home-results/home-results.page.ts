@@ -64,7 +64,6 @@ export class HomeResultsPage implements OnInit {
   };
 
   unreadNotif: 0;
-  // isLoading = false;
   isLoading = {
     humas: false,
     news: false,
@@ -291,7 +290,6 @@ export class HomeResultsPage implements OnInit {
       return;
     }
     if (id) {
-      // console.log(id);
       this.router.navigate(['news'], {
         queryParams: { id: id }
       });
