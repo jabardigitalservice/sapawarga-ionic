@@ -177,10 +177,12 @@ export class HomeResultsPage implements OnInit {
         this.goSamsat();
         break;
       case 'Perizinan':
-        this.launchweb(layananUrl);
+        // this.launchweb(layananUrl);
+        this.goComingSoon();
         break;
       case 'Info harga':
-        this.launchApp(layananUrl);
+        // this.launchApp(layananUrl);
+        this.goComingSoon();
         break;
       case 'Nomor penting':
         this.goNomorPenting();
@@ -240,6 +242,10 @@ export class HomeResultsPage implements OnInit {
 
   goAdministrasi() {
     this.navCtrl.navigateForward('administrasi');
+  }
+
+  goComingSoon() {
+    this.navCtrl.navigateForward('coming-soon');
   }
 
   // call function launchApp to open external app
