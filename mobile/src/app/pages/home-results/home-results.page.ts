@@ -150,18 +150,11 @@ export class HomeResultsPage implements OnInit {
     this.otherPages = [
       {
         text: 'Info Harga',
-        role: 'destructive',
-        // icon: 'trash-solid',
-        handler: () => {
-          console.log('Delete clicked');
-        }
+        handler: () => {}
       },
       {
         text: 'Perizinan',
-        // icon: 'share-alt-square-solid',
-        handler: () => {
-          console.log('Share clicked');
-        }
+        handler: () => {}
       }
     ];
 
@@ -187,7 +180,7 @@ export class HomeResultsPage implements OnInit {
     this.getDataHumas();
 
     // get data Video Post
-    this.getVideoPost();
+    // this.getVideoPost();
   }
 
   ionViewDidEnter() {
