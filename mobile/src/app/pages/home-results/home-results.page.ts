@@ -19,6 +19,7 @@ import { Constants } from '../../helpers/constants';
 import { YoutubeVideoPlayer } from '@ionic-native/youtube-video-player/ngx';
 import { VideoPost } from '../../interfaces/video-post';
 import { VideoPostService } from '../../services/video-post.service';
+import { Profile } from '../../interfaces/profile';
 
 @Component({
   selector: 'app-home-results',
@@ -86,6 +87,7 @@ export class HomeResultsPage implements OnInit {
   NEWS_KABKOTA = 'news-kabkota-headlines';
   HUMAS = 'humas-headlines';
   VIDEO_POST = 'video-post';
+  data_profile: Profile;
 
   constructor(
     public navCtrl: NavController,
@@ -165,9 +167,8 @@ export class HomeResultsPage implements OnInit {
       }
     ];
 
-    if (!localStorage.getItem('PROFILE')) {
-      this.getDataProfile();
-    }
+    // get data user using BehaviorSubject
+    this.profileService.currentUser.subscribe(x => (this.data_profile = x));
   }
 
   ngOnInit() {
@@ -182,7 +183,7 @@ export class HomeResultsPage implements OnInit {
 
     // get data news
     this.getNewsFeatured();
-    this.getNewsFeatured(this.getUserLocation().id);
+    this.getNewsFeatured(this.data_profile.kabkota_id);
 
     // get data humas
     this.getDataHumas();
@@ -342,24 +343,6 @@ export class HomeResultsPage implements OnInit {
     }
     this.router.navigate(['/news', id]);
   }
-
-  async getDataProfile() {
-    const loader = await this.loadingCtrl.create({
-      duration: 10000
-    });
-    loader.present();
-    this.profileService.getProfile().subscribe(
-      res => {
-        // save to local storage
-        localStorage.setItem('PROFILE', JSON.stringify(res['data']));
-        loader.dismiss();
-      },
-      err => {
-        loader.dismiss();
-      }
-    );
-  }
-
   getNewsFeatured(idkabkota?: number) {
     // check internet
     if (!navigator.onLine) {
@@ -517,9 +500,5 @@ export class HomeResultsPage implements OnInit {
       return;
     }
     this.youtube.openVideo(this.parsingDataUrl(url));
-  }
-
-  getUserLocation() {
-    return this.profileService.getLocalProfile().kabkota;
   }
 }
