@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController, Platform, LoadingController } from '@ionic/angular';
+import {
+  NavController,
+  Platform,
+  LoadingController,
+  ActionSheetController
+} from '@ionic/angular';
 
 import { Pages } from '../../interfaces/pages';
 import { ProfileService } from '../../services/profile.service';
@@ -22,6 +27,7 @@ import { VideoPostService } from '../../services/video-post.service';
 })
 export class HomeResultsPage implements OnInit {
   public appPages: Array<Pages>;
+  public otherPages: Array<any>;
   interval: any;
   themeCover = [
     {
@@ -92,7 +98,8 @@ export class HomeResultsPage implements OnInit {
     private router: Router,
     public constants: Constants,
     private youtube: YoutubeVideoPlayer,
-    private videoPostService: VideoPostService
+    private videoPostService: VideoPostService,
+    private actionSheetController: ActionSheetController
   ) {
     this.appPages = [
       {
@@ -120,25 +127,41 @@ export class HomeResultsPage implements OnInit {
         url: '',
         icon: 'assets/icon/SW-NOPENTING.png'
       },
-      {
-        title: 'Info harga',
-        url: 'id.bigio.priangan',
-        icon: 'assets/icon/SW-Info-harga.png'
-      },
+      // {
+      //   title: 'Info harga',
+      //   url: 'id.bigio.priangan',
+      //   icon: 'assets/icon/SW-Info-harga.png'
+      // },
       {
         title: 'E-samsat',
         url: '',
         icon: 'assets/icon/SW-E-samsat.png'
       },
-      {
-        title: 'Perizinan',
-        url: 'https://dpmptsp.jabarprov.go.id/sicantik/main/pendaftaranbaru ',
-        icon: 'assets/icon/SW-IJIN.png'
-      },
+      // {
+      //   title: 'Perizinan',
+      //   url: 'https://dpmptsp.jabarprov.go.id/sicantik/main/pendaftaranbaru ',
+      //   icon: 'assets/icon/SW-IJIN.png'
+      // },
       {
         title: 'Administrasi',
         url: '',
         icon: 'assets/icon/SW-ADMINISTRASI.png'
+      },
+      {
+        title: 'Lainnya',
+        url: '',
+        icon: 'assets/icon/other.png'
+      }
+    ];
+
+    this.otherPages = [
+      {
+        text: 'Info Harga',
+        handler: () => {}
+      },
+      {
+        text: 'Perizinan',
+        handler: () => {}
       }
     ];
 
@@ -165,7 +188,7 @@ export class HomeResultsPage implements OnInit {
     this.getDataHumas();
 
     // get data Video Post
-    this.getVideoPost();
+    // this.getVideoPost();
   }
 
   ionViewDidEnter() {
@@ -184,12 +207,12 @@ export class HomeResultsPage implements OnInit {
       case 'E-samsat':
         this.goSamsat();
         break;
-      case 'Perizinan':
-        this.launchweb(layananUrl);
-        break;
-      case 'Info harga':
-        this.launchApp(layananUrl);
-        break;
+      // case 'Perizinan':
+      //   this.launchweb(layananUrl);
+      //   break;
+      // case 'Info harga':
+      //   this.launchApp(layananUrl);
+      //   break;
       case 'Nomor penting':
         this.goNomorPenting();
         break;
@@ -211,9 +234,22 @@ export class HomeResultsPage implements OnInit {
       case 'Survey':
         this.goSurvey();
         break;
+      case 'Lainnya':
+        this.openOtherPages();
+        break;
       default:
         break;
     }
+  }
+
+  // open action sheet open other pages
+  async openOtherPages() {
+    const actionSheet = await this.actionSheetController.create({
+      header: 'Dalam Pengembangan',
+      cssClass: 'action-sheets-basic-page',
+      buttons: this.otherPages
+    });
+    await actionSheet.present();
   }
 
   // open page nomor penting
