@@ -23,6 +23,7 @@ import {
   NotificationVisibility
 } from '@ionic-native/downloader/ngx';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
+import { ProfileService } from '../../services/profile.service';
 
 @Component({
   selector: 'app-login',
@@ -55,7 +56,8 @@ export class LoginPage implements OnInit {
     public appVersion: AppVersion,
     private downloader: Downloader,
     private constants: Constants,
-    private inAppBrowser: InAppBrowser
+    private inAppBrowser: InAppBrowser,
+    private profileService: ProfileService
   ) {
     this.appVersion
       .getVersionNumber()
@@ -163,7 +165,7 @@ export class LoginPage implements OnInit {
         if (res.success === true) {
           loader.dismiss();
           this.auth.saveToken(res.data.access_token);
-          this.navCtrl.navigateRoot(['/tabs']['home']);
+          this.getDataProfile();
         } else {
           loader.dismiss();
           this.presentAlert('error', Dictionary.confirmation_login);
@@ -239,5 +241,23 @@ export class LoginPage implements OnInit {
       duration: 2000
     });
     toast.present();
+  }
+
+  async getDataProfile() {
+    const loader = await this.loadingCtrl.create({
+      duration: 10000
+    });
+    loader.present();
+    this.profileService.getProfile().subscribe(
+      res => {
+        // save to local storage
+        localStorage.setItem('PROFILE', JSON.stringify(res['data']));
+        loader.dismiss();
+        this.navCtrl.navigateRoot(['/tabs']['home']);
+      },
+      err => {
+        loader.dismiss();
+      }
+    );
   }
 }

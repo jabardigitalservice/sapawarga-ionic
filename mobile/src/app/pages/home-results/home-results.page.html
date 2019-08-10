@@ -193,15 +193,15 @@
       </ion-slide>
 
       <ion-slide>
-        <div *ngIf="dataNewsKabkota">
+        <div *ngIf="dataNewsKabkota && data_profile">
           <ion-card class="text-dark min-mt-5 ion-margin-bottom">
             <ion-item class="section-title-news">
-              <p class="bold text-title">{{ getUserLocation().name }}</p>
+              <p class="bold text-title">{{ data_profile.kabkota.name }}</p>
               <ion-button
                 fill="clear"
                 slot="end"
                 color="success"
-                (click)="goToNews(getUserLocation().id)"
+                (click)="goToNews(data_profile.kabkota.id)"
                 style="font-size: 10px;"
                 >Lihat Semua</ion-button
               >

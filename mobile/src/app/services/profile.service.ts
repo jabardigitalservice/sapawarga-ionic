@@ -6,7 +6,7 @@ import {
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { catchError } from 'rxjs/operators';
-import { Observable, throwError } from 'rxjs';
+import { Observable, throwError, BehaviorSubject } from 'rxjs';
 import { Profile } from '../interfaces/profile';
 
 const PROFILE = 'PROFILE';
@@ -14,7 +14,16 @@ const PROFILE = 'PROFILE';
   providedIn: 'root'
 })
 export class ProfileService {
-  constructor(private http: HttpClient) {}
+  private currentUserSubject: BehaviorSubject<Profile>;
+  currentUser: Observable<Profile>;
+
+  constructor(private http: HttpClient) {
+    this.currentUserSubject = new BehaviorSubject<Profile>(
+      JSON.parse(localStorage.getItem(PROFILE))
+    );
+
+    this.currentUser = this.currentUserSubject.asObservable();
+  }
 
   getProfile(): Observable<Profile[]> {
     return this.http.get<Profile[]>(`${environment.API_URL}/user/me`).pipe(
