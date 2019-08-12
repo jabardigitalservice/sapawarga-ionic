@@ -114,6 +114,10 @@ ion-item {
   margin-left: 10px;
 }
 
+.ml-15 {
+  margin-left: 15px;
+}
+
 .mr-10 {
   margin-right: 10px;
 }
@@ -164,6 +168,15 @@ ion-toolbar.user-profile {
   .item-inner {
     border-width: 0;
   }
+}
+
+.swiper-pagination-bullet-active {
+  background: var(--ion-color-blues) !important;
+}
+
+.swiper-pagination {
+  position: unset;
+  margin-top: 10px;
 }
 
 // Custom toolbar (overriding Shadow DOM)

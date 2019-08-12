@@ -35,7 +35,7 @@
   }
 
   .list-headline-jabar {
-    --padding-start: unset;
+    --padding-start: none;
   }
 
   .list-news {
@@ -82,6 +82,7 @@
   font-size: 13px;
   margin-bottom: 10px;
   color: #707070;
+  white-space: pre-line;
 }
 
 .thumbnail-image {
@@ -155,8 +156,9 @@
   width: 60px;
 }
 
-.pad-l10 {
-  padding-left: 10px;
+.notification-icon {
+  font-size: 26px;
+  margin-right: 3px;
 }
 
 // tablet mode v1
