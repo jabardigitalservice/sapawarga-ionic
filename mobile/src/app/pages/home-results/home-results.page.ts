@@ -214,7 +214,7 @@ export class HomeResultsPage implements OnInit {
       // case 'Info harga':
       //   this.launchApp(layananUrl);
       //   break;
-      case 'Nomor penting':
+      case 'Nomor\npenting':
         this.goNomorPenting();
         break;
       case 'Lapor':
