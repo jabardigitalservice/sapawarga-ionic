@@ -166,6 +166,15 @@ ion-toolbar.user-profile {
   }
 }
 
+.swiper-pagination-bullet-active {
+  background: var(--ion-color-blues) !important;
+}
+
+.swiper-pagination {
+  position: unset;
+  margin-top: 10px;
+}
+
 // Custom toolbar (overriding Shadow DOM)
 ion-toolbar {
   &.ion-color-primary {

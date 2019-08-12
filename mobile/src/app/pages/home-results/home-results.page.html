@@ -5,7 +5,10 @@
     </ion-buttons>
     <ion-buttons slot="end">
       <ion-button shape="round" color="dark" (click)="goNotifikasi()">
-        <ion-icon name="notifications" class="color-grey"></ion-icon>
+        <ion-icon
+          name="notifications"
+          class="color-grey notification-icon"
+        ></ion-icon>
         <ion-badge *ngIf="unreadNotif > 0" color="danger">{{
           unreadNotif
         }}</ion-badge>
@@ -15,15 +18,15 @@
 </ion-header>
 
 <ion-content>
-  <ion-card class="bg-white ion-margin-top">
-    <ion-slides pager="true" [options]="slideOpts" pager="false">
-      <ion-slide *ngFor="let img of themeCover">
-        <img src="{{ img.slide }}" />
-      </ion-slide>
-    </ion-slides>
-  </ion-card>
+  <!-- <ion-card class="bg-white ion-margin-top"> -->
+  <ion-slides pager="true" [options]="slideOpts">
+    <ion-slide *ngFor="let img of themeCover">
+      <img src="{{ img.slide }}" />
+    </ion-slide>
+  </ion-slides>
+  <!-- </ion-card> -->
 
-  <ion-row text-center small class="text-dark">
+  <ion-row text-center small class="text-dark ion-margin-top">
     <ion-col size="3" class="mt-1" no-padding *ngFor="let page of appPages">
       <img
         class="icon-img"
