@@ -125,7 +125,7 @@ export class HomeResultsPage implements OnInit {
         icon: 'assets/icon/SW-POLLING.png'
       },
       {
-        title: 'Nomor penting',
+        title: 'Nomor\npenting',
         url: '',
         icon: 'assets/icon/SW-NOPENTING.png'
       },
