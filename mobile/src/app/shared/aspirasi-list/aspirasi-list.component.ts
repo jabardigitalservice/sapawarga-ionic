@@ -176,16 +176,17 @@ export class AspirasiListComponent implements OnInit {
       return;
     }
 
+    const dataLike = this.dataLikes.find(x => x.id === id);
     if (checkLike) {
       // set unlike
-      this.dataLikes.find(x => x.id === id).liked = false;
+      dataLike.liked = false;
       // set total like
-      this.dataLikes.find(x => x.id === id).likes_count--;
+      dataLike.likes_count--;
     } else {
       // set like
-      this.dataLikes.find(x => x.id === id).liked = true;
+      dataLike.liked = true;
       // set total like + 1
-      this.dataLikes.find(x => x.id === id).likes_count++;
+      dataLike.likes_count++;
     }
 
     // save like to server
