@@ -44,10 +44,16 @@ export class AppComponent {
   ) {
     this.initializeApp();
     this.platform.backButton.subscribe(() => {
-      if (this.routerOutlet && this.routerOutlet.canGoBack()) {
+      if (
+        this.routerOutlet &&
+        this.routerOutlet.canGoBack() &&
+        this.router.url !== '/aspirasi-form'
+      ) {
         this.routerOutlet.pop();
       } else if (this.router.url === '/tabs') {
         navigator['app'].exitApp();
+      } else if (this.router.url === '/aspirasi-form') {
+        return;
       } else {
         if (this.counter === 0) {
           this.counter++;
