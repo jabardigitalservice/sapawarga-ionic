@@ -124,7 +124,7 @@ export class LoginPage implements OnInit {
       };
     } else if (param === 'error') {
       messageData = {
-        header: 'Error',
+        header: '',
         message: message,
         buttons: ['OK']
       };
