@@ -201,7 +201,9 @@
         <div *ngIf="dataNewsKabkota && data_profile">
           <ion-card class="text-dark min-mt-5 ion-margin-bottom">
             <ion-item class="section-title-news">
-              <p class="bold text-title">{{ data_profile.kabkota.name }}</p>
+              <p class="bold text-title">
+                {{ data_profile.kabkota.name | titlecase }}
+              </p>
               <ion-button
                 fill="clear"
                 slot="end"
