@@ -55,18 +55,7 @@ export class AspirasiListComponent implements OnInit {
       }
 
       // get local
-      if (
-        this.aspirasiService.getLocalAspirasi() &&
-        this.aspirasiService.getLocalLikes()
-      ) {
-        this.dataAspirasi = JSON.parse(this.aspirasiService.getLocalAspirasi());
-        this.dataLikes = JSON.parse(this.aspirasiService.getLocalLikes());
-      } else {
-        this.msgResponse = {
-          type: 'offline',
-          msg: Dictionary.offline
-        };
-      }
+      this.getLocalAspirasi();
 
       return;
     }
@@ -81,16 +70,17 @@ export class AspirasiListComponent implements OnInit {
       loader.present();
     }
 
+    this.getDataAspirasi(infiniteScroll, loader);
+  }
+
+  private getDataAspirasi(infiniteScroll: any, loader: HTMLIonLoadingElement) {
     this.aspirasiService.getListAspirasi(this.currentPage).subscribe(
       res => {
         if (res['data']['items'].length) {
           this.dataAspirasi = this.dataAspirasi.concat(res['data']['items']);
-
           this.dataLikes = this.initState(this.dataAspirasi);
-
           // save data aspirasi to local
           this.aspirasiService.saveLocalAspirasi(this.dataAspirasi);
-
           // save likes to local
           this.aspirasiService.saveLocalLikes(this.dataLikes);
         } else {
@@ -102,7 +92,6 @@ export class AspirasiListComponent implements OnInit {
         }
         // set count page
         this.maximumPages = res['data']['_meta'].pageCount;
-
         // stop infinite scroll
         if (infiniteScroll) {
           infiniteScroll.target.complete();
@@ -123,6 +112,21 @@ export class AspirasiListComponent implements OnInit {
         loader.dismiss();
       }
     );
+  }
+
+  private getLocalAspirasi() {
+    if (
+      this.aspirasiService.getLocalAspirasi() &&
+      this.aspirasiService.getLocalLikes()
+    ) {
+      this.dataAspirasi = JSON.parse(this.aspirasiService.getLocalAspirasi());
+      this.dataLikes = JSON.parse(this.aspirasiService.getLocalLikes());
+    } else {
+      this.msgResponse = {
+        type: 'offline',
+        msg: Dictionary.offline
+      };
+    }
   }
 
   initState(data: any) {
