@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AspirasiService } from '../../services/aspirasi.service';
-import { LoadingController, ToastController } from '@ionic/angular';
+import { LoadingController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { Aspirasi } from '../../interfaces/aspirasi';
 import { Dictionary } from '../../helpers/dictionary';
@@ -33,8 +33,7 @@ export class AspirasiListComponent implements OnInit {
   constructor(
     private aspirasiService: AspirasiService,
     public loadingCtrl: LoadingController,
-    private router: Router,
-    private toastCtrl: ToastController
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -200,13 +199,5 @@ export class AspirasiListComponent implements OnInit {
   // check total likes
   checkCountLike(id: number) {
     return this.dataLikes.find(x => x.id === id).likes_count;
-  }
-
-  async showToast(msg: string) {
-    const toast = await this.toastCtrl.create({
-      message: msg,
-      duration: 2000
-    });
-    toast.present();
   }
 }
