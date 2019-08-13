@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AspirasiService } from '../../services/aspirasi.service';
-import { LoadingController, ToastController } from '@ionic/angular';
+import { LoadingController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { Aspirasi } from '../../interfaces/aspirasi';
 import { Dictionary } from '../../helpers/dictionary';
@@ -33,8 +33,7 @@ export class AspirasiListComponent implements OnInit {
   constructor(
     private aspirasiService: AspirasiService,
     public loadingCtrl: LoadingController,
-    private router: Router,
-    private toastCtrl: ToastController
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -56,18 +55,7 @@ export class AspirasiListComponent implements OnInit {
       }
 
       // get local
-      if (
-        this.aspirasiService.getLocalAspirasi() &&
-        this.aspirasiService.getLocalLikes()
-      ) {
-        this.dataAspirasi = JSON.parse(this.aspirasiService.getLocalAspirasi());
-        this.dataLikes = JSON.parse(this.aspirasiService.getLocalLikes());
-      } else {
-        this.msgResponse = {
-          type: 'offline',
-          msg: Dictionary.offline
-        };
-      }
+      this.getLocalAspirasi();
 
       return;
     }
@@ -82,16 +70,17 @@ export class AspirasiListComponent implements OnInit {
       loader.present();
     }
 
+    this.getDataAspirasi(infiniteScroll, loader);
+  }
+
+  private getDataAspirasi(infiniteScroll: any, loader: HTMLIonLoadingElement) {
     this.aspirasiService.getListAspirasi(this.currentPage).subscribe(
       res => {
         if (res['data']['items'].length) {
           this.dataAspirasi = this.dataAspirasi.concat(res['data']['items']);
-
           this.dataLikes = this.initState(this.dataAspirasi);
-
           // save data aspirasi to local
           this.aspirasiService.saveLocalAspirasi(this.dataAspirasi);
-
           // save likes to local
           this.aspirasiService.saveLocalLikes(this.dataLikes);
         } else {
@@ -103,7 +92,6 @@ export class AspirasiListComponent implements OnInit {
         }
         // set count page
         this.maximumPages = res['data']['_meta'].pageCount;
-
         // stop infinite scroll
         if (infiniteScroll) {
           infiniteScroll.target.complete();
@@ -124,6 +112,21 @@ export class AspirasiListComponent implements OnInit {
         loader.dismiss();
       }
     );
+  }
+
+  private getLocalAspirasi() {
+    if (
+      this.aspirasiService.getLocalAspirasi() &&
+      this.aspirasiService.getLocalLikes()
+    ) {
+      this.dataAspirasi = JSON.parse(this.aspirasiService.getLocalAspirasi());
+      this.dataLikes = JSON.parse(this.aspirasiService.getLocalLikes());
+    } else {
+      this.msgResponse = {
+        type: 'offline',
+        msg: Dictionary.offline
+      };
+    }
   }
 
   initState(data: any) {
@@ -173,16 +176,17 @@ export class AspirasiListComponent implements OnInit {
       return;
     }
 
+    const dataLike = this.dataLikes.find(x => x.id === id);
     if (checkLike) {
       // set unlike
-      this.dataLikes.find(x => x.id === id).liked = false;
+      dataLike.liked = false;
       // set total like
-      this.dataLikes.find(x => x.id === id).likes_count--;
+      dataLike.likes_count--;
     } else {
       // set like
-      this.dataLikes.find(x => x.id === id).liked = true;
+      dataLike.liked = true;
       // set total like + 1
-      this.dataLikes.find(x => x.id === id).likes_count++;
+      dataLike.likes_count++;
     }
 
     // save like to server
@@ -200,13 +204,5 @@ export class AspirasiListComponent implements OnInit {
   // check total likes
   checkCountLike(id: number) {
     return this.dataLikes.find(x => x.id === id).likes_count;
-  }
-
-  async showToast(msg: string) {
-    const toast = await this.toastCtrl.create({
-      message: msg,
-      duration: 2000
-    });
-    toast.present();
   }
 }
