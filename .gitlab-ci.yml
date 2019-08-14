@@ -16,7 +16,6 @@ before_script:
 
 stages:
   - prepare
-  - code_quality
   - test
   - build
 
@@ -27,33 +26,6 @@ build_docker:
     - COMPOSE_HTTP_TIMEOUT=500 docker-compose build --no-cache
     - docker images
     - docker-compose push
-
-code_quality:
-  image: docker:stable
-  stage: code_quality
-  services:
-    - docker:stable-dind
-  variables:
-    DOCKER_DRIVER: overlay2
-  script:
-    - docker pull codeclimate/codeclimate
-    - docker run
-      --env SOURCE_CODE=$PWD
-      --env CONTAINER_TIMEOUT_SECONDS=3600
-      --env CODECLIMATE_DEBUG=1
-      --volume $PWD:/code
-      --volume /var/run/docker.sock:/var/run/docker.sock
-      --volume /tmp/cc:/tmp/cc codeclimate/codeclimate init
-    - docker run
-      --env SOURCE_CODE=$PWD
-      --env CONTAINER_TIMEOUT_SECONDS=3600
-      --env CODECLIMATE_DEBUG=1
-      --volume $PWD:/code
-      --volume /var/run/docker.sock:/var/run/docker.sock
-      --volume /tmp/cc:/tmp/cc codeclimate/codeclimate analyze -f json > codeclimate.json
-  artifacts:
-    paths: [codeclimate.json]
-    expire_in: 1 week
 
 lint:
   stage: test
