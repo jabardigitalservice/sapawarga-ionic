@@ -36,6 +36,7 @@ code_quality:
   variables:
     DOCKER_DRIVER: overlay2
   script:
+    - cd mobile
     - docker run
       --env SOURCE_CODE=$PWD
       --env CONTAINER_TIMEOUT_SECONDS=3600
