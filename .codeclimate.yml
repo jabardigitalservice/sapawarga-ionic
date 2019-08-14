@@ -1,0 +1,17 @@
+languages:
+  JavaScript: true
+  Typescript: true
+
+exclude_patterns:
+  - mobile/config/**/*
+  - mobile/node_modules/**/*
+  - mobile/e2e/
+  - mobile/webpack.*.js
+  - mobile/karma.conf.js
+  - mobile/image-files/
+  - mobile/platforms/
+  - mobile/plugins/
+  - mobile/www/
+  - mobile/**/*.spec.ts
+  - mobile/**/*.conf.js
+version: '2'
