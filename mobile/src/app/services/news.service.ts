@@ -49,6 +49,14 @@ export class NewsService {
       .pipe(catchError(this.handleError));
   }
 
+  getListRelated(id: number, limit: number): Observable<News[]> {
+    return this.http
+      .get<News[]>(
+        `${environment.API_URL}/news/related?id=${id}&limit=${limit}`
+      )
+      .pipe(catchError(this.handleError));
+  }
+
   getDataNativeHttp() {
     return this.nativeHttp.get(
       URL_HUMAS,
