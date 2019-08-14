@@ -1,20 +1,21 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
+import { UtilitiesService } from './utilities.service';
 
 const SURVEY = 'data-survey';
 @Injectable({
   providedIn: 'root'
 })
 export class SurveyService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private util: UtilitiesService) {}
 
   getListSurvey(page: number): Observable<any> {
     return this.http
       .get<any>(`${environment.API_URL}/survey?page=${page}`)
-      .pipe(catchError(this.handleError));
+      .pipe(catchError(this.util.handleError));
   }
 
   // save SURVEY into local storage
@@ -25,20 +26,5 @@ export class SurveyService {
   // get SURVEY into local storage
   getLocalSurvey() {
     return JSON.parse(localStorage.getItem(SURVEY));
-  }
-
-  private handleError(error: HttpErrorResponse) {
-    if (error.error instanceof ErrorEvent) {
-      // A client-side or network error occurred. Handle it accordingly.
-      console.error('An error occurred:', error.error.message);
-    } else {
-      // The backend returned an unsuccessful response code.
-      // The response body may contain clues as to what went wrong,
-      console.error(
-        `Backend returned code ${error.status}, ` + `body was: ${error.error}`
-      );
-    }
-    // return an observable with a user-facing error message
-    return throwError(error.error);
   }
 }

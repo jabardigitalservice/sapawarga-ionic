@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { map, catchError, tap } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
+import { catchError, tap } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
-import { throwError, Observable, BehaviorSubject } from 'rxjs';
-import { Storage } from '@ionic/storage';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { Platform } from '@ionic/angular';
+import { UtilitiesService } from './utilities.service';
 
 const TOKEN_KEY = 'auth-token';
 
@@ -16,8 +16,8 @@ export class AuthService {
 
   constructor(
     private http: HttpClient,
-    private storage: Storage,
-    private plt: Platform
+    private plt: Platform,
+    private util: UtilitiesService
   ) {
     this.plt.ready().then(() => {
       this.checkToken();
@@ -35,7 +35,7 @@ export class AuthService {
   login(data): Observable<any> {
     return this.http
       .post(`${environment.API_URL}/user/login`, { LoginForm: data })
-      .pipe(catchError(this.handleError));
+      .pipe(catchError(this.util.handleError));
   }
 
   // save token into local storage
@@ -55,7 +55,7 @@ export class AuthService {
           localStorage.setItem('has-onboarding', 'true');
           this.authenticationState.next(false);
         }),
-        catchError(this.handleError)
+        catchError(this.util.handleError)
       );
 
     return httpPost;
@@ -63,25 +63,5 @@ export class AuthService {
 
   isAuthenticated() {
     return this.authenticationState.value;
-  }
-
-  private handleError(error: HttpErrorResponse) {
-    if (error.error instanceof ErrorEvent) {
-      // A client-side or network error occurred. Handle it accordingly.
-      console.error('An error occurred:', error.error.message);
-    } else {
-      // The backend returned an unsuccessful response code.
-      // The response body may contain clues as to what went wrong,
-      console.error(
-        `Backend returned code ${error.status}, ` + `body was: ${error.error}`
-      );
-    }
-    // return an observable with a user-facing error message
-    return throwError(error.error);
-  }
-
-  private extractData(res: Response) {
-    const body = res;
-    return body || {};
   }
 }

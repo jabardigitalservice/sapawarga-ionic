@@ -8,6 +8,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Aspirasi } from '../interfaces/aspirasi';
 import { environment } from '../../environments/environment';
+import { UtilitiesService } from './utilities.service';
 
 const ASPIRASI = 'aspirasi';
 const ASPIRASI_USER = 'aspirasi-user';
@@ -17,30 +18,30 @@ const ASPIRASI_LIKES = 'aspirasi-likes';
   providedIn: 'root'
 })
 export class AspirasiService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private util: UtilitiesService) {}
 
   getListAspirasi(page: number): Observable<Aspirasi[]> {
     return this.http
       .get<Aspirasi[]>(`${environment.API_URL}/aspirasi?page=${page}`)
-      .pipe(catchError(this.handleError));
+      .pipe(catchError(this.util.handleError));
   }
 
   getMyListAspirasi(page: number): Observable<Aspirasi[]> {
     return this.http
       .get<Aspirasi[]>(`${environment.API_URL}/aspirasi/me?page=${page}`)
-      .pipe(catchError(this.handleError));
+      .pipe(catchError(this.util.handleError));
   }
 
   PostAspirasi(data: any): Observable<Aspirasi> {
     return this.http
       .post<Aspirasi>(`${environment.API_URL}/aspirasi`, data)
-      .pipe(catchError(this.handleError));
+      .pipe(catchError(this.util.handleError));
   }
 
   editAspirasi(id: number, data: any): Observable<Aspirasi> {
     return this.http
       .put<Aspirasi>(`${environment.API_URL}/aspirasi/${id}`, data)
-      .pipe(catchError(this.handleError));
+      .pipe(catchError(this.util.handleError));
   }
 
   uploadFormData(formData) {
@@ -59,19 +60,19 @@ export class AspirasiService {
   getDetailAspirasi(id: number): Observable<Aspirasi> {
     return this.http
       .get<Aspirasi>(`${environment.API_URL}/aspirasi/${id}`)
-      .pipe(catchError(this.handleError));
+      .pipe(catchError(this.util.handleError));
   }
 
   likeAspirasi(id: number): Observable<any> {
     return this.http
       .post(`${environment.API_URL}/aspirasi/likes/${id}`, {})
-      .pipe(catchError(this.handleError));
+      .pipe(catchError(this.util.handleError));
   }
 
   deleteAspirasi(id: number): Observable<Aspirasi> {
     return this.http
       .delete<Aspirasi>(`${environment.API_URL}/aspirasi/${id}`)
-      .pipe(catchError(this.handleError));
+      .pipe(catchError(this.util.handleError));
   }
 
   // save Aspirasi into local storage
@@ -112,21 +113,6 @@ export class AspirasiService {
   getCategories() {
     return this.http
       .get<Aspirasi[]>(`${environment.API_URL}/categories?type=aspirasi`)
-      .pipe(catchError(this.handleError));
-  }
-
-  private handleError(error: HttpErrorResponse) {
-    if (error.error instanceof ErrorEvent) {
-      // A client-side or network error occurred. Handle it accordingly.
-      console.error('An error occurred:', error.error.message);
-    } else {
-      // The backend returned an unsuccessful response code.
-      // The response body may contain clues as to what went wrong,
-      console.error(
-        `Backend returned code ${error.status}, ` + `body was: ${error.error}`
-      );
-    }
-    // return an observable with a user-facing error message
-    return throwError(error.error);
+      .pipe(catchError(this.util.handleError));
   }
 }
