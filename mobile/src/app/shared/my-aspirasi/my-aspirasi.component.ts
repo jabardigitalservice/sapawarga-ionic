@@ -90,10 +90,7 @@ export class MyAspirasiComponent implements OnInit {
           this.aspirasiService.saveLocalAspirasiUser(this.dataAspirasi);
         } else {
           this.dataEmpty = true;
-          this.msgResponse = {
-            type: 'empty',
-            msg: Dictionary.empty_aspirasi
-          };
+          this.messageResponse('empty', Dictionary.empty_aspirasi);
         }
         // set count page
         this.maximumPages = res['data']['_meta'].pageCount;
@@ -109,14 +106,18 @@ export class MyAspirasiComponent implements OnInit {
           infiniteScroll.target.complete();
         }
         if (err) {
-          this.msgResponse = {
-            type: 'server-error',
-            msg: Dictionary.internalError
-          };
+          this.messageResponse('server-error', Dictionary.internalError);
         }
         loader.dismiss();
       }
     );
+  }
+
+  private messageResponse(type: string, message: string) {
+    this.msgResponse = {
+      type: type,
+      msg: message
+    };
   }
 
   private getLocalMyAspirasi() {
@@ -125,10 +126,7 @@ export class MyAspirasiComponent implements OnInit {
         this.aspirasiService.getLocalAspirasiUser()
       );
     } else {
-      this.msgResponse = {
-        type: 'offline',
-        msg: Dictionary.offline
-      };
+      this.messageResponse('offline', Dictionary.offline);
     }
   }
 
