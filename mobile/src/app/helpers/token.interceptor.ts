@@ -10,12 +10,14 @@ import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import { ToastController, NavController } from '@ionic/angular';
+import { UtilitiesService } from '../services/utilities.service';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
   constructor(
     private navCtrl: NavController,
-    private toastCtrl: ToastController
+    private toastCtrl: ToastController,
+    private util: UtilitiesService
   ) {}
 
   intercept(
@@ -60,7 +62,7 @@ export class TokenInterceptor implements HttpInterceptor {
             // clear locastorage
             localStorage.clear();
           }
-          this.showToast(error.error.data.name, error.error.data.message);
+          this.util.showToast(error.error.data.message);
           this.navCtrl.navigateRoot(['login']);
           // clear locastorage
           localStorage.clear();
@@ -68,13 +70,5 @@ export class TokenInterceptor implements HttpInterceptor {
         return throwError(error);
       })
     );
-  }
-
-  async showToast(title: string, msg: string) {
-    const toast = await this.toastCtrl.create({
-      message: msg,
-      duration: 2000
-    });
-    toast.present();
   }
 }

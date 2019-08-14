@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Polling } from '../../interfaces/polling';
 import { PollingService } from '../../services/polling.service';
-import { LoadingController, ToastController } from '@ionic/angular';
+import { LoadingController } from '@ionic/angular';
 import { Dictionary } from '../../helpers/dictionary';
+import { UtilitiesService } from '../../services/utilities.service';
 
 @Component({
   selector: 'app-polling',
@@ -28,7 +29,7 @@ export class PollingPage implements OnInit {
     private pollingService: PollingService,
     public loadingCtrl: LoadingController,
     private router: Router,
-    private toastCtrl: ToastController
+    private util: UtilitiesService
   ) {
     this.dataPolling = [];
   }
@@ -129,7 +130,7 @@ export class PollingPage implements OnInit {
           if (res['data']['is_voted'] === false) {
             this.router.navigate(['/polling', id]);
           } else {
-            this.showToast(Dictionary.have_done_vote);
+            this.util.showToast(Dictionary.have_done_vote);
           }
         }
       },
@@ -157,13 +158,5 @@ export class PollingPage implements OnInit {
     setTimeout(() => {
       this.getListPolling(event);
     }, 2000);
-  }
-
-  async showToast(msg: string) {
-    const toast = await this.toastCtrl.create({
-      message: msg,
-      duration: 2000
-    });
-    toast.present();
   }
 }

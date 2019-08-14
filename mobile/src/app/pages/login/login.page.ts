@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {
   NavController,
   MenuController,
-  ToastController,
   AlertController,
   LoadingController,
   Platform
@@ -24,6 +23,7 @@ import {
 } from '@ionic-native/downloader/ngx';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { ProfileService } from '../../services/profile.service';
+import { UtilitiesService } from '../../services/utilities.service';
 
 @Component({
   selector: 'app-login',
@@ -44,7 +44,6 @@ export class LoginPage implements OnInit {
   constructor(
     public navCtrl: NavController,
     public menuCtrl: MenuController,
-    public toastCtrl: ToastController,
     public alertCtrl: AlertController,
     public loadingCtrl: LoadingController,
     private formBuilder: FormBuilder,
@@ -57,7 +56,8 @@ export class LoginPage implements OnInit {
     private downloader: Downloader,
     private constants: Constants,
     private inAppBrowser: InAppBrowser,
-    private profileService: ProfileService
+    private profileService: ProfileService,
+    private util: UtilitiesService
   ) {
     this.appVersion
       .getVersionNumber()
@@ -144,7 +144,7 @@ export class LoginPage implements OnInit {
 
     // check internet
     if (!navigator.onLine) {
-      this.showToast('Offline', Dictionary.offline);
+      this.util.showToast(Dictionary.offline);
       return;
     }
 
@@ -184,7 +184,7 @@ export class LoginPage implements OnInit {
   downloadPdf() {
     // check internet
     if (!navigator.onLine) {
-      this.showToast('Offline', Dictionary.offline);
+      this.util.showToast(Dictionary.offline);
       return;
     }
 
@@ -206,10 +206,10 @@ export class LoginPage implements OnInit {
       this.downloader
         .download(request)
         .then((location: string) =>
-          this.showToast('Unduh Panduan', Dictionary.success_download)
+          this.util.showToast(Dictionary.success_download)
         )
         .catch((error: any) =>
-          this.showToast('Unduh Panduan', Dictionary.unsuccess_download)
+          this.util.showToast(Dictionary.unsuccess_download)
         );
     });
   }
@@ -218,7 +218,7 @@ export class LoginPage implements OnInit {
   launchweb(name: string) {
     // check internet
     if (!navigator.onLine) {
-      this.showToast('Offline', Dictionary.offline);
+      this.util.showToast(Dictionary.offline);
       return;
     }
 
@@ -233,14 +233,6 @@ export class LoginPage implements OnInit {
         this.constants.inAppBrowserOptions
       );
     });
-  }
-
-  async showToast(title: string, msg: string) {
-    const toast = await this.toastCtrl.create({
-      message: msg,
-      duration: 2000
-    });
-    toast.present();
   }
 
   async getDataProfile() {

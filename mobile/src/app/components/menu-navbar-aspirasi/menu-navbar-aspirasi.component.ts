@@ -1,13 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  AlertController,
-  NavParams,
-  PopoverController,
-  ToastController
-} from '@ionic/angular';
+import { AlertController, NavParams, PopoverController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { AspirasiService } from '../../services/aspirasi.service';
 import { Dictionary } from '../../helpers/dictionary';
+import { UtilitiesService } from '../../services/utilities.service';
 
 @Component({
   selector: 'app-menu-navbar-aspirasi',
@@ -20,8 +16,8 @@ export class MenuNavbarAspirasiComponent implements OnInit {
     private router: Router,
     private popover: PopoverController,
     private aspirasiService: AspirasiService,
-    private toastCtrl: ToastController,
-    public alertController: AlertController
+    public alertController: AlertController,
+    private util: UtilitiesService
   ) {}
 
   ngOnInit() {}
@@ -29,7 +25,7 @@ export class MenuNavbarAspirasiComponent implements OnInit {
   editAspirasi() {
     // check internet
     if (!navigator.onLine) {
-      this.showToast(Dictionary.offline);
+      this.util.showToast(Dictionary.offline);
       return;
     }
 
@@ -50,13 +46,13 @@ export class MenuNavbarAspirasiComponent implements OnInit {
     const id = this.navParams.get('dataAspirasi').id;
     this.aspirasiService.deleteAspirasi(id).subscribe(
       res => {
-        this.showToast(Dictionary.aspirasi_success_delete);
+        this.util.showToast(Dictionary.aspirasi_success_delete);
 
         this.router.navigate(['aspirasi-user']);
         this.popover.dismiss();
       },
       err => {
-        this.showToast(Dictionary.aspirasi_failed);
+        this.util.showToast(Dictionary.aspirasi_failed);
         this.popover.dismiss();
       }
     );
@@ -83,13 +79,5 @@ export class MenuNavbarAspirasiComponent implements OnInit {
       ]
     });
     await alert.present();
-  }
-
-  async showToast(msg: string) {
-    const toast = await this.toastCtrl.create({
-      message: msg,
-      duration: 3000
-    });
-    toast.present();
   }
 }

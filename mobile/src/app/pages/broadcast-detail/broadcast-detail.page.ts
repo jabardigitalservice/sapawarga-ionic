@@ -1,9 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  NavController,
-  LoadingController,
-  ToastController
-} from '@ionic/angular';
+import { NavController, LoadingController } from '@ionic/angular';
 import { ActivatedRoute } from '@angular/router';
 import { Broadcast } from '../../interfaces/broadcast';
 import { BroadcastService } from '../../services/broadcast.service';
@@ -20,8 +16,7 @@ export class BroadcastDetailPage implements OnInit {
     private broadcastService: BroadcastService,
     private navCtrl: NavController,
     private route: ActivatedRoute,
-    public loadingCtrl: LoadingController,
-    public toastCtrl: ToastController
+    public loadingCtrl: LoadingController
   ) {}
 
   ngOnInit() {
@@ -49,14 +44,6 @@ export class BroadcastDetailPage implements OnInit {
       this.SetRead(parseInt(this.dataBroadcast.id, 10));
       this.navCtrl.navigateRoot('/tabs/broadcasts');
     }
-  }
-
-  async showToast(msg: string) {
-    const toast = await this.toastCtrl.create({
-      message: msg,
-      duration: 2000
-    });
-    toast.present();
   }
 
   SetRead(id: number) {

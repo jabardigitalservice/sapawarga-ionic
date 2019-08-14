@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {
   LoadingController,
   ActionSheetController,
-  Platform,
-  ToastController
+  Platform
 } from '@ionic/angular';
 import { NomorPentingService } from '../../services/nomor-penting.service';
 import { NomorPenting } from '../../interfaces/nomor-penting';
@@ -11,6 +10,7 @@ import { CallNumber } from '@ionic-native/call-number/ngx';
 import { SMS } from '@ionic-native/sms/ngx';
 import { Router } from '@angular/router';
 import { Dictionary } from '../../helpers/dictionary';
+import { UtilitiesService } from '../../services/utilities.service';
 
 @Component({
   selector: 'app-nomor-penting',
@@ -40,12 +40,12 @@ export class NomorPentingPage implements OnInit {
   constructor(
     private nomorPentingService: NomorPentingService,
     public loadingCtrl: LoadingController,
-    public toastCtrl: ToastController,
     public actionSheetController: ActionSheetController,
     private platform: Platform,
     private callNumber: CallNumber,
     private sms: SMS,
-    private router: Router
+    private router: Router,
+    private util: UtilitiesService
   ) {
     this.dataNomorPenting = [];
     // get data kabkota
@@ -274,10 +274,10 @@ export class NomorPentingPage implements OnInit {
         this.callNumber
           .callNumber(phone, true)
           .then()
-          .catch(err => this.showToast(Dictionary.terjadi_kesalahan));
+          .catch(err => this.util.showToast(Dictionary.terjadi_kesalahan));
       })
       .catch(() => {
-        this.showToast(Dictionary.error_permission);
+        this.util.showToast(Dictionary.error_permission);
       });
   }
 
@@ -296,7 +296,7 @@ export class NomorPentingPage implements OnInit {
         this.sms.send(phone, '', options);
       })
       .catch(() => {
-        this.showToast(Dictionary.error_permission);
+        this.util.showToast(Dictionary.error_permission);
       });
   }
 
@@ -380,13 +380,5 @@ export class NomorPentingPage implements OnInit {
     } else if (type === 'message') {
       return data.filter(x => x.type === 'message').length > 0;
     }
-  }
-
-  async showToast(msg: string) {
-    const toast = await this.toastCtrl.create({
-      message: msg,
-      duration: 2000
-    });
-    toast.present();
   }
 }

@@ -1,11 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ProfileService } from 'src/app/services/profile.service';
-import {
-  LoadingController,
-  PopoverController,
-  ToastController,
-  Platform
-} from '@ionic/angular';
+import { LoadingController, PopoverController, Platform } from '@ionic/angular';
 import { Profile } from '../../interfaces/profile';
 import { MenuNavbarComponent } from '../../components/menu-navbar/menu-navbar.component';
 import { AppAvailability } from '@ionic-native/app-availability/ngx';
@@ -14,6 +9,7 @@ import {
   InAppBrowserObject
 } from '@ionic-native/in-app-browser/ngx';
 import { Dictionary } from '../../helpers/dictionary';
+import { UtilitiesService } from '../../services/utilities.service';
 
 @Component({
   selector: 'app-view-profile',
@@ -31,10 +27,10 @@ export class ViewProfilePage implements OnInit {
     public loadingCtrl: LoadingController,
     private profileService: ProfileService,
     public popoverCtrl: PopoverController,
-    public toastCtrl: ToastController,
     private appAvailability: AppAvailability,
     private platform: Platform,
-    private inAppBrowser: InAppBrowser
+    private inAppBrowser: InAppBrowser,
+    private util: UtilitiesService
   ) {}
 
   ngOnInit() {
@@ -160,7 +156,7 @@ export class ViewProfilePage implements OnInit {
           !this.dataProfile.facebook ||
           !this.dataProfile.instagram
         ) {
-          this.showToast(Dictionary.complete_sosmed);
+          this.util.showToast(Dictionary.complete_sosmed);
         }
       },
       err => {
@@ -178,7 +174,7 @@ export class ViewProfilePage implements OnInit {
   doRefresh(event) {
     // offline
     if (!navigator.onLine) {
-      this.showToast(Dictionary.offline);
+      this.util.showToast(Dictionary.offline);
       event.target.complete();
       return;
     }
@@ -205,14 +201,6 @@ export class ViewProfilePage implements OnInit {
     popover.onDidDismiss();
 
     return await popover.present();
-  }
-
-  async showToast(msg: string) {
-    const toast = await this.toastCtrl.create({
-      message: msg,
-      duration: 2000
-    });
-    toast.present();
   }
 
   convertNumber(value) {
