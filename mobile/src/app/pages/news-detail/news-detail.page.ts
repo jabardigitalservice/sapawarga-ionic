@@ -15,7 +15,7 @@ import { Constants } from 'src/app/helpers/constants';
 })
 export class NewsDetailPage implements OnInit {
   isLoading = false;
-
+  idNews: number;
   dataNews: News;
   dataFeatured: News[];
   constructor(
@@ -30,7 +30,8 @@ export class NewsDetailPage implements OnInit {
 
   ngOnInit() {
     this.route.params.subscribe(params => {
-      this.getDetailNews(params['id']);
+      this.idNews = params['id'];
+      this.getDetailNews(this.idNews);
     });
 
     this.getNewsList();
@@ -72,7 +73,7 @@ export class NewsDetailPage implements OnInit {
 
     this.isLoading = true;
 
-    this.newsService.getNewsFeatured(2).subscribe(
+    this.newsService.getListRelated(this.idNews, 2).subscribe(
       res => {
         if (res['status'] === 200) {
           this.dataFeatured = res['data']['items'];
@@ -95,7 +96,9 @@ export class NewsDetailPage implements OnInit {
   }
 
   goToDetail(id: number) {
+    this.idNews = id;
     this.getDetailNews(id);
+    this.getNewsList();
   }
 
   source_url(url: string) {
