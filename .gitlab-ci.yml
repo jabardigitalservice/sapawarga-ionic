@@ -36,18 +36,23 @@ code_quality:
   variables:
     DOCKER_DRIVER: overlay2
   script:
-    - cd mobile
+    - docker pull codeclimate/codeclimate
     - docker run
       --env SOURCE_CODE=$PWD
       --env CONTAINER_TIMEOUT_SECONDS=3600
       --env CODECLIMATE_DEBUG=1
       --volume $PWD:/code
       --volume /var/run/docker.sock:/var/run/docker.sock
-      "registry.gitlab.com/gitlab-org/security-products/codequality:11-8-stable" /code
+      --volume /tmp/cc:/tmp/cc codeclimate/codeclimate init
+    - docker run
+      --env SOURCE_CODE=$PWD
+      --env CONTAINER_TIMEOUT_SECONDS=3600
+      --env CODECLIMATE_DEBUG=1
+      --volume $PWD:/code
+      --volume /var/run/docker.sock:/var/run/docker.sock
+      --volume /tmp/cc:/tmp/cc codeclimate/codeclimate analyze -f json > codeclimate.json
   artifacts:
-    paths: [gl-code-quality-report.json]
-    reports:
-      codequality: gl-code-quality-report.json
+    paths: [codeclimate.json]
     expire_in: 1 week
 
 lint:
