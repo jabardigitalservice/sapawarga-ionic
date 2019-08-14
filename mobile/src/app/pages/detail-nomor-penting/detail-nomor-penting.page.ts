@@ -1,13 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
-import {
-  LoadingController,
-  ToastController,
-  NavController
-} from '@ionic/angular';
+import { LoadingController, NavController } from '@ionic/angular';
 import { NomorPentingService } from '../../services/nomor-penting.service';
 import { NomorPenting } from '../../interfaces/nomor-penting';
 import { Dictionary } from '../../helpers/dictionary';
+import { UtilitiesService } from '../../services/utilities.service';
 
 @Component({
   selector: 'app-detail-nomor-penting',
@@ -26,9 +23,9 @@ export class DetailNomorPentingPage implements OnInit {
     private route: ActivatedRoute,
     private nomorPentingService: NomorPentingService,
     private loadingCtrl: LoadingController,
-    private toastCtrl: ToastController,
     private navCtrl: NavController,
-    private router: Router
+    private router: Router,
+    private util: UtilitiesService
   ) {}
 
   ngOnInit() {
@@ -67,7 +64,7 @@ export class DetailNomorPentingPage implements OnInit {
       },
       err => {
         loader.dismiss();
-        this.showToast(err.data.message);
+        this.util.showToast(err.data.message);
         // jika data not found
         this.navCtrl.back();
       }
@@ -120,13 +117,5 @@ export class DetailNomorPentingPage implements OnInit {
         return 'blue';
       }
     }
-  }
-
-  async showToast(msg: string) {
-    const toast = await this.toastCtrl.create({
-      message: msg,
-      duration: 2000
-    });
-    toast.present();
   }
 }

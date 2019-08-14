@@ -3,7 +3,6 @@ import { ActivatedRoute } from '@angular/router';
 import {
   LoadingController,
   PopoverController,
-  ToastController,
   NavController,
   AlertController
 } from '@ionic/angular';
@@ -11,6 +10,7 @@ import { AspirasiService } from '../../services/aspirasi.service';
 import { Aspirasi } from '../../interfaces/aspirasi';
 import { MenuNavbarAspirasiComponent } from '../../components/menu-navbar-aspirasi/menu-navbar-aspirasi.component';
 import { Dictionary } from '../../helpers/dictionary';
+import { UtilitiesService } from '../../services/utilities.service';
 
 @Component({
   selector: 'app-aspirasi-detail',
@@ -36,9 +36,9 @@ export class AspirasiDetailPage implements OnInit {
     private aspirasiService: AspirasiService,
     private loadingCtrl: LoadingController,
     public popoverCtrl: PopoverController,
-    private toastCtrl: ToastController,
     private navCtrl: NavController,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private util: UtilitiesService
   ) {}
 
   ngOnInit() {
@@ -93,7 +93,7 @@ export class AspirasiDetailPage implements OnInit {
       },
       err => {
         loader.dismiss();
-        this.showToast(err.data.message);
+        this.util.showToast(err.data.message);
         // jika data not found
         this.navCtrl.back();
       }
@@ -204,14 +204,6 @@ export class AspirasiDetailPage implements OnInit {
       default:
         break;
     }
-  }
-
-  async showToast(msg: string) {
-    const toast = await this.toastCtrl.create({
-      message: msg,
-      duration: 2000
-    });
-    toast.present();
   }
 
   async navbarMore(ev: any) {

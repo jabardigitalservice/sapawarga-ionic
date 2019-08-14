@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import {
-  ToastController,
   NavController,
   LoadingController,
   Platform,
@@ -10,6 +9,7 @@ import {
 import { PollingService } from '../../services/polling.service';
 import { Polling } from '../../interfaces/polling';
 import { Dictionary } from '../../helpers/dictionary';
+import { UtilitiesService } from '../../services/utilities.service';
 
 @Component({
   selector: 'app-polling-detail',
@@ -30,12 +30,12 @@ export class PollingDetailPage implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    public toastCtrl: ToastController,
     private navCtrl: NavController,
     private pollingService: PollingService,
     public loadingCtrl: LoadingController,
     private platform: Platform,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private util: UtilitiesService
   ) {}
 
   id: number;
@@ -73,7 +73,7 @@ export class PollingDetailPage implements OnInit {
       },
       err => {
         loader.dismiss();
-        this.showToast(err.data.message);
+        this.util.showToast(err.data.message);
         // jika data not found
         this.navCtrl.back();
       }
@@ -92,7 +92,7 @@ export class PollingDetailPage implements OnInit {
 
     // check internet
     if (!navigator.onLine) {
-      this.showToast(Dictionary.offline);
+      this.util.showToast(Dictionary.offline);
       return;
     }
 
@@ -105,10 +105,10 @@ export class PollingDetailPage implements OnInit {
       .subscribe(
         res => {
           if (res.status === 200) {
-            this.showToast(Dictionary.success_polling);
+            this.util.showToast(Dictionary.success_polling);
             this.navCtrl.back();
           } else {
-            this.showToast(Dictionary.failed_save);
+            this.util.showToast(Dictionary.failed_save);
           }
           loader.dismiss();
         },
@@ -117,7 +117,7 @@ export class PollingDetailPage implements OnInit {
           // check if status 422
           if (err.status === 422) {
             // get data from server
-            this.showToast(Dictionary.have_done_vote);
+            this.util.showToast(Dictionary.have_done_vote);
           } else {
             this.msgResponse = {
               type: 'server-error',
@@ -156,13 +156,5 @@ export class PollingDetailPage implements OnInit {
     });
 
     await alert.present();
-  }
-
-  async showToast(msg: string) {
-    const toast = await this.toastCtrl.create({
-      message: msg,
-      duration: 3000
-    });
-    toast.present();
   }
 }

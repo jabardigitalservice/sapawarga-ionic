@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { LoadingController, ToastController } from '@ionic/angular';
+import { LoadingController } from '@ionic/angular';
 import { Dictionary } from '../../helpers/dictionary';
+import { UtilitiesService } from '../../services/utilities.service';
 
 @Component({
   selector: 'app-aspirasi',
@@ -15,7 +16,7 @@ export class AspirasiPage implements OnInit {
   constructor(
     public loadingCtrl: LoadingController,
     private router: Router,
-    private toastCtrl: ToastController
+    private util: UtilitiesService
   ) {}
 
   ngOnInit() {}
@@ -35,18 +36,10 @@ export class AspirasiPage implements OnInit {
     this.currentComponent = ev ? ev.detail.value : current;
   }
 
-  async showToast(msg: string) {
-    const toast = await this.toastCtrl.create({
-      message: msg,
-      duration: 2000
-    });
-    toast.present();
-  }
-
   AddAspirasi() {
     // check internet
     if (!navigator.onLine) {
-      this.showToast(Dictionary.offline);
+      this.util.showToast(Dictionary.offline);
       return;
     }
     this.router.navigate(['/aspirasi-form']);

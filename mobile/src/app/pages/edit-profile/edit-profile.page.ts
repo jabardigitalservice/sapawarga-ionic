@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import {
   NavController,
   LoadingController,
-  ToastController,
   ActionSheetController
 } from '@ionic/angular';
 import { ProfileService } from '../../services/profile.service';
@@ -11,6 +10,7 @@ import { Profile } from '../../interfaces/profile';
 import { ActivatedRoute } from '@angular/router';
 import { AreasService } from '../../services/areas.service';
 import { Areas } from '../../interfaces/areas';
+import { UtilitiesService } from '../../services/utilities.service';
 
 // plugin
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
@@ -51,13 +51,13 @@ export class EditProfilePage implements OnInit {
     private route: ActivatedRoute,
     public navCtrl: NavController,
     public loadingCtrl: LoadingController,
-    public toastCtrl: ToastController,
     private profileService: ProfileService,
     private areasService: AreasService,
     private formBuilder: FormBuilder,
     private camera: Camera,
     private transfer: FileTransfer,
-    private actionsheetCtrl: ActionSheetController
+    private actionsheetCtrl: ActionSheetController,
+    private util: UtilitiesService
   ) {}
 
   ngOnInit() {
@@ -235,7 +235,7 @@ export class EditProfilePage implements OnInit {
 
     // check internet
     if (!navigator.onLine) {
-      this.showToast(Dictionary.offline);
+      this.util.showToast(Dictionary.offline);
       return;
     }
 
@@ -246,10 +246,10 @@ export class EditProfilePage implements OnInit {
     this.profileService.editProfile(form).subscribe(
       res => {
         if (res.status === 200) {
-          this.showToast(Dictionary.success_save);
+          this.util.showToast(Dictionary.success_save);
           this.navCtrl.navigateForward('/tabs/akun');
         } else {
-          this.showToast(Dictionary.failed_save);
+          this.util.showToast(Dictionary.failed_save);
         }
         loader.dismiss();
       },
@@ -261,7 +261,7 @@ export class EditProfilePage implements OnInit {
           const data = err.data;
           // check unvalid email / username
           if (data.username && data.email) {
-            this.showToast(`${data.email[0]} & ${data.username[0]}`);
+            this.util.showToast(`${data.email[0]} & ${data.username[0]}`);
           } else if (data.email && !data.username) {
             this.msg_server.email = data.email[0];
             this.f.email.setErrors({ notValid: true });
@@ -270,7 +270,7 @@ export class EditProfilePage implements OnInit {
             this.f.username.setErrors({ notValid: true });
           }
         } else {
-          this.showToast(Dictionary.external_error);
+          this.util.showToast(Dictionary.external_error);
         }
       }
     );
@@ -289,7 +289,7 @@ export class EditProfilePage implements OnInit {
         loader.dismiss();
       },
       err => {
-        this.showToast(Dictionary.check_internal);
+        this.util.showToast(Dictionary.check_internal);
         loader.dismiss();
       }
     );
@@ -302,7 +302,7 @@ export class EditProfilePage implements OnInit {
         this.dataKecamatan = res['data']['items'];
       },
       err => {
-        this.showToast(Dictionary.check_internal);
+        this.util.showToast(Dictionary.check_internal);
       }
     );
   }
@@ -314,7 +314,7 @@ export class EditProfilePage implements OnInit {
         this.dataKelurahan = res['data']['items'];
       },
       err => {
-        this.showToast(Dictionary.check_internal);
+        this.util.showToast(Dictionary.check_internal);
       }
     );
   }
@@ -401,24 +401,17 @@ export class EditProfilePage implements OnInit {
           // success
           loading.dismiss();
           if (response['success'] === true) {
-            this.showToast('Foto berhasil disimpan');
+            this.util.showToast('Foto berhasil disimpan');
             this.image = response['data']['photo_url'];
           } else {
-            this.showToast(Dictionary.max_upload_photo);
+            this.util.showToast(Dictionary.max_upload_photo);
           }
         },
         err => {
           loading.dismiss();
-          this.showToast(Dictionary.max_upload_photo);
+          this.util.showToast(Dictionary.max_upload_photo);
         }
       );
-  }
-  async showToast(msg: string) {
-    const toast = await this.toastCtrl.create({
-      message: msg,
-      duration: 3000
-    });
-    toast.present();
   }
 
   convertNumber(value) {

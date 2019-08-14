@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, NgForm } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AspirasiService } from '../../services/aspirasi.service';
 import {
   LoadingController,
-  ToastController,
   ActionSheetController,
   NavController,
   AlertController,
@@ -22,6 +21,7 @@ import { ProfileService } from '../../services/profile.service';
 import { Profile } from '../../interfaces/profile';
 import { ActivatedRoute } from '@angular/router';
 import { Dictionary } from '../../helpers/dictionary';
+import { UtilitiesService } from '../../services/utilities.service';
 
 const TOKEN_KEY = 'auth-token';
 @Component({
@@ -51,12 +51,12 @@ export class AspirasiFormPage implements OnInit {
     public loadingCtrl: LoadingController,
     private route: ActivatedRoute,
     private actionsheetCtrl: ActionSheetController,
-    private toastCtrl: ToastController,
     private camera: Camera,
     private transfer: FileTransfer,
     private navCtrl: NavController,
     private alertController: AlertController,
-    private platform: Platform
+    private platform: Platform,
+    private util: UtilitiesService
   ) {}
 
   ionViewDidEnter() {
@@ -156,7 +156,7 @@ export class AspirasiFormPage implements OnInit {
         loader.dismiss();
       },
       err => {
-        this.showToast(Dictionary.check_internal);
+        this.util.showToast(Dictionary.check_internal);
         loader.dismiss();
       }
     );
@@ -172,7 +172,7 @@ export class AspirasiFormPage implements OnInit {
 
     // check internet
     if (!navigator.onLine) {
-      this.showToast(Dictionary.offline);
+      this.util.showToast(Dictionary.offline);
       return;
     }
 
@@ -191,10 +191,10 @@ export class AspirasiFormPage implements OnInit {
     this.aspirasiService.PostAspirasi(this.formAddAspirasi.value).subscribe(
       res => {
         if (res.status === 201) {
-          this.showToast(Dictionary.success_save);
+          this.util.showToast(Dictionary.success_save);
           this.navCtrl.back();
         } else {
-          this.showToast(Dictionary.failed_save);
+          this.util.showToast(Dictionary.failed_save);
         }
         loader.dismiss();
       },
@@ -204,7 +204,7 @@ export class AspirasiFormPage implements OnInit {
         if (err.status === 422) {
           // get data from server
         } else {
-          this.showToast(Dictionary.external_error);
+          this.util.showToast(Dictionary.external_error);
         }
       }
     );
@@ -220,10 +220,10 @@ export class AspirasiFormPage implements OnInit {
       .subscribe(
         res => {
           if (res.status === 200) {
-            this.showToast(Dictionary.success_save);
+            this.util.showToast(Dictionary.success_save);
             this.navCtrl.back();
           } else {
-            this.showToast(Dictionary.failed_save);
+            this.util.showToast(Dictionary.failed_save);
           }
           loader.dismiss();
         },
@@ -233,7 +233,7 @@ export class AspirasiFormPage implements OnInit {
           if (err.status === 422) {
             // get data from server
           } else {
-            this.showToast(Dictionary.external_error);
+            this.util.showToast(Dictionary.external_error);
           }
         }
       );
@@ -241,7 +241,7 @@ export class AspirasiFormPage implements OnInit {
 
   async uploadAspirasi() {
     if (this.images.length >= 5) {
-      this.showToast(Dictionary.aspirasi_limit_upload);
+      this.util.showToast(Dictionary.aspirasi_limit_upload);
       return;
     }
 
@@ -289,7 +289,7 @@ export class AspirasiFormPage implements OnInit {
       imageData => {
         // check internet
         if (!navigator.onLine) {
-          this.showToast(Dictionary.offline);
+          this.util.showToast(Dictionary.offline);
           return;
         }
 
@@ -346,16 +346,16 @@ export class AspirasiFormPage implements OnInit {
             // insert array images to form attachments
             this.f.attachments.setValue(this.images);
           } else {
-            this.showToast(Dictionary.max_upload_photo);
+            this.util.showToast(Dictionary.max_upload_photo);
           }
         },
         err => {
           loading.dismiss();
           const data = JSON.parse(err.body);
           if (data.data.file[0]) {
-            this.showToast(data.data.file[0]);
+            this.util.showToast(data.data.file[0]);
           } else {
-            this.showToast(Dictionary.check_internal);
+            this.util.showToast(Dictionary.check_internal);
           }
         }
       );
@@ -425,13 +425,5 @@ export class AspirasiFormPage implements OnInit {
     // set status 0 = draft
     this.f.status.setValue(0);
     this.prosesAspirasi();
-  }
-
-  async showToast(msg: string) {
-    const toast = await this.toastCtrl.create({
-      message: msg,
-      duration: 3000
-    });
-    toast.present();
   }
 }

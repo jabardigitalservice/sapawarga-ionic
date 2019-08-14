@@ -1,10 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import {
-  Platform,
-  NavController,
-  IonRouterOutlet,
-  ToastController
-} from '@ionic/angular';
+import { Platform, NavController, IonRouterOutlet } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
@@ -16,6 +11,7 @@ import { Router } from '@angular/router';
 import { BroadcastService } from './services/broadcast.service';
 import { NotifikasiService } from './services/notifikasi.service';
 import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
+import { UtilitiesService } from './services/utilities.service';
 
 @Component({
   selector: 'app-root',
@@ -40,7 +36,7 @@ export class AppComponent {
     private broadcastService: BroadcastService,
     private notifikasiService: NotifikasiService,
     private inAppBrowser: InAppBrowser,
-    private toastCtrl: ToastController
+    private util: UtilitiesService
   ) {
     this.initializeApp();
     this.platform.backButton.subscribe(() => {
@@ -57,7 +53,7 @@ export class AppComponent {
       } else {
         if (this.counter === 0) {
           this.counter++;
-          this.showToast();
+          this.util.showToast(Dictionary.msg_exit_app);
           setTimeout(() => {
             this.counter = 0;
           }, 3000);
@@ -127,14 +123,6 @@ export class AppComponent {
         });
       })
       .catch(() => {});
-  }
-
-  async showToast() {
-    const toast = await this.toastCtrl.create({
-      message: Dictionary.msg_exit_app,
-      duration: 3000
-    });
-    toast.present();
   }
 
   logout() {
