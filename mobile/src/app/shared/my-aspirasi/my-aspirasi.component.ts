@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AspirasiService } from 'src/app/services/aspirasi.service';
-import { LoadingController, ToastController } from '@ionic/angular';
+import { LoadingController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { Aspirasi } from '../../interfaces/aspirasi';
 import { Dictionary } from '../../helpers/dictionary';
@@ -24,7 +24,6 @@ export class MyAspirasiComponent implements OnInit {
   constructor(
     private aspirasiService: AspirasiService,
     public loadingCtrl: LoadingController,
-    public toastCtrl: ToastController,
     private router: Router
   ) {
     this.dataAspirasi = [];
@@ -62,16 +61,7 @@ export class MyAspirasiComponent implements OnInit {
         infiniteScroll.target.complete();
       }
       // get local
-      if (this.aspirasiService.getLocalAspirasiUser()) {
-        this.dataAspirasi = JSON.parse(
-          this.aspirasiService.getLocalAspirasiUser()
-        );
-      } else {
-        this.msgResponse = {
-          type: 'offline',
-          msg: Dictionary.offline
-        };
-      }
+      this.getLocalMyAspirasi();
       return;
     }
 
@@ -85,6 +75,13 @@ export class MyAspirasiComponent implements OnInit {
       loader.present();
     }
 
+    this.getDataMyAspirasi(infiniteScroll, loader);
+  }
+
+  private getDataMyAspirasi(
+    infiniteScroll: any,
+    loader: HTMLIonLoadingElement
+  ) {
     this.aspirasiService.getMyListAspirasi(this.currentPage).subscribe(
       res => {
         if (res['data']['items'].length) {
@@ -100,7 +97,6 @@ export class MyAspirasiComponent implements OnInit {
         }
         // set count page
         this.maximumPages = res['data']['_meta'].pageCount;
-
         // stop infinite scroll
         if (infiniteScroll) {
           infiniteScroll.target.complete();
@@ -112,7 +108,6 @@ export class MyAspirasiComponent implements OnInit {
         if (infiniteScroll) {
           infiniteScroll.target.complete();
         }
-
         if (err) {
           this.msgResponse = {
             type: 'server-error',
@@ -122,6 +117,19 @@ export class MyAspirasiComponent implements OnInit {
         loader.dismiss();
       }
     );
+  }
+
+  private getLocalMyAspirasi() {
+    if (this.aspirasiService.getLocalAspirasiUser()) {
+      this.dataAspirasi = JSON.parse(
+        this.aspirasiService.getLocalAspirasiUser()
+      );
+    } else {
+      this.msgResponse = {
+        type: 'offline',
+        msg: Dictionary.offline
+      };
+    }
   }
 
   // go to detail with param id
@@ -152,13 +160,5 @@ export class MyAspirasiComponent implements OnInit {
       default:
         break;
     }
-  }
-
-  async showToast(msg: string) {
-    const toast = await this.toastCtrl.create({
-      message: msg,
-      duration: 3000
-    });
-    toast.present();
   }
 }
