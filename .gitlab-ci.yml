@@ -16,6 +16,7 @@ before_script:
 
 stages:
   - prepare
+  - code_quality
   - test
   - build
 
@@ -27,11 +28,32 @@ build_docker:
     - docker images
     - docker-compose push
 
+code_quality:
+  image: docker:stable
+  stage: code_quality
+  services:
+    - docker:stable-dind
+  variables:
+    DOCKER_DRIVER: overlay2
+  script:
+    - docker run
+      --env SOURCE_CODE=$PWD
+      --env CONTAINER_TIMEOUT_SECONDS=3600
+      --env CODECLIMATE_DEBUG=1
+      --volume $PWD:/code
+      --volume /var/run/docker.sock:/var/run/docker.sock
+      "registry.gitlab.com/gitlab-org/security-products/codequality:11-8-stable" /code
+  artifacts:
+    paths: [gl-code-quality-report.json]
+    reports:
+      codequality: gl-code-quality-report.json
+    expire_in: 1 week
+
 lint:
   stage: test
   only:
     changes:
-      - "**/*.ts"
+      - '**/*.ts'
   script:
     - cd mobile
     - docker-compose pull
