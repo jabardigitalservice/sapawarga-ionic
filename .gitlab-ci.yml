@@ -31,7 +31,7 @@ lint:
   stage: test
   only:
     changes:
-      - "**/*.ts"
+      - '**/*.ts'
   script:
     - cd mobile
     - docker-compose pull
