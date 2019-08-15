@@ -81,6 +81,17 @@ export class UtilitiesService {
     return icon;
   }
 
+  // open external app
+  launchApp(appUrl: string) {
+    const appStarter = (window as any).startApp.set({ application: appUrl });
+    appStarter.start(
+      function() {},
+      function() {
+        window.open(`market://details?id=${appUrl}`, '_system');
+      }
+    );
+  }
+
   handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
       // A client-side or network error occurred. Handle it accordingly.

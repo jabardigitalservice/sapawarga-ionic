@@ -1,11 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  NavController,
-  Platform,
-  LoadingController,
-  ActionSheetController
-} from '@ionic/angular';
-
+import { NavController, Platform, LoadingController } from '@ionic/angular';
 import { Pages } from '../../interfaces/pages';
 import { ProfileService } from '../../services/profile.service';
 import { NotifikasiService } from '../../services/notifikasi.service';
@@ -20,6 +14,7 @@ import { YoutubeVideoPlayer } from '@ionic-native/youtube-video-player/ngx';
 import { VideoPost } from '../../interfaces/video-post';
 import { VideoPostService } from '../../services/video-post.service';
 import { Profile } from '../../interfaces/profile';
+import { UtilitiesService } from '../../services/utilities.service';
 
 @Component({
   selector: 'app-home-results',
@@ -101,7 +96,7 @@ export class HomeResultsPage implements OnInit {
     public constants: Constants,
     private youtube: YoutubeVideoPlayer,
     private videoPostService: VideoPostService,
-    private actionSheetController: ActionSheetController
+    private util: UtilitiesService
   ) {
     this.appPages = [
       {
@@ -245,12 +240,8 @@ export class HomeResultsPage implements OnInit {
 
   // open action sheet open other pages
   async openOtherPages() {
-    const actionSheet = await this.actionSheetController.create({
-      header: 'Dalam Pengembangan',
-      cssClass: 'action-sheets-basic-page',
-      buttons: this.otherPages
-    });
-    await actionSheet.present();
+    const header = 'Dalam Pengembangan';
+    this.util.actionSheet(this.otherPages, header);
   }
 
   // open page nomor penting
@@ -291,14 +282,7 @@ export class HomeResultsPage implements OnInit {
   private launchApp(appUrl: string) {
     // check if the platform is ios or android, else open the web url
     if (this.platform.is('android')) {
-      const appId = appUrl;
-      const appStarter = (window as any).startApp.set({ application: appId });
-      appStarter.start(
-        function(msg) {},
-        function(err) {
-          window.open(`market://details?id=${appId}`, '_system');
-        }
-      );
+      this.util.launchApp(appUrl);
     }
   }
 
