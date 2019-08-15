@@ -47,7 +47,7 @@ export class ESamsatPage implements OnInit {
         this.launchweb(url);
         break;
       case 'sambara':
-        this.launchApp(url);
+        this.launchSambara(url);
         break;
       default:
         break;
@@ -63,7 +63,7 @@ export class ESamsatPage implements OnInit {
   }
 
   // call service launchApp to open external app
-  private launchApp(appUrl: string) {
+  private launchSambara(appUrl: string) {
     // check if the platform is ios or android, else open the web url
     if (this.platform.is('android')) {
       this.util.launchApp(appUrl);

@@ -44,7 +44,7 @@ export class LaporPage implements OnInit {
         this.launchweb(url);
         break;
       case 'qlue':
-        this.launchApp(url);
+        this.launchQlue(url);
         break;
       case 'jqr':
         this.launchweb(url);
@@ -63,7 +63,7 @@ export class LaporPage implements OnInit {
   }
 
   // call function launchApp to open external app
-  private launchApp(appUrl: string) {
+  private launchQlue(appUrl: string) {
     // check if the platform is ios or android, else open the web url
     if (this.platform.is('android')) {
       this.util.launchApp(appUrl);
