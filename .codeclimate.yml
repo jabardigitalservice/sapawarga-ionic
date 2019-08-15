@@ -2,6 +2,11 @@ languages:
   JavaScript: true
   Typescript: true
 
+plugins:
+  tslint:
+    enabled: true
+    config: mobile/tslint.json
+
 exclude_patterns:
   - mobile/config/**/*
   - mobile/node_modules/**/*
