@@ -200,28 +200,6 @@ export class ListMapNomorPentingPage implements OnInit {
   }
 
   iconMarker(category: string) {
-    switch (category) {
-      case 'Kesehatan': {
-        return 'assets/icon/kesehatan.png';
-      }
-      case 'Ekonomi': {
-        return 'assets/icon/ekonomi.png';
-      }
-      case 'Keamanan': {
-        return 'assets/icon/keamanan.png';
-      }
-      case 'Transportasi': {
-        return 'assets/icon/transport.png';
-      }
-      case 'Sosial': {
-        return 'assets/icon/sosial.png';
-      }
-      case 'Layanan': {
-        return 'assets/icon/pelayanan.png';
-      }
-      default: {
-        return 'blue';
-      }
-    }
+    return this.util.iconMarker(category);
   }
 }

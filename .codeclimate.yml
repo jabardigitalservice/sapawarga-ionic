@@ -15,3 +15,11 @@ exclude_patterns:
   - mobile/**/*.spec.ts
   - mobile/**/*.conf.js
 version: '2'
+
+checks:
+  file-lines:
+    config:
+      threshold: 300
+  method-lines:
+    config:
+      threshold: 40
