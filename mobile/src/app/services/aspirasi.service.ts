@@ -20,16 +20,18 @@ const ASPIRASI_LIKES = 'aspirasi-likes';
 export class AspirasiService {
   constructor(private http: HttpClient, private util: UtilitiesService) {}
 
-  getListAspirasi(page: number): Observable<Aspirasi[]> {
+  private processAspirasi(page: number, param: string): Observable<Aspirasi[]> {
     return this.http
-      .get<Aspirasi[]>(`${environment.API_URL}/aspirasi?page=${page}`)
+      .get<Aspirasi[]>(`${environment.API_URL}/aspirasi${param}${page}`)
       .pipe(catchError(this.util.handleError));
   }
 
+  getListAspirasi(page: number): Observable<Aspirasi[]> {
+    return this.processAspirasi(page, '?page=');
+  }
+
   getMyListAspirasi(page: number): Observable<Aspirasi[]> {
-    return this.http
-      .get<Aspirasi[]>(`${environment.API_URL}/aspirasi/me?page=${page}`)
-      .pipe(catchError(this.util.handleError));
+    return this.processAspirasi(page, '/me?page=');
   }
 
   PostAspirasi(data: any): Observable<Aspirasi> {
