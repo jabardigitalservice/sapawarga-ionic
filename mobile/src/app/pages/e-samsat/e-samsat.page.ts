@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { Platform } from '@ionic/angular';
+import { UtilitiesService } from '../../services/utilities.service';
 
 @Component({
   selector: 'app-e-samsat',
@@ -29,9 +30,13 @@ export class ESamsatPage implements OnInit {
     }
   ];
 
-  constructor(private platform: Platform, private inAppBrowser: InAppBrowser) { }
+  constructor(
+    private platform: Platform,
+    private inAppBrowser: InAppBrowser,
+    private util: UtilitiesService
+  ) {}
 
-  ngOnInit() { }
+  ngOnInit() {}
 
   selectLapor(name: string, url: string) {
     switch (name) {
@@ -57,18 +62,11 @@ export class ESamsatPage implements OnInit {
     });
   }
 
-  // call function launchApp to open external app
+  // call service launchApp to open external app
   private launchApp(appUrl: string) {
     // check if the platform is ios or android, else open the web url
     if (this.platform.is('android')) {
-      const appId = appUrl;
-      const appStarter = (window as any).startApp.set({ application: appId });
-      appStarter.start(
-        function (msg) { },
-        function (err) {
-          window.open(`market://details?id=${appId}`, '_system');
-        }
-      );
+      this.util.launchApp(appUrl);
     }
   }
 }

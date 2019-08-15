@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Platform } from '@ionic/angular';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
+import { UtilitiesService } from '../../services/utilities.service';
 
 @Component({
   selector: 'app-lapor',
@@ -29,7 +30,11 @@ export class LaporPage implements OnInit {
     }
   ];
 
-  constructor(private platform: Platform, private inAppBrowser: InAppBrowser) {}
+  constructor(
+    private platform: Platform,
+    private inAppBrowser: InAppBrowser,
+    private util: UtilitiesService
+  ) {}
 
   ngOnInit() {}
 
@@ -61,14 +66,7 @@ export class LaporPage implements OnInit {
   private launchApp(appUrl: string) {
     // check if the platform is ios or android, else open the web url
     if (this.platform.is('android')) {
-      const appId = appUrl;
-      const appStarter = (window as any).startApp.set({ application: appId });
-      appStarter.start(
-        function(msg) {},
-        function(err) {
-          window.open(`market://details?id=${appId}`, '_system');
-        }
-      );
+      this.util.launchApp(appUrl);
     }
   }
 }

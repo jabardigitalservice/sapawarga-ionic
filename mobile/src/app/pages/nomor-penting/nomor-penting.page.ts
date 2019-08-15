@@ -1,9 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  LoadingController,
-  ActionSheetController,
-  Platform
-} from '@ionic/angular';
+import { LoadingController, Platform } from '@ionic/angular';
 import { NomorPentingService } from '../../services/nomor-penting.service';
 import { NomorPenting } from '../../interfaces/nomor-penting';
 import { CallNumber } from '@ionic-native/call-number/ngx';
@@ -40,7 +36,6 @@ export class NomorPentingPage implements OnInit {
   constructor(
     private nomorPentingService: NomorPentingService,
     public loadingCtrl: LoadingController,
-    public actionSheetController: ActionSheetController,
     private platform: Platform,
     private callNumber: CallNumber,
     private sms: SMS,
@@ -230,11 +225,9 @@ export class NomorPentingPage implements OnInit {
 
   // open action sheet open phone number
   async openPhone(type: string, phone: any) {
-    const actionSheet = await this.actionSheetController.create({
-      header: 'Nomor Telepon',
-      buttons: this.createButtons(type, phone)
-    });
-    await actionSheet.present();
+    const header = 'Nomor Telepon';
+
+    this.util.actionSheet(this.createButtons(type, phone), header);
   }
 
   // create dynamic phone numbers
