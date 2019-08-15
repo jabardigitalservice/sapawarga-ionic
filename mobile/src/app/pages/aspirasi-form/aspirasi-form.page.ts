@@ -1,12 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AspirasiService } from '../../services/aspirasi.service';
-import {
-  LoadingController,
-  ActionSheetController,
-  NavController,
-  Platform
-} from '@ionic/angular';
+import { LoadingController, NavController, Platform } from '@ionic/angular';
 import { environment } from '../../../environments/environment';
 // plugin
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
@@ -49,7 +44,6 @@ export class AspirasiFormPage implements OnInit {
     private profileService: ProfileService,
     public loadingCtrl: LoadingController,
     private route: ActivatedRoute,
-    private actionsheetCtrl: ActionSheetController,
     private camera: Camera,
     private transfer: FileTransfer,
     private navCtrl: NavController,
@@ -243,33 +237,31 @@ export class AspirasiFormPage implements OnInit {
       return;
     }
 
-    const actionSheet = await this.actionsheetCtrl.create({
-      header: 'Pilihan',
-      buttons: [
-        {
-          text: 'Ambil foto',
-          role: 'destructive',
-          icon: 'camera',
-          handler: () => {
-            this.getImage(1);
-          }
-        },
-        {
-          text: 'Ambil dari gallery',
-          icon: 'images',
-          handler: () => {
-            this.getImage(0);
-          }
-        },
-        {
-          text: 'Batal',
-          icon: 'close',
-          role: 'cancel',
-          handler: () => {}
+    const buttons = [
+      {
+        text: 'Ambil foto',
+        role: 'destructive',
+        icon: 'camera',
+        handler: () => {
+          this.getImage(1);
         }
-      ]
-    });
-    await actionSheet.present();
+      },
+      {
+        text: 'Ambil dari gallery',
+        icon: 'images',
+        handler: () => {
+          this.getImage(0);
+        }
+      },
+      {
+        text: 'Batal',
+        icon: 'close',
+        role: 'cancel',
+        handler: () => {}
+      }
+    ];
+
+    this.util.actionSheet(buttons, 'Pilihan');
   }
 
   // get native camera / gallery
