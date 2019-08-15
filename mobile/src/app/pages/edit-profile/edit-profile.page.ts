@@ -1,9 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  NavController,
-  LoadingController,
-  ActionSheetController
-} from '@ionic/angular';
+import { NavController, LoadingController } from '@ionic/angular';
 import { ProfileService } from '../../services/profile.service';
 import { FormGroup, FormBuilder, Validators, NgForm } from '@angular/forms';
 import { Profile } from '../../interfaces/profile';
@@ -56,7 +52,6 @@ export class EditProfilePage implements OnInit {
     private formBuilder: FormBuilder,
     private camera: Camera,
     private transfer: FileTransfer,
-    private actionsheetCtrl: ActionSheetController,
     private util: UtilitiesService
   ) {}
 
@@ -320,33 +315,31 @@ export class EditProfilePage implements OnInit {
   }
 
   async openEditProfile() {
-    const actionSheet = await this.actionsheetCtrl.create({
-      header: 'Pilihan',
-      buttons: [
-        {
-          text: 'Ambil foto',
-          role: 'destructive',
-          icon: 'camera',
-          handler: () => {
-            this.getImage(1);
-          }
-        },
-        {
-          text: 'Ambil dari gallery',
-          icon: 'images',
-          handler: () => {
-            this.getImage(0);
-          }
-        },
-        {
-          text: 'Batal',
-          icon: 'close',
-          role: 'cancel',
-          handler: () => {}
+    const buttons = [
+      {
+        text: 'Ambil foto',
+        role: 'destructive',
+        icon: 'camera',
+        handler: () => {
+          this.getImage(1);
         }
-      ]
-    });
-    await actionSheet.present();
+      },
+      {
+        text: 'Ambil dari gallery',
+        icon: 'images',
+        handler: () => {
+          this.getImage(0);
+        }
+      },
+      {
+        text: 'Batal',
+        icon: 'close',
+        role: 'cancel',
+        handler: () => {}
+      }
+    ];
+
+    this.util.actionSheet(buttons, 'Pilihan');
   }
 
   // get native camera / gallery

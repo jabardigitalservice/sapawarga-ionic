@@ -2,7 +2,11 @@ import { Injectable } from '@angular/core';
 
 // plugin moment js
 import * as moment from 'moment';
-import { ToastController, AlertController } from '@ionic/angular';
+import {
+  ToastController,
+  AlertController,
+  ActionSheetController
+} from '@ionic/angular';
 import { HttpErrorResponse } from '@angular/common/http';
 import { throwError } from 'rxjs';
 
@@ -12,7 +16,8 @@ import { throwError } from 'rxjs';
 export class UtilitiesService {
   constructor(
     private toastCtrl: ToastController,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private actionsheetCtrl: ActionSheetController
   ) {}
 
   timeAgo(value: number) {
@@ -36,6 +41,14 @@ export class UtilitiesService {
       buttons: buttons
     });
     await alert.present();
+  }
+
+  async actionSheet(buttons: any, header: string) {
+    const actionSheet = await this.actionsheetCtrl.create({
+      header: header,
+      buttons: buttons
+    });
+    await actionSheet.present();
   }
 
   // marker icon instantion
