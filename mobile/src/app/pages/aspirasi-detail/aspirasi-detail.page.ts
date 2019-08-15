@@ -3,8 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import {
   LoadingController,
   PopoverController,
-  NavController,
-  AlertController
+  NavController
 } from '@ionic/angular';
 import { AspirasiService } from '../../services/aspirasi.service';
 import { Aspirasi } from '../../interfaces/aspirasi';
@@ -37,7 +36,6 @@ export class AspirasiDetailPage implements OnInit {
     private loadingCtrl: LoadingController,
     public popoverCtrl: PopoverController,
     private navCtrl: NavController,
-    private alertController: AlertController,
     private util: UtilitiesService
   ) {}
 
@@ -225,12 +223,8 @@ export class AspirasiDetailPage implements OnInit {
   }
 
   async viewNote(message: string) {
-    const alert = await this.alertController.create({
-      header: 'Ditolak',
-      message: message,
-      buttons: ['OK']
-    });
+    const buttons = ['OK'];
 
-    await alert.present();
+    this.util.alertConfirmation(message, buttons);
   }
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertController, NavParams, PopoverController } from '@ionic/angular';
+import { NavParams, PopoverController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { AspirasiService } from '../../services/aspirasi.service';
 import { Dictionary } from '../../helpers/dictionary';
@@ -16,7 +16,6 @@ export class MenuNavbarAspirasiComponent implements OnInit {
     private router: Router,
     private popover: PopoverController,
     private aspirasiService: AspirasiService,
-    public alertController: AlertController,
     private util: UtilitiesService
   ) {}
 
@@ -48,7 +47,7 @@ export class MenuNavbarAspirasiComponent implements OnInit {
       res => {
         this.util.showToast(Dictionary.aspirasi_success_delete);
 
-        this.router.navigate(['aspirasi-user']);
+        this.router.navigate(['aspirasi']);
         this.popover.dismiss();
       },
       err => {
@@ -58,26 +57,24 @@ export class MenuNavbarAspirasiComponent implements OnInit {
     );
   }
 
-  async confirmDeleteAspirasi() {
-    const alert = await this.alertController.create({
-      message: Dictionary.aspirasi_confirm,
-      buttons: [
-        {
-          text: 'Batalkan',
-          role: 'cancel',
-          cssClass: 'secondary',
-          handler: () => {
-            this.popover.dismiss();
-          }
-        },
-        {
-          text: 'Ok',
-          handler: () => {
-            this.deleteAspirasi();
-          }
+  confirmDeleteAspirasi() {
+    const buttons = [
+      {
+        text: 'Batalkan',
+        role: 'cancel',
+        cssClass: 'secondary',
+        handler: () => {
+          this.popover.dismiss();
         }
-      ]
-    });
-    await alert.present();
+      },
+      {
+        text: 'Ok',
+        handler: () => {
+          this.deleteAspirasi();
+        }
+      }
+    ];
+
+    this.util.alertConfirmation(Dictionary.aspirasi_confirm, buttons);
   }
 }

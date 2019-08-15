@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 // plugin moment js
 import * as moment from 'moment';
-import { ToastController } from '@ionic/angular';
+import { ToastController, AlertController } from '@ionic/angular';
 import { HttpErrorResponse } from '@angular/common/http';
 import { throwError } from 'rxjs';
 
@@ -10,7 +10,10 @@ import { throwError } from 'rxjs';
   providedIn: 'root'
 })
 export class UtilitiesService {
-  constructor(private toastCtrl: ToastController) {}
+  constructor(
+    private toastCtrl: ToastController,
+    private alertController: AlertController
+  ) {}
 
   timeAgo(value: number) {
     moment.locale('id');
@@ -23,6 +26,16 @@ export class UtilitiesService {
       duration: 2000
     });
     toast.present();
+  }
+
+  async alertConfirmation(msg: string, buttons: any, header?: string) {
+    const headers = header ? header : '';
+    const alert = await this.alertController.create({
+      header: headers,
+      message: msg,
+      buttons: buttons
+    });
+    await alert.present();
   }
 
   handleError(error: HttpErrorResponse) {

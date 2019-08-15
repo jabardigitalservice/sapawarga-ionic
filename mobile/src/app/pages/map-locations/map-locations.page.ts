@@ -3,19 +3,14 @@ import { Router, ActivatedRoute } from '@angular/router';
 import {
   GoogleMaps,
   GoogleMap,
-  Marker,
   GoogleMapOptions,
   GoogleMapsAnimation
 } from '@ionic-native/google-maps';
-import {
-  Platform,
-  ToastController,
-  AlertController,
-  NavController
-} from '@ionic/angular';
+import { Platform, NavController } from '@ionic/angular';
 import { Diagnostic } from '@ionic-native/diagnostic/ngx';
 import { OpenNativeSettings } from '@ionic-native/open-native-settings/ngx';
 import { Dictionary } from '../../helpers/dictionary';
+import { UtilitiesService } from '../../services/utilities.service';
 @Component({
   selector: 'app-map-locations',
   templateUrl: './map-locations.page.html',
@@ -32,8 +27,8 @@ export class MapLocationsPage implements OnInit {
     private platform: Platform,
     private diagnostic: Diagnostic,
     private openNativeSettings: OpenNativeSettings,
-    public alertController: AlertController,
-    private navCtrl: NavController
+    private navCtrl: NavController,
+    private util: UtilitiesService
   ) {
     this.route.queryParams.subscribe(params => {
       if (this.router.getCurrentNavigation().extras.state) {
@@ -93,28 +88,25 @@ export class MapLocationsPage implements OnInit {
   }
 
   async presentAlertConfirm(msg: string) {
-    const alert = await this.alertController.create({
-      message: msg,
-      buttons: [
-        {
-          text: 'Batalkan',
-          role: 'cancel',
-          cssClass: 'secondary',
-          handler: () => {
-            this.navCtrl.back();
-          }
-        },
-        {
-          text: 'Ok',
-          handler: () => {
-            this.openSetting();
-            this.navCtrl.back();
-          }
+    const buttons = [
+      {
+        text: 'Batalkan',
+        role: 'cancel',
+        cssClass: 'secondary',
+        handler: () => {
+          this.navCtrl.back();
         }
-      ]
-    });
+      },
+      {
+        text: 'Ok',
+        handler: () => {
+          this.openSetting();
+          this.navCtrl.back();
+        }
+      }
+    ];
 
-    await alert.present();
+    this.util.alertConfirmation(msg, buttons);
   }
 
   // open native GPS setting
