@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {
   NavController,
   MenuController,
-  AlertController,
   LoadingController,
   Platform
 } from '@ionic/angular';
@@ -44,7 +43,6 @@ export class LoginPage implements OnInit {
   constructor(
     public navCtrl: NavController,
     public menuCtrl: MenuController,
-    public alertCtrl: AlertController,
     public loadingCtrl: LoadingController,
     private formBuilder: FormBuilder,
     private auth: AuthService,
@@ -100,39 +98,28 @@ export class LoginPage implements OnInit {
   }
 
   async forgotPass() {
-    const alert = await this.alertCtrl.create({
-      header: 'Lupa Kata Sandi?',
-      message: Dictionary.forgot_password,
-      buttons: ['OK']
-    });
+    const header = 'Lupa Kata Sandi?';
+    const buttons = ['OK'];
 
-    await alert.present();
+    this.util.alertConfirmation(Dictionary.forgot_password, buttons, header);
   }
 
   async presentAlert(param: string, message?: string) {
-    let messageData = {
-      header: '',
-      message: '',
-      buttons: null
-    };
+    let header = '';
+    let buttons = null;
+    let msg = '';
 
     if (param === 'forgot') {
-      messageData = {
-        header: 'Lupa Kata Sandi?',
-        message: Dictionary.forgot_password,
-        buttons: ['OK']
-      };
+      header = 'Lupa Kata Sandi?';
+      msg = Dictionary.forgot_password;
+      buttons = ['OK'];
     } else if (param === 'error') {
-      messageData = {
-        header: '',
-        message: message,
-        buttons: ['OK']
-      };
+      header = '';
+      msg = message;
+      buttons = ['OK'];
     }
 
-    const alert = await this.alertCtrl.create(messageData);
-
-    await alert.present();
+    this.util.alertConfirmation(msg, buttons, header);
   }
 
   async login() {

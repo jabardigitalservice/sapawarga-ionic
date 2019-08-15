@@ -1,13 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
-import {
-  NavController,
-  NavParams,
-  PopoverController,
-  AlertController
-} from '@ionic/angular';
+import { NavController, NavParams, PopoverController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { Dictionary } from '../../helpers/dictionary';
+import { UtilitiesService } from 'src/app/services/utilities.service';
 
 @Component({
   selector: 'app-menu-navbar',
@@ -21,7 +17,7 @@ export class MenuNavbarComponent implements OnInit {
     private navParams: NavParams,
     private router: Router,
     private popover: PopoverController,
-    public alertController: AlertController
+    private util: UtilitiesService
   ) {}
 
   ngOnInit() {}
@@ -47,25 +43,23 @@ export class MenuNavbarComponent implements OnInit {
   }
 
   async confirmLogout() {
-    const alert = await this.alertController.create({
-      message: Dictionary.logout,
-      buttons: [
-        {
-          text: 'Batalkan',
-          role: 'cancel',
-          cssClass: 'secondary',
-          handler: () => {
-            this.popover.dismiss();
-          }
-        },
-        {
-          text: 'Ok',
-          handler: () => {
-            this.logout();
-          }
+    const buttons = [
+      {
+        text: 'Batalkan',
+        role: 'cancel',
+        cssClass: 'secondary',
+        handler: () => {
+          this.popover.dismiss();
         }
-      ]
-    });
-    await alert.present();
+      },
+      {
+        text: 'Ok',
+        handler: () => {
+          this.logout();
+        }
+      }
+    ];
+
+    this.util.alertConfirmation(Dictionary.logout, buttons);
   }
 }

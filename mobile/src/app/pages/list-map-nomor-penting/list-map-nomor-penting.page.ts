@@ -9,17 +9,13 @@ import {
   Marker,
   GoogleMapsEvent
 } from '@ionic-native/google-maps';
-import {
-  Platform,
-  AlertController,
-  NavController,
-  LoadingController
-} from '@ionic/angular';
+import { Platform, NavController, LoadingController } from '@ionic/angular';
 import { Diagnostic } from '@ionic-native/diagnostic/ngx';
 import { OpenNativeSettings } from '@ionic-native/open-native-settings/ngx';
 import { Router } from '@angular/router';
 import { NomorPentingService } from '../../services/nomor-penting.service';
 import { NomorPenting } from '../../interfaces/nomor-penting';
+import { UtilitiesService } from '../../services/utilities.service';
 
 @Component({
   selector: 'app-list-map-nomor-penting',
@@ -41,8 +37,8 @@ export class ListMapNomorPentingPage implements OnInit {
     private router: Router,
     private openNativeSettings: OpenNativeSettings,
     public loadingCtrl: LoadingController,
-    public alertController: AlertController,
-    private navCtrl: NavController
+    private navCtrl: NavController,
+    private util: UtilitiesService
   ) {}
 
   async ngOnInit() {
@@ -112,28 +108,25 @@ export class ListMapNomorPentingPage implements OnInit {
   }
 
   async presentAlertConfirm(msg: string) {
-    const alert = await this.alertController.create({
-      message: msg,
-      buttons: [
-        {
-          text: 'Batalkan',
-          role: 'cancel',
-          cssClass: 'secondary',
-          handler: () => {
-            this.navCtrl.back();
-          }
-        },
-        {
-          text: 'Ok',
-          handler: () => {
-            this.openSetting();
-            this.navCtrl.back();
-          }
+    const buttons = [
+      {
+        text: 'Batalkan',
+        role: 'cancel',
+        cssClass: 'secondary',
+        handler: () => {
+          this.navCtrl.back();
         }
-      ]
-    });
+      },
+      {
+        text: 'Ok',
+        handler: () => {
+          this.openSetting();
+          this.navCtrl.back();
+        }
+      }
+    ];
 
-    await alert.present();
+    this.util.alertConfirmation(msg, buttons);
   }
 
   // open native GPS setting

@@ -1,11 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import {
-  NavController,
-  LoadingController,
-  Platform,
-  AlertController
-} from '@ionic/angular';
+import { NavController, LoadingController, Platform } from '@ionic/angular';
 import { PollingService } from '../../services/polling.service';
 import { Polling } from '../../interfaces/polling';
 import { Dictionary } from '../../helpers/dictionary';
@@ -34,7 +29,6 @@ export class PollingDetailPage implements OnInit {
     private pollingService: PollingService,
     public loadingCtrl: LoadingController,
     private platform: Platform,
-    private alertController: AlertController,
     private util: UtilitiesService
   ) {}
 
@@ -135,26 +129,22 @@ export class PollingDetailPage implements OnInit {
       return;
     }
 
-    const alert = await this.alertController.create({
-      header: 'Konfirmasi',
-      message:
-        'Anda belum mengisi polling. Apakah anda ingin meninggalkan halaman polling?',
-      buttons: [
-        {
-          text: 'Batal',
-          role: 'cancel',
-          cssClass: 'secondary',
-          handler: () => {}
-        },
-        {
-          text: 'Lanjut',
-          handler: () => {
-            this.navCtrl.back();
-          }
+    const header = 'Konfirmasi';
+    const buttons = [
+      {
+        text: 'Batal',
+        role: 'cancel',
+        cssClass: 'secondary',
+        handler: () => {}
+      },
+      {
+        text: 'Lanjut',
+        handler: () => {
+          this.navCtrl.back();
         }
-      ]
-    });
+      }
+    ];
 
-    await alert.present();
+    this.util.alertConfirmation(Dictionary.polling_leave, buttons, header);
   }
 }

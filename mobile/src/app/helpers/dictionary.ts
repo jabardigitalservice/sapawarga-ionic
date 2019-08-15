@@ -21,6 +21,7 @@ export enum Dictionary {
 
   // polling
   polling_empty = 'Belum ada polling yang diterima',
+  polling_leave = 'Anda belum mengisi polling. Apakah anda ingin meninggalkan halaman polling?',
 
   // confirmation message
   logout = 'Apakah Anda yakin ingin keluar dari aplikasi Sapawarga?',

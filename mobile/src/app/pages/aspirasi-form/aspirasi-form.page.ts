@@ -5,7 +5,6 @@ import {
   LoadingController,
   ActionSheetController,
   NavController,
-  AlertController,
   Platform
 } from '@ionic/angular';
 import { environment } from '../../../environments/environment';
@@ -54,7 +53,6 @@ export class AspirasiFormPage implements OnInit {
     private camera: Camera,
     private transfer: FileTransfer,
     private navCtrl: NavController,
-    private alertController: AlertController,
     private platform: Platform,
     private util: UtilitiesService
   ) {}
@@ -370,55 +368,47 @@ export class AspirasiFormPage implements OnInit {
   }
 
   async confirmationSend() {
-    const alert = await this.alertController.create({
-      header: 'Konfirmasi',
-      message: Dictionary.aspirasi_msg_send,
-      buttons: [
-        {
-          text: 'Batal',
-          role: 'cancel',
-          cssClass: 'secondary',
-          handler: () => {}
-        },
-        {
-          text: 'Setuju',
-          handler: () => {
-            // set status 5 = waiting confirmation
-            this.f.status.setValue(5);
-            this.prosesAspirasi();
-          }
+    const buttons = [
+      {
+        text: 'Batal',
+        role: 'cancel',
+        cssClass: 'secondary',
+        handler: () => {}
+      },
+      {
+        text: 'Setuju',
+        handler: () => {
+          // set status 5 = waiting confirmation
+          this.f.status.setValue(5);
+          this.prosesAspirasi();
         }
-      ]
-    });
+      }
+    ];
 
-    await alert.present();
+    this.util.alertConfirmation(Dictionary.aspirasi_msg_send, buttons);
   }
 
   async confirmationDraft() {
-    const alert = await this.alertController.create({
-      header: 'Konfirmasi',
-      message: Dictionary.aspirasi_msg_draft,
-      buttons: [
-        {
-          text: 'Batal',
-          role: 'cancel',
-          cssClass: 'secondary',
-          handler: () => {
-            this.navCtrl.back();
-          }
-        },
-        {
-          text: 'Setuju',
-          handler: () => {
-            // set status 5 = waiting confirmation
-            this.f.status.setValue(0);
-            this.prosesAspirasi();
-          }
+    const buttons = [
+      {
+        text: 'Batal',
+        role: 'cancel',
+        cssClass: 'secondary',
+        handler: () => {
+          this.navCtrl.back();
         }
-      ]
-    });
+      },
+      {
+        text: 'Setuju',
+        handler: () => {
+          // set status 5 = waiting confirmation
+          this.f.status.setValue(0);
+          this.prosesAspirasi();
+        }
+      }
+    ];
 
-    await alert.present();
+    this.util.alertConfirmation(Dictionary.aspirasi_msg_draft, buttons);
   }
 
   saveDraft() {
