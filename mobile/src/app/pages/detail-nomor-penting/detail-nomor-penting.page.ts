@@ -94,28 +94,31 @@ export class DetailNomorPentingPage implements OnInit {
   }
 
   iconMarker(category: string) {
+    let icon = null;
     switch (category) {
-      case 'Kesehatan': {
-        return 'assets/icon/kesehatan.png';
-      }
-      case 'Ekonomi': {
-        return 'assets/icon/ekonomi.png';
-      }
-      case 'Keamanan': {
-        return 'assets/icon/keamanan.png';
-      }
-      case 'Transportasi': {
-        return 'assets/icon/transport.png';
-      }
-      case 'Sosial': {
-        return 'assets/icon/sosial.png';
-      }
-      case 'Layanan': {
-        return 'assets/icon/pelayanan.png';
-      }
-      default: {
-        return 'blue';
-      }
+      case 'Kesehatan':
+        icon = 'assets/icon/kesehatan.png';
+        break;
+      case 'Ekonomi':
+        icon = 'assets/icon/ekonomi.png';
+        break;
+      case 'Keamanan':
+        icon = 'assets/icon/keamanan.png';
+        break;
+      case 'Transportasi':
+        icon = 'assets/icon/transport.png';
+        break;
+      case 'Sosial':
+        icon = 'assets/icon/sosial.png';
+        break;
+      case 'Layanan':
+        icon = 'assets/icon/pelayanan.png';
+        break;
+      default:
+        icon = 'blue';
+        break;
     }
+
+    return icon;
   }
 }
