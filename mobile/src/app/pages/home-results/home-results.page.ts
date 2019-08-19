@@ -184,7 +184,7 @@ export class HomeResultsPage implements OnInit {
     this.getDataHumas();
 
     // get data Video Post
-    // this.getVideoPost();
+    this.getVideoPost();
   }
 
   ionViewDidEnter() {
