@@ -2,10 +2,19 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class Constants {
-  public pageName: any = {
+  public pageName = {
     home: 'Home',
     usulanList: 'Usulan Umum',
-    myUsulan: 'Usulan Saya'
+    myUsulan: 'Usulan Saya',
+    broadcast: 'Pesan',
+    help: 'Bantuan',
+    myAccount: 'Akun Saya',
+    report: 'Lapor',
+    survey: 'Survey',
+    polling: 'Polling',
+    nomorPenting: 'Nomor Penting',
+    eSamsat: 'E-Samsat',
+    administration: 'Administrasi'
   };
 
   public inAppBrowserOptions: any = {

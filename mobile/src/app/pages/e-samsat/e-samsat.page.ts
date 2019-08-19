@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { Platform } from '@ionic/angular';
 import { UtilitiesService } from '../../services/utilities.service';
+import { Constants } from '../../helpers/constants';
 
 @Component({
   selector: 'app-e-samsat',
@@ -33,10 +34,14 @@ export class ESamsatPage implements OnInit {
   constructor(
     private platform: Platform,
     private inAppBrowser: InAppBrowser,
-    private util: UtilitiesService
+    private util: UtilitiesService,
+    public constants: Constants
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    // google analytics
+    this.util.trackPage(this.constants.pageName.eSamsat);
+  }
 
   selectLapor(name: string, url: string) {
     switch (name) {

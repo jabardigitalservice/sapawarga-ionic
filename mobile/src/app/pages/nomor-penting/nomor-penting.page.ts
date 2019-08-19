@@ -7,6 +7,7 @@ import { SMS } from '@ionic-native/sms/ngx';
 import { Router } from '@angular/router';
 import { Dictionary } from '../../helpers/dictionary';
 import { UtilitiesService } from '../../services/utilities.service';
+import { Constants } from '../../helpers/constants';
 
 @Component({
   selector: 'app-nomor-penting',
@@ -40,7 +41,8 @@ export class NomorPentingPage implements OnInit {
     private callNumber: CallNumber,
     private sms: SMS,
     private router: Router,
-    private util: UtilitiesService
+    private util: UtilitiesService,
+    public constants: Constants
   ) {
     this.dataNomorPenting = [];
     // get data kabkota
@@ -50,6 +52,9 @@ export class NomorPentingPage implements OnInit {
   }
 
   ngOnInit() {
+    // google analytics
+    this.util.trackPage(this.constants.pageName.nomorPenting);
+
     this.getNomorPenting();
   }
 

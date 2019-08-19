@@ -4,6 +4,8 @@ import { LoadingController } from '@ionic/angular';
 import { Broadcast } from '../../interfaces/broadcast';
 import { Router } from '@angular/router';
 import { Dictionary } from '../../helpers/dictionary';
+import { UtilitiesService } from '../../services/utilities.service';
+import { Constants } from '../../helpers/constants';
 
 @Component({
   selector: 'app-broadcasts',
@@ -27,10 +29,15 @@ export class BroadcastsPage implements OnInit {
   constructor(
     private broadcastService: BroadcastService,
     public loadingCtrl: LoadingController,
-    private router: Router
+    private router: Router,
+    private util: UtilitiesService,
+    private constants: Constants
   ) {}
 
   ngOnInit() {
+    // google analytics
+    this.util.trackPage(this.constants.pageName.broadcast);
+
     // set notification false remove notif
     this.dataRead = this.broadcastService.getBroadcast() || [];
     this.getNomorBroadcasts();

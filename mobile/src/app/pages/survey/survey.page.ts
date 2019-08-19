@@ -8,6 +8,7 @@ import { Survey } from '../../interfaces/survey';
 import { LoadingController } from '@ionic/angular';
 import { Dictionary } from '../../helpers/dictionary';
 import { Constants } from '../../helpers/constants';
+import { UtilitiesService } from '../../services/utilities.service';
 
 @Component({
   selector: 'app-survey',
@@ -30,12 +31,16 @@ export class SurveyPage implements OnInit {
     private surveyService: SurveyService,
     private iab: InAppBrowser,
     public loadingCtrl: LoadingController,
-    public constants: Constants
+    public constants: Constants,
+    private util: UtilitiesService
   ) {
     this.dataSurvey = [];
   }
 
   ngOnInit() {
+    // google analytics
+    this.util.trackPage(this.constants.pageName.survey);
+
     this.getListSurvey();
   }
 

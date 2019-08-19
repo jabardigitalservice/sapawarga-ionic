@@ -4,6 +4,8 @@ import { LoadingController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { Aspirasi } from '../../interfaces/aspirasi';
 import { Dictionary } from '../../helpers/dictionary';
+import { UtilitiesService } from '../../services/utilities.service';
+import { Constants } from '../../helpers/constants';
 
 @Component({
   selector: 'app-my-aspirasi',
@@ -24,12 +26,17 @@ export class MyAspirasiComponent implements OnInit {
   constructor(
     private aspirasiService: AspirasiService,
     public loadingCtrl: LoadingController,
-    private router: Router
+    private router: Router,
+    private util: UtilitiesService,
+    private constants: Constants
   ) {
     this.dataAspirasi = [];
   }
 
   ngOnInit() {
+    // google analytics
+    this.util.trackPage(this.constants.pageName.myUsulan);
+
     this.getListAspirasi();
   }
 

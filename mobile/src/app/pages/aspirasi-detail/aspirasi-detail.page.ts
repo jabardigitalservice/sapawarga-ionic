@@ -87,6 +87,14 @@ export class AspirasiDetailPage implements OnInit {
         // save likes to local
         this.saveLocalLike(JSON.parse(this.aspirasiService.getLocalLikes()));
 
+        // google analytics event
+        this.util.trackEvent(
+          'Usulan',
+          'Detail Usulan',
+          this.dataAspirasi.title,
+          this.dataAspirasi.id
+        );
+
         loader.dismiss();
       },
       err => {
