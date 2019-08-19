@@ -9,6 +9,7 @@ import {
 } from '@ionic/angular';
 import { HttpErrorResponse } from '@angular/common/http';
 import { throwError } from 'rxjs';
+import { GoogleAnalytics } from '@ionic-native/google-analytics/ngx';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,8 @@ export class UtilitiesService {
   constructor(
     private toastCtrl: ToastController,
     private alertController: AlertController,
-    private actionsheetCtrl: ActionSheetController
+    private actionsheetCtrl: ActionSheetController,
+    private googleAnalytics: GoogleAnalytics
   ) {}
 
   timeAgo(value: number) {
@@ -105,5 +107,15 @@ export class UtilitiesService {
     }
     // return an observable with a user-facing error message
     return throwError(error.error);
+  }
+
+  // initial event page
+  trackPage(page: string) {
+    this.googleAnalytics.trackView(page);
+  }
+
+  // initial event event
+  trackEvent(category: string, action: string, label?: string, value?: number) {
+    this.googleAnalytics.trackEvent(category, action, label, value);
   }
 }

@@ -12,6 +12,8 @@ import { BroadcastService } from './services/broadcast.service';
 import { NotifikasiService } from './services/notifikasi.service';
 import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 import { UtilitiesService } from './services/utilities.service';
+import { GoogleAnalytics } from '@ionic-native/google-analytics/ngx';
+import { Constants } from './helpers/constants';
 
 @Component({
   selector: 'app-root',
@@ -32,11 +34,13 @@ export class AppComponent {
     private authService: AuthService,
     private fcm: FCM,
     private screenOrientation: ScreenOrientation,
+    private googleAnalytics: GoogleAnalytics,
     private router: Router,
     private broadcastService: BroadcastService,
     private notifikasiService: NotifikasiService,
     private inAppBrowser: InAppBrowser,
-    private util: UtilitiesService
+    private util: UtilitiesService,
+    private constants: Constants
   ) {
     this.initializeApp();
     this.platform.backButton.subscribe(() => {
@@ -75,6 +79,12 @@ export class AppComponent {
         this.screenOrientation.lock(
           this.screenOrientation.ORIENTATIONS.PORTRAIT
         );
+
+        // integrasi google analytics
+        this.googleAnalytics
+          .startTrackerWithId(this.constants.trackIdGoogleAnalytics)
+          .then(() => {})
+          .catch(e => console.log('GoogleAnalytics == ' + e));
 
         this.authService.authenticationState.subscribe(state => {
           if (state) {

@@ -2,6 +2,12 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class Constants {
+  public pageName: any = {
+    home: 'Home',
+    usulanList: 'Usulan Umum',
+    myUsulan: 'Usulan Saya'
+  };
+
   public inAppBrowserOptions: any = {
     location: 'yes', // Or 'no'
     hidden: 'no', // Or  'yes'
@@ -30,4 +36,6 @@ export class Constants {
     privacyPolicy:
       'https://digitalservice.jabarprov.go.id/index.php/privacy-policy-2/'
   };
+
+  public trackIdGoogleAnalytics = 'UA-140018658-3';
 }

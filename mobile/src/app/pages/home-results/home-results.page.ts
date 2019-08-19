@@ -167,6 +167,9 @@ export class HomeResultsPage implements OnInit {
   }
 
   ngOnInit() {
+    // google analytics
+    this.util.trackPage(this.constants.pageName.home);
+
     this.notifikasiService.getNotifikasi().subscribe(
       res => {
         this.unreadNotif = this.notifikasiService.getNotifikasiNumber();
