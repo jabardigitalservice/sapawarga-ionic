@@ -42,7 +42,12 @@ export class AspirasiListComponent implements OnInit {
 
   ngOnInit() {
     // google analytics
-    this.util.trackPage(this.constants.pageName.usulanList);
+    this.util.trackEvent(
+      this.constants.pageName.usulan,
+      'view_all_general_usulan',
+      '',
+      1
+    );
 
     this.dataAspirasi = [];
     this.idUser = JSON.parse(localStorage.getItem('PROFILE')).id;

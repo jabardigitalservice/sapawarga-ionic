@@ -35,7 +35,12 @@ export class MyAspirasiComponent implements OnInit {
 
   ngOnInit() {
     // google analytics
-    this.util.trackPage(this.constants.pageName.myUsulan);
+    this.util.trackEvent(
+      this.constants.pageName.usulan,
+      'view_all_my_usulan',
+      '',
+      1
+    );
 
     this.getListAspirasi();
   }
