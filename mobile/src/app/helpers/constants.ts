@@ -2,6 +2,29 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class Constants {
+  public pageName = {
+    home: 'Home',
+    usulan: 'Usulan',
+    usulanList: 'Usulan Umum',
+    myUsulan: 'Usulan Saya',
+    broadcast: 'Pesan',
+    help: 'Bantuan',
+    myAccount: 'Akun Saya',
+    account: 'Akun',
+    report: 'Lapor',
+    survey: 'Survei',
+    polling: 'Polling',
+    nomorPenting: 'Nomor Penting',
+    eSamsat: 'E-Samsat',
+    administration: 'Administrasi',
+    news: 'Berita',
+    humas: 'Humas Jabar',
+    videoList: 'Video List',
+    notification: 'notifikasi',
+    infoHarga: 'Info Harga',
+    perizinan: 'Perizinan'
+  };
+
   public inAppBrowserOptions: any = {
     location: 'yes', // Or 'no'
     hidden: 'no', // Or  'yes'
@@ -30,4 +53,6 @@ export class Constants {
     privacyPolicy:
       'https://digitalservice.jabarprov.go.id/index.php/privacy-policy-2/'
   };
+
+  public trackIdGoogleAnalytics = 'UA-140018658-3';
 }

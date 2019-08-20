@@ -45,7 +45,7 @@
         fill="clear"
         slot="end"
         color="success"
-        (click)="goTohumas(humas_URL)"
+        (click)="goTohumas(humas_URL, 'view_all')"
         >Lihat Semua</ion-button
       >
     </ion-item>
@@ -208,7 +208,9 @@
                 fill="clear"
                 slot="end"
                 color="success"
-                (click)="goToNews(data_profile.kabkota.id)"
+                (click)="
+                  goToNews(data_profile.kabkota.id, data_profile.kabkota.name)
+                "
                 style="font-size: 10px;"
                 >Lihat Semua</ion-button
               >
@@ -295,7 +297,7 @@
                 class="thumbnail-img"
                 src="assets/icon/icons_play_button.png"
                 alt="icon play"
-                (click)="openYoutube(data.video_url)"
+                (click)="openYoutube(data.video_url, data.title)"
               />
             </div>
 

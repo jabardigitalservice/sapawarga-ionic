@@ -5,6 +5,8 @@ import { Router } from '@angular/router';
 import { Aspirasi } from '../../interfaces/aspirasi';
 import { Dictionary } from '../../helpers/dictionary';
 import { environment } from '../../../environments/environment';
+import { UtilitiesService } from '../../services/utilities.service';
+import { Constants } from '../../helpers/constants';
 
 @Component({
   selector: 'app-aspirasi-list',
@@ -33,10 +35,20 @@ export class AspirasiListComponent implements OnInit {
   constructor(
     private aspirasiService: AspirasiService,
     public loadingCtrl: LoadingController,
-    private router: Router
+    private router: Router,
+    private util: UtilitiesService,
+    private constants: Constants
   ) {}
 
   ngOnInit() {
+    // google analytics
+    this.util.trackEvent(
+      this.constants.pageName.usulan,
+      'view_all_general_usulan',
+      '',
+      1
+    );
+
     this.dataAspirasi = [];
     this.idUser = JSON.parse(localStorage.getItem('PROFILE')).id;
     this.getListAspirasi();

@@ -10,6 +10,7 @@ import {
 } from '@ionic-native/in-app-browser/ngx';
 import { Dictionary } from '../../helpers/dictionary';
 import { UtilitiesService } from '../../services/utilities.service';
+import { Constants } from '../../helpers/constants';
 
 @Component({
   selector: 'app-view-profile',
@@ -30,10 +31,22 @@ export class ViewProfilePage implements OnInit {
     private appAvailability: AppAvailability,
     private platform: Platform,
     private inAppBrowser: InAppBrowser,
-    private util: UtilitiesService
+    private util: UtilitiesService,
+    private constants: Constants
   ) {}
 
   ngOnInit() {
+    // google analytics
+    this.util.trackPage(this.constants.pageName.myAccount);
+
+    // google event analytics
+    this.util.trackEvent(
+      this.constants.pageName.account,
+      'view_detail_user',
+      '',
+      1
+    );
+
     if (!navigator.onLine) {
       // get data profile from local storage
       this.dataProfile = this.profileService.getLocalProfile();

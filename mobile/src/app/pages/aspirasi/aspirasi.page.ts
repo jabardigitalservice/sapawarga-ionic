@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { LoadingController } from '@ionic/angular';
 import { Dictionary } from '../../helpers/dictionary';
 import { UtilitiesService } from '../../services/utilities.service';
+import { Constants } from '../../helpers/constants';
 
 @Component({
   selector: 'app-aspirasi',
@@ -16,10 +17,14 @@ export class AspirasiPage implements OnInit {
   constructor(
     public loadingCtrl: LoadingController,
     private router: Router,
-    private util: UtilitiesService
+    private util: UtilitiesService,
+    private constants: Constants
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    // google analytics
+    this.util.trackPage(this.constants.pageName.usulan);
+  }
 
   ionViewDidEnter() {
     if (this.lastComponent) {

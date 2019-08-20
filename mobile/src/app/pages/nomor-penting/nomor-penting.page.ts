@@ -7,6 +7,7 @@ import { SMS } from '@ionic-native/sms/ngx';
 import { Router } from '@angular/router';
 import { Dictionary } from '../../helpers/dictionary';
 import { UtilitiesService } from '../../services/utilities.service';
+import { Constants } from '../../helpers/constants';
 
 @Component({
   selector: 'app-nomor-penting',
@@ -40,7 +41,8 @@ export class NomorPentingPage implements OnInit {
     private callNumber: CallNumber,
     private sms: SMS,
     private router: Router,
-    private util: UtilitiesService
+    private util: UtilitiesService,
+    public constants: Constants
   ) {
     this.dataNomorPenting = [];
     // get data kabkota
@@ -50,6 +52,16 @@ export class NomorPentingPage implements OnInit {
   }
 
   ngOnInit() {
+    // google analytics
+    this.util.trackPage(this.constants.pageName.nomorPenting);
+
+    this.util.trackEvent(
+      this.constants.pageName.nomorPenting,
+      'view_all_nomor',
+      '',
+      1
+    );
+
     this.getNomorPenting();
   }
 
@@ -221,6 +233,14 @@ export class NomorPentingPage implements OnInit {
     const idArea = dataArea[1];
 
     this.filterNomorPenting(typeArea, idArea);
+
+    // event google analytics
+    this.util.trackEvent(
+      this.constants.pageName.nomorPenting,
+      'view_filter_nomor',
+      '',
+      1
+    );
   }
 
   // open action sheet open phone number
@@ -228,6 +248,14 @@ export class NomorPentingPage implements OnInit {
     const header = 'Nomor Telepon';
 
     this.util.actionSheet(this.createButtons(type, phone), header);
+
+    // event google analytics
+    this.util.trackEvent(
+      this.constants.pageName.nomorPenting,
+      'view_phone_number_nomor',
+      '',
+      1
+    );
   }
 
   // create dynamic phone numbers
@@ -311,6 +339,14 @@ export class NomorPentingPage implements OnInit {
     this.openSearch = value;
     if (value === false) {
       this.getNomorPenting();
+
+      // event google analytics
+      this.util.trackEvent(
+        this.constants.pageName.nomorPenting,
+        'view_search_nomor',
+        '',
+        1
+      );
     }
   }
 

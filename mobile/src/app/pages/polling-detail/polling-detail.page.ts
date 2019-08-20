@@ -5,6 +5,7 @@ import { PollingService } from '../../services/polling.service';
 import { Polling } from '../../interfaces/polling';
 import { Dictionary } from '../../helpers/dictionary';
 import { UtilitiesService } from '../../services/utilities.service';
+import { Constants } from '../../helpers/constants';
 
 @Component({
   selector: 'app-polling-detail',
@@ -29,11 +30,22 @@ export class PollingDetailPage implements OnInit {
     private pollingService: PollingService,
     public loadingCtrl: LoadingController,
     private platform: Platform,
-    private util: UtilitiesService
+    private util: UtilitiesService,
+    private constants: Constants
   ) {}
 
   id: number;
   ngOnInit() {
+    // google analytics
+    this.util.trackPage(this.constants.pageName.polling);
+
+    this.util.trackEvent(
+      this.constants.pageName.polling,
+      'view_detail_polling',
+      '',
+      1
+    );
+
     // get id detail polling
     this.route.params.subscribe(params => {
       this.id = params['id'];
@@ -101,6 +113,14 @@ export class PollingDetailPage implements OnInit {
           if (res.status === 200) {
             this.util.showToast(Dictionary.success_polling);
             this.navCtrl.back();
+
+            // google analytics
+            this.util.trackEvent(
+              this.constants.pageName.polling,
+              'create_pollanswer',
+              this.dataPolling.question,
+              1
+            );
           } else {
             this.util.showToast(Dictionary.failed_save);
           }

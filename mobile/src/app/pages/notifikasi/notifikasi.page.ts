@@ -6,6 +6,7 @@ import { Notifikasi } from '../../interfaces/notifikasi';
 import { NotifikasiService } from '../../services/notifikasi.service';
 import { Dictionary } from '../../helpers/dictionary';
 import { Constants } from '../../helpers/constants';
+import { UtilitiesService } from '../../services/utilities.service';
 
 @Component({
   selector: 'app-notifikasi',
@@ -28,10 +29,22 @@ export class NotifikasiPage implements OnInit {
     private router: Router,
     public loadingCtrl: LoadingController,
     public navCtrl: NavController,
-    public constants: Constants
+    public constants: Constants,
+    private util: UtilitiesService
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    // google analytics
+    this.util.trackPage(this.constants.pageName.notification);
+
+    // google event analytics
+    this.util.trackEvent(
+      this.constants.pageName.notification,
+      'view_all_notif',
+      '',
+      1
+    );
+  }
 
   ionViewWillEnter() {
     this.getNotifikasi();
@@ -63,6 +76,14 @@ export class NotifikasiPage implements OnInit {
     this.dataNotifikasi[index].read = true;
     this.notifikasiService.saveLocalNotifikasi(
       JSON.stringify(this.dataNotifikasi)
+    );
+
+    // google event analytics
+    this.util.trackEvent(
+      this.constants.pageName.notification,
+      'view_detail_notif',
+      meta.target,
+      1
     );
   }
 

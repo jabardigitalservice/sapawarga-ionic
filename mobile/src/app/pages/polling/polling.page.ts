@@ -5,6 +5,7 @@ import { PollingService } from '../../services/polling.service';
 import { LoadingController } from '@ionic/angular';
 import { Dictionary } from '../../helpers/dictionary';
 import { UtilitiesService } from '../../services/utilities.service';
+import { Constants } from '../../helpers/constants';
 
 @Component({
   selector: 'app-polling',
@@ -29,12 +30,23 @@ export class PollingPage implements OnInit {
     private pollingService: PollingService,
     public loadingCtrl: LoadingController,
     private router: Router,
-    private util: UtilitiesService
+    private util: UtilitiesService,
+    public constants: Constants
   ) {
     this.dataPolling = [];
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    // google analytics
+    this.util.trackPage(this.constants.pageName.polling);
+
+    this.util.trackEvent(
+      this.constants.pageName.polling,
+      'view_all_polling',
+      '',
+      1
+    );
+  }
 
   ionViewDidEnter() {
     this.currentPage = 1;

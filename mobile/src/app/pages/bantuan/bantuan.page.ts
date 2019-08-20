@@ -1,5 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { UtilitiesService } from '../../services/utilities.service';
+import { Constants } from '../../helpers/constants';
 
 @Component({
   selector: 'app-bantuan',
@@ -10,7 +12,11 @@ export class BantuanPage implements OnInit {
   @ViewChild('content') private content: any;
 
   public items: any = [];
-  constructor(private route: ActivatedRoute) {
+  constructor(
+    private route: ActivatedRoute,
+    private util: UtilitiesService,
+    private constants: Constants
+  ) {
     this.items = [
       {
         id: 1,
@@ -64,7 +70,18 @@ export class BantuanPage implements OnInit {
     ];
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    // google analytics
+    this.util.trackPage(this.constants.pageName.help);
+
+    // google event analytics
+    this.util.trackEvent(
+      this.constants.pageName.help,
+      'view_all_bantuan',
+      '',
+      1
+    );
+  }
 
   ionViewDidEnter() {
     this.route.queryParamMap.subscribe(params => {
@@ -85,6 +102,14 @@ export class BantuanPage implements OnInit {
       this.items.map(listItem => {
         if (item === listItem) {
           listItem.expanded = !listItem.expanded;
+
+          // google event analytics
+          this.util.trackEvent(
+            this.constants.pageName.help,
+            'view_detail_bantuan',
+            item.title,
+            1
+          );
         } else {
           listItem.expanded = false;
         }

@@ -55,6 +55,14 @@ export class NewsDetailPage implements OnInit {
       res => {
         if (res['status'] === 200) {
           this.dataNews = res['data'];
+
+          // google event analytics
+          this.util.trackEvent(
+            this.constants.pageName.news,
+            'view_detail_news',
+            this.dataNews.title,
+            1
+          );
         }
         loader.dismiss();
       },

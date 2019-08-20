@@ -10,6 +10,7 @@ import { Aspirasi } from '../../interfaces/aspirasi';
 import { MenuNavbarAspirasiComponent } from '../../components/menu-navbar-aspirasi/menu-navbar-aspirasi.component';
 import { Dictionary } from '../../helpers/dictionary';
 import { UtilitiesService } from '../../services/utilities.service';
+import { Constants } from '../../helpers/constants';
 
 @Component({
   selector: 'app-aspirasi-detail',
@@ -36,7 +37,8 @@ export class AspirasiDetailPage implements OnInit {
     private loadingCtrl: LoadingController,
     public popoverCtrl: PopoverController,
     private navCtrl: NavController,
-    private util: UtilitiesService
+    private util: UtilitiesService,
+    public constants: Constants
   ) {}
 
   ngOnInit() {
@@ -86,6 +88,14 @@ export class AspirasiDetailPage implements OnInit {
 
         // save likes to local
         this.saveLocalLike(JSON.parse(this.aspirasiService.getLocalLikes()));
+
+        // google analytics event
+        this.util.trackEvent(
+          this.constants.pageName.usulan,
+          'view_detail_usulan',
+          this.dataAspirasi.title,
+          1
+        );
 
         loader.dismiss();
       },

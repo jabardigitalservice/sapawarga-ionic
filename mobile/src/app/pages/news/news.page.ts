@@ -4,6 +4,8 @@ import { News } from '../../interfaces/news';
 import { Dictionary } from '../../helpers/dictionary';
 import { LoadingController } from '@ionic/angular';
 import { Router, ActivatedRoute } from '@angular/router';
+import { UtilitiesService } from '../../services/utilities.service';
+import { Constants } from '../../helpers/constants';
 
 @Component({
   selector: 'app-news',
@@ -26,12 +28,17 @@ export class NewsPage implements OnInit {
     private newsService: NewsService,
     private loadingCtrl: LoadingController,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private util: UtilitiesService,
+    private constants: Constants
   ) {
     this.dataNews = [];
   }
 
   ngOnInit() {
+    // google analytics
+    this.util.trackPage(this.constants.pageName.news);
+
     // get data id kab kota
     this.route.queryParamMap.subscribe(params => {
       this.idKabKota = params['params']['id'] ? params['params']['id'] : null;

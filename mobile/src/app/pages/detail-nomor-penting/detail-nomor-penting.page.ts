@@ -5,6 +5,7 @@ import { NomorPentingService } from '../../services/nomor-penting.service';
 import { NomorPenting } from '../../interfaces/nomor-penting';
 import { Dictionary } from '../../helpers/dictionary';
 import { UtilitiesService } from '../../services/utilities.service';
+import { Constants } from '../../helpers/constants';
 
 @Component({
   selector: 'app-detail-nomor-penting',
@@ -25,7 +26,8 @@ export class DetailNomorPentingPage implements OnInit {
     private loadingCtrl: LoadingController,
     private navCtrl: NavController,
     private router: Router,
-    private util: UtilitiesService
+    private util: UtilitiesService,
+    public constants: Constants
   ) {}
 
   ngOnInit() {
@@ -56,6 +58,14 @@ export class DetailNomorPentingPage implements OnInit {
       res => {
         if (res['data']) {
           this.dataNomorPenting = res['data'];
+
+          // event google analytics
+          this.util.trackEvent(
+            this.constants.pageName.nomorPenting,
+            'view_detail_nomor',
+            this.dataNomorPenting.name,
+            1
+          );
         } else {
           // jika data null
           this.navCtrl.back();

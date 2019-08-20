@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { UtilitiesService } from '../../services/utilities.service';
+import { Constants } from '../../helpers/constants';
 
 import records from '../../../assets/data/administrasi';
 
@@ -12,7 +14,12 @@ export class AdministrasiDetailPage implements OnInit {
   id: number;
   record = {};
 
-  constructor(private route: ActivatedRoute, private router: Router) {}
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private util: UtilitiesService,
+    public constants: Constants
+  ) {}
 
   ngOnInit() {
     this.route.params.subscribe(params => {
@@ -24,6 +31,14 @@ export class AdministrasiDetailPage implements OnInit {
 
   getData(id) {
     this.record = records[id - 1];
+
+    // google event analytics
+    this.util.trackEvent(
+      this.constants.pageName.administration,
+      'view_detail_administrasi',
+      this.record['title'],
+      1
+    );
   }
 
   goToInstantion(name: string) {

@@ -16,6 +16,7 @@ import { Profile } from '../../interfaces/profile';
 import { ActivatedRoute } from '@angular/router';
 import { Dictionary } from '../../helpers/dictionary';
 import { UtilitiesService } from '../../services/utilities.service';
+import { Constants } from '../../helpers/constants';
 
 const TOKEN_KEY = 'auth-token';
 @Component({
@@ -48,7 +49,8 @@ export class AspirasiFormPage implements OnInit {
     private transfer: FileTransfer,
     private navCtrl: NavController,
     private platform: Platform,
-    private util: UtilitiesService
+    private util: UtilitiesService,
+    private constants: Constants
   ) {}
 
   ionViewDidEnter() {
@@ -64,6 +66,14 @@ export class AspirasiFormPage implements OnInit {
   }
 
   ngOnInit() {
+    // google event analytics
+    this.util.trackEvent(
+      this.constants.pageName.usulan,
+      'view_form_usulan',
+      '',
+      1
+    );
+
     this.formAddAspirasi = this.formBuilder.group({
       title: [
         '',
@@ -154,6 +164,10 @@ export class AspirasiFormPage implements OnInit {
     );
   }
 
+  createEventAnalytics(action: string, label?: string) {
+    this.util.trackEvent(this.constants.pageName.usulan, action, label, 1);
+  }
+
   prosesAspirasi() {
     this.submitted = true;
 
@@ -185,6 +199,9 @@ export class AspirasiFormPage implements OnInit {
         if (res.status === 201) {
           this.util.showToast(Dictionary.success_save);
           this.navCtrl.back();
+
+          // create event google analytics
+          this.createEventAnalytics('create_usul_answer', this.f.title.value);
         } else {
           this.util.showToast(Dictionary.failed_save);
         }
@@ -214,6 +231,12 @@ export class AspirasiFormPage implements OnInit {
           if (res.status === 200) {
             this.util.showToast(Dictionary.success_save);
             this.navCtrl.back();
+
+            // edit event google analytics
+            this.createEventAnalytics(
+              'edit_own_usulan_draft',
+              this.f.title.value
+            );
           } else {
             this.util.showToast(Dictionary.failed_save);
           }

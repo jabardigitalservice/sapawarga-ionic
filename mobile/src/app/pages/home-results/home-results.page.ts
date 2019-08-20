@@ -154,11 +154,27 @@ export class HomeResultsPage implements OnInit {
     this.otherPages = [
       {
         text: 'Info Harga',
-        handler: () => {}
+        handler: () => {
+          // google event analytics
+          this.util.trackEvent(
+            this.constants.pageName.infoHarga,
+            'view_info_harga',
+            '',
+            1
+          );
+        }
       },
       {
         text: 'Perizinan',
-        handler: () => {}
+        handler: () => {
+          // google event analytics
+          this.util.trackEvent(
+            this.constants.pageName.perizinan,
+            'view_perizinan',
+            '',
+            1
+          );
+        }
       }
     ];
 
@@ -167,6 +183,9 @@ export class HomeResultsPage implements OnInit {
   }
 
   ngOnInit() {
+    // google analytics
+    this.util.trackPage(this.constants.pageName.home);
+
     this.notifikasiService.getNotifikasi().subscribe(
       res => {
         this.unreadNotif = this.notifikasiService.getNotifikasiNumber();
@@ -299,7 +318,7 @@ export class HomeResultsPage implements OnInit {
     });
   }
 
-  goToNews(id?: number) {
+  goToNews(id?: number, kabkota?: string) {
     // check internet
     if (!navigator.onLine) {
       alert(Dictionary.offline);
@@ -314,8 +333,27 @@ export class HomeResultsPage implements OnInit {
       this.router.navigate(['news'], {
         queryParams: { id: id }
       });
+
+      // transform Kabkota remove whitespace & transform to lower case
+      const transformKabkota = kabkota.replace(/\s/g, '').toLowerCase();
+
+      // google event analytics
+      this.util.trackEvent(
+        this.constants.pageName.news,
+        `view_all_${transformKabkota}_news`,
+        '',
+        1
+      );
     } else {
       this.router.navigate(['news']);
+
+      // google event analytics
+      this.util.trackEvent(
+        this.constants.pageName.news,
+        'view_all_jabar_news',
+        '',
+        1
+      );
     }
   }
 
@@ -414,7 +452,7 @@ export class HomeResultsPage implements OnInit {
       });
   }
 
-  goTohumas(url: string) {
+  goTohumas(url: string, type?: string) {
     // check internet
     if (!navigator.onLine) {
       alert(Dictionary.offline);
@@ -427,6 +465,24 @@ export class HomeResultsPage implements OnInit {
     }
 
     this.launchweb(url);
+
+    if (type) {
+      // google event analytics
+      this.util.trackEvent(
+        this.constants.pageName.humas,
+        'view_detail_humas_jabar',
+        url,
+        1
+      );
+    } else {
+      // google event analytics
+      this.util.trackEvent(
+        this.constants.pageName.humas,
+        'view_all_humas_jabar',
+        '',
+        1
+      );
+    }
   }
 
   getVideoPost() {
@@ -477,12 +533,20 @@ export class HomeResultsPage implements OnInit {
     )}/maxresdefault.jpg`;
   }
 
-  openYoutube(url: string) {
+  openYoutube(url: string, title?: string) {
     // check internet
     if (!navigator.onLine) {
       alert(Dictionary.offline);
       return;
     }
     this.youtube.openVideo(this.parsingDataUrl(url));
+
+    // google event analytics
+    this.util.trackEvent(
+      this.constants.pageName.videoList,
+      'view_detail_videos',
+      title,
+      1
+    );
   }
 }

@@ -8,6 +8,7 @@ import { Survey } from '../../interfaces/survey';
 import { LoadingController } from '@ionic/angular';
 import { Dictionary } from '../../helpers/dictionary';
 import { Constants } from '../../helpers/constants';
+import { UtilitiesService } from '../../services/utilities.service';
 
 @Component({
   selector: 'app-survey',
@@ -30,12 +31,23 @@ export class SurveyPage implements OnInit {
     private surveyService: SurveyService,
     private iab: InAppBrowser,
     public loadingCtrl: LoadingController,
-    public constants: Constants
+    public constants: Constants,
+    private util: UtilitiesService
   ) {
     this.dataSurvey = [];
   }
 
   ngOnInit() {
+    // google analytics
+    this.util.trackPage(this.constants.pageName.survey);
+
+    this.util.trackEvent(
+      this.constants.pageName.survey,
+      'view_all_survei',
+      '',
+      1
+    );
+
     this.getListSurvey();
   }
 
@@ -106,10 +118,17 @@ export class SurveyPage implements OnInit {
   ionViewDidEnter() {}
 
   // go to detail surveyy with param id
-  goDetail(url: string) {
-    // this.router.navigate(['/survey', id]);
+  goDetail(url: string, title: string) {
     const target = '_self';
     this.iab.create(url, target, this.constants.inAppBrowserOptions);
+
+    // create event google analytics
+    this.util.trackEvent(
+      this.constants.pageName.survey,
+      'create_survei_answer',
+      title,
+      1
+    );
   }
 
   // infinite scroll

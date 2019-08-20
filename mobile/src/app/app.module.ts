@@ -31,6 +31,7 @@ import {
 } from '@ionic-native/file-transfer/ngx';
 import { HTTP } from '@ionic-native/http/ngx';
 import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
+import { GoogleAnalytics } from '@ionic-native/google-analytics/ngx';
 @NgModule({
   declarations: [
     AppComponent,
@@ -51,6 +52,7 @@ import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
     SplashScreen,
     FCM,
     Network,
+    GoogleAnalytics,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     {
       provide: HTTP_INTERCEPTORS,
