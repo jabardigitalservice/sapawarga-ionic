@@ -434,7 +434,7 @@ export class HomeResultsPage implements OnInit {
       });
   }
 
-  goTohumas(url: string) {
+  goTohumas(url: string, type?: string) {
     // check internet
     if (!navigator.onLine) {
       alert(Dictionary.offline);
@@ -447,6 +447,24 @@ export class HomeResultsPage implements OnInit {
     }
 
     this.launchweb(url);
+
+    if (type) {
+      // google event analytics
+      this.util.trackEvent(
+        this.constants.pageName.humas,
+        'view_detail_humas_jabar',
+        url,
+        1
+      );
+    } else {
+      // google event analytics
+      this.util.trackEvent(
+        this.constants.pageName.humas,
+        'view_all_humas_jabar',
+        '',
+        1
+      );
+    }
   }
 
   getVideoPost() {

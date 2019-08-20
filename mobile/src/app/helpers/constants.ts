@@ -17,7 +17,8 @@ export class Constants {
     nomorPenting: 'Nomor Penting',
     eSamsat: 'E-Samsat',
     administration: 'Administrasi',
-    news: 'Berita'
+    news: 'Berita',
+    humas: 'Humas Jabar'
   };
 
   public inAppBrowserOptions: any = {
