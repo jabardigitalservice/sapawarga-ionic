@@ -39,6 +39,13 @@ export class PollingPage implements OnInit {
   ngOnInit() {
     // google analytics
     this.util.trackPage(this.constants.pageName.polling);
+
+    this.util.trackEvent(
+      this.constants.pageName.polling,
+      'view_all_polling',
+      '',
+      1
+    );
   }
 
   ionViewDidEnter() {

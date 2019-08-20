@@ -4,13 +4,14 @@ import { Injectable } from '@angular/core';
 export class Constants {
   public pageName = {
     home: 'Home',
+    usulan: 'Usulan',
     usulanList: 'Usulan Umum',
     myUsulan: 'Usulan Saya',
     broadcast: 'Pesan',
     help: 'Bantuan',
     myAccount: 'Akun Saya',
     report: 'Lapor',
-    survey: 'Survey',
+    survey: 'Survei',
     polling: 'Polling',
     nomorPenting: 'Nomor Penting',
     eSamsat: 'E-Samsat',
