@@ -302,7 +302,8 @@ export class HomeResultsPage implements OnInit {
     });
   }
 
-  goToNews(id?: number) {
+  goToNews(id?: number, kabkota?: string) {
+    console.log(kabkota.toLowerCase);
     // check internet
     if (!navigator.onLine) {
       alert(Dictionary.offline);
@@ -317,8 +318,24 @@ export class HomeResultsPage implements OnInit {
       this.router.navigate(['news'], {
         queryParams: { id: id }
       });
+
+      // google event analytics
+      this.util.trackEvent(
+        this.constants.pageName.news,
+        `view_all_${kabkota.toLowerCase}_news`,
+        '',
+        1
+      );
     } else {
       this.router.navigate(['news']);
+
+      // google event analytics
+      this.util.trackEvent(
+        this.constants.pageName.news,
+        'view_all_jabar_news',
+        '',
+        1
+      );
     }
   }
 

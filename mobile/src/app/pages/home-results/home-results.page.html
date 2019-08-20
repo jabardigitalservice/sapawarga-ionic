@@ -208,7 +208,9 @@
                 fill="clear"
                 slot="end"
                 color="success"
-                (click)="goToNews(data_profile.kabkota.id)"
+                (click)="
+                  goToNews(data_profile.kabkota.id, data_profile.kabkota.name)
+                "
                 style="font-size: 10px;"
                 >Lihat Semua</ion-button
               >
