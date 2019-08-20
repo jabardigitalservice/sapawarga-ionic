@@ -38,6 +38,14 @@ export class BroadcastsPage implements OnInit {
     // google analytics
     this.util.trackPage(this.constants.pageName.broadcast);
 
+    // google event analytics
+    this.util.trackEvent(
+      this.constants.pageName.broadcast,
+      'view_all_broadcast',
+      '',
+      1
+    );
+
     // set notification false remove notif
     this.dataRead = this.broadcastService.getBroadcast() || [];
     this.getNomorBroadcasts();

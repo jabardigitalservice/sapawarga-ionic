@@ -3,6 +3,8 @@ import { NavController, LoadingController } from '@ionic/angular';
 import { ActivatedRoute } from '@angular/router';
 import { Broadcast } from '../../interfaces/broadcast';
 import { BroadcastService } from '../../services/broadcast.service';
+import { UtilitiesService } from '../../services/utilities.service';
+import { Constants } from '../../helpers/constants';
 
 @Component({
   selector: 'app-broadcast-detail',
@@ -16,13 +18,23 @@ export class BroadcastDetailPage implements OnInit {
     private broadcastService: BroadcastService,
     private navCtrl: NavController,
     private route: ActivatedRoute,
-    public loadingCtrl: LoadingController
+    public loadingCtrl: LoadingController,
+    private util: UtilitiesService,
+    private constants: Constants
   ) {}
 
   ngOnInit() {
     // get data detail Broadcast
     this.route.queryParamMap.subscribe(params => {
       this.dataBroadcast = params['params'];
+
+      // google event analytics
+      this.util.trackEvent(
+        this.constants.pageName.broadcast,
+        'view_detail_broadcast',
+        this.dataBroadcast['title'],
+        1
+      );
     });
     // add to list dataRead
     this.dataRead = this.broadcastService.getBroadcast() || [];
