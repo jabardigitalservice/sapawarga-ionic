@@ -41,7 +41,13 @@ export class SurveyPage implements OnInit {
     // google analytics
     this.util.trackPage(this.constants.pageName.survey);
 
+    this.createEventAnalytics('view_all_survei', '');
+
     this.getListSurvey();
+  }
+
+  createEventAnalytics(action: string, label?: string) {
+    this.util.trackEvent(this.constants.pageName.survey, action, label, 1);
   }
 
   async getListSurvey(infiniteScroll?) {
@@ -111,10 +117,11 @@ export class SurveyPage implements OnInit {
   ionViewDidEnter() {}
 
   // go to detail surveyy with param id
-  goDetail(url: string) {
-    // this.router.navigate(['/survey', id]);
+  goDetail(url: string, title: string) {
     const target = '_self';
     this.iab.create(url, target, this.constants.inAppBrowserOptions);
+
+    this.createEventAnalytics('create_survei_answer', title);
   }
 
   // infinite scroll

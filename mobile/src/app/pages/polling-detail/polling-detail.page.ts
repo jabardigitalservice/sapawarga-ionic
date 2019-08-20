@@ -118,7 +118,7 @@ export class PollingDetailPage implements OnInit {
             this.util.trackEvent(
               this.constants.pageName.polling,
               'create_pollanswer',
-              '',
+              this.dataPolling.question,
               1
             );
           } else {
