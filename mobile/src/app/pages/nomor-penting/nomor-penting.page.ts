@@ -55,6 +55,13 @@ export class NomorPentingPage implements OnInit {
     // google analytics
     this.util.trackPage(this.constants.pageName.nomorPenting);
 
+    this.util.trackEvent(
+      this.constants.pageName.nomorPenting,
+      'view_all_nomor',
+      '',
+      1
+    );
+
     this.getNomorPenting();
   }
 
@@ -226,6 +233,14 @@ export class NomorPentingPage implements OnInit {
     const idArea = dataArea[1];
 
     this.filterNomorPenting(typeArea, idArea);
+
+    // event google analytics
+    this.util.trackEvent(
+      this.constants.pageName.nomorPenting,
+      'view_filter_nomor',
+      '',
+      1
+    );
   }
 
   // open action sheet open phone number
@@ -233,6 +248,14 @@ export class NomorPentingPage implements OnInit {
     const header = 'Nomor Telepon';
 
     this.util.actionSheet(this.createButtons(type, phone), header);
+
+    // event google analytics
+    this.util.trackEvent(
+      this.constants.pageName.nomorPenting,
+      'view_phone_number_nomor',
+      '',
+      1
+    );
   }
 
   // create dynamic phone numbers
@@ -316,6 +339,14 @@ export class NomorPentingPage implements OnInit {
     this.openSearch = value;
     if (value === false) {
       this.getNomorPenting();
+
+      // event google analytics
+      this.util.trackEvent(
+        this.constants.pageName.nomorPenting,
+        'view_search_nomor',
+        '',
+        1
+      );
     }
   }
 

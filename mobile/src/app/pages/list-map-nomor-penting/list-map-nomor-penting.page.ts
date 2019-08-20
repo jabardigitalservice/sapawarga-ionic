@@ -16,6 +16,7 @@ import { Router } from '@angular/router';
 import { NomorPentingService } from '../../services/nomor-penting.service';
 import { NomorPenting } from '../../interfaces/nomor-penting';
 import { UtilitiesService } from '../../services/utilities.service';
+import { Constants } from '../../helpers/constants';
 
 @Component({
   selector: 'app-list-map-nomor-penting',
@@ -38,10 +39,19 @@ export class ListMapNomorPentingPage implements OnInit {
     private openNativeSettings: OpenNativeSettings,
     public loadingCtrl: LoadingController,
     private navCtrl: NavController,
-    private util: UtilitiesService
+    private util: UtilitiesService,
+    public constants: Constants
   ) {}
 
   async ngOnInit() {
+    // event google analytics
+    this.util.trackEvent(
+      this.constants.pageName.nomorPenting,
+      'view_nearby_nomor',
+      '',
+      1
+    );
+
     // Since ngOnInit() is executed before `deviceready` event,
     // you have to wait the event.
     await this.platform.ready();
