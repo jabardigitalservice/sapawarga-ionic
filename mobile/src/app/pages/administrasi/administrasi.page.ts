@@ -23,6 +23,13 @@ export class AdministrasiPage implements OnInit {
   ngOnInit() {
     // google analytics
     this.util.trackPage(this.constants.pageName.administration);
+
+    this.util.trackEvent(
+      this.constants.pageName.administration,
+      'view_all_administrasi',
+      '',
+      1
+    );
   }
 
   goToDetail(id: number) {
