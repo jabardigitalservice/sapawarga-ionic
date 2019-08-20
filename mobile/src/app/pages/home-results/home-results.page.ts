@@ -154,11 +154,27 @@ export class HomeResultsPage implements OnInit {
     this.otherPages = [
       {
         text: 'Info Harga',
-        handler: () => {}
+        handler: () => {
+          // google event analytics
+          this.util.trackEvent(
+            this.constants.pageName.infoHarga,
+            'view_info_harga',
+            '',
+            1
+          );
+        }
       },
       {
         text: 'Perizinan',
-        handler: () => {}
+        handler: () => {
+          // google event analytics
+          this.util.trackEvent(
+            this.constants.pageName.perizinan,
+            'view_perizinan',
+            '',
+            1
+          );
+        }
       }
     ];
 
