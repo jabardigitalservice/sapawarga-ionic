@@ -66,8 +66,13 @@ export class AspirasiFormPage implements OnInit {
   }
 
   ngOnInit() {
-    // google analytics
-    this.util.trackPage(this.constants.pageName.usulanForm);
+    // google event analytics
+    this.util.trackEvent(
+      this.constants.pageName.usulan,
+      'view_form_usulan',
+      '',
+      1
+    );
 
     this.formAddAspirasi = this.formBuilder.group({
       title: [

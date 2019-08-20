@@ -7,7 +7,6 @@ export class Constants {
     usulan: 'Usulan',
     usulanList: 'Usulan Umum',
     myUsulan: 'Usulan Saya',
-    usulanForm: 'Usulan Form',
     broadcast: 'Pesan',
     help: 'Bantuan',
     myAccount: 'Akun Saya',
