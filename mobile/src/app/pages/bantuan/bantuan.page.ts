@@ -73,6 +73,14 @@ export class BantuanPage implements OnInit {
   ngOnInit() {
     // google analytics
     this.util.trackPage(this.constants.pageName.help);
+
+    // google event analytics
+    this.util.trackEvent(
+      this.constants.pageName.help,
+      'view_all_bantuan',
+      '',
+      1
+    );
   }
 
   ionViewDidEnter() {
@@ -94,6 +102,14 @@ export class BantuanPage implements OnInit {
       this.items.map(listItem => {
         if (item === listItem) {
           listItem.expanded = !listItem.expanded;
+
+          // google event analytics
+          this.util.trackEvent(
+            this.constants.pageName.help,
+            'view_detail_bantuan',
+            item.title,
+            1
+          );
         } else {
           listItem.expanded = false;
         }
