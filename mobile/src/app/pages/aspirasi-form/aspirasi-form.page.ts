@@ -159,8 +159,8 @@ export class AspirasiFormPage implements OnInit {
     );
   }
 
-  createEventAnalytics(action: string) {
-    this.util.trackEvent(this.constants.pageName.usulan, action, '', 1);
+  createEventAnalytics(action: string, label?: string) {
+    this.util.trackEvent(this.constants.pageName.usulan, action, label, 1);
   }
 
   prosesAspirasi() {
@@ -196,7 +196,7 @@ export class AspirasiFormPage implements OnInit {
           this.navCtrl.back();
 
           // create event google analytics
-          this.createEventAnalytics('create_usul_answer');
+          this.createEventAnalytics('create_usul_answer', this.f.title.value);
         } else {
           this.util.showToast(Dictionary.failed_save);
         }
@@ -228,7 +228,10 @@ export class AspirasiFormPage implements OnInit {
             this.navCtrl.back();
 
             // edit event google analytics
-            this.createEventAnalytics('edit_own_usulan_draft');
+            this.createEventAnalytics(
+              'edit_own_usulan_draft',
+              this.f.title.value
+            );
           } else {
             this.util.showToast(Dictionary.failed_save);
           }

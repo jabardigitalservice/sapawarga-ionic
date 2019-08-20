@@ -41,7 +41,6 @@ export class SurveyPage implements OnInit {
     // google analytics
     this.util.trackPage(this.constants.pageName.survey);
 
-    // create event google analytics
     this.util.trackEvent(
       this.constants.pageName.survey,
       'view_all_survei',

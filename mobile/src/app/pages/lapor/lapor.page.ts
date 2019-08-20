@@ -41,18 +41,29 @@ export class LaporPage implements OnInit {
   ngOnInit() {
     // google analytics
     this.util.trackPage(this.constants.pageName.report);
+
+    this.util.trackEvent(
+      this.constants.pageName.report,
+      'view_all_lapor',
+      '',
+      1
+    );
+  }
+
+  createEventAnalytics(action: string, label?: string) {
+    this.util.trackEvent(this.constants.pageName.usulan, action, label, 1);
   }
 
   selectLapor(name: string, url: string) {
     switch (name) {
       case 'lapor':
-        this.launchweb(url);
+        this.launchweb(url, name);
         break;
       case 'qlue':
-        this.launchQlue(url);
+        this.launchQlue(url, name);
         break;
       case 'jqr':
-        this.launchweb(url);
+        this.launchweb(url, name);
         break;
       default:
         break;
@@ -60,18 +71,24 @@ export class LaporPage implements OnInit {
   }
 
   // direct to service lapor
-  launchweb(url: string) {
+  launchweb(url: string, name?: string) {
     // check if the platform is ios or android, else open the web url
     this.platform.ready().then(() => {
       this.inAppBrowser.create(url, '_system');
     });
+
+    // event google analytics
+    this.createEventAnalytics('view_detail_lapor', name);
   }
 
   // call function launchApp to open external app
-  private launchQlue(appUrl: string) {
+  private launchQlue(appUrl: string, name?: string) {
     // check if the platform is ios or android, else open the web url
     if (this.platform.is('android')) {
       this.util.launchApp(appUrl);
+
+      // event google analytics
+      this.createEventAnalytics('view_detail_lapor', name);
     }
   }
 }
