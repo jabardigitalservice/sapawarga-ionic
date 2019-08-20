@@ -110,7 +110,7 @@ export class HomeResultsPage implements OnInit {
         icon: 'assets/icon/SW-ASPIRASI.png'
       },
       {
-        title: 'Survey',
+        title: 'Survei',
         url: '',
         icon: 'assets/icon/SW-SURVEY.png'
       },
@@ -227,7 +227,7 @@ export class HomeResultsPage implements OnInit {
       case 'Polling':
         this.goPolling();
         break;
-      case 'Survey':
+      case 'Survei':
         this.goSurvey();
         break;
       case 'Lainnya':

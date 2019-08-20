@@ -152,7 +152,7 @@ export class EditProfilePage implements OnInit {
       kec_id: this.dataProfile.kec_id,
       kel_id: this.dataProfile.kel_id,
       rw: this.convertNumber(this.dataProfile.rw),
-      rt: this.convertNumber(this.dataProfile.rt),
+      rt: this.dataProfile.rt ? this.convertNumber(this.dataProfile.rt) : '',
       role: this.role_user,
       instagram: this.dataProfile.instagram,
       facebook: this.dataProfile.facebook,
