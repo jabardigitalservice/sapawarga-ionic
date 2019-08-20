@@ -303,7 +303,6 @@ export class HomeResultsPage implements OnInit {
   }
 
   goToNews(id?: number, kabkota?: string) {
-    console.log(kabkota.toLowerCase);
     // check internet
     if (!navigator.onLine) {
       alert(Dictionary.offline);
@@ -319,10 +318,13 @@ export class HomeResultsPage implements OnInit {
         queryParams: { id: id }
       });
 
+      // transform Kabkota remove whitespace & transform to lower case
+      const transformKabkota = kabkota.replace(/\s/g, '').toLowerCase();
+
       // google event analytics
       this.util.trackEvent(
         this.constants.pageName.news,
-        `view_all_${kabkota.toLowerCase}_news`,
+        `view_all_${transformKabkota}_news`,
         '',
         1
       );
