@@ -19,7 +19,8 @@ export class Constants {
     administration: 'Administrasi',
     news: 'Berita',
     humas: 'Humas Jabar',
-    videoList: 'Video List'
+    videoList: 'Video List',
+    notification: 'notifikasi'
   };
 
   public inAppBrowserOptions: any = {
