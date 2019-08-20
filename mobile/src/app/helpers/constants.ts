@@ -10,6 +10,7 @@ export class Constants {
     broadcast: 'Pesan',
     help: 'Bantuan',
     myAccount: 'Akun Saya',
+    account: 'Akun',
     report: 'Lapor',
     survey: 'Survei',
     polling: 'Polling',

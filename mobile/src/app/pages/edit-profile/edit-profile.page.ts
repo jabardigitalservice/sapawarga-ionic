@@ -17,6 +17,7 @@ import {
 } from '@ionic-native/file-transfer/ngx';
 import { environment } from '../../../environments/environment';
 import { Dictionary } from '../../helpers/dictionary';
+import { Constants } from '../../helpers/constants';
 
 const TOKEN_KEY = 'auth-token';
 @Component({
@@ -52,7 +53,8 @@ export class EditProfilePage implements OnInit {
     private formBuilder: FormBuilder,
     private camera: Camera,
     private transfer: FileTransfer,
-    private util: UtilitiesService
+    private util: UtilitiesService,
+    private constants: Constants
   ) {}
 
   ngOnInit() {
@@ -243,6 +245,14 @@ export class EditProfilePage implements OnInit {
         if (res.status === 200) {
           this.util.showToast(Dictionary.success_save);
           this.navCtrl.navigateForward('/tabs/akun');
+
+          // google event analytics
+          this.util.trackEvent(
+            this.constants.pageName.account,
+            'edit_own_user',
+            this.dataProfile.name,
+            1
+          );
         } else {
           this.util.showToast(Dictionary.failed_save);
         }

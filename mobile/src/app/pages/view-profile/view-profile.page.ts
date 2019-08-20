@@ -39,6 +39,14 @@ export class ViewProfilePage implements OnInit {
     // google analytics
     this.util.trackPage(this.constants.pageName.myAccount);
 
+    // google event analytics
+    this.util.trackEvent(
+      this.constants.pageName.account,
+      'view_detail_user',
+      '',
+      1
+    );
+
     if (!navigator.onLine) {
       // get data profile from local storage
       this.dataProfile = this.profileService.getLocalProfile();
