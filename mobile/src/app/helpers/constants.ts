@@ -18,7 +18,8 @@ export class Constants {
     eSamsat: 'E-Samsat',
     administration: 'Administrasi',
     news: 'Berita',
-    humas: 'Humas Jabar'
+    humas: 'Humas Jabar',
+    videoList: 'Video List'
   };
 
   public inAppBrowserOptions: any = {

@@ -517,12 +517,20 @@ export class HomeResultsPage implements OnInit {
     )}/maxresdefault.jpg`;
   }
 
-  openYoutube(url: string) {
+  openYoutube(url: string, title?: string) {
     // check internet
     if (!navigator.onLine) {
       alert(Dictionary.offline);
       return;
     }
     this.youtube.openVideo(this.parsingDataUrl(url));
+
+    // google event analytics
+    this.util.trackEvent(
+      this.constants.pageName.videoList,
+      'view_detail_videos',
+      title,
+      1
+    );
   }
 }
