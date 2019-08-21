@@ -176,7 +176,7 @@
 
             <ion-item
               *ngFor="let headline of dataNews"
-              (click)="goToDetailNews(headline.id)"
+              (click)="goToDetailNews(headline.id, headline.title)"
               class="list-news"
             >
               <ion-text class="mb-5"
@@ -229,7 +229,7 @@
 
             <ion-item
               *ngFor="let headline of dataNewsKabkota"
-              (click)="goToDetailNews(headline.id)"
+              (click)="goToDetailNews(headline.id, headline.title)"
               class="list-news"
             >
               <ion-text class="mb-5"

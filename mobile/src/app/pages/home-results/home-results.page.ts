@@ -446,6 +446,13 @@ export class HomeResultsPage implements OnInit {
         '',
         1
       );
+
+      this.util.trackEvent(
+        this.constants.pageName.home_pages,
+        `tapped_view_all_${transformKabkota}_news`,
+        '',
+        1
+      );
     } else {
       this.router.navigate(['news']);
 
@@ -456,16 +463,30 @@ export class HomeResultsPage implements OnInit {
         '',
         1
       );
+
+      this.util.trackEvent(
+        this.constants.pageName.home_pages,
+        'tapped_view_all_jabar_news',
+        '',
+        1
+      );
     }
   }
 
-  goToDetailNews(id: number) {
+  goToDetailNews(id: number, title: string) {
     // check internet
     if (!navigator.onLine) {
       alert(Dictionary.offline);
       return;
     }
     this.router.navigate(['/news', id]);
+
+    this.util.trackEvent(
+      this.constants.pageName.home_pages,
+      'tapped_detail_news',
+      title,
+      1
+    );
   }
   getNewsFeatured(idkabkota?: number) {
     // check internet
@@ -579,7 +600,7 @@ export class HomeResultsPage implements OnInit {
 
       this.util.trackEvent(
         this.constants.pageName.home_pages,
-        'tapped_humas_jabar',
+        'tapped_view_all_humas_jabar',
         '',
         1
       );
