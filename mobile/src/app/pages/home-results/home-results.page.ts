@@ -1,5 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { NavController, Platform, LoadingController } from '@ionic/angular';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import {
+  NavController,
+  Platform,
+  LoadingController,
+  IonSlides
+} from '@ionic/angular';
 import { Pages } from '../../interfaces/pages';
 import { ProfileService } from '../../services/profile.service';
 import { NotifikasiService } from '../../services/notifikasi.service';
@@ -22,6 +27,8 @@ import { UtilitiesService } from '../../services/utilities.service';
   styleUrls: ['./home-results.page.scss']
 })
 export class HomeResultsPage implements OnInit {
+  @ViewChild(IonSlides) slides: IonSlides;
+
   public appPages: Array<Pages>;
   public otherPages: Array<any>;
   interval: any;
@@ -204,6 +211,24 @@ export class HomeResultsPage implements OnInit {
 
     // get data Video Post
     this.getVideoPost();
+  }
+
+  swipeSlide(name: string) {
+    let action: string;
+    if (name === 'banners') {
+      action = 'swipe_banners';
+    } else if (name === 'news') {
+      action = 'swipe_news';
+    } else if (name === 'videos') {
+      action = 'swipe_videos';
+    } else if (name === 'humas') {
+      action = 'swipe_humas_jabar';
+    }
+
+    this.slides.getActiveIndex().then(_ => {
+      // google event analytics
+      this.util.trackEvent(this.constants.pageName.home_pages, action, '', 1);
+    });
   }
 
   ionViewDidEnter() {

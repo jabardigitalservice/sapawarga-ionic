@@ -18,7 +18,11 @@
 </ion-header>
 
 <ion-content>
-  <ion-slides pager="true" [options]="slideOpts">
+  <ion-slides
+    pager="true"
+    [options]="slideOpts"
+    (ionSlideTouchEnd)="swipeSlide('banners')"
+  >
     <ion-slide *ngFor="let img of themeCover">
       <img src="{{ img.slide }}" />
     </ion-slide>
@@ -73,7 +77,11 @@
       </ion-item>
     </div>
 
-    <ion-slides [options]="sliderConfigHumas" *ngIf="dataHumas">
+    <ion-slides
+      [options]="sliderConfigHumas"
+      (ionSlideTouchEnd)="swipeSlide('humas')"
+      *ngIf="dataHumas"
+    >
       <ion-slide *ngFor="let humas of dataHumas">
         <div>
           <img
@@ -147,7 +155,10 @@
       </ion-item>
     </ion-card>
 
-    <ion-slides [options]="sliderConfigNews">
+    <ion-slides
+      [options]="sliderConfigNews"
+      (ionSlideTouchEnd)="swipeSlide('news')"
+    >
       <ion-slide>
         <div *ngIf="dataNews">
           <ion-card class="text-dark min-mt-5 ion-margin-bottom">
@@ -279,7 +290,11 @@
       </ion-item>
     </div>
 
-    <ion-slides [options]="sliderConfigVideoPost" *ngIf="dataVideoPost">
+    <ion-slides
+      [options]="sliderConfigVideoPost"
+      (ionSlideTouchEnd)="swipeSlide('videos')"
+      *ngIf="dataVideoPost"
+    >
       <ion-slide *ngFor="let data of dataVideoPost">
         <div>
           <ion-card style=" position: relative;">
