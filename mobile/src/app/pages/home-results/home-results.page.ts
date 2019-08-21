@@ -572,16 +572,33 @@ export class HomeResultsPage implements OnInit {
       // google event analytics
       this.util.trackEvent(
         this.constants.pageName.humas,
-        'view_detail_humas_jabar',
-        url,
+        'view_list_humas_jabar',
+        '',
+        1
+      );
+
+      this.util.trackEvent(
+        this.constants.pageName.home_pages,
+        'tapped_humas_jabar',
+        '',
         1
       );
     } else {
+      // get title humas
+      const getTitle = this.dataHumas.find(x => x.slug === url).post_title;
+
       // google event analytics
       this.util.trackEvent(
         this.constants.pageName.humas,
-        'view_list_humas_jabar',
-        '',
+        'view_detail_humas_jabar',
+        getTitle,
+        1
+      );
+
+      this.util.trackEvent(
+        this.constants.pageName.home_pages,
+        'tapped_humas_jabar',
+        getTitle,
         1
       );
     }
