@@ -43,7 +43,7 @@ export class SurveyPage implements OnInit {
 
     this.util.trackEvent(
       this.constants.pageName.survey,
-      'view_all_survei',
+      'view_list_survei',
       '',
       1
     );

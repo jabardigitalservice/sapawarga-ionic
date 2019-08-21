@@ -44,7 +44,7 @@ export class AspirasiListComponent implements OnInit {
     // google analytics
     this.util.trackEvent(
       this.constants.pageName.usulan,
-      'view_all_general_usulan',
+      'view_list_general_usulan',
       '',
       1
     );

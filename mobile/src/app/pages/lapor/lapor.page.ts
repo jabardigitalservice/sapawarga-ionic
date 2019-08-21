@@ -42,7 +42,7 @@ export class LaporPage implements OnInit {
     // google analytics
     this.util.trackPage(this.constants.pageName.report);
 
-    this.createEventAnalytics('view_all_lapor', '');
+    this.createEventAnalytics('view_list_lapor', '');
   }
 
   createEventAnalytics(action: string, label?: string) {

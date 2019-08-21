@@ -340,7 +340,7 @@ export class HomeResultsPage implements OnInit {
       // google event analytics
       this.util.trackEvent(
         this.constants.pageName.news,
-        `view_all_${transformKabkota}_news`,
+        `view_list_${transformKabkota}_news`,
         '',
         1
       );
@@ -350,7 +350,7 @@ export class HomeResultsPage implements OnInit {
       // google event analytics
       this.util.trackEvent(
         this.constants.pageName.news,
-        'view_all_jabar_news',
+        'view_list_jabar_news',
         '',
         1
       );
@@ -478,7 +478,7 @@ export class HomeResultsPage implements OnInit {
       // google event analytics
       this.util.trackEvent(
         this.constants.pageName.humas,
-        'view_all_humas_jabar',
+        'view_list_humas_jabar',
         '',
         1
       );

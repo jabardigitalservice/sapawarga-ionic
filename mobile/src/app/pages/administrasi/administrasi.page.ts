@@ -26,7 +26,7 @@ export class AdministrasiPage implements OnInit {
 
     this.util.trackEvent(
       this.constants.pageName.administration,
-      'view_all_administrasi',
+      'view_list_administrasi',
       '',
       1
     );

@@ -40,7 +40,7 @@ export class NotifikasiPage implements OnInit {
     // google event analytics
     this.util.trackEvent(
       this.constants.pageName.notification,
-      'view_all_notif',
+      'view_list_notif',
       '',
       1
     );

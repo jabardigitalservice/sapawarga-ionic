@@ -41,7 +41,7 @@ export class BroadcastsPage implements OnInit {
     // google event analytics
     this.util.trackEvent(
       this.constants.pageName.broadcast,
-      'view_all_broadcast',
+      'view_list_broadcast',
       '',
       1
     );
