@@ -42,7 +42,7 @@ export class PollingPage implements OnInit {
 
     this.util.trackEvent(
       this.constants.pageName.polling,
-      'view_all_polling',
+      'view_list_polling',
       '',
       1
     );

@@ -77,7 +77,7 @@ export class BantuanPage implements OnInit {
     // google event analytics
     this.util.trackEvent(
       this.constants.pageName.help,
-      'view_all_bantuan',
+      'view_list_bantuan',
       '',
       1
     );

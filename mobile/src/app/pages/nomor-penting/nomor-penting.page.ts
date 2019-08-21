@@ -57,7 +57,7 @@ export class NomorPentingPage implements OnInit {
 
     this.util.trackEvent(
       this.constants.pageName.nomorPenting,
-      'view_all_nomor',
+      'view_list_nomor',
       '',
       1
     );

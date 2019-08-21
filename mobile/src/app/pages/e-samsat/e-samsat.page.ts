@@ -42,7 +42,7 @@ export class ESamsatPage implements OnInit {
     // google analytics
     this.util.trackPage(this.constants.pageName.eSamsat);
 
-    this.createEventAnalytics('view_all_e_Samsat', '');
+    this.createEventAnalytics('view_list_e_Samsat', '');
   }
 
   createEventAnalytics(action: string, label?: string) {

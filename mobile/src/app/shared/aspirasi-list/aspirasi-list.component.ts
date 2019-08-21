@@ -44,7 +44,7 @@ export class AspirasiListComponent implements OnInit {
     // google analytics
     this.util.trackEvent(
       this.constants.pageName.usulan,
-      'view_all_general_usulan',
+      'view_list_general_usulan',
       '',
       1
     );
@@ -189,16 +189,35 @@ export class AspirasiListComponent implements OnInit {
     }
 
     const dataLike = this.dataLikes.find(x => x.id === id);
+
+    const getTitle = this.dataAspirasi.find(x => x.id === id).title;
+
     if (checkLike) {
       // set unlike
       dataLike.liked = false;
       // set total like
       dataLike.likes_count--;
+
+      // google analytics
+      this.util.trackEvent(
+        this.constants.pageName.usulan,
+        'unlike_usulan',
+        getTitle,
+        1
+      );
     } else {
       // set like
       dataLike.liked = true;
       // set total like + 1
       dataLike.likes_count++;
+
+      // google analytics
+      this.util.trackEvent(
+        this.constants.pageName.usulan,
+        'like_usulan',
+        getTitle,
+        1
+      );
     }
 
     // save like to server
