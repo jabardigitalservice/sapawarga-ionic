@@ -1,11 +1,11 @@
 <ion-tabs>
   <ion-tab-bar slot="bottom">
-    <ion-tab-button tab="home">
+    <ion-tab-button tab="home" (click)="eventTapped('home')">
       <ion-icon name="home"></ion-icon>
       <ion-label>Beranda</ion-label>
     </ion-tab-button>
 
-    <ion-tab-button tab="broadcasts">
+    <ion-tab-button tab="broadcasts" (click)="eventTapped('broadcast')">
       <img
         *ngIf="notification"
         src="../../assets/icon/notif_read.png"
@@ -16,12 +16,12 @@
       <ion-label>Pesan</ion-label>
     </ion-tab-button>
 
-    <ion-tab-button tab="bantuan">
+    <ion-tab-button tab="bantuan" (click)="eventTapped('help')">
       <ion-icon name="help-circle"></ion-icon>
       <ion-label>Bantuan</ion-label>
     </ion-tab-button>
 
-    <ion-tab-button tab="akun">
+    <ion-tab-button tab="akun" (click)="eventTapped('account')">
       <ion-icon name="person"></ion-icon>
       <ion-label>Akun</ion-label>
     </ion-tab-button>

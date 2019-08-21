@@ -215,14 +215,22 @@ export class HomeResultsPage implements OnInit {
 
   swipeSlide(name: string) {
     let action: string;
-    if (name === 'banners') {
-      action = 'swipe_banners';
-    } else if (name === 'news') {
-      action = 'swipe_news';
-    } else if (name === 'videos') {
-      action = 'swipe_videos';
-    } else if (name === 'humas') {
-      action = 'swipe_humas_jabar';
+    switch (name) {
+      case 'banners':
+        action = 'swipe_banners';
+        break;
+      case 'news':
+        action = 'swipe_news';
+        break;
+      case 'videos':
+        action = 'swipe_videos';
+        break;
+      case 'humas':
+        action = 'swipe_humas_jabar';
+        break;
+      default:
+        return;
+        break;
     }
 
     this.slides.getActiveIndex().then(_ => {
