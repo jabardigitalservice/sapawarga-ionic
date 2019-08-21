@@ -194,11 +194,27 @@ export class AspirasiListComponent implements OnInit {
       dataLike.liked = false;
       // set total like
       dataLike.likes_count--;
+
+      // google analytics
+      this.util.trackEvent(
+        this.constants.pageName.usulan,
+        'unlike_usulan',
+        '',
+        1
+      );
     } else {
       // set like
       dataLike.liked = true;
       // set total like + 1
       dataLike.likes_count++;
+
+      // google analytics
+      this.util.trackEvent(
+        this.constants.pageName.usulan,
+        'like_usulan',
+        '',
+        1
+      );
     }
 
     // save like to server
