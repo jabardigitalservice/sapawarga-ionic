@@ -189,6 +189,9 @@ export class AspirasiListComponent implements OnInit {
     }
 
     const dataLike = this.dataLikes.find(x => x.id === id);
+
+    const getTitle = this.dataAspirasi.find(x => x.id === id).title;
+
     if (checkLike) {
       // set unlike
       dataLike.liked = false;
@@ -199,7 +202,7 @@ export class AspirasiListComponent implements OnInit {
       this.util.trackEvent(
         this.constants.pageName.usulan,
         'unlike_usulan',
-        '',
+        getTitle,
         1
       );
     } else {
@@ -212,7 +215,7 @@ export class AspirasiListComponent implements OnInit {
       this.util.trackEvent(
         this.constants.pageName.usulan,
         'like_usulan',
-        '',
+        getTitle,
         1
       );
     }
