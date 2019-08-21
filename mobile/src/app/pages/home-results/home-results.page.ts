@@ -273,9 +273,6 @@ export class HomeResultsPage implements OnInit {
       case 'Administrasi':
         this.goAdministrasi();
         break;
-      case 'Usulan':
-        this.goAspirasi();
-        break;
       case 'Polling':
         this.goPolling();
         break;
@@ -294,40 +291,112 @@ export class HomeResultsPage implements OnInit {
   async openOtherPages() {
     const header = 'Dalam Pengembangan';
     this.util.actionSheet(this.otherPages, header);
+
+    // google event analytics
+    this.util.trackEvent(
+      this.constants.pageName.home_pages,
+      'tapped_lainnya',
+      '',
+      1
+    );
   }
 
   // open page nomor penting
   goNomorPenting() {
     this.navCtrl.navigateForward('nomor-penting');
+
+    // google event analytics
+    this.util.trackEvent(
+      this.constants.pageName.home_pages,
+      'tapped_nomor',
+      '',
+      1
+    );
   }
 
   // open page lapor
   goLapor() {
     this.navCtrl.navigateForward('lapor');
+
+    // google event analytics
+    this.util.trackEvent(
+      this.constants.pageName.home_pages,
+      'tapped_lapor',
+      '',
+      1
+    );
   }
 
   goAspirasi() {
     this.navCtrl.navigateForward('aspirasi');
+
+    // google event analytics
+    this.util.trackEvent(
+      this.constants.pageName.home_pages,
+      'tapped_usulan',
+      '',
+      1
+    );
   }
 
   goNotifikasi() {
     this.navCtrl.navigateForward('notifikasi');
+
+    // google event analytics
+    this.util.trackEvent(
+      this.constants.pageName.home_pages,
+      'tapped_notification',
+      '',
+      1
+    );
   }
 
   goSamsat() {
     this.navCtrl.navigateForward('e-samsat');
+
+    // google event analytics
+    this.util.trackEvent(
+      this.constants.pageName.home_pages,
+      'tapped_e_Samsat',
+      '',
+      1
+    );
   }
 
   goPolling() {
     this.navCtrl.navigateForward('polling');
+
+    // google event analytics
+    this.util.trackEvent(
+      this.constants.pageName.home_pages,
+      'tapped_polling',
+      '',
+      1
+    );
   }
 
   goSurvey() {
     this.navCtrl.navigateForward('survey');
+
+    // google event analytics
+    this.util.trackEvent(
+      this.constants.pageName.home_pages,
+      'tapped_survei',
+      '',
+      1
+    );
   }
 
   goAdministrasi() {
     this.navCtrl.navigateForward('administrasi');
+
+    // google event analytics
+    this.util.trackEvent(
+      this.constants.pageName.home_pages,
+      'tapped_administrasi',
+      '',
+      1
+    );
   }
 
   // call function launchApp to open external app

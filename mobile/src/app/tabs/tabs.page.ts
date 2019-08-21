@@ -51,16 +51,16 @@ export class TabsPage {
 
     switch (name) {
       case 'home':
-        action = 'Tapped_home';
+        action = 'tapped_home';
         break;
       case 'broadcast':
-        action = 'Tapped_broadcast';
+        action = 'tapped_broadcast';
         break;
       case 'help':
-        action = 'Tapped_bantuan';
+        action = 'tapped_bantuan';
         break;
       case 'account':
-        action = 'Tapped_akun';
+        action = 'tapped_akun';
         break;
       default:
         return;
