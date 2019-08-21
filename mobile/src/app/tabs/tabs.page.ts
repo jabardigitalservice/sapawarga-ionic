@@ -51,18 +51,19 @@ export class TabsPage {
 
     switch (name) {
       case 'home':
-        action = 'swipe_videos';
+        action = 'Tapped_home';
         break;
       case 'broadcast':
-        action = 'swipe_videos';
+        action = 'Tapped_broadcast';
         break;
       case 'help':
-        action = 'swipe_videos';
+        action = 'Tapped_bantuan';
         break;
       case 'account':
-        action = 'swipe_videos';
+        action = 'Tapped_akun';
         break;
       default:
+        return;
         break;
     }
 
