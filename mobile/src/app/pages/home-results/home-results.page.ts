@@ -481,6 +481,7 @@ export class HomeResultsPage implements OnInit {
     }
     this.router.navigate(['/news', id]);
 
+    // google event analytics
     this.util.trackEvent(
       this.constants.pageName.home_pages,
       'tapped_detail_news',
@@ -685,6 +686,13 @@ export class HomeResultsPage implements OnInit {
     this.util.trackEvent(
       this.constants.pageName.videoList,
       'view_detail_videos',
+      title,
+      1
+    );
+
+    this.util.trackEvent(
+      this.constants.pageName.home_pages,
+      'tapped_videos',
       title,
       1
     );
