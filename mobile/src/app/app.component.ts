@@ -89,6 +89,14 @@ export class AppComponent {
         this.authService.authenticationState.subscribe(state => {
           if (state) {
             this.navCtrl.navigateRoot('/');
+
+            //  get ID user
+            const idUser = JSON.parse(
+              localStorage.getItem('PROFILE')
+            ).id.toString();
+
+            // set user ID google analytics
+            this.googleAnalytics.setUserId(idUser);
           } else {
             const hasOnboarding = localStorage.getItem('has-onboarding');
             if (hasOnboarding) {

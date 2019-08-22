@@ -1,5 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { NavController, Platform, LoadingController } from '@ionic/angular';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import {
+  NavController,
+  Platform,
+  LoadingController,
+  IonSlides
+} from '@ionic/angular';
 import { Pages } from '../../interfaces/pages';
 import { ProfileService } from '../../services/profile.service';
 import { NotifikasiService } from '../../services/notifikasi.service';
@@ -22,6 +27,8 @@ import { UtilitiesService } from '../../services/utilities.service';
   styleUrls: ['./home-results.page.scss']
 })
 export class HomeResultsPage implements OnInit {
+  @ViewChild(IonSlides) slides: IonSlides;
+
   public appPages: Array<Pages>;
   public otherPages: Array<any>;
   interval: any;
@@ -206,6 +213,32 @@ export class HomeResultsPage implements OnInit {
     this.getVideoPost();
   }
 
+  swipeSlide(name: string) {
+    let action: string;
+    switch (name) {
+      case 'banners':
+        action = 'swipe_banners';
+        break;
+      case 'news':
+        action = 'swipe_news';
+        break;
+      case 'videos':
+        action = 'swipe_videos';
+        break;
+      case 'humas':
+        action = 'swipe_humas_jabar';
+        break;
+      default:
+        return;
+        break;
+    }
+
+    this.slides.getActiveIndex().then(_ => {
+      // google event analytics
+      this.util.trackEvent(this.constants.pageName.home_pages, action, '', 1);
+    });
+  }
+
   ionViewDidEnter() {
     this.interval = setInterval(() => {
       this.unreadNotif = this.notifikasiService.getNotifikasiNumber();
@@ -240,9 +273,6 @@ export class HomeResultsPage implements OnInit {
       case 'Administrasi':
         this.goAdministrasi();
         break;
-      case 'Usulan':
-        this.goAspirasi();
-        break;
       case 'Polling':
         this.goPolling();
         break;
@@ -261,40 +291,112 @@ export class HomeResultsPage implements OnInit {
   async openOtherPages() {
     const header = 'Dalam Pengembangan';
     this.util.actionSheet(this.otherPages, header);
+
+    // google event analytics
+    this.util.trackEvent(
+      this.constants.pageName.home_pages,
+      'tapped_lainnya',
+      '',
+      1
+    );
   }
 
   // open page nomor penting
   goNomorPenting() {
     this.navCtrl.navigateForward('nomor-penting');
+
+    // google event analytics
+    this.util.trackEvent(
+      this.constants.pageName.home_pages,
+      'tapped_nomor',
+      '',
+      1
+    );
   }
 
   // open page lapor
   goLapor() {
     this.navCtrl.navigateForward('lapor');
+
+    // google event analytics
+    this.util.trackEvent(
+      this.constants.pageName.home_pages,
+      'tapped_lapor',
+      '',
+      1
+    );
   }
 
   goAspirasi() {
     this.navCtrl.navigateForward('aspirasi');
+
+    // google event analytics
+    this.util.trackEvent(
+      this.constants.pageName.home_pages,
+      'tapped_usulan',
+      '',
+      1
+    );
   }
 
   goNotifikasi() {
     this.navCtrl.navigateForward('notifikasi');
+
+    // google event analytics
+    this.util.trackEvent(
+      this.constants.pageName.home_pages,
+      'tapped_notification',
+      '',
+      1
+    );
   }
 
   goSamsat() {
     this.navCtrl.navigateForward('e-samsat');
+
+    // google event analytics
+    this.util.trackEvent(
+      this.constants.pageName.home_pages,
+      'tapped_e_Samsat',
+      '',
+      1
+    );
   }
 
   goPolling() {
     this.navCtrl.navigateForward('polling');
+
+    // google event analytics
+    this.util.trackEvent(
+      this.constants.pageName.home_pages,
+      'tapped_polling',
+      '',
+      1
+    );
   }
 
   goSurvey() {
     this.navCtrl.navigateForward('survey');
+
+    // google event analytics
+    this.util.trackEvent(
+      this.constants.pageName.home_pages,
+      'tapped_survei',
+      '',
+      1
+    );
   }
 
   goAdministrasi() {
     this.navCtrl.navigateForward('administrasi');
+
+    // google event analytics
+    this.util.trackEvent(
+      this.constants.pageName.home_pages,
+      'tapped_administrasi',
+      '',
+      1
+    );
   }
 
   // call function launchApp to open external app
@@ -344,6 +446,13 @@ export class HomeResultsPage implements OnInit {
         '',
         1
       );
+
+      this.util.trackEvent(
+        this.constants.pageName.home_pages,
+        `tapped_view_all_${transformKabkota}_news`,
+        '',
+        1
+      );
     } else {
       this.router.navigate(['news']);
 
@@ -354,16 +463,31 @@ export class HomeResultsPage implements OnInit {
         '',
         1
       );
+
+      this.util.trackEvent(
+        this.constants.pageName.home_pages,
+        'tapped_view_all_jabar_news',
+        '',
+        1
+      );
     }
   }
 
-  goToDetailNews(id: number) {
+  goToDetailNews(id: number, title: string) {
     // check internet
     if (!navigator.onLine) {
       alert(Dictionary.offline);
       return;
     }
     this.router.navigate(['/news', id]);
+
+    // google event analytics
+    this.util.trackEvent(
+      this.constants.pageName.home_pages,
+      'tapped_detail_news',
+      title,
+      1
+    );
   }
   getNewsFeatured(idkabkota?: number) {
     // check internet
@@ -470,16 +594,33 @@ export class HomeResultsPage implements OnInit {
       // google event analytics
       this.util.trackEvent(
         this.constants.pageName.humas,
-        'view_detail_humas_jabar',
-        url,
+        'view_list_humas_jabar',
+        '',
+        1
+      );
+
+      this.util.trackEvent(
+        this.constants.pageName.home_pages,
+        'tapped_view_all_humas_jabar',
+        '',
         1
       );
     } else {
+      // get title humas
+      const getTitle = this.dataHumas.find(x => x.slug === url).post_title;
+
       // google event analytics
       this.util.trackEvent(
         this.constants.pageName.humas,
-        'view_list_humas_jabar',
-        '',
+        'view_detail_humas_jabar',
+        getTitle,
+        1
+      );
+
+      this.util.trackEvent(
+        this.constants.pageName.home_pages,
+        'tapped_humas_jabar',
+        getTitle,
         1
       );
     }
@@ -545,6 +686,13 @@ export class HomeResultsPage implements OnInit {
     this.util.trackEvent(
       this.constants.pageName.videoList,
       'view_detail_videos',
+      title,
+      1
+    );
+
+    this.util.trackEvent(
+      this.constants.pageName.home_pages,
+      'tapped_videos',
       title,
       1
     );

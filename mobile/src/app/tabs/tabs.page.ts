@@ -1,6 +1,8 @@
 import { Component, ChangeDetectorRef } from '@angular/core';
 import { BroadcastService } from '../services/broadcast.service';
 import { Broadcast } from '../interfaces/broadcast';
+import { UtilitiesService } from '../services/utilities.service';
+import { Constants } from '../helpers/constants';
 
 @Component({
   selector: 'app-tabs',
@@ -13,7 +15,9 @@ export class TabsPage {
   dataBroadcast: Broadcast[];
   constructor(
     private broadcastService: BroadcastService,
-    private ref: ChangeDetectorRef
+    private ref: ChangeDetectorRef,
+    private util: UtilitiesService,
+    public constants: Constants
   ) {
     // check if length data broadCast === dataRead
     this.checkLenghtRead();
@@ -40,5 +44,30 @@ export class TabsPage {
     } else {
       this.broadcastService.setNotification(true);
     }
+  }
+
+  eventTapped(name: string) {
+    let action: string;
+
+    switch (name) {
+      case 'home':
+        action = 'tapped_home';
+        break;
+      case 'broadcast':
+        action = 'tapped_broadcast';
+        break;
+      case 'help':
+        action = 'tapped_bantuan';
+        break;
+      case 'account':
+        action = 'tapped_akun';
+        break;
+      default:
+        return;
+        break;
+    }
+
+    // google event analytics
+    this.util.trackEvent(this.constants.pageName.home_pages, action, '', 1);
   }
 }

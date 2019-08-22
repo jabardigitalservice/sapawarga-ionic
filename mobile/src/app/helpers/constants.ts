@@ -20,9 +20,10 @@ export class Constants {
     news: 'Berita',
     humas: 'Humas Jabar',
     videoList: 'Video List',
-    notification: 'notifikasi',
+    notification: 'Notifikasi',
     infoHarga: 'Info Harga',
-    perizinan: 'Perizinan'
+    perizinan: 'Perizinan',
+    home_pages: 'Home Pages'
   };
 
   public inAppBrowserOptions: any = {
