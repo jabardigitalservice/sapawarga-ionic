@@ -14,6 +14,7 @@ import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 import { UtilitiesService } from './services/utilities.service';
 import { GoogleAnalytics } from '@ionic-native/google-analytics/ngx';
 import { Constants } from './helpers/constants';
+import { ProfileService } from './services/profile.service';
 
 @Component({
   selector: 'app-root',
@@ -40,7 +41,8 @@ export class AppComponent {
     private notifikasiService: NotifikasiService,
     private inAppBrowser: InAppBrowser,
     private util: UtilitiesService,
-    private constants: Constants
+    private constants: Constants,
+    private profileService: ProfileService
   ) {
     this.initializeApp();
     this.platform.backButton.subscribe(() => {
@@ -91,12 +93,14 @@ export class AppComponent {
             this.navCtrl.navigateRoot('/');
 
             //  get ID user
-            const idUser = JSON.parse(
-              localStorage.getItem('PROFILE')
-            ).id.toString();
+            const idUser = this.profileService.getLocalProfile()
+              ? this.profileService.getLocalProfile().id.toString()
+              : null;
 
-            // set user ID google analytics
-            this.googleAnalytics.setUserId(idUser);
+            if (idUser) {
+              // set user ID google analytics
+              this.googleAnalytics.setUserId(idUser);
+            }
           } else {
             const hasOnboarding = localStorage.getItem('has-onboarding');
             if (hasOnboarding) {

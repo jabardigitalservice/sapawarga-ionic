@@ -230,7 +230,7 @@ export class LoginPage implements OnInit {
     this.profileService.getProfile().subscribe(
       res => {
         // save to local storage
-        localStorage.setItem('PROFILE', JSON.stringify(res['data']));
+        this.profileService.saveProfile(res['data']);
         loader.dismiss();
         this.navCtrl.navigateRoot(['/tabs']['home']);
       },

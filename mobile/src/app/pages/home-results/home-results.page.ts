@@ -184,9 +184,6 @@ export class HomeResultsPage implements OnInit {
         }
       }
     ];
-
-    // get data user using BehaviorSubject
-    this.profileService.currentUser.subscribe(x => (this.data_profile = x));
   }
 
   ngOnInit() {
@@ -204,13 +201,18 @@ export class HomeResultsPage implements OnInit {
 
     // get data news
     this.getNewsFeatured();
-    this.getNewsFeatured(this.data_profile.kabkota_id);
 
     // get data humas
     this.getDataHumas();
 
     // get data Video Post
     this.getVideoPost();
+
+    // get data user using BehaviorSubject
+    this.profileService.currentUser.subscribe((state: Profile) => {
+      this.data_profile = state;
+      this.getNewsFeatured(this.data_profile.kabkota_id);
+    });
   }
 
   swipeSlide(name: string) {
