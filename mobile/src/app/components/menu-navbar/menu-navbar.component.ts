@@ -23,16 +23,10 @@ export class MenuNavbarComponent implements OnInit {
   ngOnInit() {}
 
   async logout() {
+    this.popover.dismiss();
+    this.navCtrl.navigateRoot('/login');
     // call service logout to clear local storage
-    this.authService.logout().subscribe(
-      res => {
-        this.popover.dismiss();
-        this.navCtrl.navigateRoot('/login');
-      },
-      err => {
-        this.popover.dismiss();
-      }
-    );
+    this.authService.logout().subscribe(() => {}, () => {});
   }
 
   editProfile() {
