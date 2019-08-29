@@ -19,13 +19,13 @@
       <ion-card-subtitle
         class="dark-read"
         [ngClass]="{ 'dark-read': !checkRead(broadcast.id) }"
-        >Dari: {{ broadcast.author.name }}</ion-card-subtitle
+        >Dari: {{ broadcast.sender_name }}</ion-card-subtitle
       >
       <ion-card-subtitle>{{
-        broadcast.updated_at * 1000 | date: 'MMM d, y h:mm a'
+        broadcast.created_at * 1000 | date: 'MMM d, y h:mm a'
       }}</ion-card-subtitle>
       <ion-card-subtitle [ngClass]="{ 'dark-read': !checkRead(broadcast.id) }"
-        >[ {{ broadcast['category']['name'] }} ]</ion-card-subtitle
+        >[ {{ broadcast.title }} ]</ion-card-subtitle
       >
       <ion-text [ngClass]="{ 'dark-read': !checkRead(broadcast.id) }">{{
         broadcast.title

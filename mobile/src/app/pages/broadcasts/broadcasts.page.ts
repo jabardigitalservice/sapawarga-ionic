@@ -152,11 +152,11 @@ export class BroadcastsPage implements OnInit {
     this.router.navigate(['/broadcast', broadcast.id], {
       queryParams: {
         id: broadcast.id,
-        author: broadcast.author.name,
+        author: broadcast.sender_name,
         title: broadcast.title,
-        category_name: broadcast.category.name,
-        description: broadcast.description,
-        updated_at: broadcast.updated_at
+        category_name: broadcast.title,
+        description: broadcast.content,
+        updated_at: broadcast.created_at
       }
     });
   }
@@ -171,7 +171,7 @@ export class BroadcastsPage implements OnInit {
   }
 
   // check if data isRead/UnRead
-  checkRead(id: number) {
+  checkRead(id: string) {
     return this.dataRead.filter(x => x.id === id).length > 0;
   }
 }

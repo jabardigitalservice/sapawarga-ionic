@@ -18,13 +18,7 @@ export class BroadcastService {
 
   getListBroadCasts(): Observable<Broadcast[]> {
     return this.http
-      .get<Broadcast[]>(`${environment.API_URL}/broadcasts`)
-      .pipe(catchError(this.util.handleError));
-  }
-
-  getDetailBroadCast(id: number): Observable<Broadcast> {
-    return this.http
-      .get<Broadcast>(`${environment.API_URL}/broadcasts/${id}`)
+      .get<Broadcast[]>(`${environment.API_URL}/user-messages`)
       .pipe(catchError(this.util.handleError));
   }
 
