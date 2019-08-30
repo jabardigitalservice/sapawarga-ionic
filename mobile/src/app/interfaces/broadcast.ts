@@ -6,6 +6,7 @@ export interface Broadcast {
   sender_name: string;
   recipient_id: number;
   title: string;
+  category_name: string;
   excerpt: any;
   content: string;
   status: number;

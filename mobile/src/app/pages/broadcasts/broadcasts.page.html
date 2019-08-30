@@ -25,7 +25,7 @@
         broadcast.created_at * 1000 | date: 'MMM d, y h:mm a'
       }}</ion-card-subtitle>
       <ion-card-subtitle [ngClass]="{ 'dark-read': !checkRead(broadcast.id) }"
-        >[ {{ broadcast.title }} ]</ion-card-subtitle
+        >[ {{ broadcast.category_name }} ]</ion-card-subtitle
       >
       <ion-text [ngClass]="{ 'dark-read': !checkRead(broadcast.id) }">{{
         broadcast.title
