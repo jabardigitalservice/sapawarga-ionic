@@ -56,4 +56,20 @@ export class Constants {
   };
 
   public trackIdGoogleAnalytics = 'UA-140018658-3';
+
+  localStorage: any = {
+    videoPostData: 'video-post',
+    profileData: 'PROFILE',
+    authToken: 'auth-token',
+    NewsHeadlines: 'news-headlines',
+    NewsKabkotaHeadlines: 'news-kabkota-headlines',
+    notification: 'notifikasi',
+    broadcastData: 'broadcast-data',
+    broadcast: 'broadcast',
+    aspirasi: 'aspirasi',
+    aspirasiLikes: 'aspirasi-likes',
+    aspirasiUser: 'aspirasi-user',
+    pollingData: 'data-polling',
+    onBoarding: 'has-onboarding'
+  };
 }

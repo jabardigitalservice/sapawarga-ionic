@@ -5,6 +5,7 @@ import { environment } from '../../environments/environment';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { Platform } from '@ionic/angular';
 import { UtilitiesService } from './utilities.service';
+import { Constants } from '../helpers/constants';
 
 const TOKEN_KEY = 'auth-token';
 
@@ -17,7 +18,8 @@ export class AuthService {
   constructor(
     private http: HttpClient,
     private plt: Platform,
-    private util: UtilitiesService
+    private util: UtilitiesService,
+    private constants: Constants
   ) {
     this.plt.ready().then(() => {
       this.checkToken();
@@ -50,9 +52,19 @@ export class AuthService {
       .post(`${environment.API_URL}/user/logout`, null)
       .pipe(
         tap(res => {
-          localStorage.clear();
-          // onboarding page will not be displayed anymore
-          localStorage.setItem('has-onboarding', 'true');
+          this.deleteDataLocal(this.constants.localStorage.videoPostData);
+          this.deleteDataLocal(this.constants.localStorage.profileData);
+          this.deleteDataLocal(this.constants.localStorage.authToken);
+          this.deleteDataLocal(this.constants.localStorage.NewsHeadlines);
+          this.deleteDataLocal(
+            this.constants.localStorage.NewsKabkotaHeadlines
+          );
+          this.deleteDataLocal(this.constants.localStorage.notification);
+          this.deleteDataLocal(this.constants.localStorage.broadcastData);
+          this.deleteDataLocal(this.constants.localStorage.aspirasi);
+          this.deleteDataLocal(this.constants.localStorage.aspirasiLikes);
+          this.deleteDataLocal(this.constants.localStorage.aspirasiUser);
+          this.deleteDataLocal(this.constants.localStorage.pollingData);
           this.authenticationState.next(false);
         }),
         catchError(this.util.handleError)
@@ -63,5 +75,9 @@ export class AuthService {
 
   isAuthenticated() {
     return this.authenticationState.value;
+  }
+
+  deleteDataLocal(key: string) {
+    localStorage.removeItem(key);
   }
 }

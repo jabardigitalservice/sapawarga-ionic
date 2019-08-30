@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { Dictionary } from '../../helpers/dictionary';
 import { UtilitiesService } from '../../services/utilities.service';
 import { Constants } from '../../helpers/constants';
+import { ProfileService } from '../../services/profile.service';
 
 @Component({
   selector: 'app-broadcasts',
@@ -26,13 +27,18 @@ export class BroadcastsPage implements OnInit {
     msg: ''
   };
 
+  idUser: number;
+
   constructor(
     private broadcastService: BroadcastService,
     public loadingCtrl: LoadingController,
     private router: Router,
     private util: UtilitiesService,
-    private constants: Constants
-  ) {}
+    private constants: Constants,
+    private profileService: ProfileService
+  ) {
+    this.idUser = this.profileService.getLocalProfile().id;
+  }
 
   ngOnInit() {
     // google analytics
@@ -139,6 +145,7 @@ export class BroadcastsPage implements OnInit {
     if (this.checkRead(broadcast.id) === false) {
       const data = {
         id: broadcast.id,
+        iduser: this.idUser,
         read: true
       };
       this.dataRead.push(data);
