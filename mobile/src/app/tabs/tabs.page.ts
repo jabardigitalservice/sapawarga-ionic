@@ -13,7 +13,6 @@ import { Profile } from '../interfaces/profile';
 })
 export class TabsPage {
   notification = false;
-  dataRead = [];
   dataBroadcast: Broadcast[];
   idUser: number;
 
@@ -48,6 +47,7 @@ export class TabsPage {
   }
 
   checkLenghtRead() {
+    const dataReads = [];
     // get data read broadcast from local
     const readBroastcast = this.broadcastService.getBroadcast() || [];
 
@@ -58,10 +58,10 @@ export class TabsPage {
       readBroastcast.forEach((dataRead: any) => {
         if (dataRead.iduser === this.idUser) {
           // check is current user
-          this.dataRead.push(dataRead);
+          dataReads.push(dataRead);
 
           // active icon notification when data read is empty
-          if (this.dataRead.length === this.dataBroadcast.length) {
+          if (dataReads.length === this.dataBroadcast.length) {
             this.broadcastService.setNotification(false);
           } else {
             // active icon notification true
@@ -72,7 +72,7 @@ export class TabsPage {
           this.broadcastService.setNotification(false);
         }
       });
-    } else if (!this.dataRead.length && this.dataBroadcast.length) {
+    } else if (!dataReads.length && this.dataBroadcast.length) {
       // active icon notification when data read is empty
       this.broadcastService.setNotification(true);
     }
