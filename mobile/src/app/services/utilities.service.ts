@@ -5,11 +5,13 @@ import * as moment from 'moment';
 import {
   ToastController,
   AlertController,
-  ActionSheetController
+  ActionSheetController,
+  ModalController
 } from '@ionic/angular';
 import { HttpErrorResponse } from '@angular/common/http';
 import { throwError } from 'rxjs';
 import { GoogleAnalytics } from '@ionic-native/google-analytics/ngx';
+import { ModalComponent } from '../shared/modal/modal.component';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +21,8 @@ export class UtilitiesService {
     private toastCtrl: ToastController,
     private alertController: AlertController,
     private actionsheetCtrl: ActionSheetController,
-    private googleAnalytics: GoogleAnalytics
+    private googleAnalytics: GoogleAnalytics,
+    private modalController: ModalController
   ) {}
 
   timeAgo(value: number) {
@@ -117,5 +120,14 @@ export class UtilitiesService {
   // initial event event
   trackEvent(category: string, action: string, label?: string, value?: number) {
     this.googleAnalytics.trackEvent(category, action, label, value);
+  }
+
+  async presentModal() {
+    const modal = await this.modalController.create({
+      component: ModalComponent,
+      cssClass: 'modal-update',
+      backdropDismiss: false
+    });
+    return await modal.present();
   }
 }

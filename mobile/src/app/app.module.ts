@@ -32,11 +32,13 @@ import {
 import { HTTP } from '@ionic-native/http/ngx';
 import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 import { GoogleAnalytics } from '@ionic-native/google-analytics/ngx';
+import { ModalComponent } from './shared/modal/modal.component';
 @NgModule({
   declarations: [
     AppComponent,
     MenuNavbarComponent,
-    MenuNavbarAspirasiComponent
+    MenuNavbarAspirasiComponent,
+    ModalComponent
   ],
   imports: [
     BrowserModule,
@@ -46,7 +48,11 @@ import { GoogleAnalytics } from '@ionic-native/google-analytics/ngx';
     IonicStorageModule.forRoot(),
     HttpClientModule
   ],
-  entryComponents: [MenuNavbarComponent, MenuNavbarAspirasiComponent],
+  entryComponents: [
+    MenuNavbarComponent,
+    MenuNavbarAspirasiComponent,
+    ModalComponent
+  ],
   providers: [
     StatusBar,
     SplashScreen,

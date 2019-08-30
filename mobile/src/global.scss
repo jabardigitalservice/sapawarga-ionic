@@ -100,8 +100,7 @@ ion-item {
 .text-primary {
   color: var(--ion-color-primary);
 }
-
-.text-secondary {
+hei .text-secondary {
   color: var(--ion-color-secondary);
 }
 
@@ -134,7 +133,7 @@ ion-item {
   margin-top: -5px;
 }
 
-// padding
+// paddinghei
 .pt-5 {
   padding-top: 5px;
 }
@@ -310,6 +309,15 @@ ion-menu {
   width: 145px;
   height: 103px;
   right: 0;
+}
+
+.modal-update {
+  --height: 85% !important;
+  --width: 85% !important;
+}
+
+.modal-update .modal-wrapper {
+  border-radius: 10px;
 }
 
 // tablet mode

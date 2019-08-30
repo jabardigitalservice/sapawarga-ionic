@@ -82,6 +82,9 @@ export class AppComponent {
           this.screenOrientation.ORIENTATIONS.PORTRAIT
         );
 
+        // check update
+        this.util.presentModal();
+
         // integrasi google analytics
         this.googleAnalytics
           .startTrackerWithId(this.constants.trackIdGoogleAnalytics)
