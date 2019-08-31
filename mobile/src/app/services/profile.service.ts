@@ -16,7 +16,7 @@ export class ProfileService {
 
   constructor(private http: HttpClient, private util: UtilitiesService) {
     this.currentUserSubject = new BehaviorSubject<Profile>(
-      JSON.parse(localStorage.getItem(PROFILE))
+      JSON.parse(localStorage.getItem(PROFILE)) || []
     );
 
     this.currentUser = this.currentUserSubject.asObservable();
@@ -55,8 +55,9 @@ export class ProfileService {
   }
 
   // save data into local storage
-  saveProfile(data: object) {
+  saveProfile(data: Profile) {
     localStorage.setItem(PROFILE, JSON.stringify(data));
+    this.currentUserSubject.next(data);
   }
 
   // save data into local storage

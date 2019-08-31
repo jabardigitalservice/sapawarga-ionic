@@ -3,6 +3,8 @@ import { BroadcastService } from '../services/broadcast.service';
 import { Broadcast } from '../interfaces/broadcast';
 import { UtilitiesService } from '../services/utilities.service';
 import { Constants } from '../helpers/constants';
+import { ProfileService } from '../services/profile.service';
+import { Profile } from '../interfaces/profile';
 
 @Component({
   selector: 'app-tabs',
@@ -11,16 +13,23 @@ import { Constants } from '../helpers/constants';
 })
 export class TabsPage {
   notification = false;
-  dataRead = [];
   dataBroadcast: Broadcast[];
+  idUser: number;
+
   constructor(
     private broadcastService: BroadcastService,
     private ref: ChangeDetectorRef,
     private util: UtilitiesService,
-    public constants: Constants
+    public constants: Constants,
+    private profileService: ProfileService
   ) {
-    // check if length data broadCast === dataRead
-    this.checkLenghtRead();
+    // get id user using BehaviorSubject
+    this.profileService.currentUser.subscribe((state: Profile) => {
+      this.idUser = state.id;
+    });
+
+    // get data broadcast
+    this.getBroadcasts();
 
     // listen and render component
     setInterval(() => {
@@ -32,16 +41,39 @@ export class TabsPage {
     });
   }
 
+  ionViewDidEnter() {
+    // check if length data broadCast === dataRead
+    this.checkLenghtRead();
+  }
+
   checkLenghtRead() {
-    // get data read broadcast
-    this.dataRead = this.broadcastService.getBroadcast() || [];
+    const dataReads = [];
+    // get data read broadcast from local
+    const readBroastcast = this.broadcastService.getBroadcast() || [];
 
     // get data broadcast from local
     this.dataBroadcast = this.broadcastService.getLocalBroadcast() || [];
 
-    if (this.dataRead.length === this.dataBroadcast.length) {
-      this.broadcastService.setNotification(false);
-    } else {
+    if (readBroastcast.length) {
+      readBroastcast.forEach((dataRead: any) => {
+        if (dataRead.iduser === this.idUser) {
+          // check is current user
+          dataReads.push(dataRead);
+
+          // active icon notification when data read is empty
+          if (dataReads.length === this.dataBroadcast.length) {
+            this.broadcastService.setNotification(false);
+          } else {
+            // active icon notification true
+            this.broadcastService.setNotification(true);
+          }
+        } else {
+          // data read local != iduser
+          this.broadcastService.setNotification(false);
+        }
+      });
+    } else if (!dataReads.length && this.dataBroadcast.length) {
+      // active icon notification when data read is empty
       this.broadcastService.setNotification(true);
     }
   }
@@ -69,5 +101,24 @@ export class TabsPage {
 
     // google event analytics
     this.util.trackEvent(this.constants.pageName.home_pages, action, '', 1);
+  }
+
+  // get data broadcasts
+  async getBroadcasts() {
+    // check internet
+    if (!navigator.onLine) {
+      return;
+    }
+    this.broadcastService.getListBroadCasts().subscribe(
+      res => {
+        if (res['data']['items'].length) {
+          this.dataBroadcast = res['data']['items'];
+
+          // save to local
+          this.broadcastService.saveLocalBroadcast(this.dataBroadcast);
+        }
+      },
+      _ => {}
+    );
   }
 }
