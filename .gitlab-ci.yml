@@ -5,7 +5,7 @@ stages:
 
 versioning:
   image: alpine:latest
-  stage: versioning
+  stage: prepare
   only:
     - branches
   before_script:
