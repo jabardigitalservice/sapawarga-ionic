@@ -120,6 +120,7 @@ test:
     - echo $VERSION > ${VERSION}.txt
     - pwd
     - ls -al
+    - echo $CI_COMMIT_TAG
   artifacts:
     paths:
       - ${VERSION}.txt
