@@ -114,7 +114,7 @@ test:
   services:
     - docker:dind
   variables:
-    VERSION=dev-123
+    VERSION: dev-123
   before_script:
     - echo $VERSION
     - export VERSION=dev456
