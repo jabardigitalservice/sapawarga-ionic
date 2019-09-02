@@ -103,6 +103,25 @@ build_apk:
     - docker-compose exec -T app ls -al
     - docker-compose exec -T app ls -al platforms/android/app/build/outputs/apk/release/
     - docker-compose exec -T app apksigner verify app-release-signed-${VERSION}.apk
+    - ls -al platforms/android/app/build/outputs/apk/release/
   artifacts:
     paths:
       - mobile/app-release-signed-${VERSION}.apk
+
+test:
+  image: docker:latest
+  stage: build
+  services:
+    - docker:dind
+  variables:
+    VERSION=dev-123
+  before_script:
+    - echo $VERSION
+    - export VERSION=dev456
+  script:
+    - echo $VERSION > ${VERSION}.txt
+    - pwd
+    - ls -al
+  artifacts:
+    paths:
+      - ${VERSION}.txt
