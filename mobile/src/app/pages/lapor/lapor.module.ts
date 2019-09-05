@@ -9,6 +9,7 @@ import { LaporPage } from './lapor.page';
 
 // plugin
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
+import { SMS } from '@ionic-native/sms/ngx';
 
 const routes: Routes = [
   {
@@ -24,7 +25,7 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes)
   ],
-  providers: [InAppBrowser],
+  providers: [InAppBrowser, SMS],
   declarations: [LaporPage]
 })
 export class LaporPageModule {}

@@ -3,6 +3,8 @@ import { Platform } from '@ionic/angular';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { UtilitiesService } from '../../services/utilities.service';
 import { Constants } from '../../helpers/constants';
+import { Profile } from '../../interfaces/profile';
+import { ProfileService } from '../../services/profile.service';
 
 @Component({
   selector: 'app-lapor',
@@ -31,11 +33,14 @@ export class LaporPage implements OnInit {
     }
   ];
 
+  data_profile: Profile;
+
   constructor(
     private platform: Platform,
     private inAppBrowser: InAppBrowser,
     private util: UtilitiesService,
-    private constants: Constants
+    private constants: Constants,
+    private profileService: ProfileService
   ) {}
 
   ngOnInit() {
@@ -43,6 +48,11 @@ export class LaporPage implements OnInit {
     this.util.trackPage(this.constants.pageName.report);
 
     this.createEventAnalytics('view_list_lapor', '');
+
+    // get data user using BehaviorSubject
+    this.profileService.currentUser.subscribe((state: Profile) => {
+      this.data_profile = state;
+    });
   }
 
   createEventAnalytics(action: string, label?: string) {
@@ -52,7 +62,7 @@ export class LaporPage implements OnInit {
   selectLapor(name: string, url: string) {
     switch (name) {
       case 'lapor':
-        this.launchweb(url, name);
+        this.smsLapor();
         break;
       case 'qlue':
         this.launchQlue(url, name);
@@ -85,5 +95,20 @@ export class LaporPage implements OnInit {
       // event google analytics
       this.createEventAnalytics('view_detail_lapor', name);
     }
+  }
+
+  private smsLapor() {
+    const transformName = this.data_profile.name.replace(/ /g, '_');
+    const kabkota = this.data_profile.kabkota.name;
+    const kecamatan = this.data_profile.kecamatan.name;
+    const description = 'Isi laporan anda disini';
+
+    const message = `LAPORJABAR ${transformName} ${kabkota} ${kecamatan} ${description}`;
+
+    // direct native sms
+    this.util.goToSms(this.constants.telpLapor, message);
+
+    // event google analytics
+    this.createEventAnalytics('lapor_sms_lapor', message);
   }
 }

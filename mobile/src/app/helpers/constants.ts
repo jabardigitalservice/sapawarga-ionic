@@ -72,4 +72,6 @@ export class Constants {
     pollingData: 'data-polling',
     onBoarding: 'has-onboarding'
   };
+
+  public telpLapor = '1708';
 }
