@@ -33,6 +33,7 @@ import { HTTP } from '@ionic-native/http/ngx';
 import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 import { GoogleAnalytics } from '@ionic-native/google-analytics/ngx';
 import { ModalComponent } from './shared/modal/modal.component';
+import { AppVersion } from '@ionic-native/app-version/ngx';
 @NgModule({
   declarations: [
     AppComponent,
@@ -72,7 +73,8 @@ import { ModalComponent } from './shared/modal/modal.component';
     InAppBrowser,
     Constants,
     HTTP,
-    ScreenOrientation
+    ScreenOrientation,
+    AppVersion
   ],
   bootstrap: [AppComponent]
 })
