@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Dictionary } from '../../helpers/dictionary';
 
 @Component({
   selector: 'app-modal',
@@ -6,10 +7,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./modal.component.scss']
 })
 export class ModalComponent implements OnInit {
+  msgApdate = Dictionary.msg_update_app;
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }

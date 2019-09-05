@@ -312,12 +312,14 @@ ion-menu {
 }
 
 .modal-update {
-  --height: 85% !important;
-  --width: 85% !important;
+  --height: 80% !important;
+  --width: 80% !important;
 }
 
 .modal-update .modal-wrapper {
   border-radius: 10px;
+  box-shadow: 4px 4px 10px rgb(117, 116, 116);
+  box-sizing: border-box;
 }
 
 // tablet mode
