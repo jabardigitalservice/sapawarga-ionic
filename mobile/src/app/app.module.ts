@@ -32,6 +32,7 @@ import {
 import { HTTP } from '@ionic-native/http/ngx';
 import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 import { GoogleAnalytics } from '@ionic-native/google-analytics/ngx';
+import { SMS } from '@ionic-native/sms/ngx';
 @NgModule({
   declarations: [
     AppComponent,
@@ -66,7 +67,8 @@ import { GoogleAnalytics } from '@ionic-native/google-analytics/ngx';
     InAppBrowser,
     Constants,
     HTTP,
-    ScreenOrientation
+    ScreenOrientation,
+    SMS
   ],
   bootstrap: [AppComponent]
 })
