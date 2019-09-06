@@ -56,4 +56,6 @@ export class Constants {
   };
 
   public trackIdGoogleAnalytics = 'UA-140018658-3';
+
+  public appID = 'com.sapawarga.jds';
 }

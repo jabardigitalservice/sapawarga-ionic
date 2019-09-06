@@ -84,9 +84,9 @@ export class AppComponent {
           this.screenOrientation.ORIENTATIONS.PORTRAIT
         );
 
-        const updateApp = this.appUpdateService.checkAppUpdate();
-        console.log(updateApp);
+        // check app is up to date / not
         this.util.presentModal();
+        this.appUpdateService.checkAppUpdate();
 
         // integrasi google analytics
         this.googleAnalytics

@@ -5,14 +5,19 @@ import { catchError } from 'rxjs/operators';
 
 // plugin
 import { AppVersion } from '@ionic-native/app-version/ngx';
+import { UtilitiesService } from './utilities.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AppUpdateService {
-  constructor(private http: HttpClient, private appVersion: AppVersion) {}
+  constructor(
+    private http: HttpClient,
+    private appVersion: AppVersion,
+    private util: UtilitiesService
+  ) {}
 
-  getVersionNumber() {
+  private getVersionNumberAPI() {
     return this.http.get<any>(`${environment.API_MOCK}/releases`).pipe(
       catchError(e => {
         throw new Error(e);
@@ -21,26 +26,20 @@ export class AppUpdateService {
   }
 
   checkAppUpdate() {
-    let updateApp: boolean;
+    this.appVersion
+      .getVersionNumber()
+      .then(sistemVersion => {
+        this.getVersionNumberAPI().subscribe(val => {
+          const dataVersion = val['data']['items'][0].version;
+          const forceUpdate = val['data']['items'][0].force_update;
+          console.log('versi API ' + dataVersion);
+          console.log('versi sistem ' + sistemVersion);
 
-    this.getVersionNumber().subscribe(val => {
-      const dataVersion = val['data']['items'][0].version;
-      // console.log(dataVersion);
-      this.appVersion
-        .getVersionNumber()
-        .then(sistemVersion => {
-          console.log(sistemVersion);
-          if (dataVersion === sistemVersion) {
-            updateApp = true;
-          } else {
-            updateApp = false;
+          if (dataVersion !== sistemVersion && forceUpdate) {
+            this.util.presentModal();
           }
-        })
-        .catch(_ => {
-          updateApp = false;
         });
-    });
-
-    return updateApp;
+      })
+      .catch(_ => {});
   }
 }
