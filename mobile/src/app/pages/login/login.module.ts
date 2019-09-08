@@ -10,6 +10,7 @@ import { LoginPage } from './login.page';
 import { AppVersion } from '@ionic-native/app-version/ngx';
 import { Downloader } from '@ionic-native/downloader/ngx';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
+import { SharedModule } from '../../shared/shared.module';
 
 const routes: Routes = [
   {
@@ -24,7 +25,8 @@ const routes: Routes = [
     FormsModule,
     ReactiveFormsModule,
     IonicModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    SharedModule
   ],
   providers: [AppVersion, Downloader, InAppBrowser],
   declarations: [LoginPage]

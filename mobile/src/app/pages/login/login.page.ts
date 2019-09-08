@@ -4,7 +4,8 @@ import {
   NavController,
   MenuController,
   LoadingController,
-  Platform
+  Platform,
+  ModalController
 } from '@ionic/angular';
 import { AuthService } from './../../services/auth.service';
 import { Router } from '@angular/router';
@@ -23,6 +24,7 @@ import {
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { ProfileService } from '../../services/profile.service';
 import { UtilitiesService } from '../../services/utilities.service';
+import { ForceChangePasswordComponent } from '../../shared/force-change-password/force-change-password.component';
 
 @Component({
   selector: 'app-login',
@@ -55,7 +57,8 @@ export class LoginPage implements OnInit {
     private constants: Constants,
     private inAppBrowser: InAppBrowser,
     private profileService: ProfileService,
-    private util: UtilitiesService
+    private util: UtilitiesService,
+    private modalController: ModalController
   ) {
     this.appVersion
       .getVersionNumber()
@@ -90,6 +93,15 @@ export class LoginPage implements OnInit {
     this.fcm.getToken().then(token => {
       this.f.push_token.setValue(token);
     });
+
+    this.showChangePassword();
+  }
+
+  async showChangePassword() {
+    const modal = await this.modalController.create({
+      component: ForceChangePasswordComponent
+    });
+    return await modal.present();
   }
 
   // convenience getter for easy access to form fields
