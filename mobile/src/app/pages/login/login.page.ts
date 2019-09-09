@@ -25,6 +25,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { ProfileService } from '../../services/profile.service';
 import { UtilitiesService } from '../../services/utilities.service';
 import { ForceChangePasswordComponent } from '../../shared/force-change-password/force-change-password.component';
+import { ForceUpdateService } from '../../services/force-update.service';
 
 @Component({
   selector: 'app-login',
@@ -58,7 +59,8 @@ export class LoginPage implements OnInit {
     private inAppBrowser: InAppBrowser,
     private profileService: ProfileService,
     private util: UtilitiesService,
-    private modalController: ModalController
+    private modalController: ModalController,
+    private forceUpdateService: ForceUpdateService
   ) {
     this.appVersion
       .getVersionNumber()
@@ -93,15 +95,6 @@ export class LoginPage implements OnInit {
     this.fcm.getToken().then(token => {
       this.f.push_token.setValue(token);
     });
-
-    this.showChangePassword();
-  }
-
-  async showChangePassword() {
-    const modal = await this.modalController.create({
-      component: ForceChangePasswordComponent
-    });
-    return await modal.present();
   }
 
   // convenience getter for easy access to form fields
@@ -244,11 +237,37 @@ export class LoginPage implements OnInit {
         // save to local storage
         this.profileService.saveProfile(res['data']);
         loader.dismiss();
-        this.navCtrl.navigateRoot(['/tabs']['home']);
+
+        // check password is update
+        if (res['data'].password_updated_at !== null) {
+          this.navCtrl.navigateRoot(['/tabs']['home']);
+        } else {
+          localStorage.removeItem('auth-token');
+
+          const dataForceChange = this.forceUpdateService.getDataForceChange();
+          console.log(dataForceChange);
+          if (!dataForceChange || dataForceChange.isChangePassword === false) {
+            this.showForceChange(1);
+          } else if (
+            dataForceChange.isChangePassword === true &&
+            dataForceChange.isChangeProfile === false
+          ) {
+            console.log('masuk modal force profile');
+          }
+        }
       },
       err => {
         loader.dismiss();
       }
     );
+  }
+
+  async showForceChange(data: number) {
+    console.log(data);
+    const modal = await this.modalController.create({
+      component: ForceChangePasswordComponent,
+      keyboardClose: false
+    });
+    return await modal.present();
   }
 }

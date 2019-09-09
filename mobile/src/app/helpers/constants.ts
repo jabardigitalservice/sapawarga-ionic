@@ -70,7 +70,8 @@ export class Constants {
     aspirasiLikes: 'aspirasi-likes',
     aspirasiUser: 'aspirasi-user',
     pollingData: 'data-polling',
-    onBoarding: 'has-onboarding'
+    onBoarding: 'has-onboarding',
+    forceChange: 'forceChange'
   };
 
   public telpLapor = '1708';
