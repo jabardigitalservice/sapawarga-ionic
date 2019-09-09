@@ -11,10 +11,21 @@ export class ForceProfileComponent implements OnInit {
   submitted = false;
   constructor(private formBuilder: FormBuilder) {
     this.changeProfileForm = this.formBuilder.group({
-      name: ['', [Validators.required, Validators.minLength(6)]],
-      email: ['', [Validators.required, Validators.minLength(6)]],
-      telp: ['', [Validators.required, Validators.minLength(6)]],
-      address: ['', [Validators.required, Validators.minLength(6)]]
+      name: [
+        '',
+        [
+          Validators.required,
+          Validators.maxLength(255),
+          Validators.minLength(4),
+          Validators.pattern(/^[A-Za-z ]+$/)
+        ]
+      ],
+      email: ['', [Validators.required, Validators.email]],
+      phone: [
+        '',
+        [Validators.required, Validators.minLength(3), Validators.maxLength(12)]
+      ],
+      address: ['', [Validators.required, Validators.maxLength(255)]]
     });
   }
 

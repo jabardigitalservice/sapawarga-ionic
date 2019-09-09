@@ -101,6 +101,7 @@ export class LoginPage implements OnInit {
   async showChangePassword() {
     const modal = await this.modalController.create({
       component: ForceProfileComponent
+      // component: ForceChangePasswordComponent
     });
     return await modal.present();
   }

@@ -12,19 +12,29 @@
         class="text-dark"
         color="dark"
         formControlName="name"
-        [ngClass]="{ 'is-invalid': submitted && f.password.errors }"
+        [ngClass]="{ 'is-invalid': submitted && f.name.errors }"
         placeholder="Nama"
       ></ion-input>
     </ion-item>
-    <div *ngIf="submitted && !!f.password.errors" class="invalid-feedback">
-      <p ion-text class="text08" *ngIf="!!f.password.errors.required">
+    <div *ngIf="submitted && !!f.name.errors" class="invalid-feedback">
+      <p ion-text class="text08" *ngIf="!!f.name.errors.required">
         <ion-text color="danger">
-          Kata Sandi harus diisi
+          Nama harus diisi
         </ion-text>
       </p>
-      <p ion-text class="text08" *ngIf="!!f.password.errors.minlength">
+      <p ion-text class="text08" *ngIf="!!f.name.errors.maxlength">
         <ion-text color="danger">
-          Kata Sandi minimal 6 karakter
+          Nama yang anda inputkan lebih dari 255 karakter
+        </ion-text>
+      </p>
+      <p ion-text class="text08" *ngIf="!!f.name.errors.minlength">
+        <ion-text color="danger">
+          Nama harus terdiri dari 4 karakter atau lebih
+        </ion-text>
+      </p>
+      <p ion-text class="text08" *ngIf="!!f.name.errors.pattern">
+        <ion-text color="danger">
+          Isian yang diinputkan tidak sesuai
         </ion-text>
       </p>
     </div>
@@ -35,48 +45,59 @@
         class="text-dark"
         color="dark"
         formControlName="email"
-        [ngClass]="{ 'is-invalid': submitted && f.repeatPassword.errors }"
+        [ngClass]="{ 'is-invalid': submitted && f.email.errors }"
         placeholder="Email"
       ></ion-input>
     </ion-item>
-    <div
-      *ngIf="submitted && !!f.repeatPassword.errors"
-      class="invalid-feedback"
-    >
-      <p ion-text class="text08" *ngIf="!!f.repeatPassword.errors.required">
+    <div *ngIf="submitted && !!f.email.errors" class="invalid-feedback">
+      <p ion-text class="text08" *ngIf="!!f.email.errors.required">
         <ion-text color="danger">
-          Kata Sandi harus diisi
+          Email harus diisi
         </ion-text>
       </p>
-      <p ion-text class="text08" *ngIf="!!f.repeatPassword.errors.minlength">
+      <p ion-text class="text08" *ngIf="!!f.email.errors.email">
         <ion-text color="danger">
-          Kata Sandi minimal 6 karakter
+          Format email yang anda masukkan salah. Email hanya boleh menggunakan
+          alphanumeric, underscore, titik dan @
         </ion-text>
       </p>
+      <!-- <p
+        ion-text
+        class="text08"
+        *ngIf="msg_server.email && !!f.email.errors.notValid"
+      >
+        <ion-text color="danger">
+          {{ msg_server.email }}
+        </ion-text>
+      </p> -->
     </div>
 
     <ion-item no-padding>
       <ion-input
-        type="text"
+        type="tel"
         class="text-dark"
         color="dark"
-        formControlName="telp"
-        [ngClass]="{ 'is-invalid': submitted && f.repeatPassword.errors }"
+        formControlName="phone"
+        [ngClass]="{ 'is-invalid': submitted && f.phone.errors }"
         placeholder="Nomer Telp"
       ></ion-input>
     </ion-item>
-    <div
-      *ngIf="submitted && !!f.repeatPassword.errors"
-      class="invalid-feedback"
-    >
-      <p ion-text class="text08" *ngIf="!!f.repeatPassword.errors.required">
+    <div *ngIf="submitted && !!f.phone.errors" class="invalid-feedback">
+      <p ion-text class="text08" *ngIf="!!f.phone.errors.required">
         <ion-text color="danger">
-          Kata Sandi harus diisi
+          Nomor telepon harus diisi
         </ion-text>
       </p>
-      <p ion-text class="text08" *ngIf="!!f.repeatPassword.errors.minlength">
+      <p ion-text class="text08" *ngIf="!!f.phone.errors.minlength">
         <ion-text color="danger">
-          Kata Sandi minimal 6 karakter
+          Nomor telepon yang anda masukkan salah. Nomor telepon harus terdiri 3
+          sampai 13 nomor
+        </ion-text>
+      </p>
+      <p ion-text class="text08" *ngIf="!!f.phone.errors.maxlength">
+        <ion-text color="danger">
+          Nomor telepon yang anda masukkan salah. Nomor telepon harus terdiri 3
+          sampai 13 nomor
         </ion-text>
       </p>
     </div>
@@ -87,29 +108,31 @@
         class="text-dark"
         color="dark"
         formControlName="address"
-        [ngClass]="{ 'is-invalid': submitted && f.repeatPassword.errors }"
+        [ngClass]="{ 'is-invalid': submitted && f.address.errors }"
         placeholder="Alamat"
         rows="4"
       ></ion-textarea>
     </ion-item>
-    <div
-      *ngIf="submitted && !!f.repeatPassword.errors"
-      class="invalid-feedback"
-    >
-      <p ion-text class="text08" *ngIf="!!f.repeatPassword.errors.required">
+    <div *ngIf="submitted && !!f.address.errors" class="invalid-feedback">
+      <p ion-text class="text08" *ngIf="!!f.address.errors.required">
         <ion-text color="danger">
-          Kata Sandi harus diisi
+          Alamat harus diisi
         </ion-text>
       </p>
-      <p ion-text class="text08" *ngIf="!!f.repeatPassword.errors.minlength">
+      <p ion-text class="text08" *ngIf="!!f.address.errors.maxlength">
         <ion-text color="danger">
-          Kata Sandi minimal 6 karakter
+          Alamat yang anda inputkan lebih dari 255 karakter
         </ion-text>
       </p>
     </div>
   </form>
 
-  <ion-button expand="block" color="blues" tappable style="margin-top: 30px"
+  <ion-button
+    expand="block"
+    color="blues"
+    tappable
+    style="margin-top: 30px"
+    (click)="submitProfile()"
     >Simpan</ion-button
   >
 </ion-content>
