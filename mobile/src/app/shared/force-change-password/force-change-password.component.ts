@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { ModalController, LoadingController } from '@ionic/angular';
+import { ForceProfileComponent } from '../force-profile/force-profile.component';
 
 @Component({
   selector: 'app-force-change-password',
@@ -17,7 +18,8 @@ export class ForceChangePasswordComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private modalCtrl: ModalController,
-    private loadingCtrl: LoadingController
+    private loadingCtrl: LoadingController,
+    private modalController: ModalController
   ) {
     this.changePasswordForm = this.formBuilder.group({
       password: ['', [Validators.required, Validators.minLength(6)]],
@@ -89,5 +91,14 @@ export class ForceChangePasswordComponent implements OnInit {
 
     this.submitted = false;
     this.changePasswordForm.reset();
+
+    this.showEditProfile();
+  }
+
+  async showEditProfile() {
+    const modal = await this.modalController.create({
+      component: ForceProfileComponent
+    });
+    return await modal.present();
   }
 }

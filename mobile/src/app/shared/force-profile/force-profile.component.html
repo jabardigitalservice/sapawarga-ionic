@@ -1,0 +1,115 @@
+<ion-header>
+  <ion-toolbar color="light">
+    <ion-title>Lengkapi Profilmu</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <form [formGroup]="changeProfileForm">
+    <ion-item no-padding>
+      <ion-input
+        type="text"
+        class="text-dark"
+        color="dark"
+        formControlName="name"
+        [ngClass]="{ 'is-invalid': submitted && f.password.errors }"
+        placeholder="Nama"
+      ></ion-input>
+    </ion-item>
+    <div *ngIf="submitted && !!f.password.errors" class="invalid-feedback">
+      <p ion-text class="text08" *ngIf="!!f.password.errors.required">
+        <ion-text color="danger">
+          Kata Sandi harus diisi
+        </ion-text>
+      </p>
+      <p ion-text class="text08" *ngIf="!!f.password.errors.minlength">
+        <ion-text color="danger">
+          Kata Sandi minimal 6 karakter
+        </ion-text>
+      </p>
+    </div>
+
+    <ion-item no-padding>
+      <ion-input
+        type="email"
+        class="text-dark"
+        color="dark"
+        formControlName="email"
+        [ngClass]="{ 'is-invalid': submitted && f.repeatPassword.errors }"
+        placeholder="Email"
+      ></ion-input>
+    </ion-item>
+    <div
+      *ngIf="submitted && !!f.repeatPassword.errors"
+      class="invalid-feedback"
+    >
+      <p ion-text class="text08" *ngIf="!!f.repeatPassword.errors.required">
+        <ion-text color="danger">
+          Kata Sandi harus diisi
+        </ion-text>
+      </p>
+      <p ion-text class="text08" *ngIf="!!f.repeatPassword.errors.minlength">
+        <ion-text color="danger">
+          Kata Sandi minimal 6 karakter
+        </ion-text>
+      </p>
+    </div>
+
+    <ion-item no-padding>
+      <ion-input
+        type="text"
+        class="text-dark"
+        color="dark"
+        formControlName="telp"
+        [ngClass]="{ 'is-invalid': submitted && f.repeatPassword.errors }"
+        placeholder="Nomer Telp"
+      ></ion-input>
+    </ion-item>
+    <div
+      *ngIf="submitted && !!f.repeatPassword.errors"
+      class="invalid-feedback"
+    >
+      <p ion-text class="text08" *ngIf="!!f.repeatPassword.errors.required">
+        <ion-text color="danger">
+          Kata Sandi harus diisi
+        </ion-text>
+      </p>
+      <p ion-text class="text08" *ngIf="!!f.repeatPassword.errors.minlength">
+        <ion-text color="danger">
+          Kata Sandi minimal 6 karakter
+        </ion-text>
+      </p>
+    </div>
+
+    <ion-item no-padding>
+      <ion-textarea
+        type="text"
+        class="text-dark"
+        color="dark"
+        formControlName="address"
+        [ngClass]="{ 'is-invalid': submitted && f.repeatPassword.errors }"
+        placeholder="Alamat"
+        rows="4"
+      ></ion-textarea>
+    </ion-item>
+    <div
+      *ngIf="submitted && !!f.repeatPassword.errors"
+      class="invalid-feedback"
+    >
+      <p ion-text class="text08" *ngIf="!!f.repeatPassword.errors.required">
+        <ion-text color="danger">
+          Kata Sandi harus diisi
+        </ion-text>
+      </p>
+      <p ion-text class="text08" *ngIf="!!f.repeatPassword.errors.minlength">
+        <ion-text color="danger">
+          Kata Sandi minimal 6 karakter
+        </ion-text>
+      </p>
+    </div>
+  </form>
+
+  <ion-button expand="block" color="blues" tappable style="margin-top: 30px"
+    >Simpan</ion-button
+  >
+</ion-content>
