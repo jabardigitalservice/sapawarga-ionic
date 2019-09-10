@@ -61,3 +61,15 @@
 .tranform-text {
   text-transform: capitalize;
 }
+
+@media only screen and (min-width: 400px) {
+  .modal-card .img img {
+    width: 65%;
+  }
+}
+
+@media only screen and (min-width: 500px) {
+  .modal-card .img img {
+    width: 60%;
+  }
+}
