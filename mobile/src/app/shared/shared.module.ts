@@ -4,12 +4,14 @@ import { CommonModule } from '@angular/common';
 import { MessageControlComponent } from './message-control/message-control.component';
 import { AspirasiListComponent } from './aspirasi-list/aspirasi-list.component';
 import { MyAspirasiComponent } from './my-aspirasi/my-aspirasi.component';
+import { UpdateAppComponent } from './update-app/update-app.component';
 
 @NgModule({
   declarations: [
     MessageControlComponent,
     AspirasiListComponent,
-    MyAspirasiComponent
+    MyAspirasiComponent,
+    UpdateAppComponent
   ],
   imports: [CommonModule],
   exports: [

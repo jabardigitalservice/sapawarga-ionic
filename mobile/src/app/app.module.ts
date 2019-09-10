@@ -32,14 +32,14 @@ import {
 import { HTTP } from '@ionic-native/http/ngx';
 import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 import { GoogleAnalytics } from '@ionic-native/google-analytics/ngx';
-import { ModalComponent } from './shared/modal/modal.component';
 import { AppVersion } from '@ionic-native/app-version/ngx';
+import { UpdateAppComponent } from './shared/update-app/update-app.component';
 @NgModule({
   declarations: [
     AppComponent,
     MenuNavbarComponent,
     MenuNavbarAspirasiComponent,
-    ModalComponent
+    UpdateAppComponent
   ],
   imports: [
     BrowserModule,
@@ -52,7 +52,7 @@ import { AppVersion } from '@ionic-native/app-version/ngx';
   entryComponents: [
     MenuNavbarComponent,
     MenuNavbarAspirasiComponent,
-    ModalComponent
+    UpdateAppComponent
   ],
   providers: [
     StatusBar,

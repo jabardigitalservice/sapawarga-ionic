@@ -11,7 +11,7 @@ import {
 import { HttpErrorResponse } from '@angular/common/http';
 import { throwError } from 'rxjs';
 import { GoogleAnalytics } from '@ionic-native/google-analytics/ngx';
-import { ModalComponent } from '../shared/modal/modal.component';
+import { UpdateAppComponent } from '../shared/update-app/update-app.component';
 
 @Injectable({
   providedIn: 'root'
@@ -124,7 +124,7 @@ export class UtilitiesService {
 
   async presentModal() {
     const modal = await this.modalController.create({
-      component: ModalComponent,
+      component: UpdateAppComponent,
       cssClass: 'modal-update',
       backdropDismiss: false
     });
