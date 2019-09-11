@@ -32,12 +32,15 @@ import {
 import { HTTP } from '@ionic-native/http/ngx';
 import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 import { GoogleAnalytics } from '@ionic-native/google-analytics/ngx';
+import { AppVersion } from '@ionic-native/app-version/ngx';
+import { UpdateAppComponent } from './shared/update-app/update-app.component';
 import { SMS } from '@ionic-native/sms/ngx';
 @NgModule({
   declarations: [
     AppComponent,
     MenuNavbarComponent,
-    MenuNavbarAspirasiComponent
+    MenuNavbarAspirasiComponent,
+    UpdateAppComponent
   ],
   imports: [
     BrowserModule,
@@ -47,7 +50,11 @@ import { SMS } from '@ionic-native/sms/ngx';
     IonicStorageModule.forRoot(),
     HttpClientModule
   ],
-  entryComponents: [MenuNavbarComponent, MenuNavbarAspirasiComponent],
+  entryComponents: [
+    MenuNavbarComponent,
+    MenuNavbarAspirasiComponent,
+    UpdateAppComponent
+  ],
   providers: [
     StatusBar,
     SplashScreen,
@@ -67,6 +74,7 @@ import { SMS } from '@ionic-native/sms/ngx';
     InAppBrowser,
     Constants,
     HTTP,
+    AppVersion
     ScreenOrientation,
     SMS
   ],
