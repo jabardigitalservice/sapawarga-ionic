@@ -1,27 +1,32 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { environment } from '../../environments/environment';
-import { catchError } from 'rxjs/operators';
 
 // plugin
 import { AppVersion } from '@ionic-native/app-version/ngx';
+import { environment } from '../../environments/environment';
 import { UtilitiesService } from './utilities.service';
+import { HTTP } from '@ionic-native/http/ngx';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AppUpdateService {
   constructor(
-    private http: HttpClient,
+    private nativeHttp: HTTP,
     private appVersion: AppVersion,
     private util: UtilitiesService
   ) {}
 
   private getVersionNumberAPI() {
-    return this.http.get<any>(`${environment.API_MOCK}/releases`).pipe(
-      catchError(e => {
-        throw new Error(e);
-      })
+    // return this.http.get<any>(`${environment.API_STORAGE}/version.json`).pipe(
+    //   catchError(e => {
+    //     throw new Error(e);
+    //   })
+    // );
+
+    return this.nativeHttp.get(
+      `${environment.API_STORAGE}/version.json`,
+      {},
+      { 'Content-Type': 'application/json' }
     );
   }
 
@@ -29,11 +34,11 @@ export class AppUpdateService {
     this.appVersion
       .getVersionNumber()
       .then(sistemVersion => {
-        this.getVersionNumberAPI().subscribe(val => {
-          const dataVersion = val['data']['items'][0].version;
-          const forceUpdate = val['data']['items'][0].force_update;
-          console.log('versi API ' + dataVersion);
-          console.log('versi sistem ' + sistemVersion);
+        this.getVersionNumberAPI().then(val => {
+          const respon = JSON.parse(val.data);
+          console.log(respon);
+          const dataVersion = respon.version;
+          const forceUpdate = respon.force_update;
 
           if (dataVersion !== sistemVersion && forceUpdate) {
             this.util.presentModal();
