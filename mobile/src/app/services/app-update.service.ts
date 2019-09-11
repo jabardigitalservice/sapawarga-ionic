@@ -17,12 +17,6 @@ export class AppUpdateService {
   ) {}
 
   private getVersionNumberAPI() {
-    // return this.http.get<any>(`${environment.API_STORAGE}/version.json`).pipe(
-    //   catchError(e => {
-    //     throw new Error(e);
-    //   })
-    // );
-
     return this.nativeHttp.get(
       `${environment.API_STORAGE}/version.json`,
       {},
