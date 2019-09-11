@@ -34,6 +34,7 @@ import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 import { GoogleAnalytics } from '@ionic-native/google-analytics/ngx';
 import { AppVersion } from '@ionic-native/app-version/ngx';
 import { UpdateAppComponent } from './shared/update-app/update-app.component';
+import { SMS } from '@ionic-native/sms/ngx';
 @NgModule({
   declarations: [
     AppComponent,
@@ -73,8 +74,9 @@ import { UpdateAppComponent } from './shared/update-app/update-app.component';
     InAppBrowser,
     Constants,
     HTTP,
-    ScreenOrientation,
     AppVersion
+    ScreenOrientation,
+    SMS
   ],
   bootstrap: [AppComponent]
 })

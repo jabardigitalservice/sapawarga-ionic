@@ -12,6 +12,7 @@
     "build:android:prod-release": "ionic cordova build android --prod --release",
     "build-clean:android:prod-release": "rm -rf platforms && ionic cordova build android --prod --release",
     "test": "ng test",
+    "test-coverage": "ng test --code-coverage",
     "lint": "ng lint",
     "e2e": "ng e2e"
   },

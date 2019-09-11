@@ -10,7 +10,10 @@ import {
 } from '@ionic/angular';
 import { HttpErrorResponse } from '@angular/common/http';
 import { throwError } from 'rxjs';
+
+// plugin
 import { GoogleAnalytics } from '@ionic-native/google-analytics/ngx';
+import { SMS } from '@ionic-native/sms/ngx';
 import { UpdateAppComponent } from '../shared/update-app/update-app.component';
 
 @Injectable({
@@ -21,8 +24,9 @@ export class UtilitiesService {
     private toastCtrl: ToastController,
     private alertController: AlertController,
     private actionsheetCtrl: ActionSheetController,
-    private googleAnalytics: GoogleAnalytics,
     private modalController: ModalController
+    private googleAnalytics: GoogleAnalytics,
+    private sms: SMS
   ) {}
 
   timeAgo(value: number) {
@@ -120,6 +124,18 @@ export class UtilitiesService {
   // initial event event
   trackEvent(category: string, action: string, label?: string, value?: number) {
     this.googleAnalytics.trackEvent(category, action, label, value);
+  }
+
+  goToSms(telp: string, message: string) {
+    const options = {
+      replaceLineBreaks: false,
+      android: {
+        intent: 'INTENT'
+      }
+    };
+
+    // Send a text message
+    this.sms.send(telp, message, options);
   }
 
   async presentModal() {

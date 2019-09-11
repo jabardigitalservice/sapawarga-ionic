@@ -269,6 +269,14 @@ export class NomorPentingPage implements OnInit {
           icon: 'call',
           handler: () => {
             this.phoneCall(data[index].phone_number);
+
+            // event google analytics
+            this.util.trackEvent(
+              this.constants.pageName.nomorPenting,
+              'call_phone_number_nomor',
+              '',
+              1
+            );
           }
         };
         buttons.push(button);
@@ -278,7 +286,16 @@ export class NomorPentingPage implements OnInit {
           text: data[index].phone_number,
           icon: 'mail',
           handler: () => {
-            this.goToSMS(data[index].phone_number);
+            // direct native sms
+            this.util.goToSms(data[index].phone_number, '');
+
+            // event google analytics
+            this.util.trackEvent(
+              this.constants.pageName.nomorPenting,
+              'sms_phone_number_nomor',
+              '',
+              1
+            );
           }
         };
         buttons.push(button);
@@ -296,25 +313,6 @@ export class NomorPentingPage implements OnInit {
           .callNumber(phone, true)
           .then()
           .catch(err => this.util.showToast(Dictionary.terjadi_kesalahan));
-      })
-      .catch(() => {
-        this.util.showToast(Dictionary.error_permission);
-      });
-  }
-
-  // direct to native SMS
-  goToSMS(phone: string) {
-    const options = {
-      replaceLineBreaks: false,
-      android: {
-        intent: 'INTENT'
-      }
-    };
-    this.platform
-      .ready()
-      .then(() => {
-        // Send a text message using default options
-        this.sms.send(phone, '', options);
       })
       .catch(() => {
         this.util.showToast(Dictionary.error_permission);
