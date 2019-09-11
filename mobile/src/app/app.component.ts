@@ -85,7 +85,6 @@ export class AppComponent {
         );
 
         // check app is up to date / not
-        // this.util.presentModal();
         this.appUpdateService.checkAppUpdate();
 
         // integrasi google analytics

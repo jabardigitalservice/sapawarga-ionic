@@ -36,7 +36,6 @@ export class AppUpdateService {
       .then(sistemVersion => {
         this.getVersionNumberAPI().then(val => {
           const respon = JSON.parse(val.data);
-          console.log(respon);
           const dataVersion = respon.version;
           const forceUpdate = respon.force_update;
 
