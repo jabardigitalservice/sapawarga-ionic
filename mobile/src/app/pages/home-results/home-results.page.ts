@@ -673,7 +673,7 @@ export class HomeResultsPage implements OnInit {
   getThumbUrl(url: string) {
     return `https://img.youtube.com/vi/${this.parsingDataUrl(
       url
-    )}/maxresdefault.jpg`;
+    )}/mqdefault.jpg`;
   }
 
   openYoutube(url: string, title?: string) {
