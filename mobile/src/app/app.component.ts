@@ -15,6 +15,7 @@ import { UtilitiesService } from './services/utilities.service';
 import { GoogleAnalytics } from '@ionic-native/google-analytics/ngx';
 import { Constants } from './helpers/constants';
 import { ProfileService } from './services/profile.service';
+import { AppUpdateService } from './services/app-update.service';
 
 @Component({
   selector: 'app-root',
@@ -42,7 +43,8 @@ export class AppComponent {
     private inAppBrowser: InAppBrowser,
     private util: UtilitiesService,
     private constants: Constants,
-    private profileService: ProfileService
+    private profileService: ProfileService,
+    private appUpdateService: AppUpdateService
   ) {
     this.initializeApp();
     this.platform.backButton.subscribe(() => {
@@ -81,6 +83,9 @@ export class AppComponent {
         this.screenOrientation.lock(
           this.screenOrientation.ORIENTATIONS.PORTRAIT
         );
+
+        // check app is up to date / not
+        this.appUpdateService.checkAppUpdate();
 
         // integrasi google analytics
         this.googleAnalytics

@@ -75,4 +75,6 @@ export class Constants {
   };
 
   public telpLapor = '1708';
+
+  public appID = 'com.sapawarga.jds';
 }

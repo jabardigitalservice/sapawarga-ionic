@@ -46,5 +46,8 @@ export enum Dictionary {
   hak_cipta = 'Hak Cipta Pemerintah Provinsi Jawa Barat 2019',
   success_download = 'File berhasil diunduh',
   unsuccess_download = 'File gagal diunduh',
-  msg_exit_app = 'Tekan sekali lagi untuk keluar aplikasi'
+  msg_exit_app = 'Tekan sekali lagi untuk keluar aplikasi',
+
+  // version update
+  msg_update_app = 'Versi terbaru telah tersedia. segera perbaharui aplikasi anda.'
 }

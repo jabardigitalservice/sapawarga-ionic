@@ -5,7 +5,8 @@ import * as moment from 'moment';
 import {
   ToastController,
   AlertController,
-  ActionSheetController
+  ActionSheetController,
+  ModalController
 } from '@ionic/angular';
 import { HttpErrorResponse } from '@angular/common/http';
 import { throwError } from 'rxjs';
@@ -13,6 +14,7 @@ import { throwError } from 'rxjs';
 // plugin
 import { GoogleAnalytics } from '@ionic-native/google-analytics/ngx';
 import { SMS } from '@ionic-native/sms/ngx';
+import { UpdateAppComponent } from '../shared/update-app/update-app.component';
 
 @Injectable({
   providedIn: 'root'
@@ -22,6 +24,7 @@ export class UtilitiesService {
     private toastCtrl: ToastController,
     private alertController: AlertController,
     private actionsheetCtrl: ActionSheetController,
+    private modalController: ModalController,
     private googleAnalytics: GoogleAnalytics,
     private sms: SMS
   ) {}
@@ -133,5 +136,14 @@ export class UtilitiesService {
 
     // Send a text message
     this.sms.send(telp, message, options);
+  }
+
+  async presentModal() {
+    const modal = await this.modalController.create({
+      component: UpdateAppComponent,
+      cssClass: 'modal-update',
+      backdropDismiss: false
+    });
+    return await modal.present();
   }
 }
