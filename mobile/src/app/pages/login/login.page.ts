@@ -160,7 +160,15 @@ export class LoginPage implements OnInit {
       },
       err => {
         loader.dismiss();
-        this.presentAlert('error', err.data.password[0]);
+        if (err.status === 422) {
+          if (err.data.password) {
+            this.presentAlert('error', err.data.password[0]);
+          } else if (err.data.status) {
+            this.presentAlert('error', err.data.status[0]);
+          }
+        } else {
+          this.presentAlert('error', Dictionary.terjadi_kesalahan);
+        }
       }
     );
 
