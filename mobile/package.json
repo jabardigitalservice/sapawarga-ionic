@@ -8,6 +8,7 @@
     "ng": "ng",
     "start": "ng serve --host 0.0.0.0 --port 4200",
     "build:android:prod-debug": "ionic cordova build android --prod",
+    "build:android:prod-staging": "ionic cordova build android --prod --configuration=staging",
     "build-clean:android:prod-debug": "rm -rf platforms && ionic cordova build android --prod",
     "build:android:prod-release": "ionic cordova build android --prod --release",
     "build-clean:android:prod-release": "rm -rf platforms && ionic cordova build android --prod --release",
