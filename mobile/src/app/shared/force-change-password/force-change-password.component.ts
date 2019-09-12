@@ -10,9 +10,16 @@ import { ForceUpdateService } from '../../services/force-update.service';
 })
 export class ForceChangePasswordComponent implements OnInit {
   public changePasswordForm: FormGroup;
-  // show password
-  type = 'password';
-  passwordShown = false;
+  passwordShow = [
+    {
+      show: false,
+      type: 'password'
+    },
+    {
+      show: false,
+      type: 'password'
+    }
+  ];
   submitted = false;
 
   constructor(
@@ -58,13 +65,13 @@ export class ForceChangePasswordComponent implements OnInit {
     });
   }
 
-  public showPassword() {
-    this.passwordShown = !this.passwordShown;
+  public showPassword(index: number) {
+    this.passwordShow[index].show = !this.passwordShow[index].show;
 
-    if (this.passwordShown) {
-      this.type = 'text';
+    if (this.passwordShow[index].show) {
+      this.passwordShow[index].type = 'text';
     } else {
-      this.type = 'password';
+      this.passwordShow[index].type = 'password';
     }
   }
 
