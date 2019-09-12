@@ -74,7 +74,7 @@ import { SMS } from '@ionic-native/sms/ngx';
     InAppBrowser,
     Constants,
     HTTP,
-    AppVersion
+    AppVersion,
     ScreenOrientation,
     SMS
   ],

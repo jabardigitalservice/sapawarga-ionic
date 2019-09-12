@@ -24,7 +24,7 @@ export class UtilitiesService {
     private toastCtrl: ToastController,
     private alertController: AlertController,
     private actionsheetCtrl: ActionSheetController,
-    private modalController: ModalController
+    private modalController: ModalController,
     private googleAnalytics: GoogleAnalytics,
     private sms: SMS
   ) {}
