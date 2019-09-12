@@ -21,10 +21,16 @@ export class ForceChangePasswordComponent implements OnInit {
     private loadingCtrl: LoadingController,
     private forceUpdateService: ForceUpdateService
   ) {
-    this.changePasswordForm = this.formBuilder.group({
-      password: ['', [Validators.required, Validators.minLength(6)]],
-      repeatPassword: ['', [Validators.required, Validators.minLength(6)]]
-    });
+    this.changePasswordForm = this.formBuilder.group(
+      {
+        password: ['', [Validators.required, Validators.minLength(6)]],
+        password_confirmation: [
+          '',
+          [Validators.required, Validators.minLength(6)]
+        ]
+      },
+      { validator: this.MatchPassword }
+    );
   }
 
   ngOnInit() {}
@@ -32,6 +38,16 @@ export class ForceChangePasswordComponent implements OnInit {
   // convenience getter for easy access to form fields
   get f() {
     return this.changePasswordForm.controls;
+  }
+
+  private MatchPassword(form: FormGroup) {
+    const newPassword = form.get('password').value; // to get value in input tag
+    const confirmPassword = form.get('password_confirmation').value; // to get value in input tag
+    if (newPassword !== confirmPassword) {
+      form.get('password_confirmation').setErrors({ MatchPassword: true });
+    } else {
+      form.get('password_confirmation').setErrors(null);
+    }
   }
 
   dismiss() {
