@@ -60,11 +60,8 @@ export class NewsPage implements OnInit {
   getListFeatured(idKabKota?: number) {
     this.newsService.getNewsFeatured(null, idKabKota).subscribe(
       res => {
-        if (res['status'] === 200 && res['data']['items'].length) {
-          this.dataFeatured = res['data']['items'];
-
-          // set count page
-          this.maximumPages = res['data']['_meta'].pageCount;
+        if (res['status'] === 200 && res['data'].length) {
+          this.dataFeatured = res['data'];
         } else {
           this.msgResponse = {
             type: 'empty',
