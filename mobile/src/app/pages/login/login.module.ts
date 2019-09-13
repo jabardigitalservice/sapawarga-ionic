@@ -7,7 +7,6 @@ import { IonicModule } from '@ionic/angular';
 import { LoginPage } from './login.page';
 
 // plugin
-import { AppVersion } from '@ionic-native/app-version/ngx';
 import { Downloader } from '@ionic-native/downloader/ngx';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { SharedModule } from '../../shared/shared.module';
@@ -28,7 +27,7 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     SharedModule
   ],
-  providers: [AppVersion, Downloader, InAppBrowser],
+  providers: [Downloader, InAppBrowser],
   declarations: [LoginPage]
 })
 export class LoginPageModule {}

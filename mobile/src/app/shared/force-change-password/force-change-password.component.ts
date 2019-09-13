@@ -1,7 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
-import { ModalController, LoadingController } from '@ionic/angular';
 import { ForceProfileComponent } from '../force-profile/force-profile.component';
+import {
+  ModalController,
+  LoadingController,
+  NavController
+} from '@ionic/angular';
+import { ForceUpdateService } from '../../services/force-update.service';
+import { Dictionary } from '../../helpers/dictionary';
+import { UtilitiesService } from '../../services/utilities.service';
+import { ProfileService } from '../../services/profile.service';
+import { Button } from 'protractor';
 
 @Component({
   selector: 'app-force-change-password',
@@ -10,21 +19,38 @@ import { ForceProfileComponent } from '../force-profile/force-profile.component'
 })
 export class ForceChangePasswordComponent implements OnInit {
   public changePasswordForm: FormGroup;
-  // show password
-  type = 'password';
-  passwordShown = false;
+  passwordShow = [
+    {
+      show: false,
+      type: 'password'
+    },
+    {
+      show: false,
+      type: 'password'
+    }
+  ];
   submitted = false;
 
   constructor(
     private formBuilder: FormBuilder,
     private modalCtrl: ModalController,
-    private loadingCtrl: LoadingController,
     private modalController: ModalController
+    private loadingCtrl: LoadingController,
+    private forceUpdateService: ForceUpdateService,
+    private util: UtilitiesService,
+    private profileService: ProfileService,
+    public navCtrl: NavController
   ) {
-    this.changePasswordForm = this.formBuilder.group({
-      password: ['', [Validators.required, Validators.minLength(6)]],
-      repeatPassword: ['', [Validators.required, Validators.minLength(6)]]
-    });
+    this.changePasswordForm = this.formBuilder.group(
+      {
+        password: ['', [Validators.required, Validators.minLength(6)]],
+        password_confirmation: [
+          '',
+          [Validators.required, Validators.minLength(6)]
+        ]
+      },
+      { validator: this.MatchPassword }
+    );
   }
 
   ngOnInit() {}
@@ -34,21 +60,30 @@ export class ForceChangePasswordComponent implements OnInit {
     return this.changePasswordForm.controls;
   }
 
+  private MatchPassword(form: FormGroup) {
+    const newPassword = form.get('password').value; // to get value in input tag
+    const confirmPassword = form.get('password_confirmation').value; // to get value in input tag
+    if (newPassword !== confirmPassword) {
+      form.get('password_confirmation').setErrors({ MatchPassword: true });
+    } else {
+      form.get('password_confirmation').setErrors(null);
+    }
+  }
+
   dismiss() {
-    // using the injected ModalController this page
-    // can "dismiss" itself and optionally pass back data
+    // dismiss modal
     this.modalCtrl.dismiss({
       dismissed: true
     });
   }
 
-  public showPassword() {
-    this.passwordShown = !this.passwordShown;
+  public showPassword(index: number) {
+    this.passwordShow[index].show = !this.passwordShow[index].show;
 
-    if (this.passwordShown) {
-      this.type = 'text';
+    if (this.passwordShow[index].show) {
+      this.passwordShow[index].type = 'text';
     } else {
-      this.type = 'password';
+      this.passwordShow[index].type = 'password';
     }
   }
 
@@ -60,34 +95,43 @@ export class ForceChangePasswordComponent implements OnInit {
     }
 
     // check internet
-    // if (!navigator.onLine) {
-    //   this.util.showToast(Dictionary.offline);
-    //   return;
-    // }
-
-    // const loader = await this.loadingCtrl.create({
-    //   duration: 10000
-    // });
-    // loader.present();
+    if (!navigator.onLine) {
+      this.util.showToast(Dictionary.offline);
+      return;
+    }
+    const buttons = ['OK'];
+    const loader = await this.loadingCtrl.create({
+      duration: 10000
+    });
+    loader.present();
 
     console.log(this.changePasswordForm.value);
 
-    // await this.auth.login(this.onLoginForm.value).subscribe(
-    //   res => {
-    //     if (res.success === true) {
-    //       loader.dismiss();
-    //       this.auth.saveToken(res.data.access_token);
-    //       this.getDataProfile();
-    //     } else {
-    //       loader.dismiss();
-    //       this.presentAlert('error', Dictionary.confirmation_login);
-    //     }
-    //   },
-    //   err => {
-    //     loader.dismiss();
-    //     this.presentAlert('error', err.data.password[0]);
-    //   }
-    // );
+    this.profileService.changePassword(this.changePasswordForm.value).subscribe(
+      res => {
+        if (res.success === true) {
+          loader.dismiss();
+          console.log(res);
+          this.forceUpdateService.setDataForceChange(1);
+
+          localStorage.removeItem('auth-token');
+          this.navCtrl.navigateRoot(['/login']);
+        } else {
+          loader.dismiss();
+          this.util.alertConfirmation(Dictionary.terjadi_kesalahan, buttons);
+        }
+      },
+      err => {
+        loader.dismiss();
+        if (err.status === 422) {
+          if (err.data.password) {
+            this.util.alertConfirmation(err.data.password[0], buttons);
+          }
+        } else {
+          this.util.alertConfirmation(Dictionary.terjadi_kesalahan, buttons);
+        }
+      }
+    );
 
     this.submitted = false;
     this.changePasswordForm.reset();

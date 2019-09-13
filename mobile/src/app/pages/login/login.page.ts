@@ -26,6 +26,7 @@ import { ProfileService } from '../../services/profile.service';
 import { UtilitiesService } from '../../services/utilities.service';
 import { ForceChangePasswordComponent } from '../../shared/force-change-password/force-change-password.component';
 import { ForceProfileComponent } from 'src/app/shared/force-profile/force-profile.component';
+import { ForceUpdateService } from '../../services/force-update.service';
 
 @Component({
   selector: 'app-login',
@@ -59,7 +60,8 @@ export class LoginPage implements OnInit {
     private inAppBrowser: InAppBrowser,
     private profileService: ProfileService,
     private util: UtilitiesService,
-    private modalController: ModalController
+    private modalController: ModalController,
+    private forceUpdateService: ForceUpdateService
   ) {
     this.appVersion
       .getVersionNumber()
@@ -94,16 +96,6 @@ export class LoginPage implements OnInit {
     this.fcm.getToken().then(token => {
       this.f.push_token.setValue(token);
     });
-
-    this.showChangePassword();
-  }
-
-  async showChangePassword() {
-    const modal = await this.modalController.create({
-      component: ForceProfileComponent
-      // component: ForceChangePasswordComponent
-    });
-    return await modal.present();
   }
 
   // convenience getter for easy access to form fields
@@ -161,7 +153,7 @@ export class LoginPage implements OnInit {
     });
     loader.present();
 
-    await this.auth.login(this.onLoginForm.value).subscribe(
+    this.auth.login(this.onLoginForm.value).subscribe(
       res => {
         if (res.success === true) {
           loader.dismiss();
@@ -174,7 +166,15 @@ export class LoginPage implements OnInit {
       },
       err => {
         loader.dismiss();
-        this.presentAlert('error', err.data.password[0]);
+        if (err.status === 422) {
+          if (err.data.password) {
+            this.presentAlert('error', err.data.password[0]);
+          } else if (err.data.status) {
+            this.presentAlert('error', err.data.status[0]);
+          }
+        } else {
+          this.presentAlert('error', Dictionary.terjadi_kesalahan);
+        }
       }
     );
 
@@ -246,11 +246,37 @@ export class LoginPage implements OnInit {
         // save to local storage
         this.profileService.saveProfile(res['data']);
         loader.dismiss();
-        this.navCtrl.navigateRoot(['/tabs']['home']);
+
+        // check password is update
+        if (res['data'].password_updated_at !== null) {
+          this.navCtrl.navigateRoot(['/tabs']['home']);
+        } else {
+          // localStorage.removeItem('auth-token');
+
+          const dataForceChange = this.forceUpdateService.getDataForceChange();
+          console.log(dataForceChange);
+          if (!dataForceChange || dataForceChange.isChangePassword === false) {
+            this.showForceChange(1);
+          } else if (
+            dataForceChange.isChangePassword === true &&
+            dataForceChange.isChangeProfile === false
+          ) {
+            console.log('masuk modal force profile');
+          }
+        }
       },
       err => {
         loader.dismiss();
       }
     );
+  }
+
+  async showForceChange(data: number) {
+    console.log(data);
+    const modal = await this.modalController.create({
+      component: ForceChangePasswordComponent,
+      keyboardClose: false
+    });
+    return await modal.present();
   }
 }
