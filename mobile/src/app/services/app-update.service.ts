@@ -5,6 +5,7 @@ import { AppVersion } from '@ionic-native/app-version/ngx';
 import { environment } from '../../environments/environment';
 import { UtilitiesService } from './utilities.service';
 import { HTTP } from '@ionic-native/http/ngx';
+import * as compareVersions from 'compare-versions';
 
 @Injectable({
   providedIn: 'root'
@@ -34,10 +35,13 @@ export class AppUpdateService {
           const isForceUpdateNeeded = respon.force_update;
           const currentAppVersion = sistemVersion.split('-')[0]; // parsing version sistem
 
-          if (
-            latestVersionReleased !== currentAppVersion &&
-            isForceUpdateNeeded
-          ) {
+          // compare version  if currentAppVersion < latestVersionReleased than return true
+          const compare = compareVersions.compare(
+            currentAppVersion,
+            latestVersionReleased,
+            '<'
+          );
+          if (isForceUpdateNeeded === true && compare === true) {
             this.util.presentModal();
           }
         });
