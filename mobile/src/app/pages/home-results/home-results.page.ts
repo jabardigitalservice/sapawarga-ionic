@@ -510,11 +510,11 @@ export class HomeResultsPage implements OnInit {
     this.isLoading.news = true;
     this.newsService.getNewsFeatured(3, idkabkota).subscribe(
       res => {
-        if (res['status'] === 200 && res['data']['items'].length) {
+        if (res['status'] === 200 && res['data'].length) {
           if (idkabkota) {
-            this.dataNewsKabkota = res['data']['items'];
+            this.dataNewsKabkota = res['data'];
           } else {
-            this.dataNews = res['data']['items'];
+            this.dataNews = res['data'];
           }
 
           // save to local
