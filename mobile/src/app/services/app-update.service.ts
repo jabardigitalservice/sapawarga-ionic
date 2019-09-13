@@ -30,11 +30,14 @@ export class AppUpdateService {
       .then(sistemVersion => {
         this.getVersionNumberAPI().then(val => {
           const respon = JSON.parse(val.data);
-          const dataVersion = respon.version;
-          const forceUpdate = respon.force_update;
-          const VersionSistem = sistemVersion.split('-')[0]; // parsing version sistem
+          const latestVersionReleased = respon.version;
+          const isForceUpdateNeeded = respon.force_update;
+          const currentAppVersion = sistemVersion.split('-')[0]; // parsing version sistem
 
-          if (dataVersion !== VersionSistem && forceUpdate) {
+          if (
+            latestVersionReleased !== currentAppVersion &&
+            isForceUpdateNeeded
+          ) {
             this.util.presentModal();
           }
         });
