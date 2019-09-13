@@ -32,8 +32,9 @@ export class AppUpdateService {
           const respon = JSON.parse(val.data);
           const dataVersion = respon.version;
           const forceUpdate = respon.force_update;
+          const VersionSistem = sistemVersion.split('-')[0]; // parsing version sistem
 
-          if (dataVersion !== sistemVersion && forceUpdate) {
+          if (dataVersion !== VersionSistem && forceUpdate) {
             this.util.presentModal();
           }
         });
