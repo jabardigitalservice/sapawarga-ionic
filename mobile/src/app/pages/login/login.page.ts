@@ -152,7 +152,7 @@ export class LoginPage implements OnInit {
     });
     loader.present();
 
-    await this.auth.login(this.onLoginForm.value).subscribe(
+    this.auth.login(this.onLoginForm.value).subscribe(
       res => {
         if (res.success === true) {
           loader.dismiss();
@@ -250,7 +250,7 @@ export class LoginPage implements OnInit {
         if (res['data'].password_updated_at !== null) {
           this.navCtrl.navigateRoot(['/tabs']['home']);
         } else {
-          localStorage.removeItem('auth-token');
+          // localStorage.removeItem('auth-token');
 
           const dataForceChange = this.forceUpdateService.getDataForceChange();
           console.log(dataForceChange);

@@ -41,6 +41,5 @@ export class ForceUpdateService {
       this.constants.localStorage.forceChange,
       JSON.stringify(this.insertData)
     );
-    // console.log('hai');
   }
 }
