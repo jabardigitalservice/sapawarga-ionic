@@ -35,8 +35,13 @@ export class AppUpdateService {
           const isForceUpdateNeeded = respon.force_update;
           const currentAppVersion = sistemVersion.split('-')[0]; // parsing version sistem
 
-          const compare = compareVersions.compare('0.0.3', '0.0.5', '<');
-          if (compare === true) {
+          // compare version  if currentAppVersion < latestVersionReleased than return true
+          const compare = compareVersions.compare(
+            currentAppVersion,
+            latestVersionReleased,
+            '<'
+          );
+          if (isForceUpdateNeeded === true && compare === true) {
             this.util.presentModal();
           }
         });
