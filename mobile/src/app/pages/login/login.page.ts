@@ -25,7 +25,6 @@ import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { ProfileService } from '../../services/profile.service';
 import { UtilitiesService } from '../../services/utilities.service';
 import { ForceChangePasswordComponent } from '../../shared/force-change-password/force-change-password.component';
-import { ForceProfileComponent } from 'src/app/shared/force-profile/force-profile.component';
 import { ForceUpdateService } from '../../services/force-update.service';
 
 @Component({

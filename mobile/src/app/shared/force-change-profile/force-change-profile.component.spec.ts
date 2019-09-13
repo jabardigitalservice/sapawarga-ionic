@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ForceProfileComponent } from './force-profile.component';
+import { ForceChangeProfileComponent } from './force-change-profile.component';
 
-describe('ForceProfileComponent', () => {
-  let component: ForceProfileComponent;
-  let fixture: ComponentFixture<ForceProfileComponent>;
+describe('ForceChangeProfileComponent', () => {
+  let component: ForceChangeProfileComponent;
+  let fixture: ComponentFixture<ForceChangeProfileComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ForceProfileComponent ]
+      declarations: [ ForceChangeProfileComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ForceProfileComponent);
+    fixture = TestBed.createComponent(ForceChangeProfileComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

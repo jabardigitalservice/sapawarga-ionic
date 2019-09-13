@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
-import { ForceProfileComponent } from '../force-profile/force-profile.component';
 import {
   ModalController,
   LoadingController,
@@ -10,7 +9,7 @@ import { ForceUpdateService } from '../../services/force-update.service';
 import { Dictionary } from '../../helpers/dictionary';
 import { UtilitiesService } from '../../services/utilities.service';
 import { ProfileService } from '../../services/profile.service';
-import { Button } from 'protractor';
+import { ForceChangeProfileComponent } from '../force-change-profile/force-change-profile.component';
 
 @Component({
   selector: 'app-force-change-password',
@@ -34,7 +33,7 @@ export class ForceChangePasswordComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private modalCtrl: ModalController,
-    private modalController: ModalController
+    private modalController: ModalController,
     private loadingCtrl: LoadingController,
     private forceUpdateService: ForceUpdateService,
     private util: UtilitiesService,
@@ -141,7 +140,7 @@ export class ForceChangePasswordComponent implements OnInit {
 
   async showEditProfile() {
     const modal = await this.modalController.create({
-      component: ForceProfileComponent
+      component: ForceChangeProfileComponent
     });
     return await modal.present();
   }

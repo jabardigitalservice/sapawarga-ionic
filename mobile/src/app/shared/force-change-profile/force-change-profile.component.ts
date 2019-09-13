@@ -2,13 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
-  selector: 'app-force-profile',
-  templateUrl: './force-profile.component.html',
-  styleUrls: ['./force-profile.component.scss']
+  selector: 'app-force-change-profile',
+  templateUrl: './force-change-profile.component.html',
+  styleUrls: ['./force-change-profile.component.scss']
 })
-export class ForceProfileComponent implements OnInit {
+export class ForceChangeProfileComponent implements OnInit {
   public changeProfileForm: FormGroup;
   submitted = false;
+
   constructor(private formBuilder: FormBuilder) {
     this.changeProfileForm = this.formBuilder.group({
       name: [
