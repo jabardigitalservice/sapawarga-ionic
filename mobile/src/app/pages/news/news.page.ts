@@ -108,6 +108,8 @@ export class NewsPage implements OnInit {
             msg: Dictionary.empty_aspirasi
           };
         }
+        // set count page
+        this.maximumPages = res['data']['_meta'].pageCount;
         loader.dismiss();
         // stop infinite scroll
         if (infiniteScroll) {
