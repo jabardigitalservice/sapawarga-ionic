@@ -12,7 +12,6 @@ const routes: Routes = [
   },
   {
     path: 'home-results',
-    // canActivate: [AuthGuard],
     loadChildren:
       './pages/home-results/home-results.module#HomeResultsPageModule'
   },
