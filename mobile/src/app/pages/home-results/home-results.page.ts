@@ -456,7 +456,7 @@ export class HomeResultsPage implements OnInit {
         1
       );
     } else {
-      this.router.navigate(['news']);
+      this.navCtrl.navigateForward('news');
 
       // google event analytics
       this.util.trackEvent(
