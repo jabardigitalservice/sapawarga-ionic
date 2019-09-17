@@ -68,4 +68,10 @@ export class ProfileService {
       return;
     }
   }
+
+  changePassword(data: any): Observable<any> {
+    return this.http
+      .post(`${environment.API_URL}/user/me/change-password`, data)
+      .pipe(catchError(this.util.handleError));
+  }
 }
