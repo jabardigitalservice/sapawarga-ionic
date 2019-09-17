@@ -8,12 +8,6 @@
 </ion-header>
 
 <ion-content>
-  <app-message-control
-    *ngIf="msgResponse.type"
-    [type]="msgResponse.type"
-    [message]="msgResponse.msg"
-  ></app-message-control>
-
   <ion-card
     class="headline ion-margin-top"
     *ngIf="dataFeatured"
@@ -29,10 +23,14 @@
     </div>
   </ion-card>
 
-  <ion-grid>
+  <ion-grid *ngIf="dataFeatured">
     <ion-row small class="text-dark">
       <ion-col size="6" no-padding *ngFor="let data of dataFeatured | slice: 1">
-        <ion-card class="desc-featured" (click)="goToDetailNews(data.id)">
+        <ion-card
+          class="desc-featured"
+          (click)="goToDetailNews(data.id)"
+          *ngIf="data !== null"
+        >
           <img
             [src]="data?.cover_path_url"
             onError="this.src='assets/img/placeholder_image.png';"
@@ -47,22 +45,27 @@
           </ion-card-content>
           <ion-note class="ion-margin-top source-title-featured"
             ><img
-              [src]="data.channel.icon_url"
+              [src]="data.channel?.icon_url"
               class="source-icon"
               onError="this.src='assets/img/placeholder_image_portrait.png';"
               alt="sumber"
             />
-            {{ data.channel.name }}</ion-note
+            {{ data.channel?.name }}</ion-note
           >
         </ion-card>
       </ion-col>
     </ion-row>
   </ion-grid>
 
+  <app-message-control
+    *ngIf="msgResponse.type"
+    [type]="msgResponse.type"
+    [message]="msgResponse.msg"
+  ></app-message-control>
+
   <div *ngFor="let data of dataNews">
     <ion-card
       class="text-dark ion-margin-top ion-margin-bottom"
-      *ngIf="data.featured === 0"
       (click)="goToDetailNews(data.id)"
     >
       <ion-item>

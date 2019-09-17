@@ -7,13 +7,15 @@ import { MyAspirasiComponent } from './my-aspirasi/my-aspirasi.component';
 import { ForceChangePasswordComponent } from './force-change-password/force-change-password.component';
 import { IonicModule } from '@ionic/angular';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ForceChangeProfileComponent } from './force-change-profile/force-change-profile.component';
 
 @NgModule({
   declarations: [
     MessageControlComponent,
     AspirasiListComponent,
     MyAspirasiComponent,
-    ForceChangePasswordComponent
+    ForceChangePasswordComponent,
+    ForceChangeProfileComponent
   ],
   imports: [CommonModule, IonicModule, FormsModule, ReactiveFormsModule],
   exports: [
@@ -21,7 +23,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     AspirasiListComponent,
     MyAspirasiComponent
   ],
-  entryComponents: [ForceChangePasswordComponent],
+  entryComponents: [ForceChangePasswordComponent, ForceChangeProfileComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class SharedModule {}

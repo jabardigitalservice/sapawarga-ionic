@@ -49,5 +49,8 @@ export enum Dictionary {
   msg_exit_app = 'Tekan sekali lagi untuk keluar aplikasi',
 
   // version update
-  msg_update_app = 'Versi terbaru telah tersedia. segera perbaharui aplikasi anda.'
+  msg_update_app = 'Versi terbaru telah tersedia. segera perbaharui aplikasi anda.',
+
+  msg_news = 'Tidak ada daftar berita yang dibuat',
+  msg_change_password = 'Kata sandi berhasil diubah'
 }

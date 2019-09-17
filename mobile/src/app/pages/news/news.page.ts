@@ -60,15 +60,12 @@ export class NewsPage implements OnInit {
   getListFeatured(idKabKota?: number) {
     this.newsService.getNewsFeatured(null, idKabKota).subscribe(
       res => {
-        if (res['status'] === 200 && res['data']['items'].length) {
-          this.dataFeatured = res['data']['items'];
-
-          // set count page
-          this.maximumPages = res['data']['_meta'].pageCount;
+        if (res['status'] === 200 && res['data'].length) {
+          this.dataFeatured = res['data'];
         } else {
           this.msgResponse = {
             type: 'empty',
-            msg: Dictionary.empty_aspirasi
+            msg: Dictionary.msg_news
           };
         }
       },
@@ -108,9 +105,11 @@ export class NewsPage implements OnInit {
         } else {
           this.msgResponse = {
             type: 'empty',
-            msg: Dictionary.empty_aspirasi
+            msg: Dictionary.msg_news
           };
         }
+        // set count page
+        this.maximumPages = res['data']['_meta'].pageCount;
         loader.dismiss();
         // stop infinite scroll
         if (infiniteScroll) {
@@ -135,7 +134,7 @@ export class NewsPage implements OnInit {
 
   // infinite scroll
   doInfinite(event) {
-    if (this.currentPage === this.maximumPages) {
+    if (this.currentPage === this.maximumPages || this.maximumPages === 0) {
       event.target.disabled = true;
       return;
     }

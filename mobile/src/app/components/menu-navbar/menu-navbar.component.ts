@@ -1,9 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
-import { NavController, NavParams, PopoverController } from '@ionic/angular';
+import {
+  NavController,
+  NavParams,
+  PopoverController,
+  ModalController
+} from '@ionic/angular';
 import { Router } from '@angular/router';
 import { Dictionary } from '../../helpers/dictionary';
 import { UtilitiesService } from 'src/app/services/utilities.service';
+import { ForceChangePasswordComponent } from 'src/app/shared/force-change-password/force-change-password.component';
 
 @Component({
   selector: 'app-menu-navbar',
@@ -17,7 +23,8 @@ export class MenuNavbarComponent implements OnInit {
     private navParams: NavParams,
     private router: Router,
     private popover: PopoverController,
-    private util: UtilitiesService
+    private util: UtilitiesService,
+    private modalController: ModalController
   ) {}
 
   ngOnInit() {}
@@ -34,6 +41,16 @@ export class MenuNavbarComponent implements OnInit {
       queryParams: this.navParams.get('dataUser')
     });
     this.popover.dismiss();
+  }
+
+  async changePassword() {
+    const modal = await this.modalController.create({
+      component: ForceChangePasswordComponent,
+      componentProps: {
+        profilePassword: true
+      }
+    });
+    return await modal.present();
   }
 
   async confirmLogout() {

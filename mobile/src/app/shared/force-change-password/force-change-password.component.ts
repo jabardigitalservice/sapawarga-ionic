@@ -3,13 +3,14 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import {
   ModalController,
   LoadingController,
-  NavController
+  NavController,
+  NavParams
 } from '@ionic/angular';
 import { ForceUpdateService } from '../../services/force-update.service';
 import { Dictionary } from '../../helpers/dictionary';
 import { UtilitiesService } from '../../services/utilities.service';
 import { ProfileService } from '../../services/profile.service';
-import { Button } from 'protractor';
+import { ForceChangeProfileComponent } from '../force-change-profile/force-change-profile.component';
 
 @Component({
   selector: 'app-force-change-password',
@@ -18,7 +19,14 @@ import { Button } from 'protractor';
 })
 export class ForceChangePasswordComponent implements OnInit {
   public changePasswordForm: FormGroup;
+
+  profilePassword: boolean;
+
   passwordShow = [
+    {
+      show: false,
+      type: 'password'
+    },
     {
       show: false,
       type: 'password'
@@ -30,28 +38,36 @@ export class ForceChangePasswordComponent implements OnInit {
   ];
   submitted = false;
 
+  validations = {
+    password: ['', [Validators.required, Validators.minLength(6)]],
+    password_confirmation: ['', [Validators.required, Validators.minLength(6)]]
+  };
+
   constructor(
     private formBuilder: FormBuilder,
     private modalCtrl: ModalController,
+    private modalController: ModalController,
     private loadingCtrl: LoadingController,
     private forceUpdateService: ForceUpdateService,
     private util: UtilitiesService,
     private profileService: ProfileService,
-    public navCtrl: NavController
-  ) {
-    this.changePasswordForm = this.formBuilder.group(
-      {
-        password: ['', [Validators.required, Validators.minLength(6)]],
-        password_confirmation: [
-          '',
-          [Validators.required, Validators.minLength(6)]
-        ]
-      },
-      { validator: this.MatchPassword }
-    );
-  }
+    public navCtrl: NavController,
+    private navParams: NavParams
+  ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.profilePassword = this.navParams.get('profilePassword') || false;
+    if (this.profilePassword) {
+      this.validations['password_old'] = [
+        '',
+        [Validators.required, Validators.minLength(6)]
+      ];
+    }
+
+    this.changePasswordForm = this.formBuilder.group(this.validations, {
+      validator: this.MatchPassword
+    });
+  }
 
   // convenience getter for easy access to form fields
   get f() {
@@ -103,17 +119,19 @@ export class ForceChangePasswordComponent implements OnInit {
     });
     loader.present();
 
-    console.log(this.changePasswordForm.value);
-
     this.profileService.changePassword(this.changePasswordForm.value).subscribe(
       res => {
         if (res.success === true) {
           loader.dismiss();
-          console.log(res);
-          this.forceUpdateService.setDataForceChange(1);
+          if (this.profilePassword) {
+            this.util.alertConfirmation(Dictionary.msg_change_password, ['OK']);
+            this.dismiss();
+          } else {
+            this.forceUpdateService.setDataForceChange(1);
 
-          localStorage.removeItem('auth-token');
-          this.navCtrl.navigateRoot(['/login']);
+            localStorage.removeItem('auth-token');
+            this.navCtrl.navigateRoot(['/login']);
+          }
         } else {
           loader.dismiss();
           this.util.alertConfirmation(Dictionary.terjadi_kesalahan, buttons);
@@ -133,5 +151,16 @@ export class ForceChangePasswordComponent implements OnInit {
 
     this.submitted = false;
     this.changePasswordForm.reset();
+
+    if (this.profilePassword === false) {
+      this.showEditProfile();
+    }
+  }
+
+  async showEditProfile() {
+    const modal = await this.modalController.create({
+      component: ForceChangeProfileComponent
+    });
+    return await modal.present();
   }
 }

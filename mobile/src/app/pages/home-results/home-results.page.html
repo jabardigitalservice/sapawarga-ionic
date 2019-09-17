@@ -174,36 +174,38 @@
               >
             </ion-item>
 
-            <ion-item
-              *ngFor="let headline of dataNews"
-              (click)="goToDetailNews(headline.id, headline.title)"
-              class="list-news"
-            >
-              <ion-text class="mb-5"
-                ><p class="bold headline-title">
-                  {{ headline.title | slice: 0:45
-                  }}{{ headline.title.length > 45 ? '...' : '' }}
-                </p>
-                <ion-note class="source-title"
-                  ><img
-                    [src]="headline.channel.icon_url"
-                    onError="this.src='assets/img/placeholder_image_portrait.png';"
-                    class="source-icon"
-                    alt="sumber"
-                  />
-                  {{ headline.channel.name }}</ion-note
-                ></ion-text
+            <div *ngFor="let headline of dataNews">
+              <ion-item
+                *ngIf="headline !== null"
+                (click)="goToDetailNews(headline.id, headline.title)"
+                class="list-news"
               >
+                <ion-text class="mb-5"
+                  ><p class="bold headline-title">
+                    {{ headline.title | slice: 0:45
+                    }}{{ headline.title.length > 45 ? '...' : '' }}
+                  </p>
+                  <ion-note class="source-title"
+                    ><img
+                      [src]="headline.channel?.icon_url"
+                      onError="this.src='assets/img/placeholder_image_portrait.png';"
+                      class="source-icon"
+                      alt="sumber"
+                    />
+                    {{ headline.channel?.name || '' }}</ion-note
+                  ></ion-text
+                >
 
-              <img
-                slot="end"
-                [src]="headline.cover_path_url"
-                alt="icon"
-                class="headlines-img"
-                onError="this.src='assets/img/placeholder_image_portrait.png';"
-                alt="humas"
-              />
-            </ion-item>
+                <img
+                  slot="end"
+                  [src]="headline.cover_path_url"
+                  alt="icon"
+                  class="headlines-img"
+                  onError="this.src='assets/img/placeholder_image_portrait.png';"
+                  alt="humas"
+                />
+              </ion-item>
+            </div>
           </ion-card>
         </div>
       </ion-slide>
@@ -227,36 +229,38 @@
               >
             </ion-item>
 
-            <ion-item
-              *ngFor="let headline of dataNewsKabkota"
-              (click)="goToDetailNews(headline.id, headline.title)"
-              class="list-news"
-            >
-              <ion-text class="mb-5"
-                ><p class="bold headline-title">
-                  {{ headline.title | slice: 0:45
-                  }}{{ headline.title.length > 45 ? '...' : '' }}
-                </p>
-                <ion-note class="source-title"
-                  ><img
-                    [src]="headline.channel.icon_url"
-                    onError="this.src='assets/img/placeholder_image_portrait.png';"
-                    class="source-icon"
-                    alt="sumber"
-                  />
-                  {{ headline.channel.name }}</ion-note
-                ></ion-text
+            <div *ngFor="let headline of dataNewsKabkota">
+              <ion-item
+                *ngIf="headline !== null"
+                (click)="goToDetailNews(headline.id, headline.title)"
+                class="list-news"
               >
+                <ion-text class="mb-5"
+                  ><p class="bold headline-title">
+                    {{ headline.title | slice: 0:45
+                    }}{{ headline.title.length > 45 ? '...' : '' }}
+                  </p>
+                  <ion-note class="source-title"
+                    ><img
+                      [src]="headline.channel?.icon_url"
+                      onError="this.src='assets/img/placeholder_image_portrait.png';"
+                      class="source-icon"
+                      alt="sumber"
+                    />
+                    {{ headline.channel?.name }}</ion-note
+                  ></ion-text
+                >
 
-              <img
-                slot="end"
-                [src]="headline.cover_path_url"
-                alt="icon"
-                class="headlines-img"
-                onError="this.src='assets/img/placeholder_image_portrait.png';"
-                alt="humas"
-              />
-            </ion-item>
+                <img
+                  slot="end"
+                  [src]="headline.cover_path_url"
+                  alt="icon"
+                  class="headlines-img"
+                  onError="this.src='assets/img/placeholder_image_portrait.png';"
+                  alt="humas"
+                />
+              </ion-item>
+            </div>
           </ion-card>
         </div>
       </ion-slide>
