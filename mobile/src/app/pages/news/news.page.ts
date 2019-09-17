@@ -65,7 +65,7 @@ export class NewsPage implements OnInit {
         } else {
           this.msgResponse = {
             type: 'empty',
-            msg: Dictionary.empty_aspirasi
+            msg: Dictionary.msg_news
           };
         }
       },
@@ -105,7 +105,7 @@ export class NewsPage implements OnInit {
         } else {
           this.msgResponse = {
             type: 'empty',
-            msg: Dictionary.empty_aspirasi
+            msg: Dictionary.msg_news
           };
         }
         // set count page
@@ -134,7 +134,7 @@ export class NewsPage implements OnInit {
 
   // infinite scroll
   doInfinite(event) {
-    if (this.currentPage === this.maximumPages) {
+    if (this.currentPage === this.maximumPages || this.maximumPages === 0) {
       event.target.disabled = true;
       return;
     }
