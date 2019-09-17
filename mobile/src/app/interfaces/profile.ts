@@ -18,6 +18,7 @@ export interface Profile {
   facebook: string;
   instagram: string;
   twitter: string;
+  password_updated_at: string;
 }
 
 interface Kelurahan {
