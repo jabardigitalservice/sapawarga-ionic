@@ -123,10 +123,15 @@ export class ForceChangePasswordComponent implements OnInit {
       res => {
         if (res.success === true) {
           loader.dismiss();
-          this.forceUpdateService.setDataForceChange(1);
+          if (this.profilePassword) {
+            this.util.alertConfirmation(Dictionary.msg_change_password, ['OK']);
+            this.dismiss();
+          } else {
+            this.forceUpdateService.setDataForceChange(1);
 
-          localStorage.removeItem('auth-token');
-          this.navCtrl.navigateRoot(['/login']);
+            localStorage.removeItem('auth-token');
+            this.navCtrl.navigateRoot(['/login']);
+          }
         } else {
           loader.dismiss();
           this.util.alertConfirmation(Dictionary.terjadi_kesalahan, buttons);
