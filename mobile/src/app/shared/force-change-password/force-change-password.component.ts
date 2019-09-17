@@ -153,7 +153,7 @@ export class ForceChangePasswordComponent implements OnInit {
     this.changePasswordForm.reset();
 
     if (this.profilePassword === false) {
-      this.showEditProfile();
+      this.navCtrl.navigateRoot('/login');
     }
   }
 

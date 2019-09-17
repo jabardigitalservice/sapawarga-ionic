@@ -250,8 +250,6 @@ export class LoginPage implements OnInit {
         if (res['data'].password_updated_at !== null) {
           this.navCtrl.navigateRoot(['/tabs']['home']);
         } else {
-          // localStorage.removeItem('auth-token');
-
           const dataForceChange = this.forceUpdateService.getDataForceChange();
           console.log(dataForceChange);
           if (!dataForceChange || dataForceChange.isChangePassword === false) {
@@ -271,7 +269,6 @@ export class LoginPage implements OnInit {
   }
 
   async showForceChange(data: number) {
-    console.log(data);
     const modal = await this.modalController.create({
       component: ForceChangePasswordComponent,
       keyboardClose: false
