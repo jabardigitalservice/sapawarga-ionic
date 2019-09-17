@@ -55,7 +55,7 @@ export class ForceChangeProfileComponent implements OnInit {
     // });
     // loader.present();
 
-    console.log(this.changeProfileForm.value);
+    // console.log(this.changeProfileForm.value);
 
     // await this.auth.login(this.onLoginForm.value).subscribe(
     //   res => {
