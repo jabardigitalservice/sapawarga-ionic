@@ -36,6 +36,8 @@ export class MenuNavbarComponent implements OnInit {
     this.popover.dismiss();
   }
 
+  changePassword() {}
+
   async confirmLogout() {
     const buttons = [
       {

@@ -1,16 +1,22 @@
 <ion-list>
-  <ion-item color="light" (click)="editProfile()">
+  <ion-item (click)="editProfile()">
     <ion-icon name="person" color="primary" class="ion-margin-end"></ion-icon>
     <ion-label>
       <p>Edit Akun</p>
     </ion-label>
   </ion-item>
 
-  <ion-item color="light" (click)="confirmLogout()">
+  <ion-item (click)="changePassword()">
+    <ion-icon name="person" color="primary" class="ion-margin-end"></ion-icon>
+    <ion-label>
+      <p>Ganti Password</p>
+    </ion-label>
+  </ion-item>
+
+  <ion-item (click)="confirmLogout()">
     <ion-icon name="log-out" color="primary" class="ion-margin-end"></ion-icon>
     <ion-label>
       <p>Keluar</p>
     </ion-label>
   </ion-item>
-
 </ion-list>
