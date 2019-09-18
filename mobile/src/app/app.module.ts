@@ -15,11 +15,14 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { Constants } from './helpers/constants';
 import { IonicStorageModule } from '@ionic/storage';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 // Components
 import { TokenInterceptor } from './helpers/token.interceptor';
 import { MenuNavbarComponent } from './components/menu-navbar/menu-navbar.component';
 import { MenuNavbarAspirasiComponent } from './components/menu-navbar-aspirasi/menu-navbar-aspirasi.component';
+import { ForceChangePasswordComponent } from './shared/force-change-password/force-change-password.component';
+import { ForceChangeProfileComponent } from './shared/force-change-profile/force-change-profile.component';
 
 // plugin
 import { FCM } from '@ionic-native/fcm/ngx';
@@ -40,7 +43,9 @@ import { SMS } from '@ionic-native/sms/ngx';
     AppComponent,
     MenuNavbarComponent,
     MenuNavbarAspirasiComponent,
-    UpdateAppComponent
+    UpdateAppComponent,
+    ForceChangePasswordComponent,
+    ForceChangeProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -48,12 +53,16 @@ import { SMS } from '@ionic-native/sms/ngx';
     IonicModule.forRoot(),
     AppRoutingModule,
     IonicStorageModule.forRoot(),
-    HttpClientModule
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   entryComponents: [
     MenuNavbarComponent,
     MenuNavbarAspirasiComponent,
-    UpdateAppComponent
+    UpdateAppComponent,
+    ForceChangePasswordComponent,
+    ForceChangeProfileComponent
   ],
   providers: [
     StatusBar,
