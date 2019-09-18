@@ -26,6 +26,7 @@ import { ProfileService } from '../../services/profile.service';
 import { UtilitiesService } from '../../services/utilities.service';
 import { ForceChangePasswordComponent } from '../../shared/force-change-password/force-change-password.component';
 import { ForceUpdateService } from '../../services/force-update.service';
+import { ForceChangeProfileComponent } from 'src/app/shared/force-change-profile/force-change-profile.component';
 
 @Component({
   selector: 'app-login',
@@ -247,18 +248,20 @@ export class LoginPage implements OnInit {
         loader.dismiss();
 
         // check password is update
-        if (res['data'].password_updated_at !== null) {
+        if (
+          res['data'].password_updated_at !== null &&
+          res['data'].profile_updated_at !== null
+        ) {
           this.navCtrl.navigateRoot(['/tabs']['home']);
         } else {
-          const dataForceChange = this.forceUpdateService.getDataForceChange();
-          console.log(dataForceChange);
-          if (!dataForceChange || dataForceChange.isChangePassword === false) {
-            this.showForceChange(1);
-          } else if (
-            dataForceChange.isChangePassword === true &&
-            dataForceChange.isChangeProfile === false
-          ) {
-            console.log('masuk modal force profile');
+          // insert all datas force update to false
+          this.forceUpdateService.setDataForceChange();
+
+          const dataCheckUpdate = this.forceUpdateService.checkForceUpdate();
+          if (dataCheckUpdate === 1) {
+            this.showModalUpdate(1);
+          } else if (dataCheckUpdate === 2) {
+            // console.log('enter modal force profile');
           }
         }
       },
@@ -268,9 +271,10 @@ export class LoginPage implements OnInit {
     );
   }
 
-  async showForceChange(data: number) {
+  async showModalUpdate(data: number) {
     const modal = await this.modalController.create({
-      component: ForceChangePasswordComponent,
+      component:
+        data === 1 ? ForceChangePasswordComponent : ForceChangeProfileComponent,
       keyboardClose: false
     });
     return await modal.present();

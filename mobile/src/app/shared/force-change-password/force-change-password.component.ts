@@ -128,9 +128,9 @@ export class ForceChangePasswordComponent implements OnInit {
             this.dismiss();
           } else {
             this.forceUpdateService.setDataForceChange(1);
-
             localStorage.removeItem('auth-token');
             this.navCtrl.navigateRoot(['/login']);
+            this.dismiss();
           }
         } else {
           loader.dismiss();

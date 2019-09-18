@@ -1,5 +1,10 @@
 import { Component, ViewChild } from '@angular/core';
-import { Platform, NavController, IonRouterOutlet } from '@ionic/angular';
+import {
+  Platform,
+  NavController,
+  IonRouterOutlet,
+  ModalController
+} from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
@@ -16,6 +21,9 @@ import { GoogleAnalytics } from '@ionic-native/google-analytics/ngx';
 import { Constants } from './helpers/constants';
 import { ProfileService } from './services/profile.service';
 import { AppUpdateService } from './services/app-update.service';
+import { ForceChangePasswordComponent } from './shared/force-change-password/force-change-password.component';
+import { ForceChangeProfileComponent } from './shared/force-change-profile/force-change-profile.component';
+import { ForceUpdateService } from './services/force-update.service';
 
 @Component({
   selector: 'app-root',
@@ -44,7 +52,9 @@ export class AppComponent {
     private util: UtilitiesService,
     private constants: Constants,
     private profileService: ProfileService,
-    private appUpdateService: AppUpdateService
+    private appUpdateService: AppUpdateService,
+    private forceUpdateService: ForceUpdateService,
+    private modalController: ModalController
   ) {
     this.initializeApp();
     this.platform.backButton.subscribe(() => {
@@ -95,6 +105,14 @@ export class AppComponent {
 
         this.authService.authenticationState.subscribe(state => {
           if (state) {
+            // check if user is done to edit password / edit profile
+            const dataCheckUpdate = this.forceUpdateService.checkForceUpdate();
+            if (dataCheckUpdate === 1) {
+              this.showModalUpdate(1);
+            } else if (dataCheckUpdate === 2) {
+              // console.log('enter modal force profile');
+            }
+
             this.navCtrl.navigateRoot('/');
 
             //  get ID user
@@ -154,5 +172,14 @@ export class AppComponent {
 
   logout() {
     this.navCtrl.navigateRoot('/');
+  }
+
+  async showModalUpdate(data: number) {
+    const modal = await this.modalController.create({
+      component:
+        data === 1 ? ForceChangePasswordComponent : ForceChangeProfileComponent,
+      keyboardClose: false
+    });
+    return await modal.present();
   }
 }
