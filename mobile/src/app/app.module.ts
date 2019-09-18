@@ -23,6 +23,7 @@ import { MenuNavbarComponent } from './components/menu-navbar/menu-navbar.compon
 import { MenuNavbarAspirasiComponent } from './components/menu-navbar-aspirasi/menu-navbar-aspirasi.component';
 import { ForceChangePasswordComponent } from './shared/force-change-password/force-change-password.component';
 import { ForceChangeProfileComponent } from './shared/force-change-profile/force-change-profile.component';
+import { ForgotPasswordComponent } from './shared/forgot-password/forgot-password.component';
 
 // plugin
 import { FCM } from '@ionic-native/fcm/ngx';
@@ -45,7 +46,8 @@ import { SMS } from '@ionic-native/sms/ngx';
     MenuNavbarAspirasiComponent,
     UpdateAppComponent,
     ForceChangePasswordComponent,
-    ForceChangeProfileComponent
+    ForceChangeProfileComponent,
+    ForgotPasswordComponent
   ],
   imports: [
     BrowserModule,
@@ -62,7 +64,8 @@ import { SMS } from '@ionic-native/sms/ngx';
     MenuNavbarAspirasiComponent,
     UpdateAppComponent,
     ForceChangePasswordComponent,
-    ForceChangeProfileComponent
+    ForceChangeProfileComponent,
+    ForgotPasswordComponent
   ],
   providers: [
     StatusBar,

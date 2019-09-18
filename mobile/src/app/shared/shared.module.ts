@@ -5,6 +5,7 @@ import { MessageControlComponent } from './message-control/message-control.compo
 import { AspirasiListComponent } from './aspirasi-list/aspirasi-list.component';
 import { MyAspirasiComponent } from './my-aspirasi/my-aspirasi.component';
 import { IonicModule } from '@ionic/angular';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 
 @NgModule({
   declarations: [

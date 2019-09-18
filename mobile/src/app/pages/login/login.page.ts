@@ -27,6 +27,7 @@ import { UtilitiesService } from '../../services/utilities.service';
 import { ForceChangePasswordComponent } from '../../shared/force-change-password/force-change-password.component';
 import { ForceUpdateService } from '../../services/force-update.service';
 import { ForceChangeProfileComponent } from 'src/app/shared/force-change-profile/force-change-profile.component';
+import { ForgotPasswordComponent } from '../../shared/forgot-password/forgot-password.component';
 
 @Component({
   selector: 'app-login',
@@ -103,23 +104,12 @@ export class LoginPage implements OnInit {
     return this.onLoginForm.controls;
   }
 
-  async forgotPass() {
-    const header = 'Lupa Kata Sandi?';
-    const buttons = ['OK'];
-
-    this.util.alertConfirmation(Dictionary.forgot_password, buttons, header);
-  }
-
   async presentAlert(param: string, message?: string) {
     let header = '';
     let buttons = null;
     let msg = '';
 
-    if (param === 'forgot') {
-      header = 'Lupa Kata Sandi?';
-      msg = Dictionary.forgot_password;
-      buttons = ['OK'];
-    } else if (param === 'error') {
+    if (param === 'error') {
       header = '';
       msg = message;
       buttons = ['OK'];
@@ -276,6 +266,13 @@ export class LoginPage implements OnInit {
       component:
         data === 1 ? ForceChangePasswordComponent : ForceChangeProfileComponent,
       keyboardClose: false
+    });
+    return await modal.present();
+  }
+
+  async showForgotPassword() {
+    const modal = await this.modalController.create({
+      component: ForgotPasswordComponent
     });
     return await modal.present();
   }
