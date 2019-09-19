@@ -1,0 +1,53 @@
+:host {
+  [padding] {
+    --padding-start: var(--ion-padding, 10px);
+    --padding-end: var(--ion-padding, 10px);
+  }
+
+  ion-button {
+    text-transform: none;
+    font-size: 15px;
+  }
+
+  ion-item {
+    --border-color: transparent;
+  }
+
+  ion-card {
+    margin-bottom: 20px;
+  }
+}
+
+.img-cover {
+  object-fit: cover;
+  object-position: top;
+  max-height: 210px;
+}
+
+.title {
+  padding-left: var(--ion-padding, 10px);
+  margin-bottom: 8px;
+}
+
+@media only screen and (min-device-width: 400px) {
+  .img-cover {
+    max-height: 250px;
+  }
+}
+
+@media only screen and (min-device-width: 468px) {
+  .img-cover {
+    max-height: 280px;
+  }
+}
+
+@media only screen and (min-device-width: 500px) {
+  .img-cover {
+    max-height: 300px;
+  }
+}
+@media only screen and (min-device-width: 555px) {
+  .img-cover {
+    max-height: 330px;
+  }
+}

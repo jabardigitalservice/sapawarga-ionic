@@ -1,9 +1,38 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>saberHoax</ion-title>
+  <ion-toolbar color="light">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Saber Hoax</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
+  <ion-label class="title">
+    Berita Terverifikasi
+  </ion-label>
+  <div *ngIf="dataSaberHoax">
+    <ion-card *ngFor="let saberHoax of dataSaberHoax; let i = index">
+      <img
+        class="img-cover"
+        [src]="'assets/img/saber-hoax.jpg'"
+        onError="this.src='assets/img/placeholder_image.png';"
+      />
+      <ion-item>
+        <ion-text style="padding: 5px;">
+          {{ saberHoax.title | slice: 0:35
+          }}{{ saberHoax.title.length > 35 ? '...' : '' }}</ion-text
+        >
+        <ion-button fill="clear" color="warning" slot="end"
+          >Klarifikasi</ion-button
+        >
+      </ion-item>
+    </ion-card>
+  </div>
 
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button color="success">
+      <ion-icon name="call"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>

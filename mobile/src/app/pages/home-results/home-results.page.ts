@@ -398,7 +398,9 @@ export class HomeResultsPage implements OnInit {
     );
   }
 
-  goSaberHoax() {}
+  goSaberHoax() {
+    this.navCtrl.navigateForward('saber-hoax');
+  }
 
   goAdministrasi() {
     this.navCtrl.navigateForward('administrasi');
