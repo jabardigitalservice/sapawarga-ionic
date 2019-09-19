@@ -159,6 +159,7 @@ export class NotifikasiPage implements OnInit {
             type: 'server-error',
             msg: Dictionary.internalError
           };
+          this.dataNotifikasi = [];
         }
       }
     );
