@@ -263,7 +263,7 @@ export class LoginPage implements OnInit {
           if (dataCheckUpdate === 1) {
             this.showModalUpdate(1);
           } else if (dataCheckUpdate === 2) {
-            this.showModalUpdate(2);
+            // this.showModalUpdate(2);
           }
         }
       },
