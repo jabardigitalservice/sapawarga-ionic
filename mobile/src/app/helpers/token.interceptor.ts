@@ -9,16 +9,28 @@ import {
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
-import { ToastController, NavController } from '@ionic/angular';
+import { NavController, Platform } from '@ionic/angular';
 import { UtilitiesService } from '../services/utilities.service';
+import { AppVersion } from '@ionic-native/app-version/ngx';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
+  app_version: string;
   constructor(
     private navCtrl: NavController,
-    private toastCtrl: ToastController,
-    private util: UtilitiesService
-  ) {}
+    private util: UtilitiesService,
+    private platform: Platform,
+    public appVersion: AppVersion
+  ) {
+    if (this.platform.platforms()) {
+      this.appVersion
+        .getVersionNumber()
+        .then(res => {
+          this.app_version = res;
+        })
+        .catch(err => {});
+    }
+  }
 
   intercept(
     request: HttpRequest<any>,
@@ -30,7 +42,8 @@ export class TokenInterceptor implements HttpInterceptor {
     if (token) {
       request = request.clone({
         setHeaders: {
-          Authorization: `Bearer ${token}`
+          Authorization: `Bearer ${token}`,
+          'X-Requested-With-Version': this.app_version ? this.app_version : ''
         }
       });
     }
@@ -38,7 +51,8 @@ export class TokenInterceptor implements HttpInterceptor {
     if (!request.headers.has('Content-Type')) {
       request = request.clone({
         setHeaders: {
-          'content-type': 'application/json'
+          'content-type': 'application/json',
+          'X-Requested-With-Version': this.app_version ? this.app_version : ''
         }
       });
     }
