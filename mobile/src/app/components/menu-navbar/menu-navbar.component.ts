@@ -44,6 +44,7 @@ export class MenuNavbarComponent implements OnInit {
   }
 
   async changePassword() {
+    this.popover.dismiss();
     const modal = await this.modalController.create({
       component: ForceChangePasswordComponent,
       componentProps: {
