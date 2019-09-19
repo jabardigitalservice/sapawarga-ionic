@@ -1,5 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Dictionary } from 'src/app/helpers/dictionary';
+import { ForceUpdateService } from '../../services/force-update.service';
+import { UtilitiesService } from '../../services/utilities.service';
+import {
+  LoadingController,
+  NavController,
+  ModalController
+} from '@ionic/angular';
 
 @Component({
   selector: 'app-force-change-profile',
@@ -10,7 +18,14 @@ export class ForceChangeProfileComponent implements OnInit {
   public changeProfileForm: FormGroup;
   submitted = false;
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(
+    private formBuilder: FormBuilder,
+    private forceUpdateService: ForceUpdateService,
+    private util: UtilitiesService,
+    private loadingCtrl: LoadingController,
+    private navCtrl: NavController,
+    private modalCtrl: ModalController
+  ) {
     this.changeProfileForm = this.formBuilder.group({
       name: [
         '',
@@ -37,6 +52,13 @@ export class ForceChangeProfileComponent implements OnInit {
     return this.changeProfileForm.controls;
   }
 
+  dismiss() {
+    // dismiss modal
+    this.modalCtrl.dismiss({
+      dismissed: true
+    });
+  }
+
   async submitProfile() {
     this.submitted = true;
     // check form if invalid
@@ -45,36 +67,50 @@ export class ForceChangeProfileComponent implements OnInit {
     }
 
     // check internet
-    // if (!navigator.onLine) {
-    //   this.util.showToast(Dictionary.offline);
-    //   return;
-    // }
+    if (!navigator.onLine) {
+      this.util.showToast(Dictionary.offline);
+      return;
+    }
 
-    // const loader = await this.loadingCtrl.create({
-    //   duration: 10000
-    // });
-    // loader.present();
+    const loader = await this.loadingCtrl.create({
+      duration: 10000
+    });
+    loader.present();
 
-    // console.log(this.changeProfileForm.value);
+    console.log(this.changeProfileForm.value);
 
-    // await this.auth.login(this.onLoginForm.value).subscribe(
-    //   res => {
-    //     if (res.success === true) {
-    //       loader.dismiss();
-    //       this.auth.saveToken(res.data.access_token);
-    //       this.getDataProfile();
-    //     } else {
-    //       loader.dismiss();
-    //       this.presentAlert('error', Dictionary.confirmation_login);
-    //     }
-    //   },
-    //   err => {
-    //     loader.dismiss();
-    //     this.presentAlert('error', err.data.password[0]);
-    //   }
-    // );
+    await this.forceUpdateService
+      .PostForceChangeProfile(this.changeProfileForm.value)
+      .subscribe(
+        res => {
+          if (res.success === true) {
+            loader.dismiss();
+            localStorage.removeItem('auth-token');
+            this.navCtrl.navigateRoot(['/login']);
+            this.dismiss();
+          } else {
+            loader.dismiss();
+            this.util.alertConfirmation(Dictionary.confirmation_login, ['OK']);
+          }
+        },
+        err => {
+          loader.dismiss();
+          if (err.status === 422) {
+            if (err.data.email) {
+              this.util.alertConfirmation(err.data.email[0], ['OK']);
+            }
+            if (err.data.phone) {
+              this.util.alertConfirmation(err.data.phone[0], ['OK']);
+            }
+            if (err.data.name) {
+              this.util.alertConfirmation(err.data.name[0], ['OK']);
+            }
+          } else {
+            this.util.alertConfirmation(Dictionary.terjadi_kesalahan, ['OK']);
+          }
+        }
+      );
 
     this.submitted = false;
-    this.changeProfileForm.reset();
   }
 }

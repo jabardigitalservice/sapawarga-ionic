@@ -254,14 +254,16 @@ export class LoginPage implements OnInit {
         ) {
           this.navCtrl.navigateRoot(['/tabs']['home']);
         } else {
+          // check which should be update
+          const isForceUpdate = res['data'].password_updated_at ? 1 : 2;
           // insert all datas force update to false
-          this.forceUpdateService.setDataForceChange();
+          this.forceUpdateService.setDataForceChange(isForceUpdate);
 
           const dataCheckUpdate = this.forceUpdateService.checkForceUpdate();
           if (dataCheckUpdate === 1) {
             this.showModalUpdate(1);
           } else if (dataCheckUpdate === 2) {
-            // console.log('enter modal force profile');
+            this.showModalUpdate(2);
           }
         }
       },
