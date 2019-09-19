@@ -108,9 +108,11 @@ export class AppComponent {
             // check if user is done to edit password / edit profile
             const dataCheckUpdate = this.forceUpdateService.checkForceUpdate();
             if (dataCheckUpdate === 1) {
+              // show modal force password
               this.showModalUpdate(1);
             } else if (dataCheckUpdate === 2) {
-              // console.log('enter modal force profile');
+              // show modal force profile
+              this.showModalUpdate(2);
             }
 
             this.navCtrl.navigateRoot('/');
