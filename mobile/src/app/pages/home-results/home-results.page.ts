@@ -147,9 +147,9 @@ export class HomeResultsPage implements OnInit {
       //   icon: 'assets/icon/SW-IJIN.png'
       // },
       {
-        title: 'Administrasi',
+        title: 'Saber Hoaks',
         url: '',
-        icon: 'assets/icon/SW-ADMINISTRASI.png'
+        icon: 'assets/icon/saber_hoax.png'
       },
       {
         title: 'Lainnya',
@@ -159,6 +159,12 @@ export class HomeResultsPage implements OnInit {
     ];
 
     this.otherPages = [
+      {
+        text: 'Administrasi',
+        handler: () => {
+          this.goAdministrasi();
+        }
+      },
       {
         text: 'Info Harga',
         handler: () => {
@@ -281,6 +287,9 @@ export class HomeResultsPage implements OnInit {
       case 'Survei':
         this.goSurvey();
         break;
+      case 'Saber Hoaks':
+        this.goSaberHoax();
+        break;
       case 'Lainnya':
         this.openOtherPages();
         break;
@@ -388,6 +397,8 @@ export class HomeResultsPage implements OnInit {
       1
     );
   }
+
+  goSaberHoax() {}
 
   goAdministrasi() {
     this.navCtrl.navigateForward('administrasi');
