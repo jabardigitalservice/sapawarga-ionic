@@ -112,7 +112,7 @@ export class AppComponent {
               this.showModalUpdate(1);
             } else if (dataCheckUpdate === 2) {
               // show modal force profile
-              // this.showModalUpdate(2);
+              this.showModalUpdate(2);
             }
 
             this.navCtrl.navigateRoot('/');
