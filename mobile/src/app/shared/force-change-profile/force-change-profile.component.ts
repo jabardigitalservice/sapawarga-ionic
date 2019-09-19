@@ -95,12 +95,22 @@ export class ForceChangeProfileComponent implements OnInit {
         },
         err => {
           loader.dismiss();
-          console.log(err);
-          // this.util.alertConfirmation(Dictionary.confirmation_login, ['OK']);
+          if (err.status === 422) {
+            if (err.data.email) {
+              this.util.alertConfirmation(err.data.email[0], ['OK']);
+            }
+            if (err.data.phone) {
+              this.util.alertConfirmation(err.data.phone[0], ['OK']);
+            }
+            if (err.data.name) {
+              this.util.alertConfirmation(err.data.name[0], ['OK']);
+            }
+          } else {
+            this.util.alertConfirmation(Dictionary.terjadi_kesalahan, ['OK']);
+          }
         }
       );
 
     this.submitted = false;
-    this.changeProfileForm.reset();
   }
 }
