@@ -8,7 +8,7 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-label class="title">
+  <ion-label class="title" *ngIf="dataSaberHoax">
     Berita Terverifikasi
   </ion-label>
   <div *ngIf="dataSaberHoax">
@@ -23,9 +23,9 @@
           {{ saberHoax.title | slice: 0:35
           }}{{ saberHoax.title.length > 35 ? '...' : '' }}</ion-text
         >
-        <ion-button fill="clear" color="warning" slot="end"
-          >Klarifikasi</ion-button
-        >
+        <ion-button fill="clear" color="warning" slot="end">{{
+          saberHoax.category.name
+        }}</ion-button>
       </ion-item>
     </ion-card>
   </div>
