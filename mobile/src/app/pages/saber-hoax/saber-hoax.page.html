@@ -23,7 +23,7 @@
           {{ saberHoax.title | slice: 0:35
           }}{{ saberHoax.title.length > 35 ? '...' : '' }}</ion-text
         >
-        <ion-button fill="clear" color="warning" slot="end">{{
+        <ion-button fill="clear" [color]="checkStatus(5)" slot="end">{{
           saberHoax.category.name
         }}</ion-button>
       </ion-item>
@@ -31,8 +31,8 @@
   </div>
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button color="success">
-      <ion-icon name="call"></ion-icon>
+    <ion-fab-button color="success" [href]="sendMessage()">
+      <img src="assets/icon/wa.png" alt="" width="40%" />
     </ion-fab-button>
   </ion-fab>
 </ion-content>

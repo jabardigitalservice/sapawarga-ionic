@@ -3,6 +3,8 @@ import { LoadingController } from '@ionic/angular';
 import { Dictionary } from '../../helpers/dictionary';
 import { SaberHoaxService } from 'src/app/services/saber-hoax.service';
 import { SaberHoax } from 'src/app/interfaces/saber-hoax';
+import { Constants } from '../../helpers/constants';
+import { UtilitiesService } from '../../services/utilities.service';
 
 @Component({
   selector: 'app-saber-hoax',
@@ -17,12 +19,16 @@ export class SaberHoaxPage implements OnInit {
     type: '',
     msg: ''
   };
-  title =
-    'Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque blanditiis in officia esse? Accusamus tempora molestias enim dolores molestiae obcaecati dolore amet sit magnam, ullam maxime delectus! Culpa, facere sed?';
+
+  public telpSaberHoax: string;
   constructor(
     private saberHoaxService: SaberHoaxService,
-    private loadingCtrl: LoadingController
-  ) {}
+    private loadingCtrl: LoadingController,
+    private constants: Constants,
+    private util: UtilitiesService
+  ) {
+    this.telpSaberHoax = this.constants.telpSaberHoax;
+  }
 
   ngOnInit() {
     this.getListSaberHoax();
@@ -96,4 +102,34 @@ export class SaberHoaxPage implements OnInit {
   //     this.getListSaberHoax(event);
   //   }, 2000);
   // }
+
+  checkStatus(status: number) {
+    let color: string;
+    switch (status) {
+      case 5:
+        color = 'primary';
+        break;
+      case 10:
+        color = 'success';
+        break;
+      case 3:
+        color = 'danger';
+        break;
+      case 0:
+        color = 'warning';
+        break;
+      case -1:
+        color = 'danger';
+        break;
+      default:
+        color = '';
+        break;
+    }
+    return color;
+  }
+
+  sendMessage() {
+    const openWa = `whatsapp://send?phone=${this.telpSaberHoax}`;
+    return openWa;
+  }
 }
