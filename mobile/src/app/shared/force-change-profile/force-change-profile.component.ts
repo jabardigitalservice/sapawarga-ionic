@@ -8,6 +8,7 @@ import {
   NavController,
   ModalController
 } from '@ionic/angular';
+import { Constants } from '../../helpers/constants';
 
 @Component({
   selector: 'app-force-change-profile',
@@ -24,7 +25,8 @@ export class ForceChangeProfileComponent implements OnInit {
     private util: UtilitiesService,
     private loadingCtrl: LoadingController,
     private navCtrl: NavController,
-    private modalCtrl: ModalController
+    private modalCtrl: ModalController,
+    private constants: Constants
   ) {
     this.changeProfileForm = this.formBuilder.group({
       name: [
@@ -77,8 +79,6 @@ export class ForceChangeProfileComponent implements OnInit {
     });
     loader.present();
 
-    console.log(this.changeProfileForm.value);
-
     await this.forceUpdateService
       .PostForceChangeProfile(this.changeProfileForm.value)
       .subscribe(
@@ -87,6 +87,7 @@ export class ForceChangeProfileComponent implements OnInit {
             loader.dismiss();
             localStorage.removeItem('auth-token');
             this.navCtrl.navigateRoot(['/login']);
+            localStorage.removeItem(this.constants.localStorage.forceChange);
             this.dismiss();
           } else {
             loader.dismiss();
