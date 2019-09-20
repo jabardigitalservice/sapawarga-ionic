@@ -57,7 +57,9 @@ export class AppComponent {
     private modalController: ModalController
   ) {
     this.initializeApp();
+
     this.platform.backButton.subscribe(() => {
+      const isModalOpened = this.modalController.getTop();
       if (
         this.routerOutlet &&
         this.routerOutlet.canGoBack() &&
@@ -66,20 +68,27 @@ export class AppComponent {
         this.routerOutlet.pop();
       } else if (this.router.url === '/tabs') {
         navigator['app'].exitApp();
+      }
+      if (router.url === '/tabs/home' && isModalOpened) {
+        this.exitApp();
       } else if (this.router.url === '/aspirasi-form') {
         return;
       } else {
-        if (this.counter === 0) {
-          this.counter++;
-          this.util.showToast(Dictionary.msg_exit_app);
-          setTimeout(() => {
-            this.counter = 0;
-          }, 3000);
-        } else {
-          navigator['app'].exitApp();
-        }
+        this.exitApp();
       }
     });
+  }
+
+  private exitApp() {
+    if (this.counter === 0) {
+      this.counter++;
+      this.util.showToast(Dictionary.msg_exit_app);
+      setTimeout(() => {
+        this.counter = 0;
+      }, 3000);
+    } else {
+      navigator['app'].exitApp();
+    }
   }
 
   initializeApp() {
