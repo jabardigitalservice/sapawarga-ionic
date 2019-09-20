@@ -6,7 +6,8 @@ import { UtilitiesService } from '../../services/utilities.service';
 import {
   LoadingController,
   NavController,
-  ModalController
+  ModalController,
+  Platform
 } from '@ionic/angular';
 import { Constants } from '../../helpers/constants';
 
@@ -26,7 +27,8 @@ export class ForceChangeProfileComponent implements OnInit {
     private loadingCtrl: LoadingController,
     private navCtrl: NavController,
     private modalCtrl: ModalController,
-    private constants: Constants
+    private constants: Constants,
+    private platform: Platform
   ) {
     this.changeProfileForm = this.formBuilder.group({
       name: [
@@ -47,7 +49,18 @@ export class ForceChangeProfileComponent implements OnInit {
     });
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.platform.backButton.subscribeWithPriority(9999, () => {
+      document.addEventListener(
+        'backbutton',
+        function(event) {
+          event.preventDefault();
+          event.stopPropagation();
+        },
+        false
+      );
+    });
+  }
 
   // convenience getter for easy access to form fields
   get f() {
