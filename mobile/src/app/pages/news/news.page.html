@@ -10,7 +10,7 @@
 <ion-content>
   <ion-card
     class="headline ion-margin-top"
-    *ngIf="dataFeatured"
+    *ngIf="dataFeatured && dataFeatured[0] !== null"
     (click)="goToDetailNews(dataFeatured[0].id)"
   >
     <img
