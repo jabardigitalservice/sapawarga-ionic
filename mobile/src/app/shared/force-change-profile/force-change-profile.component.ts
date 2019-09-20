@@ -37,13 +37,28 @@ export class ForceChangeProfileComponent implements OnInit {
           Validators.required,
           Validators.maxLength(255),
           Validators.minLength(4),
-          Validators.pattern(/^[A-Za-z ]+$/)
+          Validators.pattern(/^[A-Za-z `'.]+$/)
         ]
       ],
-      email: ['', [Validators.required, Validators.email]],
+      email: [
+        '',
+        [
+          Validators.required,
+          Validators.email,
+          Validators.pattern(
+            // tslint:disable-next-line:max-line-length
+            /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]{3,}@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/
+          )
+        ]
+      ],
       phone: [
         '',
-        [Validators.required, Validators.minLength(3), Validators.maxLength(12)]
+        [
+          Validators.required,
+          Validators.minLength(3),
+          Validators.maxLength(13),
+          Validators.pattern(/^(^62\s?|^0)(\d{5,13})$/)
+        ]
       ],
       address: ['', [Validators.required, Validators.maxLength(255)]]
     });

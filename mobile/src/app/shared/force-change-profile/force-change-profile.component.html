@@ -61,6 +61,11 @@
           alphanumeric, underscore, titik dan @
         </ion-text>
       </p>
+      <p ion-text class="text08" *ngIf="!!f.email.errors.pattern">
+        <ion-text color="danger">
+          email harus terdiri dari 3 karakter atau lebih
+        </ion-text>
+      </p>
       <!-- <p
         ion-text
         class="text08"
@@ -98,6 +103,11 @@
         <ion-text color="danger">
           Nomor telepon yang anda masukkan salah. Nomor telepon harus terdiri 3
           sampai 13 nomor
+        </ion-text>
+      </p>
+      <p ion-text class="text08" *ngIf="!!f.phone.errors.pattern">
+        <ion-text color="danger">
+          Nomor telepon seharusnya berawal dari 0 atau 62
         </ion-text>
       </p>
     </div>
