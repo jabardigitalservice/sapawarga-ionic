@@ -116,7 +116,14 @@ export class ForceChangeProfileComponent implements OnInit {
             localStorage.removeItem('auth-token');
             localStorage.removeItem('forceChange');
             this.navCtrl.navigateRoot(['/login']);
-            localStorage.removeItem(this.constants.localStorage.forceChange);
+
+            // event google analytics
+            this.util.trackEvent(
+              this.constants.pageName.forceUpdate,
+              'force_change_edit_profile',
+              '',
+              1
+            );
             this.dismiss();
           } else {
             loader.dismiss();

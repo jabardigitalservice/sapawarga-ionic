@@ -11,6 +11,7 @@ import { ForceUpdateService } from '../../services/force-update.service';
 import { Dictionary } from '../../helpers/dictionary';
 import { UtilitiesService } from '../../services/utilities.service';
 import { ProfileService } from '../../services/profile.service';
+import { Constants } from '../../helpers/constants';
 
 @Component({
   selector: 'app-force-change-password',
@@ -52,7 +53,8 @@ export class ForceChangePasswordComponent implements OnInit {
     private profileService: ProfileService,
     public navCtrl: NavController,
     private navParams: NavParams,
-    private platform: Platform
+    private platform: Platform,
+    private constants: Constants
   ) {}
 
   ngOnInit() {
@@ -143,6 +145,14 @@ export class ForceChangePasswordComponent implements OnInit {
             localStorage.removeItem('auth-token');
             localStorage.removeItem('forceChange');
             this.navCtrl.navigateRoot(['/login']);
+
+            // event google analytics
+            this.util.trackEvent(
+              this.constants.pageName.forceUpdate,
+              'force_change_password',
+              '',
+              1
+            );
           }
         } else {
           loader.dismiss();

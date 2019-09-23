@@ -23,7 +23,8 @@ export class Constants {
     notification: 'Notifikasi',
     infoHarga: 'Info Harga',
     perizinan: 'Perizinan',
-    home_pages: 'Home Pages'
+    home_pages: 'Home Pages',
+    forceUpdate: 'Force Update'
   };
 
   public inAppBrowserOptions: any = {
