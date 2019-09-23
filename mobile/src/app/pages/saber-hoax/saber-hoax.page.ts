@@ -147,9 +147,6 @@ export class SaberHoaxPage implements OnInit {
   }
 
   sendMessage() {
-    // const openWa = `whatsapp://send?phone=${this.telpSaberHoax}`;
-    // return openWa;
-
     // check if the platform is ios or android, else open the web url
     this.platform.ready().then(() => {
       this.inAppBrowser.create(
@@ -158,7 +155,12 @@ export class SaberHoaxPage implements OnInit {
       );
 
       // event google analytics
-      // this.createEventAnalytics('view_detail_e_Samsat', name);
+      this.util.trackEvent(
+        this.constants.pageName.saberHoax,
+        'tapped_view_WA_saber_hoax',
+        '',
+        1
+      );
     });
   }
 }
