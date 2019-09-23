@@ -48,25 +48,24 @@ export class AuthService {
 
   // logout and clear session
   logout() {
+    this.deleteDataLocal(this.constants.localStorage.videoPostData);
+    this.deleteDataLocal(this.constants.localStorage.profileData);
+    this.deleteDataLocal(this.constants.localStorage.authToken);
+    this.deleteDataLocal(this.constants.localStorage.forceChange);
+    this.deleteDataLocal(this.constants.localStorage.NewsHeadlines);
+    this.deleteDataLocal(this.constants.localStorage.NewsKabkotaHeadlines);
+    this.deleteDataLocal(this.constants.localStorage.notification);
+    this.deleteDataLocal(this.constants.localStorage.broadcastData);
+    this.deleteDataLocal(this.constants.localStorage.aspirasi);
+    this.deleteDataLocal(this.constants.localStorage.aspirasiLikes);
+    this.deleteDataLocal(this.constants.localStorage.aspirasiUser);
+    this.deleteDataLocal(this.constants.localStorage.pollingData);
+    this.authenticationState.next(false);
+
     const httpPost = this.http
       .post(`${environment.API_URL}/user/logout`, null)
       .pipe(
-        tap(res => {
-          this.deleteDataLocal(this.constants.localStorage.videoPostData);
-          this.deleteDataLocal(this.constants.localStorage.profileData);
-          this.deleteDataLocal(this.constants.localStorage.authToken);
-          this.deleteDataLocal(this.constants.localStorage.NewsHeadlines);
-          this.deleteDataLocal(
-            this.constants.localStorage.NewsKabkotaHeadlines
-          );
-          this.deleteDataLocal(this.constants.localStorage.notification);
-          this.deleteDataLocal(this.constants.localStorage.broadcastData);
-          this.deleteDataLocal(this.constants.localStorage.aspirasi);
-          this.deleteDataLocal(this.constants.localStorage.aspirasiLikes);
-          this.deleteDataLocal(this.constants.localStorage.aspirasiUser);
-          this.deleteDataLocal(this.constants.localStorage.pollingData);
-          this.authenticationState.next(false);
-        }),
+        tap(res => {}),
         catchError(this.util.handleError)
       );
 

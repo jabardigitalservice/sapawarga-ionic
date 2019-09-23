@@ -12,6 +12,7 @@ import { map, catchError } from 'rxjs/operators';
 import { NavController, Platform } from '@ionic/angular';
 import { UtilitiesService } from '../services/utilities.service';
 import { AppVersion } from '@ionic-native/app-version/ngx';
+import { Constants } from './constants';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
@@ -20,7 +21,8 @@ export class TokenInterceptor implements HttpInterceptor {
     private navCtrl: NavController,
     private util: UtilitiesService,
     private platform: Platform,
-    public appVersion: AppVersion
+    public appVersion: AppVersion,
+    private constants: Constants
   ) {
     if (this.platform.platforms()) {
       this.appVersion
@@ -75,11 +77,16 @@ export class TokenInterceptor implements HttpInterceptor {
             this.navCtrl.navigateRoot(['login']);
             // clear locastorage
             localStorage.clear();
+            localStorage.setItem(
+              this.constants.localStorage.onBoarding,
+              'true'
+            );
           }
           this.util.showToast(error.error.data.message);
           this.navCtrl.navigateRoot(['login']);
           // clear locastorage
           localStorage.clear();
+          localStorage.setItem(this.constants.localStorage.onBoarding, 'true');
         }
         return throwError(error);
       })

@@ -11,7 +11,6 @@ import { ForceUpdateService } from '../../services/force-update.service';
 import { Dictionary } from '../../helpers/dictionary';
 import { UtilitiesService } from '../../services/utilities.service';
 import { ProfileService } from '../../services/profile.service';
-import { ForceChangeProfileComponent } from '../force-change-profile/force-change-profile.component';
 
 @Component({
   selector: 'app-force-change-password',
@@ -47,7 +46,6 @@ export class ForceChangePasswordComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private modalCtrl: ModalController,
-    private modalController: ModalController,
     private loadingCtrl: LoadingController,
     private forceUpdateService: ForceUpdateService,
     private util: UtilitiesService,
@@ -143,6 +141,7 @@ export class ForceChangePasswordComponent implements OnInit {
             this.dismiss();
             this.forceUpdateService.setDataForceChange(1);
             localStorage.removeItem('auth-token');
+            localStorage.removeItem('forceChange');
             this.navCtrl.navigateRoot(['/login']);
           }
         } else {

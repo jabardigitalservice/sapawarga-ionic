@@ -255,7 +255,12 @@ export class LoginPage implements OnInit {
           this.navCtrl.navigateRoot(['/tabs']['home']);
         } else {
           // check which should be update
-          const isForceUpdate = res['data'].password_updated_at ? 1 : 2;
+          let isForceUpdate;
+          if (res['data'].password_updated_at) {
+            isForceUpdate = 1;
+          } else if (res['data'].profile_updated_at) {
+            isForceUpdate = 2;
+          }
           // insert all datas force update to false
           this.forceUpdateService.setDataForceChange(isForceUpdate);
 
