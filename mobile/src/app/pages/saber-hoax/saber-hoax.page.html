@@ -21,7 +21,7 @@
     <ion-card *ngFor="let saberHoax of dataSaberHoax; let i = index">
       <img
         class="img-cover"
-        [src]="'assets/img/saber-hoax.jpg'"
+        [src]="saberHoax.cover_path_url"
         onError="this.src='assets/img/placeholder_image.png';"
       />
       <ion-item>
