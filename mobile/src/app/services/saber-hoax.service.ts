@@ -22,4 +22,10 @@ export class SaberHoaxService {
       .get<SaberHoax[]>(`${environment.API_URL}/news-hoax?page=${page}`)
       .pipe(catchError(this.util.handleError));
   }
+
+  getDetailSaberHoax(id: number): Observable<SaberHoax> {
+    return this.http
+      .get<SaberHoax>(`${environment.API_URL}/news-hoax/${id}`)
+      .pipe(catchError(this.util.handleError));
+  }
 }
