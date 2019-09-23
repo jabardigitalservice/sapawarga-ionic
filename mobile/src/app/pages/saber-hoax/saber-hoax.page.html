@@ -1,0 +1,55 @@
+<ion-header>
+  <ion-toolbar color="light">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Saber Hoax</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <app-message-control
+    *ngIf="msgResponse.type"
+    [type]="msgResponse.type"
+    [message]="msgResponse.msg"
+  ></app-message-control>
+
+  <ion-label class="title" *ngIf="dataSaberHoax">
+    Berita Terverifikasi
+  </ion-label>
+  <div *ngIf="dataSaberHoax">
+    <ion-card *ngFor="let saberHoax of dataSaberHoax; let i = index">
+      <img
+        class="img-cover"
+        [src]="saberHoax.cover_path_url"
+        onError="this.src='assets/img/placeholder_image.png';"
+      />
+      <ion-item>
+        <ion-text style="padding: 5px;">
+          {{ saberHoax.title | slice: 0:35
+          }}{{ saberHoax.title.length > 35 ? '...' : '' }}</ion-text
+        >
+        <ion-button
+          fill="clear"
+          [color]="checkStatus(saberHoax.category.name)"
+          slot="end"
+          >{{ saberHoax.category.name }}</ion-button
+        >
+      </ion-item>
+    </ion-card>
+  </div>
+
+  <ion-infinite-scroll threshold="100px" (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content
+      loadingSpinner="bubbles"
+      loadingText="Sedang mengambil data..."
+    >
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button color="success" (click)="sendMessage()">
+      <img src="assets/icon/wa.png" alt="" width="40%" />
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

@@ -25,6 +25,7 @@ export class Constants {
     perizinan: 'Perizinan',
     home_pages: 'Home Pages',
     forceUpdate: 'Force Update'
+    saberHoax: 'Saber Hoax'
   };
 
   public inAppBrowserOptions: any = {
@@ -78,4 +79,6 @@ export class Constants {
   public telpLapor = '1708';
 
   public appID = 'com.sapawarga.jds';
+
+  public telpSaberHoax = '082118670700';
 }
