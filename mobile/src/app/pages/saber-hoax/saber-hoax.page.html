@@ -8,6 +8,12 @@
 </ion-header>
 
 <ion-content padding>
+  <app-message-control
+    *ngIf="msgResponse.type"
+    [type]="msgResponse.type"
+    [message]="msgResponse.msg"
+  ></app-message-control>
+
   <ion-label class="title" *ngIf="dataSaberHoax">
     Berita Terverifikasi
   </ion-label>
@@ -23,12 +29,23 @@
           {{ saberHoax.title | slice: 0:35
           }}{{ saberHoax.title.length > 35 ? '...' : '' }}</ion-text
         >
-        <ion-button fill="clear" [color]="checkStatus(5)" slot="end">{{
-          saberHoax.category.name
-        }}</ion-button>
+        <ion-button
+          fill="clear"
+          [color]="checkStatus(saberHoax.category.name)"
+          slot="end"
+          >{{ saberHoax.category.name }}</ion-button
+        >
       </ion-item>
     </ion-card>
   </div>
+
+  <ion-infinite-scroll threshold="100px" (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content
+      loadingSpinner="bubbles"
+      loadingText="Sedang mengambil data..."
+    >
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button color="success" (click)="sendMessage()">

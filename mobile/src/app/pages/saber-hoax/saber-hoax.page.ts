@@ -31,14 +31,24 @@ export class SaberHoaxPage implements OnInit {
   }
 
   ngOnInit() {
+    // google analytics
+    this.util.trackPage(this.constants.pageName.saberHoax);
+
     this.getListSaberHoax();
   }
 
   ionViewWillLeave() {
+    // clear state
     this.dataSaberHoax = [];
+    this.maximumPages = null;
+    this.currentPage = 1;
+    this.msgResponse = {
+      type: '',
+      msg: ''
+    };
   }
 
-  async getListSaberHoax(infiniteScroll?: number) {
+  async getListSaberHoax(infiniteScroll?: any) {
     if (!navigator.onLine) {
       alert(Dictionary.offline);
       return;
@@ -48,13 +58,18 @@ export class SaberHoaxPage implements OnInit {
       duration: 10000
     });
 
+    // clear state
+    this.msgResponse = {
+      type: '',
+      msg: ''
+    };
+
     if (!infiniteScroll) {
       loader.present();
     }
 
     this.saberHoaxService.getListSaberHoax(this.currentPage).subscribe(
       res => {
-        console.log(res);
         if (res['data']['items'].length) {
           if (infiniteScroll) {
             this.dataSaberHoax = this.dataSaberHoax.concat(
@@ -66,16 +81,16 @@ export class SaberHoaxPage implements OnInit {
         } else {
           this.msgResponse = {
             type: 'empty',
-            msg: Dictionary.msg_news
+            msg: Dictionary.msg_saber_hoax
           };
         }
         // set count page
         this.maximumPages = res['data']['_meta'].pageCount;
         loader.dismiss();
         // stop infinite scroll
-        // if (infiniteScroll) {
-        //   infiniteScroll.target.complete();
-        // }
+        if (infiniteScroll) {
+          infiniteScroll.target.complete();
+        }
       },
       err => {
         loader.dismiss();
@@ -90,39 +105,33 @@ export class SaberHoaxPage implements OnInit {
   }
 
   // infinite scroll
-  // doInfinite(event: any) {
-  //   if (this.currentPage === this.maximumPages) {
-  //     event.target.disabled = true;
-  //     return;
-  //   }
-  //   // increase page
-  //   this.currentPage++;
+  doInfinite(event: any) {
+    if (this.currentPage === this.maximumPages) {
+      event.target.disabled = true;
+      return;
+    }
+    // increase page
+    this.currentPage++;
 
-  //   setTimeout(() => {
-  //     this.getListSaberHoax(event);
-  //   }, 2000);
-  // }
+    setTimeout(() => {
+      this.getListSaberHoax(event);
+    }, 2000);
+  }
 
-  checkStatus(status: number) {
+  checkStatus(status: string) {
     let color: string;
     switch (status) {
-      case 5:
-        color = 'primary';
-        break;
-      case 10:
-        color = 'success';
-        break;
-      case 3:
-        color = 'danger';
-        break;
-      case 0:
+      case 'Klarifikasi':
         color = 'warning';
         break;
-      case -1:
+      case 'Disinformasi':
+        color = 'success';
+        break;
+      case 'Misinformasi':
         color = 'danger';
         break;
       default:
-        color = '';
+        color = 'primary';
         break;
     }
     return color;
