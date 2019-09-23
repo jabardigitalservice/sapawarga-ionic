@@ -69,7 +69,7 @@ export class AppComponent {
       } else if (this.router.url === '/tabs') {
         navigator['app'].exitApp();
       }
-      if (router.url === '/tabs/home' && isModalOpened) {
+      if (router.url === '/tabs' && isModalOpened) {
         this.exitApp();
       } else if (this.router.url === '/aspirasi-form') {
         return;
