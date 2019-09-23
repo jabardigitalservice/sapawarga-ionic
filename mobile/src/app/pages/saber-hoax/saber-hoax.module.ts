@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { SaberHoaxPage } from './saber-hoax.page';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 
 const routes: Routes = [
   {
@@ -23,6 +24,7 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     SharedModule
   ],
-  declarations: [SaberHoaxPage]
+  declarations: [SaberHoaxPage],
+  providers: [InAppBrowser]
 })
 export class SaberHoaxPageModule {}

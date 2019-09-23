@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { LoadingController } from '@ionic/angular';
+import { LoadingController, Platform } from '@ionic/angular';
 import { Dictionary } from '../../helpers/dictionary';
 import { SaberHoaxService } from 'src/app/services/saber-hoax.service';
 import { SaberHoax } from 'src/app/interfaces/saber-hoax';
 import { Constants } from '../../helpers/constants';
 import { UtilitiesService } from '../../services/utilities.service';
+import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 
 @Component({
   selector: 'app-saber-hoax',
@@ -25,7 +26,9 @@ export class SaberHoaxPage implements OnInit {
     private saberHoaxService: SaberHoaxService,
     private loadingCtrl: LoadingController,
     private constants: Constants,
-    private util: UtilitiesService
+    private util: UtilitiesService,
+    private platform: Platform,
+    private inAppBrowser: InAppBrowser
   ) {
     this.telpSaberHoax = this.constants.telpSaberHoax;
   }
@@ -144,7 +147,20 @@ export class SaberHoaxPage implements OnInit {
   }
 
   sendMessage() {
-    const openWa = `whatsapp://send?phone=${this.telpSaberHoax}`;
-    return openWa;
+    // check if the platform is ios or android, else open the web url
+    this.platform.ready().then(() => {
+      this.inAppBrowser.create(
+        `https://wa.me/${this.telpSaberHoax}`,
+        '_system'
+      );
+
+      // event google analytics
+      this.util.trackEvent(
+        this.constants.pageName.saberHoax,
+        'tapped_view_WA_saber_hoax',
+        '',
+        1
+      );
+    });
   }
 }
