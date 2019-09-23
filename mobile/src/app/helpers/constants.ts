@@ -24,7 +24,7 @@ export class Constants {
     infoHarga: 'Info Harga',
     perizinan: 'Perizinan',
     home_pages: 'Home Pages',
-    forceUpdate: 'Force Update'
+    forceUpdate: 'Force Update',
     saberHoax: 'Saber Hoax'
   };
 
