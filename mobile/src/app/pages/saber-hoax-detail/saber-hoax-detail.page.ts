@@ -13,6 +13,13 @@ import { UtilitiesService } from '../../services/utilities.service';
   styleUrls: ['./saber-hoax-detail.page.scss']
 })
 export class SaberHoaxDetailPage implements OnInit {
+  id = 0;
+  dataSaberHoax: SaberHoax;
+  msgResponse = {
+    type: '',
+    msg: ''
+  };
+
   constructor(
     private route: ActivatedRoute,
     private loadingCtrl: LoadingController,
@@ -21,14 +28,18 @@ export class SaberHoaxDetailPage implements OnInit {
     private util: UtilitiesService,
     private navCtrl: NavController
   ) {}
-
-  id = 0;
-  dataSaberHoax: SaberHoax;
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.id = params['id'];
       this.getDetailSaberHoax(this.id);
     });
+  }
+
+  ionViewWillLeave() {
+    this.msgResponse = {
+      type: '',
+      msg: ''
+    };
   }
 
   async getDetailSaberHoax(id: number) {
@@ -64,7 +75,10 @@ export class SaberHoaxDetailPage implements OnInit {
         loader.dismiss();
 
         if (err.status === 404) {
-          this.navCtrl.back();
+          this.msgResponse = {
+            type: 'empty',
+            msg: Dictionary.empty
+          };
         }
       }
     );

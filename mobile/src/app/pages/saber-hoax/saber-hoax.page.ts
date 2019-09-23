@@ -166,6 +166,12 @@ export class SaberHoaxPage implements OnInit {
   }
 
   goToDetailSaberHoax(id: number) {
+    // check internet
+    if (!navigator.onLine) {
+      this.util.showToast(Dictionary.offline);
+      return;
+    }
+
     this.router.navigate(['/saber-hoax', id]);
   }
 }
