@@ -79,5 +79,5 @@ export class Constants {
 
   public appID = 'com.sapawarga.jds';
 
-  public telpSaberHoax = '082118670700';
+  public telpSaberHoax = '+6282118670700';
 }
