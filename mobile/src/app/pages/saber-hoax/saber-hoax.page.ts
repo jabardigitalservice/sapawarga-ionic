@@ -122,13 +122,19 @@ export class SaberHoaxPage implements OnInit {
     let color: string;
     switch (status) {
       case 'Klarifikasi':
-        color = 'warning';
+        color = 'dark';
         break;
       case 'Disinformasi':
-        color = 'success';
+        color = 'warning';
         break;
       case 'Misinformasi':
-        color = 'danger';
+        color = 'primary';
+        break;
+      case 'Fakta':
+        color = 'dark';
+        break;
+      case 'Berita':
+        color = 'dark';
         break;
       default:
         color = 'primary';
