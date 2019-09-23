@@ -124,13 +124,44 @@ export class AppComponent {
             this.navCtrl.navigateRoot('/');
 
             //  get ID user
-            const idUser = this.profileService.getLocalProfile()
-              ? this.profileService.getLocalProfile().id.toString()
+            const dataUser = this.profileService.getLocalProfile()
+              ? this.profileService.getLocalProfile()
               : null;
 
-            if (idUser) {
+            console.log(dataUser.kabkota.name);
+            if (dataUser) {
               // set user ID google analytics
-              this.googleAnalytics.setUserId(idUser);
+              this.googleAnalytics.setUserId(dataUser.id);
+
+              // set role
+              this.googleAnalytics.addCustomDimension(1, dataUser.role_label);
+
+              // set kabkota
+              this.googleAnalytics.addCustomDimension(2, dataUser.kabkota.name);
+
+              // set kecamatan
+              this.googleAnalytics.addCustomDimension(
+                3,
+                dataUser.kecamatan.name
+              );
+
+              // set kelurahan
+              this.googleAnalytics.addCustomDimension(
+                4,
+                dataUser.kelurahan.name
+              );
+
+              // set rt
+              this.googleAnalytics.addCustomDimension(5, dataUser.rt);
+
+              // set rw
+              this.googleAnalytics.addCustomDimension(6, dataUser.rw);
+
+              // set username
+              this.googleAnalytics.addCustomDimension(7, dataUser.username);
+
+              // set name
+              this.googleAnalytics.addCustomDimension(8, dataUser.name);
             }
           } else {
             const hasOnboarding = localStorage.getItem('has-onboarding');
