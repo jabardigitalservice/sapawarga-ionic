@@ -76,12 +76,15 @@ export class HomeResultsPage implements OnInit {
   isLoading = {
     humas: false,
     news: false,
-    videoPost: false
+    newsKabkota: false,
+    videoPost: false,
+    videoPostKabkota: false
   };
   dataNews: News[];
   dataNewsKabkota: News[];
   dataHumas: HumasJabar[];
   dataVideoPost: VideoPost[];
+  dataVideoPostKabkota: VideoPost[];
   humas_URL = 'http://humas.jabarprov.go.id/terkini';
 
   // name local storage
@@ -89,6 +92,7 @@ export class HomeResultsPage implements OnInit {
   NEWS_KABKOTA = 'news-kabkota-headlines';
   HUMAS = 'humas-headlines';
   VIDEO_POST = 'video-post';
+  VIDEO_POST_KABKOTA = 'video-post-kabkota';
   data_profile: Profile;
 
   constructor(
@@ -218,6 +222,8 @@ export class HomeResultsPage implements OnInit {
     this.profileService.currentUser.subscribe((state: Profile) => {
       this.data_profile = state;
       this.getNewsFeatured(this.data_profile.kabkota_id);
+
+      this.getVideoPost(this.data_profile.kabkota_id);
     });
   }
 
@@ -510,7 +516,7 @@ export class HomeResultsPage implements OnInit {
       // get local
       if (this.newsService.getLocal(this.NEWS) && !idkabkota) {
         this.dataNews = JSON.parse(this.newsService.getLocal(this.NEWS));
-      } else if (this.newsService.getLocal(this.NEWS) && idkabkota) {
+      } else if (this.newsService.getLocal(this.NEWS_KABKOTA) && idkabkota) {
         this.dataNewsKabkota = JSON.parse(
           this.newsService.getLocal(this.NEWS_KABKOTA)
         );
@@ -520,7 +526,12 @@ export class HomeResultsPage implements OnInit {
       return;
     }
 
-    this.isLoading.news = true;
+    if (idkabkota) {
+      this.isLoading.newsKabkota = true;
+    } else {
+      this.isLoading.news = true;
+    }
+
     this.newsService.getNewsFeatured(3, idkabkota).subscribe(
       res => {
         if (res['status'] === 200 && res['data'].length) {
@@ -536,7 +547,12 @@ export class HomeResultsPage implements OnInit {
           } else {
             this.newsService.saveLocal(this.NEWS, this.dataNews);
           }
-          this.isLoading.news = false;
+
+          if (idkabkota) {
+            this.isLoading.newsKabkota = false;
+          } else {
+            this.isLoading.news = false;
+          }
         }
       },
       err => {
@@ -552,7 +568,11 @@ export class HomeResultsPage implements OnInit {
               this.newsService.getLocal(this.NEWS_KABKOTA)
             );
           }
-          this.isLoading.news = false;
+          if (idkabkota) {
+            this.isLoading.newsKabkota = false;
+          } else {
+            this.isLoading.news = false;
+          }
         }, 3000);
       }
     );
@@ -641,37 +661,78 @@ export class HomeResultsPage implements OnInit {
     }
   }
 
-  getVideoPost() {
+  getVideoPost(idkabkota?: number) {
     // check internet
     if (!navigator.onLine) {
       // get local
-      if (this.videoPostService.getLocal(this.VIDEO_POST)) {
+      if (this.videoPostService.getLocal(this.VIDEO_POST) && !idkabkota) {
         this.dataVideoPost = JSON.parse(
           this.videoPostService.getLocal(this.VIDEO_POST)
+        );
+      } else if (
+        this.videoPostService.getLocal(this.VIDEO_POST_KABKOTA) &&
+        idkabkota
+      ) {
+        this.dataVideoPostKabkota = JSON.parse(
+          this.videoPostService.getLocal(this.VIDEO_POST_KABKOTA)
         );
       } else {
         alert(Dictionary.offline);
       }
       return;
     }
+    if (idkabkota) {
+      this.isLoading.videoPostKabkota = true;
+    } else {
+      this.isLoading.videoPost = true;
+    }
 
-    this.isLoading.videoPost = true;
-    this.videoPostService.getListvideoPost('limit=5').subscribe(
+    this.videoPostService.getListvideoPost(5, idkabkota).subscribe(
       res => {
         if (res['status'] === 200 && res['data']['items'].length) {
-          this.dataVideoPost = res['data']['items'];
+          if (idkabkota) {
+            this.dataVideoPostKabkota = res['data']['items'];
+          } else {
+            this.dataVideoPost = res['data']['items'];
+          }
           // save to local
-          this.videoPostService.saveLocal(this.VIDEO_POST, this.dataVideoPost);
-          this.isLoading.videoPost = false;
+          if (idkabkota) {
+            this.videoPostService.saveLocal(
+              this.VIDEO_POST_KABKOTA,
+              this.dataVideoPostKabkota
+            );
+          } else {
+            this.videoPostService.saveLocal(
+              this.VIDEO_POST,
+              this.dataVideoPost
+            );
+          }
+          if (idkabkota) {
+            this.isLoading.videoPostKabkota = false;
+          } else {
+            this.isLoading.videoPost = false;
+          }
         }
       },
       err => {
         setTimeout(() => {
           // get local
-          if (this.videoPostService.getLocal(this.VIDEO_POST)) {
+          if (this.videoPostService.getLocal(this.VIDEO_POST) && !idkabkota) {
             this.dataVideoPost = JSON.parse(
               this.videoPostService.getLocal(this.VIDEO_POST)
             );
+          } else if (
+            this.videoPostService.getLocal(this.VIDEO_POST_KABKOTA) &&
+            idkabkota
+          ) {
+            this.dataVideoPostKabkota = JSON.parse(
+              this.videoPostService.getLocal(this.VIDEO_POST_KABKOTA)
+            );
+          }
+
+          if (idkabkota) {
+            this.isLoading.videoPostKabkota = false;
+          } else {
             this.isLoading.videoPost = false;
           }
         }, 3000);

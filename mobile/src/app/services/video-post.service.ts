@@ -12,12 +12,23 @@ import { UtilitiesService } from './utilities.service';
 export class VideoPostService {
   constructor(private http: HttpClient, private util: UtilitiesService) {}
 
-  getListvideoPost(param: string): Observable<VideoPost[]> {
+  getListvideoPost(
+    limit?: number,
+    idkabkota?: number
+  ): Observable<VideoPost[]> {
+    let param: string;
+    // check param limit
+    if (limit && !idkabkota) {
+      param = `?limit=${limit}`;
+    } else if (idkabkota) {
+      param = `?limit=${limit}&kabkota_id=${idkabkota}`;
+    } else {
+      param = '';
+    }
+
     return this.http
       .get<VideoPost[]>(
-        `${
-          environment.API_URL
-        }/videos?sort_by=seq&sort_order=ascending&${param}`
+        `${environment.API_URL}/videos?sort_by=seq&sort_order=ascending&${param}`
       )
       .pipe(catchError(this.util.handleError));
   }
