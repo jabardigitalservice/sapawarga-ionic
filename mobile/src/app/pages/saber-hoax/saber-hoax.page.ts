@@ -6,6 +6,7 @@ import { SaberHoax } from 'src/app/interfaces/saber-hoax';
 import { Constants } from '../../helpers/constants';
 import { UtilitiesService } from '../../services/utilities.service';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-saber-hoax',
@@ -28,7 +29,8 @@ export class SaberHoaxPage implements OnInit {
     private constants: Constants,
     private util: UtilitiesService,
     private platform: Platform,
-    private inAppBrowser: InAppBrowser
+    private inAppBrowser: InAppBrowser,
+    private router: Router
   ) {
     this.telpSaberHoax = this.constants.telpSaberHoax;
   }
@@ -42,7 +44,6 @@ export class SaberHoaxPage implements OnInit {
 
   ionViewWillLeave() {
     // clear state
-    this.dataSaberHoax = [];
     this.maximumPages = null;
     this.currentPage = 1;
     this.msgResponse = {
@@ -162,5 +163,15 @@ export class SaberHoaxPage implements OnInit {
         1
       );
     });
+  }
+
+  goToDetailSaberHoax(id: number) {
+    // check internet
+    if (!navigator.onLine) {
+      this.util.showToast(Dictionary.offline);
+      return;
+    }
+
+    this.router.navigate(['/saber-hoax', id]);
   }
 }

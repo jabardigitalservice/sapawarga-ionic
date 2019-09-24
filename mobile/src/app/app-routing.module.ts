@@ -100,7 +100,15 @@ const routes: Routes = [
     path: 'news/:id',
     loadChildren: './pages/news-detail/news-detail.module#NewsDetailPageModule'
   },
-  { path: 'saber-hoax', loadChildren: './pages/saber-hoax/saber-hoax.module#SaberHoaxPageModule' }
+  {
+    path: 'saber-hoax',
+    loadChildren: './pages/saber-hoax/saber-hoax.module#SaberHoaxPageModule'
+  },
+  {
+    path: 'saber-hoax/:id',
+    loadChildren:
+      './pages/saber-hoax-detail/saber-hoax-detail.module#SaberHoaxDetailPageModule'
+  }
 ];
 
 @NgModule({
