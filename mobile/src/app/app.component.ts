@@ -128,7 +128,6 @@ export class AppComponent {
               ? this.profileService.getLocalProfile()
               : null;
 
-            console.log(dataUser.kabkota.name);
             if (dataUser) {
               // set user ID google analytics
               this.googleAnalytics.setUserId(dataUser.id);

@@ -40,8 +40,8 @@ export class ForceChangePasswordComponent implements OnInit {
   submitted = false;
 
   validations = {
-    password: ['', [Validators.required, Validators.minLength(6)]],
-    password_confirmation: ['', [Validators.required, Validators.minLength(6)]]
+    password: ['', [Validators.required, Validators.minLength(5)]],
+    password_confirmation: ['', [Validators.required, Validators.minLength(5)]]
   };
 
   constructor(
