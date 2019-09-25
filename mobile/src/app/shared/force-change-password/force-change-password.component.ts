@@ -73,7 +73,7 @@ export class ForceChangePasswordComponent implements OnInit {
     if (this.profilePassword) {
       this.validations['password_old'] = [
         '',
-        [Validators.required, Validators.minLength(6)]
+        [Validators.required, Validators.minLength(5)]
       ];
     }
 
