@@ -141,7 +141,7 @@ export class SaberHoaxPage implements OnInit {
         color = 'dark';
         break;
       default:
-        color = 'primary';
+        color = 'dark';
         break;
     }
     return color;
