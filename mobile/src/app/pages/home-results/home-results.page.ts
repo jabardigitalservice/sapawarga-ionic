@@ -664,23 +664,10 @@ export class HomeResultsPage implements OnInit {
   getVideoPost(idkabkota?: number) {
     // check internet
     if (!navigator.onLine) {
-      // get local
-      if (this.videoPostService.getLocal(this.VIDEO_POST) && !idkabkota) {
-        this.dataVideoPost = JSON.parse(
-          this.videoPostService.getLocal(this.VIDEO_POST)
-        );
-      } else if (
-        this.videoPostService.getLocal(this.VIDEO_POST_KABKOTA) &&
-        idkabkota
-      ) {
-        this.dataVideoPostKabkota = JSON.parse(
-          this.videoPostService.getLocal(this.VIDEO_POST_KABKOTA)
-        );
-      } else {
-        alert(Dictionary.offline);
-      }
+      alert(Dictionary.offline);
       return;
     }
+
     if (idkabkota) {
       this.isLoading.videoPostKabkota = true;
     } else {
@@ -692,50 +679,25 @@ export class HomeResultsPage implements OnInit {
         if (res['status'] === 200 && res['data']['items'].length) {
           if (idkabkota) {
             this.dataVideoPostKabkota = res['data']['items'];
-          } else {
-            this.dataVideoPost = res['data']['items'];
-          }
-          // save to local
-          if (idkabkota) {
-            this.videoPostService.saveLocal(
-              this.VIDEO_POST_KABKOTA,
-              this.dataVideoPostKabkota
-            );
-          } else {
-            this.videoPostService.saveLocal(
-              this.VIDEO_POST,
-              this.dataVideoPost
-            );
-          }
-          if (idkabkota) {
             this.isLoading.videoPostKabkota = false;
           } else {
+            this.dataVideoPost = res['data']['items'];
             this.isLoading.videoPost = false;
+          }
+        } else {
+          if (idkabkota) {
+            this.dataVideoPostKabkota = null;
+          } else {
+            this.dataVideoPost = null;
           }
         }
       },
       err => {
-        setTimeout(() => {
-          // get local
-          if (this.videoPostService.getLocal(this.VIDEO_POST) && !idkabkota) {
-            this.dataVideoPost = JSON.parse(
-              this.videoPostService.getLocal(this.VIDEO_POST)
-            );
-          } else if (
-            this.videoPostService.getLocal(this.VIDEO_POST_KABKOTA) &&
-            idkabkota
-          ) {
-            this.dataVideoPostKabkota = JSON.parse(
-              this.videoPostService.getLocal(this.VIDEO_POST_KABKOTA)
-            );
-          }
-
-          if (idkabkota) {
-            this.isLoading.videoPostKabkota = false;
-          } else {
-            this.isLoading.videoPost = false;
-          }
-        }, 3000);
+        if (idkabkota) {
+          this.isLoading.videoPostKabkota = false;
+        } else {
+          this.isLoading.videoPost = false;
+        }
       }
     );
   }
