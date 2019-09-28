@@ -48,18 +48,7 @@ export class AuthService {
 
   // logout and clear session
   logout() {
-    this.deleteDataLocal(this.constants.localStorage.videoPostData);
-    this.deleteDataLocal(this.constants.localStorage.profileData);
-    this.deleteDataLocal(this.constants.localStorage.authToken);
-    this.deleteDataLocal(this.constants.localStorage.forceChange);
-    this.deleteDataLocal(this.constants.localStorage.NewsHeadlines);
-    this.deleteDataLocal(this.constants.localStorage.NewsKabkotaHeadlines);
-    this.deleteDataLocal(this.constants.localStorage.notification);
-    this.deleteDataLocal(this.constants.localStorage.broadcastData);
-    this.deleteDataLocal(this.constants.localStorage.aspirasi);
-    this.deleteDataLocal(this.constants.localStorage.aspirasiLikes);
-    this.deleteDataLocal(this.constants.localStorage.aspirasiUser);
-    this.deleteDataLocal(this.constants.localStorage.pollingData);
+    localStorage.clear();
     this.authenticationState.next(false);
 
     const httpPost = this.http
