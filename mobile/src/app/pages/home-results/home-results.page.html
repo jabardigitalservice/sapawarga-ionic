@@ -42,71 +42,7 @@
 
   <hr class="divider" />
 
-  <div class="min-mt-5">
-    <ion-item>
-      <h5 class="bold" slot="start">Humas Jabar</h5>
-      <ion-button
-        fill="clear"
-        slot="end"
-        color="success"
-        (click)="goTohumas(humas_URL, 'view_all')"
-        >Lihat Semua</ion-button
-      >
-    </ion-item>
-
-    <!-- Skeleton screen humas jabar -->
-    <div padding class="min-mt-5" *ngIf="isLoading.humas">
-      <ion-thumbnail
-        slot="end"
-        alt="icon"
-        class="thumbnail-image"
-        style="width: 100%; height: 110px;"
-      >
-        <ion-skeleton-text></ion-skeleton-text>
-      </ion-thumbnail>
-
-      <ion-item class="list-headline-jabar">
-        <ion-text style="width: 90%;">
-          <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text
-          ><ion-skeleton-text animated style="width: 100%"></ion-skeleton-text
-        ></ion-text>
-        <ion-skeleton-text
-          slot="end"
-          style="width: 20%; height: 50%;"
-        ></ion-skeleton-text>
-      </ion-item>
-    </div>
-
-    <ion-slides
-      [options]="sliderConfigHumas"
-      (ionSlideTouchEnd)="swipeSlide('humas')"
-      *ngIf="dataHumas"
-    >
-      <ion-slide *ngFor="let humas of dataHumas">
-        <div>
-          <img
-            class="thumbnail-image"
-            [src]="humas.thumbnail"
-            onError="this.src='assets/img/placeholder_image.png';"
-            alt="humas"
-          />
-
-          <ion-item class="list-headline-jabar">
-            <ion-text class="title-humas"
-              >{{ humas.post_title | slice: 0:35
-              }}{{ humas.post_title.length > 35 ? '...' : '' }}</ion-text
-            >
-            <ion-button
-              slot="end"
-              class="blues-color"
-              (click)="goTohumas(humas.slug)"
-              >Baca</ion-button
-            >
-          </ion-item>
-        </div>
-      </ion-slide>
-    </ion-slides>
-  </div>
+  <app-humas-jabar></app-humas-jabar>
 
   <hr class="divider" />
 

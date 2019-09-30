@@ -1,23 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import {
-  NavController,
-  Platform,
-  LoadingController,
-  IonSlides
-} from '@ionic/angular';
+import { NavController, LoadingController, IonSlides } from '@ionic/angular';
 import { Pages } from '../../interfaces/pages';
-import { ProfileService } from '../../services/profile.service';
 import { NotifikasiService } from '../../services/notifikasi.service';
-import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
-import { NewsService } from '../../services/news.service';
-import { Router } from '@angular/router';
-import { Dictionary } from '../../helpers/dictionary';
-import { HumasJabar } from '../../interfaces/humas-jabar';
 import { Constants } from '../../helpers/constants';
-import { YoutubeVideoPlayer } from '@ionic-native/youtube-video-player/ngx';
-import { VideoPost } from '../../interfaces/video-post';
-import { VideoPostService } from '../../services/video-post.service';
-import { Profile } from '../../interfaces/profile';
 import { UtilitiesService } from '../../services/utilities.service';
 
 @Component({
@@ -52,35 +37,13 @@ export class HomeResultsPage implements OnInit {
     zoom: false
   };
 
-  sliderConfigHumas = {
-    slidesPerView: 1.2,
-    centeredSlides: true,
-    spaceBetween: 10,
-    zoom: false
-  };
-
   unreadNotif: 0;
-  isLoading = {
-    humas: false
-  };
-  dataHumas: HumasJabar[];
-  humas_URL = 'http://humas.jabarprov.go.id/terkini';
-
-  // name local storage
-  HUMAS = 'humas-headlines';
 
   constructor(
     public navCtrl: NavController,
-    private platform: Platform,
-    private profileService: ProfileService,
     private notifikasiService: NotifikasiService,
-    private newsService: NewsService,
     public loadingCtrl: LoadingController,
-    private inAppBrowser: InAppBrowser,
-    private router: Router,
     public constants: Constants,
-    private youtube: YoutubeVideoPlayer,
-    private videoPostService: VideoPostService,
     private util: UtilitiesService
   ) {
     this.appPages = [
@@ -182,9 +145,6 @@ export class HomeResultsPage implements OnInit {
         this.unreadNotif = this.notifikasiService.getNotifikasiNumber();
       }
     );
-
-    // get data humas
-    this.getDataHumas();
   }
 
   swipeSlide(name: string) {
@@ -372,109 +332,5 @@ export class HomeResultsPage implements OnInit {
       '',
       1
     );
-  }
-
-  // call function launchApp to open external app
-  private launchApp(appUrl: string) {
-    // check if the platform is ios or android, else open the web url
-    if (this.platform.is('android')) {
-      this.util.launchApp(appUrl);
-    }
-  }
-
-  // open browser in app
-  private launchweb(webUrl: string) {
-    // check if the platform is ios or android, else open the web url
-    this.platform.ready().then(() => {
-      const target = '_self';
-      this.inAppBrowser.create(
-        webUrl,
-        target,
-        this.constants.inAppBrowserOptions
-      );
-    });
-  }
-
-  getDataHumas() {
-    // check internet
-    if (!navigator.onLine) {
-      // get local
-      if (this.newsService.getLocal(this.HUMAS)) {
-        this.dataHumas = JSON.parse(this.newsService.getLocal(this.HUMAS));
-      } else {
-        alert(Dictionary.offline);
-      }
-      return;
-    }
-
-    this.isLoading.humas = true;
-    this.newsService
-      .getDataNativeHttp()
-      .then(res => {
-        if (res) {
-          const respon = JSON.parse(res.data);
-          this.dataHumas = Object.values(respon);
-          // save to local
-          this.newsService.saveLocal(this.HUMAS, this.dataHumas);
-          this.isLoading.humas = false;
-        }
-      })
-      .catch(err => {
-        // get local
-        if (this.newsService.getLocal(this.HUMAS)) {
-          this.dataHumas = JSON.parse(this.newsService.getLocal(this.HUMAS));
-          this.isLoading.humas = false;
-        }
-      });
-  }
-
-  goTohumas(url: string, type?: string) {
-    // check internet
-    if (!navigator.onLine) {
-      alert(Dictionary.offline);
-      return;
-    }
-
-    if (this.isLoading.humas) {
-      alert(Dictionary.terjadi_kesalahan);
-      return;
-    }
-
-    this.launchweb(url);
-
-    if (type) {
-      // google event analytics
-      this.util.trackEvent(
-        this.constants.pageName.humas,
-        'view_list_humas_jabar',
-        '',
-        1
-      );
-
-      this.util.trackEvent(
-        this.constants.pageName.home_pages,
-        'tapped_view_all_humas_jabar',
-        '',
-        1
-      );
-    } else {
-      // get title humas
-      const getTitle = this.dataHumas.find(x => x.slug === url).post_title;
-
-      // google event analytics
-      this.util.trackEvent(
-        this.constants.pageName.humas,
-        'view_detail_humas_jabar',
-        getTitle,
-        1
-      );
-
-      this.util.trackEvent(
-        this.constants.pageName.home_pages,
-        'tapped_humas_jabar',
-        getTitle,
-        1
-      );
-    }
   }
 }
