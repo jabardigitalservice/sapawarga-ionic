@@ -50,42 +50,50 @@ export class HomeResultsPage implements OnInit {
       {
         title: 'Lapor',
         url: '',
-        icon: 'assets/icon/SW-LAPOR.png'
+        icon: 'assets/icon/SW-LAPOR.png',
+        path: 'lapor'
       },
       {
         title: 'Usulan',
         url: '',
-        icon: 'assets/icon/SW-ASPIRASI.png'
+        icon: 'assets/icon/SW-ASPIRASI.png',
+        path: 'aspirasi'
       },
       {
         title: 'Survei',
         url: '',
-        icon: 'assets/icon/SW-SURVEY.png'
+        icon: 'assets/icon/SW-SURVEY.png',
+        path: 'survey'
       },
       {
         title: 'Polling',
         url: '',
-        icon: 'assets/icon/SW-POLLING.png'
+        icon: 'assets/icon/SW-POLLING.png',
+        path: 'polling'
       },
       {
         title: 'Nomor\npenting',
         url: '',
-        icon: 'assets/icon/SW-NOPENTING.png'
+        icon: 'assets/icon/SW-NOPENTING.png',
+        path: 'nomor-penting'
       },
       {
         title: 'E-samsat',
         url: '',
-        icon: 'assets/icon/SW-E-samsat.png'
+        icon: 'assets/icon/SW-E-samsat.png',
+        path: 'e-samsat'
       },
       {
         title: 'Saber Hoaks',
         url: '',
-        icon: 'assets/icon/saber_hoax.png'
+        icon: 'assets/icon/saber_hoax.png',
+        path: 'saber-hoax'
       },
       {
         title: 'Lainnya',
         url: '',
-        icon: 'assets/icon/other.png'
+        icon: 'assets/icon/other.png',
+        path: ''
       }
     ];
 
@@ -93,7 +101,7 @@ export class HomeResultsPage implements OnInit {
       {
         text: 'Administrasi',
         handler: () => {
-          this.goAdministrasi();
+          this.navigationForward('administrasi', 'tapped_administrasi');
         }
       },
       {
@@ -157,31 +165,28 @@ export class HomeResultsPage implements OnInit {
   }
 
   // Go to layanan
-  goToLayanan(app: string, layananUrl: string) {
+  goToLayanan(app: string, path: string) {
     switch (app) {
       case 'E-samsat':
-        this.goSamsat();
+        this.navigationForward(path, 'tapped_e_Samsat');
         break;
       case 'Nomor\npenting':
-        this.goNomorPenting();
+        this.navigationForward(path, 'tapped_nomor');
         break;
       case 'Lapor':
-        this.goLapor();
+        this.navigationForward(path, 'tapped_lapor');
         break;
       case 'Usulan':
-        this.goAspirasi();
-        break;
-      case 'Administrasi':
-        this.goAdministrasi();
+        this.navigationForward(path, 'tapped_usulan');
         break;
       case 'Polling':
-        this.goPolling();
+        this.navigationForward(path, 'tapped_polling');
         break;
       case 'Survei':
-        this.goSurvey();
+        this.navigationForward(path, 'tapped_survei');
         break;
       case 'Saber Hoaks':
-        this.goSaberHoax();
+        this.navigationForward(path, 'tapped_saber_hoax');
         break;
       case 'Lainnya':
         this.openOtherPages();
@@ -205,44 +210,6 @@ export class HomeResultsPage implements OnInit {
     );
   }
 
-  // open page nomor penting
-  goNomorPenting() {
-    this.navCtrl.navigateForward('nomor-penting');
-
-    // google event analytics
-    this.util.trackEvent(
-      this.constants.pageName.home_pages,
-      'tapped_nomor',
-      '',
-      1
-    );
-  }
-
-  // open page lapor
-  goLapor() {
-    this.navCtrl.navigateForward('lapor');
-
-    // google event analytics
-    this.util.trackEvent(
-      this.constants.pageName.home_pages,
-      'tapped_lapor',
-      '',
-      1
-    );
-  }
-
-  goAspirasi() {
-    this.navCtrl.navigateForward('aspirasi');
-
-    // google event analytics
-    this.util.trackEvent(
-      this.constants.pageName.home_pages,
-      'tapped_usulan',
-      '',
-      1
-    );
-  }
-
   goNotifikasi() {
     this.navCtrl.navigateForward('notifikasi');
 
@@ -255,55 +222,10 @@ export class HomeResultsPage implements OnInit {
     );
   }
 
-  goSamsat() {
-    this.navCtrl.navigateForward('e-samsat');
+  navigationForward(path: string, event: string) {
+    this.navCtrl.navigateForward(path);
 
     // google event analytics
-    this.util.trackEvent(
-      this.constants.pageName.home_pages,
-      'tapped_e_Samsat',
-      '',
-      1
-    );
-  }
-
-  goPolling() {
-    this.navCtrl.navigateForward('polling');
-
-    // google event analytics
-    this.util.trackEvent(
-      this.constants.pageName.home_pages,
-      'tapped_polling',
-      '',
-      1
-    );
-  }
-
-  goSurvey() {
-    this.navCtrl.navigateForward('survey');
-
-    // google event analytics
-    this.util.trackEvent(
-      this.constants.pageName.home_pages,
-      'tapped_survei',
-      '',
-      1
-    );
-  }
-
-  goSaberHoax() {
-    this.navCtrl.navigateForward('saber-hoax');
-  }
-
-  goAdministrasi() {
-    this.navCtrl.navigateForward('administrasi');
-
-    // google event analytics
-    this.util.trackEvent(
-      this.constants.pageName.home_pages,
-      'tapped_administrasi',
-      '',
-      1
-    );
+    this.util.trackEvent(this.constants.pageName.home_pages, event, '', 1);
   }
 }
