@@ -5,18 +5,27 @@ import { MessageControlComponent } from './message-control/message-control.compo
 import { AspirasiListComponent } from './aspirasi-list/aspirasi-list.component';
 import { MyAspirasiComponent } from './my-aspirasi/my-aspirasi.component';
 import { IonicModule } from '@ionic/angular';
+import { NewsFeaturedComponent } from './news-featured/news-featured.component';
+import { VideoListComponent } from './video-list/video-list.component';
+import { HumasJabarComponent } from './humas-jabar/humas-jabar.component';
 
 @NgModule({
   declarations: [
     MessageControlComponent,
     AspirasiListComponent,
-    MyAspirasiComponent
+    MyAspirasiComponent,
+    NewsFeaturedComponent,
+    VideoListComponent,
+    HumasJabarComponent
   ],
   imports: [CommonModule, IonicModule],
   exports: [
     MessageControlComponent,
     AspirasiListComponent,
-    MyAspirasiComponent
+    MyAspirasiComponent,
+    NewsFeaturedComponent,
+    VideoListComponent,
+    HumasJabarComponent
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
