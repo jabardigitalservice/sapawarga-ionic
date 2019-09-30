@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { NewsService } from 'src/app/services/news.service';
 import { Dictionary } from 'src/app/helpers/dictionary';
 import { UtilitiesService } from 'src/app/services/utilities.service';
-import { Platform } from '@ionic/angular';
+import { Platform, IonSlides } from '@ionic/angular';
 import { HumasJabar } from 'src/app/interfaces/humas-jabar';
 import { Constants } from 'src/app/helpers/constants';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
@@ -13,6 +13,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
   styleUrls: ['./humas-jabar.component.scss']
 })
 export class HumasJabarComponent implements OnInit {
+  @ViewChild(IonSlides) slides: IonSlides;
   dataHumas: HumasJabar[];
 
   sliderConfigHumas = {
@@ -136,6 +137,15 @@ export class HumasJabarComponent implements OnInit {
         target,
         this.constants.inAppBrowserOptions
       );
+    });
+  }
+
+  swipeSlide() {
+    const action = 'swipe_humas_jabar';
+
+    this.slides.getActiveIndex().then(_ => {
+      // google event analytics
+      this.util.trackEvent(this.constants.pageName.home_pages, action, '', 1);
     });
   }
 }

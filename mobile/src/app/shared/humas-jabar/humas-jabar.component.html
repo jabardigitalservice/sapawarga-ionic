@@ -35,7 +35,7 @@
 
   <ion-slides
     [options]="sliderConfigHumas"
-    (ionSlideTouchEnd)="swipeSlide('humas')"
+    (ionSlideTouchEnd)="swipeSlide()"
     *ngIf="dataHumas"
   >
     <ion-slide *ngFor="let humas of dataHumas">

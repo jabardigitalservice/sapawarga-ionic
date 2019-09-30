@@ -21,7 +21,7 @@
   <ion-slides
     pager="true"
     [options]="slideOpts"
-    (ionSlideTouchEnd)="swipeSlide('banners')"
+    (ionSlideTouchEnd)="swipeSlide()"
   >
     <ion-slide *ngFor="let img of themeCover">
       <img src="{{ img.slide }}" />

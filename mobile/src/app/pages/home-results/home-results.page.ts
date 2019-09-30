@@ -72,21 +72,11 @@ export class HomeResultsPage implements OnInit {
         url: '',
         icon: 'assets/icon/SW-NOPENTING.png'
       },
-      // {
-      //   title: 'Info harga',
-      //   url: 'id.bigio.priangan',
-      //   icon: 'assets/icon/SW-Info-harga.png'
-      // },
       {
         title: 'E-samsat',
         url: '',
         icon: 'assets/icon/SW-E-samsat.png'
       },
-      // {
-      //   title: 'Perizinan',
-      //   url: 'https://dpmptsp.jabarprov.go.id/sicantik/main/pendaftaranbaru ',
-      //   icon: 'assets/icon/SW-IJIN.png'
-      // },
       {
         title: 'Saber Hoaks',
         url: '',
@@ -147,19 +137,8 @@ export class HomeResultsPage implements OnInit {
     );
   }
 
-  swipeSlide(name: string) {
-    let action: string;
-    switch (name) {
-      case 'banners':
-        action = 'swipe_banners';
-        break;
-      case 'humas':
-        action = 'swipe_humas_jabar';
-        break;
-      default:
-        return;
-        break;
-    }
+  swipeSlide() {
+    const action = 'swipe_banners';
 
     this.slides.getActiveIndex().then(_ => {
       // google event analytics
@@ -183,12 +162,6 @@ export class HomeResultsPage implements OnInit {
       case 'E-samsat':
         this.goSamsat();
         break;
-      // case 'Perizinan':
-      //   this.launchweb(layananUrl);
-      //   break;
-      // case 'Info harga':
-      //   this.launchApp(layananUrl);
-      //   break;
       case 'Nomor\npenting':
         this.goNomorPenting();
         break;
