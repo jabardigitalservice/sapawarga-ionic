@@ -10,7 +10,6 @@ import { ProfileService } from '../../services/profile.service';
 import { NotifikasiService } from '../../services/notifikasi.service';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { NewsService } from '../../services/news.service';
-import { News } from '../../interfaces/news';
 import { Router } from '@angular/router';
 import { Dictionary } from '../../helpers/dictionary';
 import { HumasJabar } from '../../interfaces/humas-jabar';
@@ -66,30 +65,18 @@ export class HomeResultsPage implements OnInit {
     zoom: false
   };
 
-  sliderConfigNews = {
-    slidesPerView: 1.3,
-    spaceBetween: 5,
-    zoom: false
-  };
-
   unreadNotif: 0;
   isLoading = {
     humas: false,
-    news: false,
-    newsKabkota: false,
     videoPost: false,
     videoPostKabkota: false
   };
-  dataNews: News[];
-  dataNewsKabkota: News[];
   dataHumas: HumasJabar[];
   dataVideoPost: VideoPost[];
   dataVideoPostKabkota: VideoPost[];
   humas_URL = 'http://humas.jabarprov.go.id/terkini';
 
   // name local storage
-  NEWS = 'news-headlines';
-  NEWS_KABKOTA = 'news-kabkota-headlines';
   HUMAS = 'humas-headlines';
   VIDEO_POST = 'video-post';
   VIDEO_POST_KABKOTA = 'video-post-kabkota';
@@ -209,9 +196,6 @@ export class HomeResultsPage implements OnInit {
       }
     );
 
-    // get data news
-    this.getNewsFeatured();
-
     // get data humas
     this.getDataHumas();
 
@@ -221,8 +205,6 @@ export class HomeResultsPage implements OnInit {
     // get data user using BehaviorSubject
     this.profileService.currentUser.subscribe((state: Profile) => {
       this.data_profile = state;
-      this.getNewsFeatured(this.data_profile.kabkota_id);
-
       this.getVideoPost(this.data_profile.kabkota_id);
     });
   }
@@ -232,9 +214,6 @@ export class HomeResultsPage implements OnInit {
     switch (name) {
       case 'banners':
         action = 'swipe_banners';
-        break;
-      case 'news':
-        action = 'swipe_news';
         break;
       case 'videos':
         action = 'swipe_videos';
@@ -439,143 +418,6 @@ export class HomeResultsPage implements OnInit {
         this.constants.inAppBrowserOptions
       );
     });
-  }
-
-  goToNews(id?: number, kabkota?: string) {
-    // check internet
-    if (!navigator.onLine) {
-      alert(Dictionary.offline);
-      return;
-    }
-
-    if (this.isLoading.news) {
-      alert(Dictionary.terjadi_kesalahan);
-      return;
-    }
-    if (id) {
-      this.router.navigate(['news'], {
-        queryParams: { id: id }
-      });
-
-      // transform Kabkota remove whitespace & transform to lower case
-      const transformKabkota = kabkota.replace(/\s/g, '').toLowerCase();
-
-      // google event analytics
-      this.util.trackEvent(
-        this.constants.pageName.news,
-        `view_list_${transformKabkota}_news`,
-        '',
-        1
-      );
-
-      this.util.trackEvent(
-        this.constants.pageName.home_pages,
-        `tapped_view_all_${transformKabkota}_news`,
-        '',
-        1
-      );
-    } else {
-      this.navCtrl.navigateForward('news');
-
-      // google event analytics
-      this.util.trackEvent(
-        this.constants.pageName.news,
-        'view_list_jabar_news',
-        '',
-        1
-      );
-
-      this.util.trackEvent(
-        this.constants.pageName.home_pages,
-        'tapped_view_all_jabar_news',
-        '',
-        1
-      );
-    }
-  }
-
-  goToDetailNews(id: number, title: string) {
-    // check internet
-    if (!navigator.onLine) {
-      alert(Dictionary.offline);
-      return;
-    }
-    this.router.navigate(['/news', id]);
-
-    // google event analytics
-    this.util.trackEvent(
-      this.constants.pageName.home_pages,
-      'tapped_detail_news',
-      title,
-      1
-    );
-  }
-  getNewsFeatured(idkabkota?: number) {
-    // check internet
-    if (!navigator.onLine) {
-      // get local
-      if (this.newsService.getLocal(this.NEWS) && !idkabkota) {
-        this.dataNews = JSON.parse(this.newsService.getLocal(this.NEWS));
-      } else if (this.newsService.getLocal(this.NEWS_KABKOTA) && idkabkota) {
-        this.dataNewsKabkota = JSON.parse(
-          this.newsService.getLocal(this.NEWS_KABKOTA)
-        );
-      } else {
-        alert(Dictionary.offline);
-      }
-      return;
-    }
-
-    if (idkabkota) {
-      this.isLoading.newsKabkota = true;
-    } else {
-      this.isLoading.news = true;
-    }
-
-    this.newsService.getNewsFeatured(3, idkabkota).subscribe(
-      res => {
-        if (res['status'] === 200 && res['data'].length) {
-          if (idkabkota) {
-            this.dataNewsKabkota = res['data'];
-          } else {
-            this.dataNews = res['data'];
-          }
-
-          // save to local
-          if (idkabkota) {
-            this.newsService.saveLocal(this.NEWS_KABKOTA, this.dataNewsKabkota);
-          } else {
-            this.newsService.saveLocal(this.NEWS, this.dataNews);
-          }
-
-          if (idkabkota) {
-            this.isLoading.newsKabkota = false;
-          } else {
-            this.isLoading.news = false;
-          }
-        }
-      },
-      err => {
-        setTimeout(() => {
-          // get local
-          if (this.newsService.getLocal(this.NEWS) && !idkabkota) {
-            this.dataNews = JSON.parse(this.newsService.getLocal(this.NEWS));
-          } else if (
-            this.newsService.getLocal(this.NEWS_KABKOTA) &&
-            idkabkota
-          ) {
-            this.dataNewsKabkota = JSON.parse(
-              this.newsService.getLocal(this.NEWS_KABKOTA)
-            );
-          }
-          if (idkabkota) {
-            this.isLoading.newsKabkota = false;
-          } else {
-            this.isLoading.news = false;
-          }
-        }, 3000);
-      }
-    );
   }
 
   getDataHumas() {
