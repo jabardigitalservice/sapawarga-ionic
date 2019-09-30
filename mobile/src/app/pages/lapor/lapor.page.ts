@@ -103,7 +103,7 @@ export class LaporPage implements OnInit {
     const kecamatan = this.data_profile.kecamatan.name.replace(/ /g, '_');
     const description = 'Isi laporan anda disini';
 
-    const message = `LAPORJABAR ${transformName} ${kabkota} ${kecamatan} ${description} SW`;
+    const message = `LAPORJABAR SW ${transformName} ${kabkota} ${kecamatan} ${description}`;
 
     // direct native sms
     this.util.goToSms(this.constants.telpLapor, message);
