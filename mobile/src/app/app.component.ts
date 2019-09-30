@@ -161,6 +161,9 @@ export class AppComponent {
 
               // set name
               this.googleAnalytics.addCustomDimension(8, dataUser.name);
+
+              // set user id
+              this.googleAnalytics.addCustomDimension(9, dataUser.id);
             }
           } else {
             const hasOnboarding = localStorage.getItem('has-onboarding');
