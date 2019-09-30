@@ -59,28 +59,15 @@ export class HomeResultsPage implements OnInit {
     zoom: false
   };
 
-  sliderConfigVideoPost = {
-    slidesPerView: 1.2,
-    spaceBetween: 5,
-    zoom: false
-  };
-
   unreadNotif: 0;
   isLoading = {
-    humas: false,
-    videoPost: false,
-    videoPostKabkota: false
+    humas: false
   };
   dataHumas: HumasJabar[];
-  dataVideoPost: VideoPost[];
-  dataVideoPostKabkota: VideoPost[];
   humas_URL = 'http://humas.jabarprov.go.id/terkini';
 
   // name local storage
   HUMAS = 'humas-headlines';
-  VIDEO_POST = 'video-post';
-  VIDEO_POST_KABKOTA = 'video-post-kabkota';
-  data_profile: Profile;
 
   constructor(
     public navCtrl: NavController,
@@ -198,15 +185,6 @@ export class HomeResultsPage implements OnInit {
 
     // get data humas
     this.getDataHumas();
-
-    // get data Video Post
-    this.getVideoPost();
-
-    // get data user using BehaviorSubject
-    this.profileService.currentUser.subscribe((state: Profile) => {
-      this.data_profile = state;
-      this.getVideoPost(this.data_profile.kabkota_id);
-    });
   }
 
   swipeSlide(name: string) {
@@ -214,9 +192,6 @@ export class HomeResultsPage implements OnInit {
     switch (name) {
       case 'banners':
         action = 'swipe_banners';
-        break;
-      case 'videos':
-        action = 'swipe_videos';
         break;
       case 'humas':
         action = 'swipe_humas_jabar';
@@ -501,80 +476,5 @@ export class HomeResultsPage implements OnInit {
         1
       );
     }
-  }
-
-  getVideoPost(idkabkota?: number) {
-    // check internet
-    if (!navigator.onLine) {
-      alert(Dictionary.offline);
-      return;
-    }
-
-    if (idkabkota) {
-      this.isLoading.videoPostKabkota = true;
-    } else {
-      this.isLoading.videoPost = true;
-    }
-
-    this.videoPostService.getListvideoPost(5, idkabkota).subscribe(
-      res => {
-        if (res['status'] === 200 && res['data']['items'].length) {
-          if (idkabkota) {
-            this.dataVideoPostKabkota = res['data']['items'];
-            this.isLoading.videoPostKabkota = false;
-          } else {
-            this.dataVideoPost = res['data']['items'];
-            this.isLoading.videoPost = false;
-          }
-        } else {
-          if (idkabkota) {
-            this.dataVideoPostKabkota = null;
-          } else {
-            this.dataVideoPost = null;
-          }
-        }
-      },
-      err => {
-        if (idkabkota) {
-          this.isLoading.videoPostKabkota = false;
-        } else {
-          this.isLoading.videoPost = false;
-        }
-      }
-    );
-  }
-
-  private parsingDataUrl(id: string) {
-    return id.split('=')[1];
-  }
-
-  getThumbUrl(url: string) {
-    return `https://img.youtube.com/vi/${this.parsingDataUrl(
-      url
-    )}/mqdefault.jpg`;
-  }
-
-  openYoutube(url: string, title?: string) {
-    // check internet
-    if (!navigator.onLine) {
-      alert(Dictionary.offline);
-      return;
-    }
-    this.youtube.openVideo(this.parsingDataUrl(url));
-
-    // google event analytics
-    this.util.trackEvent(
-      this.constants.pageName.videoList,
-      'view_detail_videos',
-      title,
-      1
-    );
-
-    this.util.trackEvent(
-      this.constants.pageName.home_pages,
-      'tapped_videos',
-      title,
-      1
-    );
   }
 }

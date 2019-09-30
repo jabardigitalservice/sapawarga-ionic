@@ -21,7 +21,8 @@ import { VideoListComponent } from './video-list/video-list.component';
     MessageControlComponent,
     AspirasiListComponent,
     MyAspirasiComponent,
-    NewsFeaturedComponent
+    NewsFeaturedComponent,
+    VideoListComponent
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
