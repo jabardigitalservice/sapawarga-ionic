@@ -206,12 +206,8 @@ export class LoginPage implements OnInit {
 
       this.downloader
         .download(request)
-        .then((location: string) =>
-          this.util.showToast(Dictionary.success_download)
-        )
-        .catch((error: any) =>
-          this.util.showToast(Dictionary.unsuccess_download)
-        );
+        .then((_: string) => this.util.showToast(Dictionary.success_download))
+        .catch((_: any) => this.util.showToast(Dictionary.unsuccess_download));
     });
   }
 
