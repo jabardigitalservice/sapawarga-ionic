@@ -229,3 +229,4 @@ export class HomeResultsPage implements OnInit {
     this.util.trackEvent(this.constants.pageName.home_pages, event, '', 1);
   }
 }
+
