@@ -29,6 +29,7 @@ export class HomeResultsPage implements OnInit {
   ];
 
   logoApp = 'assets/icon/logo.png';
+
   slideOpts = {
     effect: 'flip',
     autoplay: {
@@ -229,4 +230,3 @@ export class HomeResultsPage implements OnInit {
     this.util.trackEvent(this.constants.pageName.home_pages, event, '', 1);
   }
 }
-
