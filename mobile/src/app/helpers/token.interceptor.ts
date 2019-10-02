@@ -44,8 +44,8 @@ export class TokenInterceptor implements HttpInterceptor {
     if (token) {
       request = request.clone({
         setHeaders: {
-          Authorization: `Bearer ${token}`,
-          'X-Requested-With-Version': this.app_version ? this.app_version : ''
+          Authorization: `Bearer ${token}`
+          // 'X-Requested-With-Version': this.app_version ? this.app_version : ''
         }
       });
     }
@@ -53,8 +53,8 @@ export class TokenInterceptor implements HttpInterceptor {
     if (!request.headers.has('Content-Type')) {
       request = request.clone({
         setHeaders: {
-          'content-type': 'application/json',
-          'X-Requested-With-Version': this.app_version ? this.app_version : ''
+          'content-type': 'application/json'
+          // 'X-Requested-With-Version': this.app_version ? this.app_version : ''
         }
       });
     }
