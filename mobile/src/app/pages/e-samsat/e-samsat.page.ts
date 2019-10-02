@@ -78,7 +78,6 @@ export class ESamsatPage implements OnInit {
 
   // call service launchApp to open external app
   private launchSambara(appUrl: string, name?: string) {
-    // check if the platform is ios or android, else open the web url
     if (this.platform.is('android')) {
       this.util.launchApp(appUrl);
 
