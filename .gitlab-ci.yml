@@ -26,7 +26,7 @@ build_docker:
   stage: prepare
   services:
     - docker:dind
-  dependencies:FIREBASE_STAGING
+  dependencies:
     - versioning
   before_script:
     - export VERSION=$(cat ./version)
