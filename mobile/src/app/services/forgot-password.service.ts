@@ -14,7 +14,7 @@ export class ForgotPasswordService {
 
   requestForgotPassword(data: any): Observable<any> {
     return this.http
-      .post<any>(`${environment.API_URL}/password-reset-request`, data)
+      .post<any>(`${environment.API_URL}/user/password-reset-request`, data)
       .pipe(catchError(this.util.handleError));
   }
 }

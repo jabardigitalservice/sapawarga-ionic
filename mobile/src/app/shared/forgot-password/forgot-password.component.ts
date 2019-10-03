@@ -58,7 +58,14 @@ export class ForgotPasswordComponent implements OnInit {
     });
     loader.present();
 
-    console.log(this.forgotPasswordForm.value);
+    const buttons = [
+      {
+        text: 'OK',
+        handler: () => {
+          this.dismiss();
+        }
+      }
+    ];
 
     this.forgotPasswordService
       .requestForgotPassword(this.forgotPasswordForm.value)
@@ -68,7 +75,7 @@ export class ForgotPasswordComponent implements OnInit {
             loader.dismiss();
             this.util.alertConfirmation(
               Dictionary.msg_forgot_password,
-              ['OK'],
+              buttons,
               'Selamat'
             );
           } else {
@@ -78,7 +85,7 @@ export class ForgotPasswordComponent implements OnInit {
         },
         err => {
           loader.dismiss();
-          this.util.alertConfirmation('error', err.data.email[0]);
+          this.util.alertConfirmation(err.data.email[0], ['OK']);
         }
       );
 
