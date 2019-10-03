@@ -75,8 +75,6 @@ build_apk_staging:
     - docker:dind
   dependencies:
     - versioning
-  environment:
-    - staging
   before_script:
     - export VERSION=$(cat ./version)
     - cp mobile/.env-sample mobile/.env
@@ -85,7 +83,7 @@ build_apk_staging:
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
     - apk add --no-cache py-pip python-dev libffi-dev openssl-dev gcc libc-dev make
     - pip install docker-compose
-    - cat $FIREBASE > google-service-staging.json
+    - cat $FIREBASE_STAGING > google-service-staging.json
   script:
     - cat google-service-staging.json
     - mv google-service-staging.json mobile/
@@ -101,7 +99,7 @@ build_apk_staging:
     - docker-compose exec -T app sed -i -e "s/com.google.android.gms:play-services-location:15.0.1/com.google.android.gms:play-services-location:12.0.1/g" platforms/android/project.properties
     - docker-compose exec -T app sed -i -e "s/com.google.firebase:firebase-core:10.+/com.google.firebase:firebase-core:12.0.1/g" platforms/android/cordova-plugin-fcm-with-dependecy-updated/jds-FCMPlugin.gradle
     - docker-compose exec -T app cp google-service-staging.json platforms/android/google-services.json
-    - docker-compose exec -T app mv google-service-staging.json platforms/android/app//google-services.json
+    - docker-compose exec -T app mv google-service-staging.json platforms/android/app/google-services.json
     - docker-compose exec -T app cat platforms/android/google-services.json
     - docker-compose exec -T app npm run build:android:prod-staging
     - ls -l platforms/android/app/build/outputs/apk/debug/
@@ -133,8 +131,6 @@ build_apk_production:
     - master
   when:
     - manual
-  environment:
-    - production
   services:
     - docker:dind
   dependencies:
@@ -147,7 +143,7 @@ build_apk_production:
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
     - apk add --no-cache py-pip python-dev libffi-dev openssl-dev gcc libc-dev make
     - pip install docker-compose
-    - cat $FIREBASE > google-service-production.json
+    - cat $FIREBASE_PRODUCTION > google-service-production.json
   script:
     - cat google-service-production.json
     - mv google-service-production.json mobile/
@@ -163,7 +159,7 @@ build_apk_production:
     - docker-compose exec -T app sed -i -e "s/com.google.android.gms:play-services-location:15.0.1/com.google.android.gms:play-services-location:12.0.1/g" platforms/android/project.properties
     - docker-compose exec -T app sed -i -e "s/com.google.firebase:firebase-core:10.+/com.google.firebase:firebase-core:12.0.1/g" platforms/android/cordova-plugin-fcm-with-dependecy-updated/jds-FCMPlugin.gradle
     - docker-compose exec -T app cp google-service-production.json platforms/android/google-services.json
-    - docker-compose exec -T app mv google-service-production.json platforms/android/app//google-services.json
+    - docker-compose exec -T app mv google-service-production.json platforms/android/app/google-services.json
     - docker-compose exec -T app cat platforms/android/google-services.json
     - docker-compose exec -T app npm run build:android:prod-release
     - if ! [[ -e platforms/android/app/build/outputs/apk/release/app-release-unsigned.apk ]]; then exit 1; fi
