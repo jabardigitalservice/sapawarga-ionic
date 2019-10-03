@@ -4,13 +4,14 @@ import {
   ModalController,
   LoadingController,
   NavController,
-  NavParams
+  NavParams,
+  Platform
 } from '@ionic/angular';
 import { ForceUpdateService } from '../../services/force-update.service';
 import { Dictionary } from '../../helpers/dictionary';
 import { UtilitiesService } from '../../services/utilities.service';
 import { ProfileService } from '../../services/profile.service';
-import { ForceChangeProfileComponent } from '../force-change-profile/force-change-profile.component';
+import { Constants } from '../../helpers/constants';
 
 @Component({
   selector: 'app-force-change-password',
@@ -39,28 +40,40 @@ export class ForceChangePasswordComponent implements OnInit {
   submitted = false;
 
   validations = {
-    password: ['', [Validators.required, Validators.minLength(6)]],
-    password_confirmation: ['', [Validators.required, Validators.minLength(6)]]
+    password: ['', [Validators.required, Validators.minLength(5)]],
+    password_confirmation: ['', [Validators.required, Validators.minLength(5)]]
   };
 
   constructor(
     private formBuilder: FormBuilder,
     private modalCtrl: ModalController,
-    private modalController: ModalController,
     private loadingCtrl: LoadingController,
     private forceUpdateService: ForceUpdateService,
     private util: UtilitiesService,
     private profileService: ProfileService,
     public navCtrl: NavController,
-    private navParams: NavParams
+    private navParams: NavParams,
+    private platform: Platform,
+    private constants: Constants
   ) {}
 
   ngOnInit() {
+    this.platform.backButton.subscribeWithPriority(9999, () => {
+      document.addEventListener(
+        'backbutton',
+        function(event) {
+          event.preventDefault();
+          event.stopPropagation();
+        },
+        false
+      );
+    });
+
     this.profilePassword = this.navParams.get('profilePassword') || false;
     if (this.profilePassword) {
       this.validations['password_old'] = [
         '',
-        [Validators.required, Validators.minLength(6)]
+        [Validators.required, Validators.minLength(5)]
       ];
     }
 
@@ -127,10 +140,19 @@ export class ForceChangePasswordComponent implements OnInit {
             this.util.alertConfirmation(Dictionary.msg_change_password, ['OK']);
             this.dismiss();
           } else {
+            this.dismiss();
             this.forceUpdateService.setDataForceChange(1);
             localStorage.removeItem('auth-token');
+            localStorage.removeItem('forceChange');
             this.navCtrl.navigateRoot(['/login']);
-            this.dismiss();
+
+            // event google analytics
+            this.util.trackEvent(
+              this.constants.pageName.forceUpdate,
+              'force_change_password',
+              '',
+              1
+            );
           }
         } else {
           loader.dismiss();
@@ -155,12 +177,5 @@ export class ForceChangePasswordComponent implements OnInit {
     if (this.profilePassword === false) {
       this.navCtrl.navigateRoot('/login');
     }
-  }
-
-  async showEditProfile() {
-    const modal = await this.modalController.create({
-      component: ForceChangeProfileComponent
-    });
-    return await modal.present();
   }
 }

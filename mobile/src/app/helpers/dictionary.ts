@@ -50,6 +50,7 @@ export enum Dictionary {
   msg_update_app = 'Versi terbaru telah tersedia. segera perbaharui aplikasi anda.',
 
   msg_news = 'Tidak ada daftar berita yang dibuat',
+  msg_saber_hoax = 'Tidak ada daftar Saber Hoax yang dibuat',
   msg_change_password = 'Kata sandi berhasil diubah',
   msg_forgot_password = 'Tautan reset password telah di kirim ke email anda'
 }

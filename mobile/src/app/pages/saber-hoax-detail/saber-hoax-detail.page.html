@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-toolbar color="light"
+    ><ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Saber Hoax</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <app-message-control
+    *ngIf="msgResponse.type"
+    [type]="msgResponse.type"
+    [message]="msgResponse.msg"
+  ></app-message-control>
+
+  <div *ngIf="dataSaberHoax">
+    <ion-label>
+      <p padding class="title">{{ dataSaberHoax.title }}</p>
+    </ion-label>
+
+    <img
+      [src]="dataSaberHoax.cover_path_url"
+      onError="this.src='assets/img/placeholder_image.png';"
+      class="img-saber-hoax"
+    />
+    <ion-label>
+      <div class="content" padding [innerHTML]="dataSaberHoax.content"></div>
+    </ion-label>
+  </div>
+</ion-content>

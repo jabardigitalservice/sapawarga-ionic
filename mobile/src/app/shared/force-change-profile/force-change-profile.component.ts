@@ -1,5 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Dictionary } from 'src/app/helpers/dictionary';
+import { ForceUpdateService } from '../../services/force-update.service';
+import { UtilitiesService } from '../../services/utilities.service';
+import {
+  LoadingController,
+  NavController,
+  ModalController,
+  Platform
+} from '@ionic/angular';
+import { Constants } from '../../helpers/constants';
 
 @Component({
   selector: 'app-force-change-profile',
@@ -10,7 +20,16 @@ export class ForceChangeProfileComponent implements OnInit {
   public changeProfileForm: FormGroup;
   submitted = false;
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(
+    private formBuilder: FormBuilder,
+    private forceUpdateService: ForceUpdateService,
+    private util: UtilitiesService,
+    private loadingCtrl: LoadingController,
+    private navCtrl: NavController,
+    private modalCtrl: ModalController,
+    private constants: Constants,
+    private platform: Platform
+  ) {
     this.changeProfileForm = this.formBuilder.group({
       name: [
         '',
@@ -18,23 +37,56 @@ export class ForceChangeProfileComponent implements OnInit {
           Validators.required,
           Validators.maxLength(255),
           Validators.minLength(4),
-          Validators.pattern(/^[A-Za-z ]+$/)
+          Validators.pattern(/^[A-Za-z `'.]+$/)
         ]
       ],
-      email: ['', [Validators.required, Validators.email]],
+      email: [
+        '',
+        [
+          Validators.required,
+          Validators.email,
+          Validators.pattern(
+            // tslint:disable-next-line:max-line-length
+            /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]{3,}@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/
+          )
+        ]
+      ],
       phone: [
         '',
-        [Validators.required, Validators.minLength(3), Validators.maxLength(12)]
+        [
+          Validators.required,
+          Validators.minLength(3),
+          Validators.maxLength(13),
+          Validators.pattern(/^(^62\s?|^0)(\d{5,13})$/)
+        ]
       ],
       address: ['', [Validators.required, Validators.maxLength(255)]]
     });
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.platform.backButton.subscribeWithPriority(9999, () => {
+      document.addEventListener(
+        'backbutton',
+        function(event) {
+          event.preventDefault();
+          event.stopPropagation();
+        },
+        false
+      );
+    });
+  }
 
   // convenience getter for easy access to form fields
   get f() {
     return this.changeProfileForm.controls;
+  }
+
+  dismiss() {
+    // dismiss modal
+    this.modalCtrl.dismiss({
+      dismissed: true
+    });
   }
 
   async submitProfile() {
@@ -45,36 +97,56 @@ export class ForceChangeProfileComponent implements OnInit {
     }
 
     // check internet
-    // if (!navigator.onLine) {
-    //   this.util.showToast(Dictionary.offline);
-    //   return;
-    // }
+    if (!navigator.onLine) {
+      this.util.showToast(Dictionary.offline);
+      return;
+    }
 
-    // const loader = await this.loadingCtrl.create({
-    //   duration: 10000
-    // });
-    // loader.present();
+    const loader = await this.loadingCtrl.create({
+      duration: 10000
+    });
+    loader.present();
 
-    // console.log(this.changeProfileForm.value);
+    await this.forceUpdateService
+      .PostForceChangeProfile(this.changeProfileForm.value)
+      .subscribe(
+        res => {
+          if (res.success === true) {
+            loader.dismiss();
+            localStorage.removeItem('forceChange');
+            this.navCtrl.navigateRoot('/');
 
-    // await this.auth.login(this.onLoginForm.value).subscribe(
-    //   res => {
-    //     if (res.success === true) {
-    //       loader.dismiss();
-    //       this.auth.saveToken(res.data.access_token);
-    //       this.getDataProfile();
-    //     } else {
-    //       loader.dismiss();
-    //       this.presentAlert('error', Dictionary.confirmation_login);
-    //     }
-    //   },
-    //   err => {
-    //     loader.dismiss();
-    //     this.presentAlert('error', err.data.password[0]);
-    //   }
-    // );
+            // event google analytics
+            this.util.trackEvent(
+              this.constants.pageName.forceUpdate,
+              'force_change_edit_profile',
+              '',
+              1
+            );
+            this.dismiss();
+          } else {
+            loader.dismiss();
+            this.util.alertConfirmation(Dictionary.confirmation_login, ['OK']);
+          }
+        },
+        err => {
+          loader.dismiss();
+          if (err.status === 422) {
+            if (err.data.email) {
+              this.util.alertConfirmation(err.data.email[0], ['OK']);
+            }
+            if (err.data.phone) {
+              this.util.alertConfirmation(err.data.phone[0], ['OK']);
+            }
+            if (err.data.name) {
+              this.util.alertConfirmation(err.data.name[0], ['OK']);
+            }
+          } else {
+            this.util.alertConfirmation(Dictionary.terjadi_kesalahan, ['OK']);
+          }
+        }
+      );
 
     this.submitted = false;
-    this.changeProfileForm.reset();
   }
 }

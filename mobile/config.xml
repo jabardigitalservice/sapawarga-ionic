@@ -5,6 +5,7 @@
     <author email="jds@jabarprov.go.id" href="https://digitalservice.jabarprov.go.id">Jabar Digital Service</author>
     <content src="index.html" />
     <access origin="*" />
+    <access launch-external="yes" origin="whatsapp://*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
     <allow-intent href="tel:*" />

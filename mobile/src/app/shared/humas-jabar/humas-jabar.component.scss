@@ -1,0 +1,24 @@
+:host {
+  ion-item {
+    // border color
+    --border-color: transparent;
+  }
+
+  ion-button {
+    text-transform: none;
+  }
+
+  .list-headline-jabar {
+    --padding-start: none;
+  }
+
+  .blues-color {
+    --background: #00b7f0;
+    --padding-start: 2em;
+    --padding-end: 2em;
+  }
+}
+
+.thumbnail-image {
+  border-radius: 4px;
+}

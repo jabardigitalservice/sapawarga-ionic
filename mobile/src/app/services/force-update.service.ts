@@ -1,7 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Constants } from '../helpers/constants';
-import { ModalController } from '@ionic/angular';
-import { ForceChangePasswordComponent } from '../shared/force-change-password/force-change-password.component';
+import { HttpClient } from '@angular/common/http';
+import { catchError } from 'rxjs/operators';
+import { environment } from '../../environments/environment';
+import { UtilitiesService } from './utilities.service';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -13,16 +16,10 @@ export class ForceUpdateService {
   };
 
   constructor(
+    private http: HttpClient,
     private constants: Constants,
-    private modalController: ModalController
+    private util: UtilitiesService
   ) {}
-
-  isForceChange() {
-    // check is step force change password and profile was complete
-    // const data = this.getDataForceUpdate();
-    // if(data) {
-    // }
-  }
 
   // get data localStorage
   getDataForceChange() {
@@ -35,7 +32,7 @@ export class ForceUpdateService {
   }
 
   // insert data to localStorage
-  setDataForceChange(data?: number) {
+  setDataForceChange(data: number) {
     if (data === 1) {
       // if data is 1 done change password
       this.insertData.isChangePassword = true;
@@ -67,5 +64,11 @@ export class ForceUpdateService {
     }
 
     return stateUpdate;
+  }
+
+  PostForceChangeProfile(data: any): Observable<any> {
+    return this.http
+      .post<any>(`${environment.API_URL}/user/me/change-profile`, data)
+      .pipe(catchError(this.util.handleError));
   }
 }

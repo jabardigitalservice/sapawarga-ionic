@@ -3,6 +3,10 @@
     --highlight-color-focused: #009688;
     margin-bottom: 25px;
   }
+
+  ion-button {
+    text-transform: none;
+  }
 }
 
 .invalid-feedback {

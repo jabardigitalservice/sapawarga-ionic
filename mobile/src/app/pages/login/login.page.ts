@@ -89,7 +89,7 @@ export class LoginPage implements OnInit {
   ngOnInit() {
     this.onLoginForm = this.formBuilder.group({
       username: ['', [Validators.required, Validators.minLength(4)]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
+      password: [''],
       push_token: ['']
     });
 
@@ -196,12 +196,8 @@ export class LoginPage implements OnInit {
 
       this.downloader
         .download(request)
-        .then((location: string) =>
-          this.util.showToast(Dictionary.success_download)
-        )
-        .catch((error: any) =>
-          this.util.showToast(Dictionary.unsuccess_download)
-        );
+        .then((_: string) => this.util.showToast(Dictionary.success_download))
+        .catch((_: any) => this.util.showToast(Dictionary.unsuccess_download));
     });
   }
 
@@ -244,14 +240,21 @@ export class LoginPage implements OnInit {
         ) {
           this.navCtrl.navigateRoot(['/tabs']['home']);
         } else {
+          // check which should be update
+          let isForceUpdate;
+          if (res['data'].password_updated_at) {
+            isForceUpdate = 1;
+          } else if (res['data'].profile_updated_at) {
+            isForceUpdate = 2;
+          }
           // insert all datas force update to false
-          this.forceUpdateService.setDataForceChange();
+          this.forceUpdateService.setDataForceChange(isForceUpdate);
 
           const dataCheckUpdate = this.forceUpdateService.checkForceUpdate();
           if (dataCheckUpdate === 1) {
             this.showModalUpdate(1);
           } else if (dataCheckUpdate === 2) {
-            // console.log('enter modal force profile');
+            this.showModalUpdate(2);
           }
         }
       },
