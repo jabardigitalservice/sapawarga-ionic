@@ -2,7 +2,8 @@ stages:
   - versioning
   - prepare
   - test
-  - build
+  - build_stage
+  - build_production
 
 versioning:
   image: alpine:latest
@@ -65,15 +66,17 @@ lint:
     - COMPOSE_HTTP_TIMEOUT=500 docker-compose up -d
     - docker-compose exec -T app npm run lint
 
-build_apk:
+build_apk_staging:
   image: docker:latest
-  stage: build
+  stage: build_stage
   only:
     - branches
   services:
     - docker:dind
   dependencies:
     - versioning
+  environment:
+    - staging
   before_script:
     - export VERSION=$(cat ./version)
     - cp mobile/.env-sample mobile/.env
@@ -82,7 +85,7 @@ build_apk:
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
     - apk add --no-cache py-pip python-dev libffi-dev openssl-dev gcc libc-dev make
     - pip install docker-compose
-    - cat $FIREBASE_STAGING > google-service-staging.json
+    - cat $FIREBASE > google-service-staging.json
   script:
     - cat google-service-staging.json
     - mv google-service-staging.json mobile/
@@ -121,3 +124,55 @@ build_apk:
      paths:
        - mobile/platforms/android/app/build/outputs/apk/debug/app-debug.apk
   #     - mobile/app-release-signed-${CI_PIPELINE_IID}.apk
+
+
+build_apk_production:
+  image: docker:latest
+  stage: build_production
+  when:
+    - manual
+  environment:
+    - production
+  services:
+    - docker:dind
+  dependencies:
+    - versioning
+  before_script:
+    - export VERSION=$(cat ./version)
+    - cp mobile/.env-sample mobile/.env
+    - while read a ; do echo ${a//%GOOGLE_MAPS_ANDROID_API_KEY%/$GOOGLE_MAPS_ANDROID_API_KEY} ; done < mobile/.env > mobile/.env.t ; mv mobile/.env.t mobile/.env
+    - cat mobile/.env
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - apk add --no-cache py-pip python-dev libffi-dev openssl-dev gcc libc-dev make
+    - pip install docker-compose
+    - cat $FIREBASE > google-service-production.json
+  script:
+    - cat google-service-production.json
+    - mv google-service-production.json mobile/
+    - cd mobile
+    - docker-compose pull
+    - docker images
+    - COMPOSE_HTTP_TIMEOUT=500 docker-compose up -d
+    - docker-compose exec -T app ionic cordova platform add android
+    - docker-compose exec -T app sed -i -e "s/%VERSION%/${VERSION}-${CI_PIPELINE_IID}/g" config.xml
+    - docker-compose exec -T app sed -i -e "s/com.google.firebase:firebase-core:10.+/com.google.firebase:firebase-core:12.0.1/g" platforms/android/project.properties
+    - docker-compose exec -T app sed -i -e "s/com.google.firebase:firebase-messaging:10.+/com.google.firebase:firebase-messaging:12.0.1/g" platforms/android/project.properties
+    - docker-compose exec -T app sed -i -e "s/com.google.android.gms:play-services-maps:15.0.1/com.google.android.gms:play-services-maps:12.0.1/g" platforms/android/project.properties
+    - docker-compose exec -T app sed -i -e "s/com.google.android.gms:play-services-location:15.0.1/com.google.android.gms:play-services-location:12.0.1/g" platforms/android/project.properties
+    - docker-compose exec -T app sed -i -e "s/com.google.firebase:firebase-core:10.+/com.google.firebase:firebase-core:12.0.1/g" platforms/android/cordova-plugin-fcm-with-dependecy-updated/jds-FCMPlugin.gradle
+    - docker-compose exec -T app cp google-service-production.json platforms/android/google-services.json
+    - docker-compose exec -T app mv google-service-production.json platforms/android/app//google-services.json
+    - docker-compose exec -T app cat platforms/android/google-services.json
+    - docker-compose exec -T app npm run build:android:prod-release
+    - if ! [[ -e platforms/android/app/build/outputs/apk/release/app-release-unsigned.apk ]]; then exit 1; fi
+    - wget $KEYSTORE_URL
+    - if ! [[ -e $KEYSTORE_FILENAME ]]; then exit 1; fi
+    - docker-compose exec -T app jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore $KEYSTORE_FILENAME -storepass $KEYSTORE_PASSPHRASE platforms/android/app/build/outputs/apk/release/app-release-unsigned.apk SapaWarga
+    - docker-compose exec -T app zipalign -v 4 platforms/android/app/build/outputs/apk/release/app-release-unsigned.apk app-release-signed-${CI_PIPELINE_IID}.apk
+    - docker-compose exec -T app ls -al
+    - docker-compose exec -T app ls -al platforms/android/app/build/outputs/apk/release/
+    - docker-compose exec -T app apksigner verify app-release-signed-${CI_PIPELINE_IID}.apk
+    - ls -al platforms/android/app/build/outputs/apk/release/
+  artifacts:
+     paths:
+       - mobile/app-release-signed-${CI_PIPELINE_IID}.apk
