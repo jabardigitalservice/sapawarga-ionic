@@ -15,6 +15,7 @@ versioning:
     - export VERSION=$(git tag)
     - echo $VERSION
     - echo $VERSION > version
+    - cat ${FIREBASE_STAGING}
   artifacts:
     paths:
       - version
