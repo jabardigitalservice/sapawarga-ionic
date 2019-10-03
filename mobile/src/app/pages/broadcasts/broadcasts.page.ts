@@ -161,7 +161,7 @@ export class BroadcastsPage implements OnInit {
         id: broadcast.id,
         author: broadcast.sender_name,
         title: broadcast.title,
-        category_name: broadcast.title,
+        category_name: broadcast.category_name,
         description: broadcast.content,
         updated_at: broadcast.created_at
       }
