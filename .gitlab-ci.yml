@@ -129,6 +129,8 @@ build_apk_staging:
 build_apk_production:
   image: docker:latest
   stage: build_production
+  only:
+    - master
   when:
     - manual
   environment:
