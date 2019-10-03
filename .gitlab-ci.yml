@@ -2,7 +2,7 @@ stages:
   - versioning
   - prepare
   - test
-  - build_stage
+  - build_staging
   - build_production
 
 versioning:
@@ -68,7 +68,7 @@ lint:
 
 build_apk_staging:
   image: docker:latest
-  stage: build_stage
+  stage: build_staging
   only:
     - branches
   services:
@@ -129,8 +129,7 @@ build_apk_production:
   stage: build_production
   only:
     - master
-  when:
-    - manual
+  when: manual
   services:
     - docker:dind
   dependencies:
