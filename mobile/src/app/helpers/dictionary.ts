@@ -38,8 +38,6 @@ export enum Dictionary {
   complete_sosmed = 'Mohon lengkapi akun sosial media anda',
 
   // login message
-  // tslint:disable-next-line:max-line-length
-  forgot_password = 'Anda dapat menghubungi Call Center Sapawarga <a href="tel:081212124023"><strong>081212124023</strong></a>  atau menghubungi email berikut  <a href="mailto:sapawarga@jabarprov.go.id"><strong>sapawarga@jabarprov.go.id</strong></a>',
   success_forgot_password = 'Email was sended successfully.',
   disconnected = 'network was disconnected :-(',
   confirmation_login = 'Pastikan input data terisi dengan benar',
@@ -53,5 +51,6 @@ export enum Dictionary {
 
   msg_news = 'Tidak ada daftar berita yang dibuat',
   msg_saber_hoax = 'Tidak ada daftar Saber Hoax yang dibuat',
-  msg_change_password = 'Kata sandi berhasil diubah'
+  msg_change_password = 'Kata sandi berhasil diubah',
+  msg_forgot_password = 'Tautan reset password telah di kirim ke email anda'
 }
