@@ -6,6 +6,7 @@ import { catchError } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 import { HTTP } from '@ionic-native/http/ngx';
 import { UtilitiesService } from './utilities.service';
+import { Banner } from '../interfaces/banner';
 
 const URL_HUMAS = 'http://humas.jabarprov.go.id/api/berita-terkini';
 @Injectable({
@@ -17,6 +18,12 @@ export class NewsService {
     private nativeHttp: HTTP,
     private util: UtilitiesService
   ) {}
+
+  getBanners(): Observable<Banner[]> {
+    return this.http
+      .get<Banner[]>(`${environment.API_URL}/banners`)
+      .pipe(catchError(this.util.handleError));
+  }
 
   getListNews(page: number, idkabkota?: number): Observable<News[]> {
     let URL: string;

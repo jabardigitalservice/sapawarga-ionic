@@ -15,6 +15,8 @@ import { throwError } from 'rxjs';
 import { GoogleAnalytics } from '@ionic-native/google-analytics/ngx';
 import { SMS } from '@ionic-native/sms/ngx';
 import { UpdateAppComponent } from '../shared/update-app/update-app.component';
+import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
+import { Constants } from '../helpers/constants';
 
 @Injectable({
   providedIn: 'root'
@@ -26,7 +28,9 @@ export class UtilitiesService {
     private actionsheetCtrl: ActionSheetController,
     private modalController: ModalController,
     private googleAnalytics: GoogleAnalytics,
-    private sms: SMS
+    private inAppBrowser: InAppBrowser,
+    private sms: SMS,
+    private constants: Constants
   ) {}
 
   timeAgo(value: number) {
@@ -145,5 +149,10 @@ export class UtilitiesService {
       backdropDismiss: false
     });
     return await modal.present();
+  }
+
+  launchweb(url: string) {
+    const target = '_self';
+    this.inAppBrowser.create(url, target, this.constants.inAppBrowserOptions);
   }
 }
