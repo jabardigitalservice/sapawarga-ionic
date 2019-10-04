@@ -4,6 +4,11 @@ import { Pages } from '../../interfaces/pages';
 import { NotifikasiService } from '../../services/notifikasi.service';
 import { Constants } from '../../helpers/constants';
 import { UtilitiesService } from '../../services/utilities.service';
+import { NewsService } from 'src/app/services/news.service';
+import { Dictionary } from 'src/app/helpers/dictionary';
+import { Banner } from '../../interfaces/banner';
+import { Router } from '@angular/router';
+import { utils } from 'protractor';
 
 @Component({
   selector: 'app-home-results',
@@ -28,6 +33,8 @@ export class HomeResultsPage implements OnInit {
     }
   ];
 
+  bannersList: Banner[];
+
   logoApp = 'assets/icon/logo.png';
 
   slideOpts = {
@@ -45,7 +52,9 @@ export class HomeResultsPage implements OnInit {
     private notifikasiService: NotifikasiService,
     public loadingCtrl: LoadingController,
     public constants: Constants,
-    private util: UtilitiesService
+    private util: UtilitiesService,
+    private newsService: NewsService,
+    private router: Router
   ) {
     this.appPages = [
       {
@@ -143,6 +152,60 @@ export class HomeResultsPage implements OnInit {
       err => {
         this.unreadNotif = this.notifikasiService.getNotifikasiNumber();
       }
+    );
+    this.getListBanners();
+  }
+
+  async getListBanners() {
+    if (!navigator.onLine) {
+      alert(Dictionary.offline);
+      return;
+    }
+
+    const loader = await this.loadingCtrl.create({
+      duration: 10000
+    });
+
+    this.newsService.getBanners().subscribe(
+      res => {
+        if (res['data']['items'].length) {
+          this.bannersList = res['data']['items'];
+        }
+      },
+      err => {}
+    );
+  }
+
+  goToBanner(banner: Banner) {
+    let path = '';
+    const action = 'tapped_detail_banner';
+
+    if (banner.type === 'external') {
+      this.util.launchweb(banner.link_url);
+    } else if (banner.type === 'internal') {
+      switch (banner.internal_category) {
+        case 'news':
+          path = 'news';
+          break;
+        case 'polling':
+          path = 'polling';
+          break;
+        case 'survey':
+          path = 'survey';
+          break;
+        default:
+          path = '';
+          break;
+      }
+      this.navCtrl.navigateForward(path);
+    }
+
+    // add event
+    this.util.trackEvent(
+      this.constants.pageName.home_pages,
+      action,
+      banner.title,
+      1
     );
   }
 
