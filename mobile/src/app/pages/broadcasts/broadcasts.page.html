@@ -22,7 +22,7 @@
         >Dari: {{ broadcast.sender_name }}</ion-card-subtitle
       >
       <ion-card-subtitle>{{
-        broadcast.updated_at * 1000 | date: 'EEEE, MMMM y h:mm'
+        broadcast.updated_at * 1000 | date: 'd MMMM y h:mm'
       }}</ion-card-subtitle>
       <ion-card-subtitle [ngClass]="{ 'dark-read': !checkRead(broadcast.id) }"
         >[ {{ broadcast.category_name }} ]</ion-card-subtitle
