@@ -37,6 +37,7 @@
       <img
         class="profile-image"
         *ngIf="dataProfile.photo_url"
+        onError="this.src='assets/img/user.png';"
         [src]="dataProfile.photo_url"
       />
       <h1 class="fw500">{{ dataProfile.name }}</h1>

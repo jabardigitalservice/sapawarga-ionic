@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, LOCALE_ID } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -39,6 +39,10 @@ import { GoogleAnalytics } from '@ionic-native/google-analytics/ngx';
 import { AppVersion } from '@ionic-native/app-version/ngx';
 import { UpdateAppComponent } from './shared/update-app/update-app.component';
 import { SMS } from '@ionic-native/sms/ngx';
+import { registerLocaleData } from '@angular/common';
+import localeId from '@angular/common/locales/id';
+
+registerLocaleData(localeId);
 @NgModule({
   declarations: [
     AppComponent,
@@ -79,6 +83,7 @@ import { SMS } from '@ionic-native/sms/ngx';
       useClass: TokenInterceptor,
       multi: true
     },
+    { provide: LOCALE_ID, useValue: 'id' },
     FileTransfer,
     FileTransferObject,
     File,
