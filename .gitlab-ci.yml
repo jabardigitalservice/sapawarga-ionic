@@ -99,8 +99,9 @@ build_apk_staging:
     - docker-compose exec -T app sed -i -e "s/com.google.android.gms:play-services-location:15.0.1/com.google.android.gms:play-services-location:12.0.1/g" platforms/android/project.properties
     - docker-compose exec -T app sed -i -e "s/com.google.firebase:firebase-core:10.+/com.google.firebase:firebase-core:12.0.1/g" platforms/android/cordova-plugin-fcm-with-dependecy-updated/jds-FCMPlugin.gradle
     - docker-compose exec -T app cp google-service-staging.json platforms/android/google-services.json
-    - docker-compose exec -T app mv google-service-staging.json platforms/android/app/google-services.json
     - docker-compose exec -T app cat platforms/android/google-services.json
+    - docker-compose exec -T app mv google-service-staging.json platforms/android/app/google-services.json
+    - docker-compose exec -T app cat platforms/android/app/google-services.json
     - docker-compose exec -T app npm run build:android:prod-staging
     - ls -l platforms/android/app/build/outputs/apk/debug/
     - if ! [[ -e platforms/android/app/build/outputs/apk/debug/app-debug.apk ]]; then exit 1; fi
