@@ -177,27 +177,15 @@ export class HomeResultsPage implements OnInit {
   }
 
   goToBanner(banner: Banner) {
-    let path = '';
     const action = 'tapped_detail_banner';
 
     if (banner.type === 'external') {
       this.util.launchweb(banner.link_url);
     } else if (banner.type === 'internal') {
-      switch (banner.internal_category) {
-        case 'news':
-          path = 'news';
-          break;
-        case 'polling':
-          path = 'polling';
-          break;
-        case 'survey':
-          path = 'survey';
-          break;
-        default:
-          path = '';
-          break;
-      }
-      this.navCtrl.navigateForward(path);
+      this.router.navigate([
+        `/${banner.internal_category}`,
+        banner.internal_entity_id
+      ]);
     }
 
     // add event
