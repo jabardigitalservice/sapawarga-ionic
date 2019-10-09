@@ -181,6 +181,10 @@ export class HomeResultsPage implements OnInit {
 
     if (banner.type === 'external') {
       this.util.launchweb(banner.link_url);
+    } else if (
+      banner.type === 'internal' &&
+      banner.internal_category === 'survey'
+    ) {
     } else if (banner.type === 'internal') {
       this.router.navigate([
         `/${banner.internal_category}`,
