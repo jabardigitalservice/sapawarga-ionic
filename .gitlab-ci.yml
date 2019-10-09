@@ -70,7 +70,7 @@ build_apk_staging:
   image: docker:latest
   stage: build_staging
   only:
-    - branches
+    - master
   services:
     - docker:dind
   dependencies:
