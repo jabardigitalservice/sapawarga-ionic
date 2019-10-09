@@ -8,7 +8,7 @@ import { NewsService } from 'src/app/services/news.service';
 import { Dictionary } from 'src/app/helpers/dictionary';
 import { Banner } from '../../interfaces/banner';
 import { Router } from '@angular/router';
-import { utils } from 'protractor';
+import { SurveyService } from '../../services/survey.service';
 
 @Component({
   selector: 'app-home-results',
@@ -54,7 +54,8 @@ export class HomeResultsPage implements OnInit {
     public constants: Constants,
     private util: UtilitiesService,
     private newsService: NewsService,
-    private router: Router
+    private router: Router,
+    private surveyService: SurveyService
   ) {
     this.appPages = [
       {
@@ -185,6 +186,7 @@ export class HomeResultsPage implements OnInit {
       banner.type === 'internal' &&
       banner.internal_category === 'survey'
     ) {
+      this.getDetailSurvey(banner.internal_entity_id);
     } else if (banner.type === 'internal') {
       this.router.navigate([
         `/${banner.internal_category}`,
@@ -283,5 +285,32 @@ export class HomeResultsPage implements OnInit {
 
     // google event analytics
     this.util.trackEvent(this.constants.pageName.home_pages, event, '', 1);
+  }
+
+  async getDetailSurvey(id: number) {
+    // check internet
+    if (!navigator.onLine) {
+      alert(Dictionary.offline);
+      return;
+    }
+
+    const loader = await this.loadingCtrl.create({
+      duration: 10000
+    });
+    loader.present();
+
+    this.surveyService.getDetailSurvey(id).subscribe(
+      res => {
+        if (res['status'] === 200) {
+          const external_url = res['data'].external_url;
+          this.util.launchweb(external_url);
+        }
+        loader.dismiss();
+      },
+      _ => {
+        loader.dismiss();
+        this.util.showToast(Dictionary.terjadi_kesalahan);
+      }
+    );
   }
 }

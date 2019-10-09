@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 import { UtilitiesService } from './utilities.service';
+import { Survey } from '../interfaces/survey';
 
 const SURVEY = 'data-survey';
 @Injectable({
@@ -12,9 +13,15 @@ const SURVEY = 'data-survey';
 export class SurveyService {
   constructor(private http: HttpClient, private util: UtilitiesService) {}
 
-  getListSurvey(page: number): Observable<any> {
+  getListSurvey(page: number): Observable<Survey> {
     return this.http
-      .get<any>(`${environment.API_URL}/survey?page=${page}`)
+      .get<Survey>(`${environment.API_URL}/survey?page=${page}`)
+      .pipe(catchError(this.util.handleError));
+  }
+
+  getDetailSurvey(id: number): Observable<Survey> {
+    return this.http
+      .get<Survey>(`${environment.API_URL}/survey/${id}`)
       .pipe(catchError(this.util.handleError));
   }
 
