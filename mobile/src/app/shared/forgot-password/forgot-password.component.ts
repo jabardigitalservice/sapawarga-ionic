@@ -85,7 +85,9 @@ export class ForgotPasswordComponent implements OnInit {
         },
         err => {
           loader.dismiss();
-          this.util.alertConfirmation(err.data.email[0], ['OK']);
+          this.util.alertConfirmation(Dictionary.msg_error_forgot_password, [
+            'OK'
+          ]);
         }
       );
 
