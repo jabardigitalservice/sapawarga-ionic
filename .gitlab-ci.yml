@@ -103,7 +103,8 @@ build_apk_staging:
     - docker-compose exec -T app mv google-service-staging.json platforms/android/app/google-services.json
     - docker-compose exec -T app cat platforms/android/app/google-services.json
     - docker-compose exec -T app npm run build:android:prod-staging
-    - ls -l platforms/android/app/build/outputs/apk/debug/
+    - docker-compose exec -T mv platforms/android/app/build/outputs/apk/debug/app-debug.apk .
+    - ls -l .
     - if ! [[ -e platforms/android/app/build/outputs/apk/debug/app-debug.apk ]]; then exit 1; fi
   #  - docker-compose exec -T app echo "${FIREBASE_PRODUCTION}" > platforms/android/google-services.json
   #  - docker-compose exec -T app cat platforms/android/google-services.json
@@ -171,7 +172,8 @@ build_apk_production:
     - docker-compose exec -T app ls -al
     - docker-compose exec -T app ls -al platforms/android/app/build/outputs/apk/release/
     - docker-compose exec -T app apksigner verify app-release-signed-${CI_PIPELINE_IID}.apk
-    - ls -al platforms/android/app/build/outputs/apk/release/
+    - docker-compose exec -T mv apksigner verify app-release-signed-${CI_PIPELINE_IID}.apk .
+    - ls -al .
   artifacts:
      paths:
-       - mobile/app-release-signed-${CI_PIPELINE_IID}.apk
+       - app-release-signed-${CI_PIPELINE_IID}.apk
