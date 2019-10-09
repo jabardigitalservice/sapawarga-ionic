@@ -176,24 +176,19 @@ export class AppComponent {
         });
 
         this.fcm.onNotification().subscribe(data => {
+          const meta = JSON.parse(data.meta);
           if (data.wasTapped) {
-            // Received in background
             if (data.target === 'url') {
-              // Handle redirect to URL
-              const meta = JSON.parse(data.meta);
-              this.platform.ready().then(() => {
-                this.inAppBrowser.create(meta.url, '_system');
-              });
+              this.inAppBrowser.create(meta.url, '_system'); // call webview in app
+            } else if (
+              data.target === 'notifikasi' &&
+              meta.target === 'survey'
+            ) {
+              this.util.launchweb(meta.url); // call webview external
+            } else if (data.target === 'notifikasi' && meta.target === 'url') {
+              this.inAppBrowser.create(meta.url, '_system'); // call yotube app
             } else {
-              // Handle redirect to app
-              const routingTarget = [data.target];
-              if (data.target === 'broadcast') {
-                this.broadcastService.setNotification(false);
-                routingTarget.push(data.id);
-              }
-              this.router.navigate(routingTarget, {
-                queryParams: data
-              });
+              this.router.navigate([`/${meta.target}`, meta.id]);
             }
           } else {
             // Received in foreground
