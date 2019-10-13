@@ -18,6 +18,7 @@ export class NewsDetailPage implements OnInit {
   idNews: number;
   dataNews: News;
   dataFeatured: News[];
+  isPushNotification = false;
   constructor(
     private route: ActivatedRoute,
     private newsService: NewsService,
@@ -34,7 +35,19 @@ export class NewsDetailPage implements OnInit {
       this.getDetailNews(this.idNews);
     });
 
+    this.route.queryParamMap.subscribe(params => {
+      this.isPushNotification = params['params']['isPushNotification'];
+    });
+
     this.getNewsList();
+  }
+
+  backButton() {
+    if (this.isPushNotification) {
+      this.navCtrl.navigateRoot('/');
+    } else {
+      this.navCtrl.back();
+    }
   }
 
   async getDetailNews(id: number) {

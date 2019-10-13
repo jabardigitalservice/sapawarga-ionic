@@ -35,6 +35,7 @@ export class AppComponent {
   showSplash = true; // <-- show animation
   public appPages: Array<Pages>;
   public counter = 0;
+  public isPushNotification = false;
 
   constructor(
     private platform: Platform,
@@ -71,7 +72,13 @@ export class AppComponent {
       } else if (this.router.url === '/aspirasi-form') {
         return;
       } else {
-        this.exitApp();
+        // check if has push notification
+        if (this.isPushNotification) {
+          this.navCtrl.navigateRoot('/');
+          this.isPushNotification = false;
+        } else {
+          this.exitApp();
+        }
       }
     });
   }
@@ -188,7 +195,14 @@ export class AppComponent {
             } else if (data.target === 'notifikasi' && meta.target === 'url') {
               this.inAppBrowser.create(meta.url, '_system'); // call yotube app
             } else {
-              this.router.navigate([`/${meta.target}`, meta.id]);
+              // save state
+              this.isPushNotification = data.push_notification;
+
+              this.router.navigate([`/${meta.target}`, meta.id], {
+                queryParams: {
+                  isPushNotification: this.isPushNotification
+                }
+              });
             }
           } else {
             // Received in foreground

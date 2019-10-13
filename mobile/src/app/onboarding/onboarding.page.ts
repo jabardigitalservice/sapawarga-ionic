@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-onboarding',
@@ -35,7 +35,7 @@ export class OnboardingPage implements OnInit {
 
   slideCaptionStyle = ['slide-caption bottom', 'slide-caption top'];
 
-  constructor(private router: Router) {}
+  constructor(private navCtrl: NavController) {}
 
   ngOnInit() {}
 
@@ -54,6 +54,6 @@ export class OnboardingPage implements OnInit {
 
   goToLogin() {
     localStorage.setItem('has-onboarding', 'true');
-    this.router.navigate(['/login']);
+    this.navCtrl.navigateRoot('/login');
   }
 }
