@@ -111,8 +111,8 @@ build_apk_staging:
 
   artifacts:
      paths:
-       - 	/app/platforms/android/app/build/outputs/apk/debug/app-debug.apk
-       - 	/app/app-debug.apk
+      -	/app/platforms/android/app/build/outputs/apk/debug/app-debug.apk
+      -	/app/app-debug.apk
 
 build_apk_production:
   image: docker:latest
@@ -164,4 +164,4 @@ build_apk_production:
     - ls -al .
   artifacts:
      paths:
-       - /app/app-release-signed-${CI_PIPELINE_IID}.apk
+       - platforms/android/app/build/outputs/apk/release/app-release-signed-${CI_PIPELINE_IID}.apk
