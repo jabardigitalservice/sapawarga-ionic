@@ -35,6 +35,7 @@ export class AppComponent {
   showSplash = true; // <-- show animation
   public appPages: Array<Pages>;
   public counter = 0;
+  public isPushNotification = false;
 
   constructor(
     private platform: Platform,
@@ -71,7 +72,13 @@ export class AppComponent {
       } else if (this.router.url === '/aspirasi-form') {
         return;
       } else {
-        this.exitApp();
+        // check if has push notification
+        if (this.isPushNotification) {
+          this.navCtrl.navigateRoot('/');
+          this.isPushNotification = false;
+        } else {
+          this.exitApp();
+        }
       }
     });
   }
@@ -103,7 +110,7 @@ export class AppComponent {
         // check app is up to date / not
         this.appUpdateService.checkAppUpdate();
 
-        // integrasi google analytics
+        // integration google analytics
         this.googleAnalytics
           .startTrackerWithId(this.constants.trackIdGoogleAnalytics)
           .then(() => {})
@@ -111,13 +118,13 @@ export class AppComponent {
 
         this.authService.authenticationState.subscribe(state => {
           if (state) {
-            // check if user is done to edit password / edit profile
+            // check if user has edit password / edit profile
             const dataCheckUpdate = this.forceUpdateService.checkForceUpdate();
             if (dataCheckUpdate === 1) {
-              // show modal force password
+              // show component modal force password
               this.showModalUpdate(1);
             } else if (dataCheckUpdate === 2) {
-              // show modal force profile
+              // show component modal force profile
               this.showModalUpdate(2);
             }
 
@@ -176,23 +183,25 @@ export class AppComponent {
         });
 
         this.fcm.onNotification().subscribe(data => {
+          const meta = JSON.parse(data.meta);
           if (data.wasTapped) {
-            // Received in background
             if (data.target === 'url') {
-              // Handle redirect to URL
-              const meta = JSON.parse(data.meta);
-              this.platform.ready().then(() => {
-                this.inAppBrowser.create(meta.url, '_system');
-              });
+              this.inAppBrowser.create(meta.url, '_system'); // call webview in app
+            } else if (
+              data.target === 'notifikasi' &&
+              meta.target === 'survey'
+            ) {
+              this.util.launchweb(meta.url); // call webview external
+            } else if (data.target === 'notifikasi' && meta.target === 'url') {
+              this.inAppBrowser.create(meta.url, '_system'); // call yotube app
             } else {
-              // Handle redirect to app
-              const routingTarget = [data.target];
-              if (data.target === 'broadcast') {
-                this.broadcastService.setNotification(false);
-                routingTarget.push(data.id);
-              }
-              this.router.navigate(routingTarget, {
-                queryParams: data
+              // save state
+              this.isPushNotification = data.push_notification;
+
+              this.router.navigate([`/${meta.target}`, meta.id], {
+                queryParams: {
+                  isPushNotification: this.isPushNotification
+                }
               });
             }
           } else {

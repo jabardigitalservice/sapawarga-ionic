@@ -59,20 +59,17 @@ export class NotifikasiPage implements OnInit {
     window.clearInterval(this.interval);
   }
 
-  goToDetail(index: number, meta: any) {
-    if (meta.target === 'polling') {
-      const navigationParams = [`/${meta.target}`];
-      if (meta.id) {
-        navigationParams.push(meta.id);
-      }
-      this.router.navigate(navigationParams);
-    } else if (meta.target === 'survey' || meta.target === 'url') {
-      if (meta.target === 'survey' && !meta.url) {
-        this.router.navigate([`/${meta.target}`]);
-      } else {
-        this.launchWeb(meta);
-      }
+  goToDetail(index: number, meta: any, target: string) {
+    if (target === 'url') {
+      this.inAppBrowser.create(meta.url, '_system'); // call webview in app
+    } else if (target === 'notifikasi' && meta.target === 'survey') {
+      this.util.launchweb(meta.url); // call webview external
+    } else if (target === 'notifikasi' && meta.target === 'url') {
+      this.inAppBrowser.create(meta.url, '_system'); // call yotube app
+    } else {
+      this.router.navigate([`/${meta.target}`, meta.id]);
     }
+
     this.dataNotifikasi[index].read = true;
     this.notifikasiService.saveLocalNotifikasi(
       JSON.stringify(this.dataNotifikasi)
@@ -88,21 +85,27 @@ export class NotifikasiPage implements OnInit {
   }
 
   getImageURL(targetName: string) {
-    const prefix = '../../../assets/icon';
+    const prefix = 'assets/icon';
+    let pathIcon: string;
     switch (targetName) {
       case 'survey':
-        return `${prefix}/SW-SURVEY.png`;
+        pathIcon = `${prefix}/SW-SURVEY.png`;
         break;
       case 'polling':
-        return `${prefix}/SW-POLLING.png`;
+        pathIcon = `${prefix}/SW-POLLING.png`;
         break;
       case 'url':
-        return `${prefix}/SW-NOPENTING.png`;
+        pathIcon = `${prefix}/SW-NOPENTING.png`;
+        break;
+      case 'saber-hoax':
+        pathIcon = `${prefix}/saber_hoax.png`;
         break;
       default:
-        return `${prefix}/SW-ASPIRASI.png`;
+        pathIcon = `${prefix}/SW-ASPIRASI.png`;
         break;
     }
+
+    return pathIcon;
   }
 
   launchWeb(meta: any) {
