@@ -158,8 +158,7 @@ build_apk_production:
     - docker-compose exec -T app ls -al
     - docker-compose exec -T app ls -al platforms/android/app/build/outputs/apk/release/
     - docker-compose exec -T app apksigner verify app-release-signed-${CI_PIPELINE_IID}.apk
-    - docker-compose exec -T app mv platforms/android/app/build/outputs/apk/release/app-release-signed-${CI_PIPELINE_IID}.apk /app/
-    - ls -al .
+    - ls -al platforms/android/app/build/outputs/apk/release/
   artifacts:
     paths:
-      - platforms/android/app/build/outputs/apk/release/app-release-signed-${CI_PIPELINE_IID}.apk
+      - mobile/platforms/android/app/build/outputs/apk/debug/app-debug.apk
