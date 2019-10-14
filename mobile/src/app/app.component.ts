@@ -198,11 +198,20 @@ export class AppComponent {
               // save state
               this.isPushNotification = data.push_notification;
 
-              this.router.navigate([`/${meta.target}`, meta.id], {
-                queryParams: {
-                  isPushNotification: this.isPushNotification
-                }
-              });
+              // check if meta.id === null then direct to list
+              if (!meta.id) {
+                this.router.navigate([`/${meta.target}`], {
+                  queryParams: {
+                    isPushNotification: this.isPushNotification
+                  }
+                });
+              } else {
+                this.router.navigate([`/${meta.target}`, meta.id], {
+                  queryParams: {
+                    isPushNotification: this.isPushNotification
+                  }
+                });
+              }
             }
           } else {
             // Received in foreground

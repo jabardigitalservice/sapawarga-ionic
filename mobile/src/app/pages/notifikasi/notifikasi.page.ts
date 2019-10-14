@@ -67,7 +67,12 @@ export class NotifikasiPage implements OnInit {
     } else if (target === 'notifikasi' && meta.target === 'url') {
       this.inAppBrowser.create(meta.url, '_system'); // call yotube app
     } else {
-      this.router.navigate([`/${meta.target}`, meta.id]);
+      // check if meta.id === null then direct to list
+      if (!meta.id) {
+        this.router.navigate([`/${meta.target}`]);
+      } else {
+        this.router.navigate([`/${meta.target}`, meta.id]);
+      }
     }
 
     this.dataNotifikasi[index].read = true;
