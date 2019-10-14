@@ -24,6 +24,7 @@ import { AppUpdateService } from './services/app-update.service';
 import { ForceChangePasswordComponent } from './shared/force-change-password/force-change-password.component';
 import { ForceChangeProfileComponent } from './shared/force-change-profile/force-change-profile.component';
 import { ForceUpdateService } from './services/force-update.service';
+import { InformationPopupService } from './services/information-popup.service';
 
 @Component({
   selector: 'app-root',
@@ -55,7 +56,8 @@ export class AppComponent {
     private profileService: ProfileService,
     private appUpdateService: AppUpdateService,
     private forceUpdateService: ForceUpdateService,
-    private modalController: ModalController
+    private modalController: ModalController,
+    private informationPopupService: InformationPopupService
   ) {
     this.initializeApp();
 
@@ -109,6 +111,9 @@ export class AppComponent {
 
         // check app is up to date / not
         this.appUpdateService.checkAppUpdate();
+
+        // show information modal
+        this.informationPopupService.showModal();
 
         // integration google analytics
         this.googleAnalytics

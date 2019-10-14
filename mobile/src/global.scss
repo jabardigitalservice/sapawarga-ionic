@@ -321,6 +321,17 @@ ion-menu {
   box-sizing: border-box;
 }
 
+.popup-information {
+  --height: 65% !important;
+  --width: 80% !important;
+}
+
+.popup-information .modal-wrapper {
+  border-radius: 10px;
+  box-shadow: 2px 4px 10px rgb(117, 116, 116);
+  box-sizing: border-box;
+}
+
 // tablet mode
 @media only screen and (min-width: 625px) {
   .auth-page .auth-content .logo {

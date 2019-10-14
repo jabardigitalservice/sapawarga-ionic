@@ -41,6 +41,7 @@ import { UpdateAppComponent } from './shared/update-app/update-app.component';
 import { SMS } from '@ionic-native/sms/ngx';
 import { registerLocaleData } from '@angular/common';
 import localeId from '@angular/common/locales/id';
+import { InformationPopupComponent } from './shared/information-popup/information-popup.component';
 
 registerLocaleData(localeId);
 @NgModule({
@@ -51,7 +52,8 @@ registerLocaleData(localeId);
     UpdateAppComponent,
     ForceChangePasswordComponent,
     ForceChangeProfileComponent,
-    ForgotPasswordComponent
+    ForgotPasswordComponent,
+    InformationPopupComponent
   ],
   imports: [
     BrowserModule,
@@ -69,7 +71,8 @@ registerLocaleData(localeId);
     UpdateAppComponent,
     ForceChangePasswordComponent,
     ForceChangeProfileComponent,
-    ForgotPasswordComponent
+    ForgotPasswordComponent,
+    InformationPopupComponent
   ],
   providers: [
     StatusBar,
