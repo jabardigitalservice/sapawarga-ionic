@@ -6,7 +6,8 @@ import {
   ToastController,
   AlertController,
   ActionSheetController,
-  ModalController
+  ModalController,
+  NavController
 } from '@ionic/angular';
 import { HttpErrorResponse } from '@angular/common/http';
 import { throwError } from 'rxjs';
@@ -30,7 +31,8 @@ export class UtilitiesService {
     private googleAnalytics: GoogleAnalytics,
     private inAppBrowser: InAppBrowser,
     private sms: SMS,
-    private constants: Constants
+    private constants: Constants,
+    private navCtrl: NavController
   ) {}
 
   timeAgo(value: number) {
@@ -154,5 +156,13 @@ export class UtilitiesService {
   launchweb(url: string) {
     const target = '_self';
     this.inAppBrowser.create(url, target, this.constants.inAppBrowserOptions);
+  }
+
+  backButton(isPushNotification: boolean) {
+    if (isPushNotification) {
+      this.navCtrl.navigateRoot('/');
+    } else {
+      this.navCtrl.back();
+    }
   }
 }

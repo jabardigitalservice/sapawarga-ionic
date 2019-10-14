@@ -19,6 +19,7 @@ export class SaberHoaxDetailPage implements OnInit {
     type: '',
     msg: ''
   };
+  isPushNotification = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -33,6 +34,14 @@ export class SaberHoaxDetailPage implements OnInit {
       this.id = params['id'];
       this.getDetailSaberHoax(this.id);
     });
+
+    this.route.queryParamMap.subscribe(params => {
+      this.isPushNotification = params['params']['isPushNotification'];
+    });
+  }
+
+  backButton() {
+    this.util.backButton(this.isPushNotification);
   }
 
   ionViewWillLeave() {

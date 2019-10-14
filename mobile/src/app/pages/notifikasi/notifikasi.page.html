@@ -18,6 +18,7 @@
     <ion-item
       *ngFor="let notifikasi of dataNotifikasi; let i = index"
       (click)="goToDetail(i, notifikasi['meta'], notifikasi.target)"
+      style="margin-bottom: 10px; margin-top: 10px;"
     >
       <ion-avatar item-start class="ion-margin-end">
         <img

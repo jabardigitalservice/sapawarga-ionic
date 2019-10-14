@@ -43,11 +43,7 @@ export class NewsDetailPage implements OnInit {
   }
 
   backButton() {
-    if (this.isPushNotification) {
-      this.navCtrl.navigateRoot('/');
-    } else {
-      this.navCtrl.back();
-    }
+    this.util.backButton(this.isPushNotification);
   }
 
   async getDetailNews(id: number) {
