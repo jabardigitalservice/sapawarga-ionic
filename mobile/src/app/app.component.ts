@@ -110,7 +110,7 @@ export class AppComponent {
         // check app is up to date / not
         this.appUpdateService.checkAppUpdate();
 
-        // integrasi google analytics
+        // integration google analytics
         this.googleAnalytics
           .startTrackerWithId(this.constants.trackIdGoogleAnalytics)
           .then(() => {})
@@ -118,13 +118,13 @@ export class AppComponent {
 
         this.authService.authenticationState.subscribe(state => {
           if (state) {
-            // check if user is done to edit password / edit profile
+            // check if user has edit password / edit profile
             const dataCheckUpdate = this.forceUpdateService.checkForceUpdate();
             if (dataCheckUpdate === 1) {
-              // show modal force password
+              // show component modal force password
               this.showModalUpdate(1);
             } else if (dataCheckUpdate === 2) {
-              // show modal force profile
+              // show component modal force profile
               this.showModalUpdate(2);
             }
 
