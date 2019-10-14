@@ -86,23 +86,26 @@ export class NotifikasiPage implements OnInit {
 
   getImageURL(targetName: string) {
     const prefix = 'assets/icon';
+    let pathIcon: string;
     switch (targetName) {
       case 'survey':
-        return `${prefix}/SW-SURVEY.png`;
+        pathIcon = `${prefix}/SW-SURVEY.png`;
         break;
       case 'polling':
-        return `${prefix}/SW-POLLING.png`;
+        pathIcon = `${prefix}/SW-POLLING.png`;
         break;
       case 'url':
-        return `${prefix}/SW-NOPENTING.png`;
+        pathIcon = `${prefix}/SW-NOPENTING.png`;
         break;
       case 'saber-hoax':
-        return `${prefix}/saber_hoax.png`;
+        pathIcon = `${prefix}/saber_hoax.png`;
         break;
       default:
-        return `${prefix}/SW-ASPIRASI.png`;
+        pathIcon = `${prefix}/SW-ASPIRASI.png`;
         break;
     }
+
+    return pathIcon;
   }
 
   launchWeb(meta: any) {
