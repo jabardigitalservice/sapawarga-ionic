@@ -110,7 +110,7 @@ build_apk_staging:
     - if ! [[ -e /app/platforms/android/app/build/outputs/apk/debug/app-debug.apk ]]; then exit 1; fi
   artifacts:
      paths:
-       - 	/app/platforms/android/app/build/outputs/apk/debug/app-debug.apk
+       - /app/platforms/android/app/build/outputs/apk/debug/app-debug.apk
 
 
 build_apk_production:
