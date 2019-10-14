@@ -103,13 +103,14 @@ build_apk_staging:
     - docker-compose exec -T app mv google-service-staging.json platforms/android/app/google-services.json
     - docker-compose exec -T app cat platforms/android/app/google-services.json
     - docker-compose exec -T app npm run build:android:prod-staging
-    - docker-compose exec -T app mv platforms/android/app/build/outputs/apk/debug/app-debug.apk /mobile/
+    - docker-compose exec -T app ls
+    - docker-compose exec -T app pwd
     - ls -l .
     - if ! [[ -e app-debug.apk ]]; then exit 1; fi
 
   artifacts:
      paths:
-       - app-debug.apk
+       - platforms/android/app/build/outputs/apk/debug/app-debug.apk
 
 build_apk_production:
   image: docker:latest
