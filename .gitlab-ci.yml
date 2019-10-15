@@ -161,4 +161,4 @@ build_apk_production:
     - ls -al platforms/android/app/build/outputs/apk/release/
   artifacts:
     paths:
-      - mobile/platforms/android/app/build/outputs/apk/debug/app-debug.apk
+      - mobile/app-release-signed-${CI_PIPELINE_IID}.apk
