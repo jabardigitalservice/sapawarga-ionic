@@ -7,7 +7,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content>
   <app-message-control
     *ngIf="msgResponse.type"
     [type]="msgResponse.type"
@@ -17,13 +17,13 @@
   <ion-list>
     <ion-item
       *ngFor="let notifikasi of dataNotifikasi; let i = index"
-      (click)="goToDetail(i, notifikasi['meta'], notifikasi.target)"
+      (click)="goToDetail(i, notifikasi.meta, notifikasi.target)"
       style="margin-bottom: 10px; margin-top: 10px;"
     >
       <ion-avatar item-start class="ion-margin-end">
         <img
           class="icon-img"
-          src="{{ getImageURL(notifikasi['meta']['target']) }}"
+          src="{{ getImageURL(notifikasi?.meta?.target) }}"
         />
       </ion-avatar>
       <ion-text [ngClass]="{ unread: !notifikasi['read'] }" item-end>{{
