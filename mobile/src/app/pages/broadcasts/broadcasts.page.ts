@@ -85,7 +85,7 @@ export class BroadcastsPage implements OnInit {
   }
 
   // get data broadcasts
-  async getNomorBroadcasts() {
+  getNomorBroadcasts() {
     // check internet
     if (!navigator.onLine) {
       // get local
@@ -102,10 +102,10 @@ export class BroadcastsPage implements OnInit {
       return;
     }
 
-    const loader = await this.loadingCtrl.create({
-      duration: 10000
-    });
-    loader.present();
+    // const loader = await this.loadingCtrl.create({
+    //   duration: 10000
+    // });
+    // loader.present();
 
     this.dataEmpty = false;
 
@@ -125,10 +125,10 @@ export class BroadcastsPage implements OnInit {
         }
         // set count page
         this.maximumPages = res['data']['_meta'].pageCount;
-        loader.dismiss();
+        // loader.dismiss();
       },
       err => {
-        loader.dismiss();
+        // loader.dismiss();
         if (err) {
           this.msgResponse = {
             type: 'server-error',
