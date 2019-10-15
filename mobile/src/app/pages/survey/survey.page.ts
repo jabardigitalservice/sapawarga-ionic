@@ -21,6 +21,7 @@ export class SurveyPage implements OnInit {
   maximumPages: number;
 
   dataEmpty = false;
+  isLoading = false;
 
   msgResponse = {
     type: '',
@@ -51,7 +52,7 @@ export class SurveyPage implements OnInit {
     this.getListSurvey();
   }
 
-  async getListSurvey(infiniteScroll?) {
+  getListSurvey(infiniteScroll?) {
     // check internet
     if (!navigator.onLine) {
       // get local
@@ -66,15 +67,8 @@ export class SurveyPage implements OnInit {
       return;
     }
 
-    const loader = await this.loadingCtrl.create({
-      duration: 10000
-    });
-
-    if (!infiniteScroll) {
-      loader.present();
-    }
-
     this.dataEmpty = false;
+    this.isLoading = true;
 
     this.surveyService.getListSurvey(this.currentPage).subscribe(
       res => {
@@ -92,14 +86,14 @@ export class SurveyPage implements OnInit {
         }
         // set count page
         this.maximumPages = res['data']['_meta'].pageCount;
-        loader.dismiss();
         // stop infinite scroll
         if (infiniteScroll) {
           infiniteScroll.target.complete();
         }
+
+        this.isLoading = false;
       },
       err => {
-        loader.dismiss();
         // stop infinite scroll
         if (infiniteScroll) {
           infiniteScroll.target.complete();
@@ -111,6 +105,7 @@ export class SurveyPage implements OnInit {
             msg: Dictionary.internalError
           };
         }
+        this.isLoading = false;
       }
     );
   }

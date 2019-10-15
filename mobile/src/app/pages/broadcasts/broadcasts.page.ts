@@ -102,11 +102,6 @@ export class BroadcastsPage implements OnInit {
       return;
     }
 
-    // const loader = await this.loadingCtrl.create({
-    //   duration: 10000
-    // });
-    // loader.present();
-
     this.dataEmpty = false;
 
     this.broadcastService.getListBroadCasts().subscribe(
@@ -125,10 +120,8 @@ export class BroadcastsPage implements OnInit {
         }
         // set count page
         this.maximumPages = res['data']['_meta'].pageCount;
-        // loader.dismiss();
       },
       err => {
-        // loader.dismiss();
         if (err) {
           this.msgResponse = {
             type: 'server-error',
