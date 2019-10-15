@@ -9,6 +9,7 @@ import { LoadingController } from '@ionic/angular';
 import { Dictionary } from '../../helpers/dictionary';
 import { Constants } from '../../helpers/constants';
 import { UtilitiesService } from '../../services/utilities.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-survey',
@@ -26,13 +27,15 @@ export class SurveyPage implements OnInit {
     type: '',
     msg: ''
   };
+  isPushNotification = false;
 
   constructor(
     private surveyService: SurveyService,
     private iab: InAppBrowser,
     public loadingCtrl: LoadingController,
     public constants: Constants,
-    private util: UtilitiesService
+    private util: UtilitiesService,
+    private route: ActivatedRoute
   ) {
     this.dataSurvey = [];
   }
@@ -40,6 +43,10 @@ export class SurveyPage implements OnInit {
   ngOnInit() {
     // google analytics
     this.util.trackPage(this.constants.pageName.survey);
+
+    this.route.queryParamMap.subscribe(params => {
+      this.isPushNotification = params['params']['isPushNotification'];
+    });
 
     this.util.trackEvent(
       this.constants.pageName.survey,
@@ -49,6 +56,10 @@ export class SurveyPage implements OnInit {
     );
 
     this.getListSurvey();
+  }
+
+  backButton() {
+    this.util.backButton(this.isPushNotification);
   }
 
   async getListSurvey(infiniteScroll?) {

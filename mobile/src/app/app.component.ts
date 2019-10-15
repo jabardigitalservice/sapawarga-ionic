@@ -194,15 +194,29 @@ export class AppComponent {
               this.util.launchweb(meta.url); // call webview external
             } else if (data.target === 'notifikasi' && meta.target === 'url') {
               this.inAppBrowser.create(meta.url, '_system'); // call yotube app
+            } else if (
+              data.target === 'notifikasi' &&
+              meta.target === 'home-results'
+            ) {
+              this.navCtrl.navigateRoot('/');
             } else {
               // save state
               this.isPushNotification = data.push_notification;
 
-              this.router.navigate([`/${meta.target}`, meta.id], {
-                queryParams: {
-                  isPushNotification: this.isPushNotification
-                }
-              });
+              // check if meta.id === null then direct to list
+              if (!meta.id) {
+                this.router.navigate([`/${meta.target}`], {
+                  queryParams: {
+                    isPushNotification: this.isPushNotification
+                  }
+                });
+              } else {
+                this.router.navigate([`/${meta.target}`, meta.id], {
+                  queryParams: {
+                    isPushNotification: this.isPushNotification
+                  }
+                });
+              }
             }
           } else {
             // Received in foreground

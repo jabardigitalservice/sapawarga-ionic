@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Polling } from '../../interfaces/polling';
 import { PollingService } from '../../services/polling.service';
 import { LoadingController } from '@ionic/angular';
@@ -25,13 +25,15 @@ export class PollingPage implements OnInit {
     type: '',
     msg: ''
   };
+  isPushNotification = false;
 
   constructor(
     private pollingService: PollingService,
     public loadingCtrl: LoadingController,
     private router: Router,
     private util: UtilitiesService,
-    public constants: Constants
+    public constants: Constants,
+    private route: ActivatedRoute
   ) {
     this.dataPolling = [];
   }
@@ -40,12 +42,20 @@ export class PollingPage implements OnInit {
     // google analytics
     this.util.trackPage(this.constants.pageName.polling);
 
+    this.route.queryParamMap.subscribe(params => {
+      this.isPushNotification = params['params']['isPushNotification'];
+    });
+
     this.util.trackEvent(
       this.constants.pageName.polling,
       'view_list_polling',
       '',
       1
     );
+  }
+
+  backButton() {
+    this.util.backButton(this.isPushNotification);
   }
 
   ionViewDidEnter() {

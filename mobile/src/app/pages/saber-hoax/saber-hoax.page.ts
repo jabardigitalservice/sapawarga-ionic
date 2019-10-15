@@ -6,7 +6,7 @@ import { SaberHoax } from 'src/app/interfaces/saber-hoax';
 import { Constants } from '../../helpers/constants';
 import { UtilitiesService } from '../../services/utilities.service';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-saber-hoax',
@@ -21,6 +21,7 @@ export class SaberHoaxPage implements OnInit {
     type: '',
     msg: ''
   };
+  isPushNotification = false;
 
   public telpSaberHoax: string;
   constructor(
@@ -30,7 +31,8 @@ export class SaberHoaxPage implements OnInit {
     private util: UtilitiesService,
     private platform: Platform,
     private inAppBrowser: InAppBrowser,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) {
     this.telpSaberHoax = this.constants.telpSaberHoax;
   }
@@ -39,7 +41,15 @@ export class SaberHoaxPage implements OnInit {
     // google analytics
     this.util.trackPage(this.constants.pageName.saberHoax);
 
+    this.route.queryParamMap.subscribe(params => {
+      this.isPushNotification = params['params']['isPushNotification'];
+    });
+
     this.getListSaberHoax();
+  }
+
+  backButton() {
+    this.util.backButton(this.isPushNotification);
   }
 
   ionViewWillLeave() {
