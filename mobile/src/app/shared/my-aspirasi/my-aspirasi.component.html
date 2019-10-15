@@ -4,6 +4,28 @@
   [message]="msgResponse.msg"
 ></app-message-control>
 
+<div>
+  <ion-card class="box-selector ion-margin-bottom">
+    <ion-item>
+      <ion-thumbnail slot="start">
+        <img
+          class="img-cover"
+          src="assets/img/placeholder_image_portrait.png"
+        />
+      </ion-thumbnail>
+      <ion-label>
+        <h2>asdsa</h2>
+        <ion-item class="section-2">
+          <p class="font-10">
+            asdsad
+          </p>
+          <ion-badge class="font-10" slot="end">asdsad</ion-badge>
+        </ion-item>
+      </ion-label>
+    </ion-item>
+  </ion-card>
+</div>
+
 <div *ngFor="let aspirasi of dataAspirasi">
   <ion-card class="box-selector ion-margin-bottom">
     <ion-item (click)="goDetail(aspirasi.id)">
