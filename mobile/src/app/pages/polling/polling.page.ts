@@ -68,7 +68,10 @@ export class PollingPage implements OnInit {
     }
 
     this.dataEmpty = false;
-    this.isLoading = true;
+
+    if (!infiniteScroll) {
+      this.isLoading = true;
+    }
 
     this.pollingService.getListPolling(this.currentPage).subscribe(
       res => {

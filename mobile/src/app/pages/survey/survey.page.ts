@@ -68,7 +68,10 @@ export class SurveyPage implements OnInit {
     }
 
     this.dataEmpty = false;
-    this.isLoading = true;
+
+    if (!infiniteScroll) {
+      this.isLoading = true;
+    }
 
     this.surveyService.getListSurvey(this.currentPage).subscribe(
       res => {
