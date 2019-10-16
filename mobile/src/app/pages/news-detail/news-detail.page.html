@@ -9,83 +9,111 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content *ngIf="dataNews">
-  <img
-    [src]="dataNews.cover_path_url"
-    onError="this.src='assets/img/placeholder_image.png';"
-    class="img-news"
-  />
+<ion-content>
+  <div *ngIf="!dataNews">
+    <app-skeleton height="150px" width="100%"></app-skeleton>
 
-  <div padding class="box-shadow">
-    <div class="card-title">
-      {{ dataNews.title }}
+    <ion-label>
+      <p padding class="title">
+        <app-skeleton height="20px" width="80%"></app-skeleton>
+        <app-skeleton height="20px" width="60%"></app-skeleton>
+      </p>
+    </ion-label>
+
+    <div padding>
+      <app-skeleton height="20px" width="20%"></app-skeleton>
+      <app-skeleton height="20px" width="20%"></app-skeleton>
     </div>
 
-    <ion-item class="mt-5 mb-5">
-      <ion-text>
-        <ion-note class="source-title"
-          ><img
-            [src]="dataNews.channel.icon_url"
-            class="source-icon"
-            onError="this.src='assets/img/placeholder_image_portrait.png';"
-            alt="sumber"
-          />
-          {{ dataNews.channel.name }} <br />
-          {{ util.timeAgo(dataNews.created_at * 1000) }}
-        </ion-note></ion-text
-      >
-    </ion-item>
-
-    <div [innerHTML]="dataNews.content"></div>
+    <div padding>
+      <app-skeleton height="20px" width="100%"></app-skeleton>
+      <app-skeleton height="20px" width="100%"></app-skeleton>
+      <app-skeleton height="20px" width="100%"></app-skeleton>
+      <app-skeleton height="20px" width="100%"></app-skeleton>
+      <app-skeleton height="20px" width="90%"></app-skeleton>
+      <app-skeleton height="20px" width="70%"></app-skeleton>
+      <app-skeleton height="20px" width="60%"></app-skeleton>
+    </div>
   </div>
 
-  <div class="news-other">
-    <div padding>
-      <ion-button
-        expand="full"
-        class="mb-5 mt-5 bg-white"
-        (click)="source_url(dataNews.source_url)"
-        >Sumber Asli</ion-button
-      >
+  <div *ngIf="dataNews">
+    <img
+      [src]="dataNews.cover_path_url"
+      onError="this.src='assets/img/placeholder_image.png';"
+      class="img-news"
+    />
 
-      <ion-button
-        expand="full"
-        class="mb-5 mt-5 bg-white"
-        (click)="goToListNews()"
-        >Berita Lainnya</ion-button
-      >
-    </div>
+    <div padding class="box-shadow">
+      <div class="card-title">
+        {{ dataNews.title }}
+      </div>
 
-    <h5 padding class="min-mt-5">Berita Terbaru</h5>
-    <ion-card
-      class="text-dark min-mt-5 ion-margin-bottom"
-      *ngFor="let news of dataFeatured"
-      (click)="goToDetail(news.id)"
-    >
-      <ion-item>
-        <ion-text class="mb-5 ml-10"
-          ><p>
-            {{ news.title | slice: 0:45
-            }}{{ news.title.length > 45 ? '...' : '' }}
-          </p>
-          <ion-note class="source-title-more"
+      <ion-item class="mt-5 mb-5">
+        <ion-text>
+          <ion-note class="source-title"
             ><img
-              [src]="news.channel.icon_url"
-              class="source-icon-more"
+              [src]="dataNews.channel.icon_url"
+              class="source-icon"
               onError="this.src='assets/img/placeholder_image_portrait.png';"
               alt="sumber"
             />
-            {{ news.channel.name }}</ion-note
-          ></ion-text
+            {{ dataNews.channel.name }} <br />
+            {{ util.timeAgo(dataNews.created_at * 1000) }}
+          </ion-note></ion-text
         >
-        <img
-          slot="end"
-          [src]="news.cover_path_url"
-          onError="this.src='assets/img/placeholder_image_portrait.png';"
-          alt="icon"
-          class="headlines-img-more"
-        />
       </ion-item>
-    </ion-card>
+
+      <div [innerHTML]="dataNews.content"></div>
+    </div>
+
+    <div class="news-other">
+      <div padding>
+        <ion-button
+          expand="full"
+          class="mb-5 mt-5 bg-white"
+          (click)="source_url(dataNews.source_url)"
+          >Sumber Asli</ion-button
+        >
+
+        <ion-button
+          expand="full"
+          class="mb-5 mt-5 bg-white"
+          (click)="goToListNews()"
+          >Berita Lainnya</ion-button
+        >
+      </div>
+
+      <h5 padding class="min-mt-5">Berita Terbaru</h5>
+      <ion-card
+        class="text-dark min-mt-5 ion-margin-bottom"
+        *ngFor="let news of dataFeatured"
+        (click)="goToDetail(news.id)"
+      >
+        <ion-item>
+          <ion-text class="mb-5 ml-10"
+            ><p>
+              {{ news.title | slice: 0:45
+              }}{{ news.title.length > 45 ? '...' : '' }}
+            </p>
+            <ion-note class="source-title-more"
+              ><img
+                [src]="news.channel.icon_url"
+                class="source-icon-more"
+                onError="this.src='assets/img/placeholder_image_portrait.png';"
+                alt="sumber"
+              />
+              {{ news.channel.name }}</ion-note
+            ></ion-text
+          >
+          <img
+            slot="end"
+            [src]="news.cover_path_url"
+            onError="this.src='assets/img/placeholder_image_portrait.png';"
+            alt="icon"
+            class="headlines-img-more"
+          />
+        </ion-item>
+      </ion-card>
+    </div>
   </div>
 </ion-content>
