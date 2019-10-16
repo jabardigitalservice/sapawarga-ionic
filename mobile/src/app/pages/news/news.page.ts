@@ -24,6 +24,7 @@ export class NewsPage implements OnInit {
     msg: ''
   };
   isPushNotification = false;
+  isLoading = false;
 
   constructor(
     private newsService: NewsService,
@@ -64,6 +65,7 @@ export class NewsPage implements OnInit {
   }
 
   getListFeatured(idKabKota?: number) {
+    this.isLoading = true;
     this.newsService.getNewsFeatured(null, idKabKota).subscribe(
       res => {
         if (res['status'] === 200 && res['data'].length) {
@@ -74,6 +76,7 @@ export class NewsPage implements OnInit {
             msg: Dictionary.msg_news
           };
         }
+        this.isLoading = false;
       },
       err => {
         if (err) {
@@ -82,22 +85,19 @@ export class NewsPage implements OnInit {
             msg: Dictionary.internalError
           };
         }
+        this.isLoading = false;
       }
     );
   }
 
-  async getListNews(infiniteScroll?, idKabKota?: number) {
+  getListNews(infiniteScroll?, idKabKota?: number) {
     if (!navigator.onLine) {
       alert(Dictionary.offline);
       return;
     }
 
-    const loader = await this.loadingCtrl.create({
-      duration: 10000
-    });
-
     if (!infiniteScroll) {
-      loader.present();
+      this.isLoading = true;
     }
 
     this.newsService.getListNews(this.currentPage, idKabKota).subscribe(
@@ -116,20 +116,20 @@ export class NewsPage implements OnInit {
         }
         // set count page
         this.maximumPages = res['data']['_meta'].pageCount;
-        loader.dismiss();
         // stop infinite scroll
         if (infiniteScroll) {
           infiniteScroll.target.complete();
         }
+        this.isLoading = false;
       },
       err => {
-        loader.dismiss();
         if (err) {
           this.msgResponse = {
             type: 'server-error',
             msg: Dictionary.internalError
           };
         }
+        this.isLoading = false;
       }
     );
   }

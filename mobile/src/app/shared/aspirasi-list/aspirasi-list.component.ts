@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { AspirasiService } from '../../services/aspirasi.service';
-import { LoadingController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { Aspirasi } from '../../interfaces/aspirasi';
 import { Dictionary } from '../../helpers/dictionary';
@@ -24,6 +23,7 @@ export class AspirasiListComponent implements OnInit {
   offline = false;
 
   defaut_img = 'assets/img/placeholder_image.png';
+  isLoading = false;
 
   msgResponse = {
     type: '',
@@ -34,7 +34,6 @@ export class AspirasiListComponent implements OnInit {
 
   constructor(
     private aspirasiService: AspirasiService,
-    public loadingCtrl: LoadingController,
     private router: Router,
     private util: UtilitiesService,
     private constants: Constants
@@ -55,7 +54,7 @@ export class AspirasiListComponent implements OnInit {
   }
 
   // get data broadcasts
-  async getListAspirasi(infiniteScroll?: any) {
+  getListAspirasi(infiniteScroll?: any) {
     this.offline = false;
     // check internet
     if (!navigator.onLine) {
@@ -74,18 +73,14 @@ export class AspirasiListComponent implements OnInit {
 
     this.dataEmpty = false;
 
-    const loader = await this.loadingCtrl.create({
-      duration: 10000
-    });
-
     if (!infiniteScroll) {
-      loader.present();
+      this.isLoading = true;
     }
 
-    this.getDataAspirasi(infiniteScroll, loader);
+    this.getDataAspirasi(infiniteScroll);
   }
 
-  private getDataAspirasi(infiniteScroll: any, loader: HTMLIonLoadingElement) {
+  private getDataAspirasi(infiniteScroll: any) {
     this.aspirasiService.getListAspirasi(this.currentPage).subscribe(
       res => {
         if (res['data']['items'].length) {
@@ -108,7 +103,7 @@ export class AspirasiListComponent implements OnInit {
         if (infiniteScroll) {
           infiniteScroll.target.complete();
         }
-        loader.dismiss();
+        this.isLoading = false;
       },
       err => {
         // stop infinite scroll
@@ -121,7 +116,7 @@ export class AspirasiListComponent implements OnInit {
             msg: Dictionary.internalError
           };
         }
-        loader.dismiss();
+        this.isLoading = false;
       }
     );
   }

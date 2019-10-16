@@ -7,51 +7,86 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content *ngIf="dataNomorPenting">
-  <img
-    *ngIf="!dataNomorPenting.cover_image_url"
-    src="../../../assets/img/placeholder_image.png"
-  />
-  <img
-    *ngIf="dataNomorPenting.cover_image_url"
-    src="{{ dataNomorPenting.cover_image_url }}"
-  />
+<ion-content>
+  <div *ngIf="!dataNomorPenting">
+    <app-skeleton height="150px" width="100%"></app-skeleton>
 
-  <ion-item>
-    <div class="ion-margin-top ion-margin-bottom">
-      <ion-text>{{ dataNomorPenting.name }}</ion-text> <br />
-      <div *ngFor="let nomor of dataNomorPenting.phone_numbers">
-        <ion-note>{{ nomor.phone_number }}</ion-note>
+    <ion-item>
+      <div class="ion-margin-top ion-margin-bottom" style="width: 80%;">
+        <ion-text
+          ><app-skeleton height="20px" width="100%"></app-skeleton
+        ></ion-text>
+        <div>
+          <ion-note
+            ><app-skeleton height="20px" width="60%"></app-skeleton
+          ></ion-note>
+        </div>
       </div>
-    </div>
-    <div
-      slot="end"
-      *ngIf="dataNomorPenting.latitude && dataNomorPenting.longitude"
-    >
-      <ion-buttons
-        (click)="
-          goToMap(
-            dataNomorPenting.name,
-            dataNomorPenting.latitude,
-            dataNomorPenting.longitude,
-            dataNomorPenting.category.name
-          )
-        "
+      <div slot="end">
+        <app-skeleton height="30px" width="30px"></app-skeleton>
+      </div>
+    </ion-item>
+
+    <ion-card class="ion-margin-top bg-white">
+      <ion-card-header>
+        <ion-card-title
+          ><app-skeleton height="20px" width="60%"></app-skeleton
+        ></ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content color="dark">
+        <app-skeleton height="20px" width="90%"></app-skeleton>
+        <app-skeleton height="20px" width="80%"></app-skeleton>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <div *ngIf="dataNomorPenting">
+    <img
+      *ngIf="!dataNomorPenting.cover_image_url"
+      src="../../../assets/img/placeholder_image.png"
+    />
+    <img
+      *ngIf="dataNomorPenting.cover_image_url"
+      src="{{ dataNomorPenting.cover_image_url }}"
+    />
+
+    <ion-item>
+      <div class="ion-margin-top ion-margin-bottom">
+        <ion-text>{{ dataNomorPenting.name }}</ion-text> <br />
+        <div *ngFor="let nomor of dataNomorPenting.phone_numbers">
+          <ion-note>{{ nomor.phone_number }}</ion-note>
+        </div>
+      </div>
+      <div
+        slot="end"
+        *ngIf="dataNomorPenting.latitude && dataNomorPenting.longitude"
       >
-        <ion-button shape="round" color="dark">
-          <ion-icon name="pin"></ion-icon>
-        </ion-button>
-      </ion-buttons>
-    </div>
-  </ion-item>
+        <ion-buttons
+          (click)="
+            goToMap(
+              dataNomorPenting.name,
+              dataNomorPenting.latitude,
+              dataNomorPenting.longitude,
+              dataNomorPenting.category.name
+            )
+          "
+        >
+          <ion-button shape="round" color="dark">
+            <ion-icon name="pin"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </div>
+    </ion-item>
 
-  <ion-card class="ion-margin-top bg-white" *ngIf="dataNomorPenting.address">
-    <ion-card-header>
-      <ion-card-title>Alamat</ion-card-title>
-    </ion-card-header>
+    <ion-card class="ion-margin-top bg-white" *ngIf="dataNomorPenting.address">
+      <ion-card-header>
+        <ion-card-title>Alamat</ion-card-title>
+      </ion-card-header>
 
-    <ion-card-content color="dark">
-      {{ dataNomorPenting.address }}
-    </ion-card-content>
-  </ion-card>
+      <ion-card-content color="dark">
+        {{ dataNomorPenting.address }}
+      </ion-card-content>
+    </ion-card>
+  </div>
 </ion-content>

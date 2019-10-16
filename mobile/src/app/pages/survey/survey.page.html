@@ -16,22 +16,41 @@
     [message]="msgResponse.msg"
   ></app-message-control>
 
-  <ion-card *ngFor="let survey of dataSurvey; let i = index">
-    <ion-item>
-      <ion-text
-        ><p>{{ survey.title }}</p>
-      </ion-text>
-      <ion-button
-        fill="solid"
-        slot="end"
-        color="success"
-        (click)="goDetail(survey.external_url, survey.title)"
-        >Isi survei</ion-button
-      >
-    </ion-item>
-  </ion-card>
+  <div *ngIf="isLoading">
+    <ion-card *ngFor="let key of [0, 1, 2, 3, 4, 5, 6]">
+      <ion-item>
+        <app-skeleton height="20px" style="width: 100%"></app-skeleton>
+        <app-skeleton
+          height="20px"
+          slot="end"
+          style="width: 20%"
+        ></app-skeleton>
+      </ion-item>
+    </ion-card>
+  </div>
 
-  <ion-infinite-scroll threshold="100px" (ionInfinite)="doInfinite($event)">
+  <div *ngIf="!isLoading">
+    <ion-card *ngFor="let survey of dataSurvey; let i = index">
+      <ion-item>
+        <ion-text
+          ><p>{{ survey.title }}</p>
+        </ion-text>
+        <ion-button
+          fill="solid"
+          slot="end"
+          color="success"
+          (click)="goDetail(survey.external_url, survey.title)"
+          >Isi survei</ion-button
+        >
+      </ion-item>
+    </ion-card>
+  </div>
+
+  <ion-infinite-scroll
+    threshold="100px"
+    (ionInfinite)="doInfinite($event)"
+    *ngIf="!isLoading"
+  >
     <ion-infinite-scroll-content
       loadingSpinner="bubbles"
       loadingText="Sedang mengambil data..."

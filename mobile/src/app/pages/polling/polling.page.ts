@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Polling } from '../../interfaces/polling';
 import { PollingService } from '../../services/polling.service';
-import { LoadingController } from '@ionic/angular';
 import { Dictionary } from '../../helpers/dictionary';
 import { UtilitiesService } from '../../services/utilities.service';
 import { Constants } from '../../helpers/constants';
@@ -20,6 +19,7 @@ export class PollingPage implements OnInit {
   maximumPages: number;
 
   dataEmpty = false;
+  isLoading = false;
 
   msgResponse = {
     type: '',
@@ -29,7 +29,6 @@ export class PollingPage implements OnInit {
 
   constructor(
     private pollingService: PollingService,
-    public loadingCtrl: LoadingController,
     private router: Router,
     private util: UtilitiesService,
     public constants: Constants,
@@ -63,7 +62,7 @@ export class PollingPage implements OnInit {
     this.getListPolling();
   }
 
-  async getListPolling(infiniteScroll?) {
+  getListPolling(infiniteScroll?) {
     // check internet
     if (!navigator.onLine) {
       // get local
@@ -78,15 +77,11 @@ export class PollingPage implements OnInit {
       return;
     }
 
-    const loader = await this.loadingCtrl.create({
-      duration: 10000
-    });
+    this.dataEmpty = false;
 
     if (!infiniteScroll) {
-      loader.present();
+      this.isLoading = true;
     }
-
-    this.dataEmpty = false;
 
     this.pollingService.getListPolling(this.currentPage).subscribe(
       res => {
@@ -108,20 +103,20 @@ export class PollingPage implements OnInit {
         }
         // set count page
         this.maximumPages = res['data']['_meta'].pageCount;
-        loader.dismiss();
         // stop infinite scroll
         if (infiniteScroll) {
           infiniteScroll.target.complete();
         }
+        this.isLoading = false;
       },
       err => {
-        loader.dismiss();
         if (err) {
           this.msgResponse = {
             type: 'server-error',
             msg: Dictionary.internalError
           };
         }
+        this.isLoading = false;
       }
     );
   }

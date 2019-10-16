@@ -50,59 +50,99 @@
       [type]="msgResponse.type"
       [message]="msgResponse.msg"
     ></app-message-control>
-    <ion-card
-      class="ion-margin-top bg-white"
-      *ngFor="let nomor_penting of dataNomorPenting"
-    >
-      <ion-item>
-        <div
-          class="ion-margin-top ion-margin-bottom d-inline-f"
-          (click)="goToDetail(nomor_penting.id)"
-        >
-          <ion-buttons>
-            <ion-button shape="round" color="success" class="icon-alamat">
-              <ion-icon name="business"></ion-icon>
-            </ion-button>
-          </ion-buttons>
-          <div class="content-nomor-penting">
-            <ion-text
-              [className]="nomor_penting.address ? 'txt-subtitle' : 'mt-10'"
-            >
-              {{ nomor_penting.name }}
-            </ion-text>
-            <ion-note>{{ nomor_penting.address }}</ion-note>
-          </div>
-        </div>
-        <div class="d-inline-f" slot="end" *ngIf="nomor_penting.phone_numbers">
-          <ion-buttons *ngIf="checkcount('phone', nomor_penting.phone_numbers)">
-            <ion-button
-              shape="round"
-              color="success"
-              (click)="openPhone('call', nomor_penting.phone_numbers)"
-            >
-              <ion-icon name="call"></ion-icon>
-            </ion-button>
-          </ion-buttons>
 
-          <ion-buttons
-            *ngIf="checkcount('message', nomor_penting.phone_numbers)"
+    <div *ngIf="isLoading">
+      <ion-card
+        class="ion-margin-top bg-white"
+        *ngFor="let key of [0, 1, 2, 3]"
+      >
+        <ion-item>
+          <div class="ion-margin-top ion-margin-bottom d-inline-f">
+            <div class="mr-10">
+              <app-skeleton height="30px" width="30px"></app-skeleton>
+            </div>
+            <div style="width: 130px;">
+              <ion-text class="txt-subtitle ion-margin-bottom">
+                <app-skeleton height="20px" width="100%"></app-skeleton>
+              </ion-text>
+              <ion-note
+                ><app-skeleton height="20px" width="50%"></app-skeleton
+              ></ion-note>
+            </div>
+          </div>
+          <div class="d-inline-f" slot="end">
+            <div class="mr-10">
+              <app-skeleton height="30px" width="30px"></app-skeleton>
+            </div>
+            <div>
+              <app-skeleton height="30px" width="30px"></app-skeleton>
+            </div>
+          </div>
+        </ion-item>
+      </ion-card>
+    </div>
+
+    <div *ngIf="!isLoading">
+      <ion-card
+        class="ion-margin-top bg-white"
+        *ngFor="let nomor_penting of dataNomorPenting"
+      >
+        <ion-item>
+          <div
+            class="ion-margin-top ion-margin-bottom d-inline-f"
+            (click)="goToDetail(nomor_penting.id)"
           >
-            <ion-button
-              shape="round"
-              color="success"
-              (click)="openPhone('message', nomor_penting.phone_numbers)"
+            <ion-buttons>
+              <ion-button shape="round" color="success" class="icon-alamat">
+                <ion-icon name="business"></ion-icon>
+              </ion-button>
+            </ion-buttons>
+            <div class="content-nomor-penting">
+              <ion-text
+                [className]="nomor_penting.address ? 'txt-subtitle' : 'mt-10'"
+              >
+                {{ nomor_penting.name }}
+              </ion-text>
+              <ion-note>{{ nomor_penting.address }}</ion-note>
+            </div>
+          </div>
+          <div
+            class="d-inline-f"
+            slot="end"
+            *ngIf="nomor_penting.phone_numbers"
+          >
+            <ion-buttons
+              *ngIf="checkcount('phone', nomor_penting.phone_numbers)"
             >
-              <ion-icon name="mail"></ion-icon>
-            </ion-button>
-          </ion-buttons>
-        </div>
-      </ion-item>
-    </ion-card>
+              <ion-button
+                shape="round"
+                color="success"
+                (click)="openPhone('call', nomor_penting.phone_numbers)"
+              >
+                <ion-icon name="call"></ion-icon>
+              </ion-button>
+            </ion-buttons>
+
+            <ion-buttons
+              *ngIf="checkcount('message', nomor_penting.phone_numbers)"
+            >
+              <ion-button
+                shape="round"
+                color="success"
+                (click)="openPhone('message', nomor_penting.phone_numbers)"
+              >
+                <ion-icon name="mail"></ion-icon>
+              </ion-button>
+            </ion-buttons>
+          </div>
+        </ion-item>
+      </ion-card>
+    </div>
 
     <ion-infinite-scroll
       threshold="100px"
       (ionInfinite)="doInfinite($event)"
-      *ngIf="dataNomorPenting.length > 0"
+      *ngIf="dataNomorPenting.length > 0 && !isLoading"
     >
       <ion-infinite-scroll-content
         loadingSpinner="bubbles"

@@ -23,6 +23,8 @@ export class MyAspirasiComponent implements OnInit {
     msg: ''
   };
 
+  isLoading = false;
+
   constructor(
     private aspirasiService: AspirasiService,
     public loadingCtrl: LoadingController,
@@ -65,7 +67,7 @@ export class MyAspirasiComponent implements OnInit {
   }
 
   // get data broadcasts
-  async getListAspirasi(infiniteScroll?: any) {
+  getListAspirasi(infiniteScroll?: any) {
     // check internet
     if (!navigator.onLine) {
       // stop infinite scroll
@@ -79,21 +81,14 @@ export class MyAspirasiComponent implements OnInit {
 
     this.dataEmpty = false;
 
-    const loader = await this.loadingCtrl.create({
-      duration: 10000
-    });
-
     if (!infiniteScroll) {
-      loader.present();
+      this.isLoading = true;
     }
 
-    this.getDataMyAspirasi(infiniteScroll, loader);
+    this.getDataMyAspirasi(infiniteScroll);
   }
 
-  private getDataMyAspirasi(
-    infiniteScroll: any,
-    loader: HTMLIonLoadingElement
-  ) {
+  private getDataMyAspirasi(infiniteScroll: any) {
     this.aspirasiService.getMyListAspirasi(this.currentPage).subscribe(
       res => {
         if (res['data']['items'].length) {
@@ -110,7 +105,7 @@ export class MyAspirasiComponent implements OnInit {
         if (infiniteScroll) {
           infiniteScroll.target.complete();
         }
-        loader.dismiss();
+        this.isLoading = false;
       },
       err => {
         // stop infinite scroll
@@ -120,7 +115,7 @@ export class MyAspirasiComponent implements OnInit {
         if (err) {
           this.messageResponse('server-error', Dictionary.internalError);
         }
-        loader.dismiss();
+        this.isLoading = false;
       }
     );
   }
