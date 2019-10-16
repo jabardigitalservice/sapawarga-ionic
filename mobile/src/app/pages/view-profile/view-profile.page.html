@@ -27,6 +27,49 @@
     >
     </ion-refresher-content>
   </ion-refresher>
+
+  <div *ngIf="!dataProfile">
+    <div style="text-align: -webkit-center; margin-top: 30px;">
+      <ion-card-content class="bg-profile">
+        <ion-avatar>
+          <app-skeleton height="100%" width="100%"></app-skeleton>
+        </ion-avatar>
+
+        <h1 class="fw500" style="margin-top: 15px;">
+          <app-skeleton height="20px" width="60%"></app-skeleton>
+        </h1>
+
+        <div class="sosial-media" style="display: inline-flex;">
+          <app-skeleton
+            height="30px"
+            width="30px"
+            style="margin: 10px;"
+          ></app-skeleton>
+          <app-skeleton
+            height="30px"
+            width="30px"
+            style="margin: 10px;"
+          ></app-skeleton>
+          <app-skeleton
+            height="30px"
+            width="30px"
+            style="margin: 10px;"
+          ></app-skeleton>
+        </div>
+      </ion-card-content>
+    </div>
+
+    <div padding style="margin-top: 10px;">
+      <app-skeleton height="20px" width="100%"></app-skeleton>
+      <app-skeleton height="20px" width="100%"></app-skeleton>
+      <app-skeleton height="20px" width="100%"></app-skeleton>
+      <app-skeleton height="20px" width="100%"></app-skeleton>
+      <app-skeleton height="20px" width="100%"></app-skeleton>
+      <app-skeleton height="20px" width="100%"></app-skeleton>
+      <app-skeleton height="20px" width="100%"></app-skeleton>
+    </div>
+  </div>
+
   <ion-card no-margin *ngIf="dataProfile">
     <ion-card-content class="bg-profile">
       <img
