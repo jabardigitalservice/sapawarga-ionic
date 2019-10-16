@@ -34,6 +34,8 @@ export class NomorPentingPage implements OnInit {
     msg: ''
   };
 
+  isLoading = false;
+
   constructor(
     private nomorPentingService: NomorPentingService,
     public loadingCtrl: LoadingController,
@@ -72,7 +74,7 @@ export class NomorPentingPage implements OnInit {
   }
 
   // get data nomor penting
-  async getNomorPenting(infiniteScroll?) {
+  getNomorPenting(infiniteScroll?) {
     // check internet
     if (!navigator.onLine) {
       this.msgResponse = {
@@ -88,11 +90,8 @@ export class NomorPentingPage implements OnInit {
       msg: ''
     };
 
-    const loader = await this.loadingCtrl.create({
-      duration: 10000
-    });
     if (!infiniteScroll) {
-      loader.present();
+      this.isLoading = true;
     }
 
     this.dataEmpty = false;
@@ -112,20 +111,22 @@ export class NomorPentingPage implements OnInit {
         }
         // set count page
         this.maximumPages = res['data']['_meta'].pageCount;
-        loader.dismiss();
         // stop infinite scroll
         if (infiniteScroll) {
           infiniteScroll.target.complete();
         }
+
+        this.isLoading = false;
       },
       err => {
-        loader.dismiss();
         if (err) {
           this.msgResponse = {
             type: 'server-error',
             msg: Dictionary.internalError
           };
         }
+
+        this.isLoading = false;
       }
     );
   }
