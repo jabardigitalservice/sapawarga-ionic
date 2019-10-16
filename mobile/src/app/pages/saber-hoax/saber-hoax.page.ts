@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { LoadingController, Platform } from '@ionic/angular';
+import { Platform } from '@ionic/angular';
 import { Dictionary } from '../../helpers/dictionary';
 import { SaberHoaxService } from 'src/app/services/saber-hoax.service';
 import { SaberHoax } from 'src/app/interfaces/saber-hoax';
@@ -26,7 +26,6 @@ export class SaberHoaxPage implements OnInit {
   public telpSaberHoax: string;
   constructor(
     private saberHoaxService: SaberHoaxService,
-    private loadingCtrl: LoadingController,
     private constants: Constants,
     private util: UtilitiesService,
     private platform: Platform,

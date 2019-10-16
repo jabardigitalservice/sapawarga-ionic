@@ -14,6 +14,26 @@
     [message]="msgResponse.msg"
   ></app-message-control>
 
+  <div *ngIf="!dataSaberHoax">
+    <ion-label>
+      <p padding class="title">
+        <app-skeleton height="20px" width="80%"></app-skeleton>
+        <app-skeleton height="20px" width="60%"></app-skeleton>
+      </p>
+    </ion-label>
+
+    <app-skeleton height="150px" width="100%"></app-skeleton>
+    <div padding>
+      <app-skeleton height="20px" width="100%"></app-skeleton>
+      <app-skeleton height="20px" width="100%"></app-skeleton>
+      <app-skeleton height="20px" width="100%"></app-skeleton>
+      <app-skeleton height="20px" width="100%"></app-skeleton>
+      <app-skeleton height="20px" width="90%"></app-skeleton>
+      <app-skeleton height="20px" width="70%"></app-skeleton>
+      <app-skeleton height="20px" width="60%"></app-skeleton>
+    </div>
+  </div>
+
   <div *ngIf="dataSaberHoax">
     <ion-label>
       <p padding class="title">{{ dataSaberHoax.title }}</p>

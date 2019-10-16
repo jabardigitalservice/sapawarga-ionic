@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Dictionary } from 'src/app/helpers/dictionary';
-import { LoadingController, NavController } from '@ionic/angular';
 import { SaberHoax } from '../../interfaces/saber-hoax';
 import { Constants } from '../../helpers/constants';
 import { SaberHoaxService } from '../../services/saber-hoax.service';
@@ -22,11 +21,9 @@ export class SaberHoaxDetailPage implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private loadingCtrl: LoadingController,
     private constants: Constants,
     private saberHoaxService: SaberHoaxService,
-    private util: UtilitiesService,
-    private navCtrl: NavController
+    private util: UtilitiesService
   ) {}
   ngOnInit() {
     this.route.params.subscribe(params => {
@@ -49,11 +46,6 @@ export class SaberHoaxDetailPage implements OnInit {
       return;
     }
 
-    const loader = await this.loadingCtrl.create({
-      duration: 10000
-    });
-    loader.present();
-
     this.dataSaberHoax = null;
 
     this.saberHoaxService.getDetailSaberHoax(id).subscribe(
@@ -69,11 +61,8 @@ export class SaberHoaxDetailPage implements OnInit {
             1
           );
         }
-        loader.dismiss();
       },
       err => {
-        loader.dismiss();
-
         if (err.status === 404) {
           this.msgResponse = {
             type: 'empty',
