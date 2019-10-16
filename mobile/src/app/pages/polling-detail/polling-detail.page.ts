@@ -23,6 +23,7 @@ export class PollingDetailPage implements OnInit {
     type: '',
     msg: ''
   };
+  isPushNotification = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -49,6 +50,10 @@ export class PollingDetailPage implements OnInit {
     // get id detail polling
     this.route.params.subscribe(params => {
       this.id = params['id'];
+    });
+
+    this.route.queryParamMap.subscribe(params => {
+      this.isPushNotification = params['params']['isPushNotification'];
     });
 
     this.getDetailPolling();
@@ -145,7 +150,7 @@ export class PollingDetailPage implements OnInit {
   async confirmation() {
     // check if vote ischecked
     if (!this.dataAnswer) {
-      this.navCtrl.back();
+      this.util.backButton(this.isPushNotification);
       return;
     }
 
@@ -160,7 +165,7 @@ export class PollingDetailPage implements OnInit {
       {
         text: 'Lanjut',
         handler: () => {
-          this.navCtrl.back();
+          this.util.backButton(this.isPushNotification);
         }
       }
     ];

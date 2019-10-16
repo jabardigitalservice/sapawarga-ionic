@@ -23,6 +23,7 @@ export class NewsPage implements OnInit {
     type: '',
     msg: ''
   };
+  isPushNotification = false;
 
   constructor(
     private newsService: NewsService,
@@ -42,6 +43,7 @@ export class NewsPage implements OnInit {
     // get data id kab kota
     this.route.queryParamMap.subscribe(params => {
       this.idKabKota = params['params']['id'] ? params['params']['id'] : null;
+      this.isPushNotification = params['params']['isPushNotification'];
     });
 
     if (this.idKabKota) {
@@ -51,6 +53,10 @@ export class NewsPage implements OnInit {
       this.getListFeatured();
       this.getListNews();
     }
+  }
+
+  backButton() {
+    this.util.backButton(this.isPushNotification);
   }
 
   ionViewWillLeave() {
