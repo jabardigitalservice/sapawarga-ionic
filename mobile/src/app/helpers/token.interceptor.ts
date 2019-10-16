@@ -64,7 +64,7 @@ export class TokenInterceptor implements HttpInterceptor {
     });
 
     return next.handle(request).pipe(
-      delay(10000),
+      delay(2000),
       map((event: HttpEvent<any>) => {
         if (event instanceof HttpResponse) {
         }

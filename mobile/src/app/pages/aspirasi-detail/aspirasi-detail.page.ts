@@ -1,10 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import {
-  LoadingController,
-  PopoverController,
-  NavController
-} from '@ionic/angular';
+import { PopoverController, NavController } from '@ionic/angular';
 import { AspirasiService } from '../../services/aspirasi.service';
 import { Aspirasi } from '../../interfaces/aspirasi';
 import { MenuNavbarAspirasiComponent } from '../../components/menu-navbar-aspirasi/menu-navbar-aspirasi.component';
@@ -37,7 +33,6 @@ export class AspirasiDetailPage implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private aspirasiService: AspirasiService,
-    private loadingCtrl: LoadingController,
     public popoverCtrl: PopoverController,
     private navCtrl: NavController,
     private util: UtilitiesService,
@@ -63,7 +58,7 @@ export class AspirasiDetailPage implements OnInit {
   }
 
   // get data nomor penting
-  async getDetailAspirasi() {
+  getDetailAspirasi() {
     this.offline = false;
 
     // check internet
@@ -78,11 +73,6 @@ export class AspirasiDetailPage implements OnInit {
       this.getDataLocal();
       return;
     }
-
-    const loader = await this.loadingCtrl.create({
-      duration: 10000
-    });
-    loader.present();
 
     this.aspirasiService.getDetailAspirasi(this.id).subscribe(
       res => {
@@ -99,11 +89,8 @@ export class AspirasiDetailPage implements OnInit {
           this.dataAspirasi.title,
           1
         );
-
-        loader.dismiss();
       },
       err => {
-        loader.dismiss();
         this.util.showToast(err.data.message);
         // jika data not found
         this.navCtrl.back();
