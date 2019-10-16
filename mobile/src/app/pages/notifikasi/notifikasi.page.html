@@ -14,7 +14,18 @@
     [message]="msgResponse.msg"
   ></app-message-control>
 
-  <ion-list>
+  <ion-list *ngIf="isLoading">
+    <ion-item *ngFor="let key of [0, 1, 2, 3, 4, 5, 6]">
+      <ion-avatar item-start class="ion-margin-end">
+        <app-skeleton height="40px" width="40px"></app-skeleton>
+      </ion-avatar>
+      <ion-text item-end style="width: 100%;"
+        ><app-skeleton height="20px"></app-skeleton
+      ></ion-text>
+    </ion-item>
+  </ion-list>
+
+  <ion-list *ngIf="!isLoading">
     <ion-item
       *ngFor="let notifikasi of dataNotifikasi; let i = index"
       (click)="goToDetail(i, notifikasi['meta'], notifikasi.target)"
