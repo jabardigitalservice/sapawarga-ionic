@@ -23,6 +23,8 @@ export class MyAspirasiComponent implements OnInit {
     msg: ''
   };
 
+  isLoading = false;
+
   constructor(
     private aspirasiService: AspirasiService,
     public loadingCtrl: LoadingController,
@@ -80,6 +82,7 @@ export class MyAspirasiComponent implements OnInit {
     this.dataEmpty = false;
 
     if (!infiniteScroll) {
+      this.isLoading = true;
     }
 
     this.getDataMyAspirasi(infiniteScroll);
@@ -102,6 +105,7 @@ export class MyAspirasiComponent implements OnInit {
         if (infiniteScroll) {
           infiniteScroll.target.complete();
         }
+        this.isLoading = false;
       },
       err => {
         // stop infinite scroll
@@ -111,6 +115,7 @@ export class MyAspirasiComponent implements OnInit {
         if (err) {
           this.messageResponse('server-error', Dictionary.internalError);
         }
+        this.isLoading = false;
       }
     );
   }

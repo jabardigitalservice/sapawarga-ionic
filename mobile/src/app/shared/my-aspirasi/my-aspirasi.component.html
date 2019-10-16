@@ -4,57 +4,61 @@
   [message]="msgResponse.msg"
 ></app-message-control>
 
-<div>
-  <ion-card class="box-selector ion-margin-bottom">
+<div *ngIf="isLoading">
+  <ion-card
+    class="box-selector ion-margin-bottom"
+    *ngFor="let key of [0, 1, 2]"
+  >
     <ion-item>
       <ion-thumbnail slot="start">
-        <img
-          class="img-cover"
-          src="assets/img/placeholder_image_portrait.png"
-        />
+        <app-skeleton height="100%" width="100%"></app-skeleton>
       </ion-thumbnail>
       <ion-label>
-        <h2>asdsa</h2>
+        <h2><app-skeleton height="20px" width="100%"></app-skeleton></h2>
         <ion-item class="section-2">
-          <p class="font-10">
-            asdsad
-          </p>
-          <ion-badge class="font-10" slot="end">asdsad</ion-badge>
+          <app-skeleton height="20px" style="width: 60%"></app-skeleton>
+          <app-skeleton
+            slot="end"
+            height="20px"
+            style="width: 45%"
+          ></app-skeleton>
         </ion-item>
       </ion-label>
     </ion-item>
   </ion-card>
 </div>
 
-<div *ngFor="let aspirasi of dataAspirasi">
-  <ion-card class="box-selector ion-margin-bottom">
-    <ion-item (click)="goDetail(aspirasi.id)">
-      <ion-thumbnail slot="start">
-        <img
-          class="img-cover"
-          src="{{
-            aspirasi.attachments !== null
-              ? aspirasi.attachments[0].url
-              : '../../../assets/img/placeholder_image_portrait.png'
-          }}"
-          onError="this.src='assets/img/placeholder_image_portrait.png';"
-          (click)="goDetail(aspirasi.id)"
-        />
-      </ion-thumbnail>
-      <ion-label>
-        <h2>{{ aspirasi.title }}</h2>
-        <ion-item class="section-2">
-          <p class="font-10">
-            {{ aspirasi.updated_at * 1000 | date: 'd MMMM y h:mm' }}
-          </p>
-          <ion-badge
-            class="font-10"
-            [color]="checkStatus(aspirasi.status)"
-            slot="end"
-            >{{ aspirasi.status_label }}</ion-badge
-          >
-        </ion-item>
-      </ion-label>
-    </ion-item>
-  </ion-card>
+<div *ngIf="!isLoading">
+  <div *ngFor="let aspirasi of dataAspirasi">
+    <ion-card class="box-selector ion-margin-bottom">
+      <ion-item (click)="goDetail(aspirasi.id)">
+        <ion-thumbnail slot="start">
+          <img
+            class="img-cover"
+            src="{{
+              aspirasi.attachments !== null
+                ? aspirasi.attachments[0].url
+                : '../../../assets/img/placeholder_image_portrait.png'
+            }}"
+            onError="this.src='assets/img/placeholder_image_portrait.png';"
+            (click)="goDetail(aspirasi.id)"
+          />
+        </ion-thumbnail>
+        <ion-label>
+          <h2>{{ aspirasi.title }}</h2>
+          <ion-item class="section-2">
+            <p class="font-10">
+              {{ aspirasi.updated_at * 1000 | date: 'd MMMM y h:mm' }}
+            </p>
+            <ion-badge
+              class="font-10"
+              [color]="checkStatus(aspirasi.status)"
+              slot="end"
+              >{{ aspirasi.status_label }}</ion-badge
+            >
+          </ion-item>
+        </ion-label>
+      </ion-item>
+    </ion-card>
+  </div>
 </div>
