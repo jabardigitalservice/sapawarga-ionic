@@ -21,6 +21,7 @@ export class SaberHoaxPage implements OnInit {
     type: '',
     msg: ''
   };
+  isLoading = false;
 
   public telpSaberHoax: string;
   constructor(
@@ -52,15 +53,11 @@ export class SaberHoaxPage implements OnInit {
     };
   }
 
-  async getListSaberHoax(infiniteScroll?: any) {
+  getListSaberHoax(infiniteScroll?: any) {
     if (!navigator.onLine) {
       alert(Dictionary.offline);
       return;
     }
-
-    const loader = await this.loadingCtrl.create({
-      duration: 10000
-    });
 
     // clear state
     this.msgResponse = {
@@ -69,7 +66,7 @@ export class SaberHoaxPage implements OnInit {
     };
 
     if (!infiniteScroll) {
-      loader.present();
+      this.isLoading = true;
     }
 
     this.saberHoaxService.getListSaberHoax(this.currentPage).subscribe(
@@ -90,20 +87,20 @@ export class SaberHoaxPage implements OnInit {
         }
         // set count page
         this.maximumPages = res['data']['_meta'].pageCount;
-        loader.dismiss();
         // stop infinite scroll
         if (infiniteScroll) {
           infiniteScroll.target.complete();
         }
+        this.isLoading = false;
       },
       err => {
-        loader.dismiss();
         if (err) {
           this.msgResponse = {
             type: 'server-error',
             msg: Dictionary.internalError
           };
         }
+        this.isLoading = false;
       }
     );
   }

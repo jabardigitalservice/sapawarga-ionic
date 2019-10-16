@@ -17,7 +17,22 @@
   <ion-label class="title" *ngIf="dataSaberHoax">
     Berita Terverifikasi
   </ion-label>
-  <div *ngIf="dataSaberHoax">
+
+  <div *ngIf="isLoading">
+    <ion-card *ngFor="let key of [0, 1]">
+      <app-skeleton height="150px" width="100%"></app-skeleton>
+      <ion-item>
+        <app-skeleton height="20px" style="width: 100%;"></app-skeleton>
+        <app-skeleton
+          slot="end"
+          height="20px"
+          style="width: 25%;"
+        ></app-skeleton>
+      </ion-item>
+    </ion-card>
+  </div>
+
+  <div *ngIf="dataSaberHoax && !isLoading">
     <ion-card
       *ngFor="let saberHoax of dataSaberHoax; let i = index"
       (click)="goToDetailSaberHoax(saberHoax.id)"
@@ -42,7 +57,11 @@
     </ion-card>
   </div>
 
-  <ion-infinite-scroll threshold="100px" (ionInfinite)="doInfinite($event)">
+  <ion-infinite-scroll
+    threshold="100px"
+    (ionInfinite)="doInfinite($event)"
+    *ngIf="dataSaberHoax && !isLoading"
+  >
     <ion-infinite-scroll-content
       loadingSpinner="bubbles"
       loadingText="Sedang mengambil data..."
