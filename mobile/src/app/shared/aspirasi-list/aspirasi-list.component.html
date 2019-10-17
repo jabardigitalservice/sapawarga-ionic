@@ -4,71 +4,105 @@
   [message]="msgResponse.msg"
 ></app-message-control>
 
-<div class="pt-5" *ngFor="let aspirasi of dataAspirasi; let i = index">
-  <ion-item (click)="goDetail(aspirasi.id)">
-    <ion-avatar slot="start">
-      <img
-        [src]="prefixUrl + aspirasi.author.photo_url"
-        onError="this.src='assets/img/user.png';"
-      />
-    </ion-avatar>
-    <ion-text>{{ aspirasi.author.name }}</ion-text>
-  </ion-item>
-
-  <div class="pb-10 pl-16 pr-16 mt-5 mb-5">
-    <img
-      *ngIf="!offline"
-      class="img-cover"
-      src="{{
-        aspirasi.attachments !== null
-          ? aspirasi.attachments[0].url
-          : '../../../assets/img/placeholder_image.png'
-      }}"
-      onError="this.src='assets/img/placeholder_image.png';"
-      (click)="goDetail(aspirasi.id)"
-    />
-    <img
-      *ngIf="offline"
-      class="img-cover"
-      src="../../../assets/img/placeholder_image.png"
-      (click)="goDetail(aspirasi.id)"
-    />
-
-    <ion-item class="section-2">
-      <div class="d-inline-f" slot="start">
-        <ion-icon
-          name="heart"
-          [color]="checkStateLike(aspirasi.id) ? 'danger' : 'medium'"
-          class="icon-heart"
-          (click)="
-            doLike(
-              aspirasi.id,
-              checkStateLike(aspirasi.id),
-              aspirasi.likes_count
-            )
-          "
-        ></ion-icon>
-        <p class="text-like">
-          {{ checkCountLike(aspirasi.id) }}
-          likes
-        </p>
-      </div>
-
-      <ion-text slot="end" class="category-text">{{
-        aspirasi.category.name
-      }}</ion-text>
+<div *ngIf="isLoading">
+  <div *ngFor="let key of [0, 1]">
+    <ion-item>
+      <ion-avatar slot="start">
+        <app-skeleton height="100%" width="100%"></app-skeleton>
+      </ion-avatar>
+      <app-skeleton height="20px" style="width: 80%"></app-skeleton>
     </ion-item>
 
-    <ion-text>{{ aspirasi.title }}</ion-text>
+    <div class="pb-10 pl-16 pr-16 mt-5 mb-5">
+      <app-skeleton
+        slot="end"
+        height="110px"
+        style="width: 100%"
+      ></app-skeleton>
+
+      <ion-item class="section-2">
+        <app-skeleton height="20px" style="width: 25%"></app-skeleton>
+
+        <app-skeleton
+          slot="end"
+          height="20px"
+          style="width: 30%"
+        ></app-skeleton>
+      </ion-item>
+
+      <app-skeleton slot="end" height="20px" style="width: 90%"></app-skeleton>
+    </div>
+    <hr class="divider" />
   </div>
-  <hr class="divider" />
+</div>
+
+<div *ngIf="!isLoading">
+  <div class="pt-5" *ngFor="let aspirasi of dataAspirasi; let i = index">
+    <ion-item (click)="goDetail(aspirasi.id)">
+      <ion-avatar slot="start">
+        <img
+          [src]="prefixUrl + aspirasi.author.photo_url"
+          onError="this.src='assets/img/user.png';"
+        />
+      </ion-avatar>
+      <ion-text>{{ aspirasi.author.name }}</ion-text>
+    </ion-item>
+
+    <div class="pb-10 pl-16 pr-16 mt-5 mb-5">
+      <img
+        *ngIf="!offline"
+        class="img-cover"
+        src="{{
+          aspirasi.attachments !== null
+            ? aspirasi.attachments[0].url
+            : '../../../assets/img/placeholder_image.png'
+        }}"
+        onError="this.src='assets/img/placeholder_image.png';"
+        (click)="goDetail(aspirasi.id)"
+      />
+      <img
+        *ngIf="offline"
+        class="img-cover"
+        src="../../../assets/img/placeholder_image.png"
+        (click)="goDetail(aspirasi.id)"
+      />
+
+      <ion-item class="section-2">
+        <div class="d-inline-f" slot="start">
+          <ion-icon
+            name="heart"
+            [color]="checkStateLike(aspirasi.id) ? 'danger' : 'medium'"
+            class="icon-heart"
+            (click)="
+              doLike(
+                aspirasi.id,
+                checkStateLike(aspirasi.id),
+                aspirasi.likes_count
+              )
+            "
+          ></ion-icon>
+          <p class="text-like">
+            {{ checkCountLike(aspirasi.id) }}
+            likes
+          </p>
+        </div>
+
+        <ion-text slot="end" class="category-text">{{
+          aspirasi.category.name
+        }}</ion-text>
+      </ion-item>
+
+      <ion-text>{{ aspirasi.title }}</ion-text>
+    </div>
+    <hr class="divider" />
+  </div>
 </div>
 
 <!-- infinite scroll -->
 <ion-infinite-scroll
   threshold="100px"
   (ionInfinite)="doInfinite($event)"
-  *ngIf="dataAspirasi"
+  *ngIf="dataAspirasi && !isLoading"
 >
   <ion-infinite-scroll-content
     loadingSpinner="bubbles"

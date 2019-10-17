@@ -103,28 +103,14 @@ build_apk_staging:
     - docker-compose exec -T app mv google-service-staging.json platforms/android/app/google-services.json
     - docker-compose exec -T app cat platforms/android/app/google-services.json
     - docker-compose exec -T app npm run build:android:prod-staging
-    - docker-compose exec -T mv platforms/android/app/build/outputs/apk/debug/app-debug.apk .
-    - ls -l .
+    - docker-compose exec -T app ls
+    - docker-compose exec -T app pwd
+    #- docker-compose exec -T app cp platforms/android/app/build/outputs/apk/debug/app-debug.apk /app/
+    #- ls -l /app
     - if ! [[ -e platforms/android/app/build/outputs/apk/debug/app-debug.apk ]]; then exit 1; fi
-  #  - docker-compose exec -T app echo "${FIREBASE_PRODUCTION}" > platforms/android/google-services.json
-  #  - docker-compose exec -T app cat platforms/android/google-services.json
-  #  - docker-compose exec -T app echo "${FIREBASE_PRODUCTION}" > platforms/android/app/google-services.json
-  #   - docker-compose exec -T app cat platforms/android/google-services.json
-  #   - docker-compose exec -T app npm run build:android:prod-release
-  #   - if ! [[ -e platforms/android/app/build/outputs/apk/release/app-release-unsigned.apk ]]; then exit 1; fi
-  #   - wget $KEYSTORE_URL
-  #   - if ! [[ -e $KEYSTORE_FILENAME ]]; then exit 1; fi
-  #   - docker-compose exec -T app jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore $KEYSTORE_FILENAME -storepass $KEYSTORE_PASSPHRASE platforms/android/app/build/outputs/apk/release/app-release-unsigned.apk SapaWarga
-  #   - docker-compose exec -T app zipalign -v 4 platforms/android/app/build/outputs/apk/release/app-release-unsigned.apk app-release-signed-${CI_PIPELINE_IID}.apk
-  #   - docker-compose exec -T app ls -al
-  #   - docker-compose exec -T app ls -al platforms/android/app/build/outputs/apk/release/
-  #   - docker-compose exec -T app apksigner verify app-release-signed-${CI_PIPELINE_IID}.apk
-  #   - ls -al platforms/android/app/build/outputs/apk/release/
   artifacts:
-     paths:
-       - mobile/platforms/android/app/build/outputs/apk/debug/app-debug.apk
-  #     - mobile/app-release-signed-${CI_PIPELINE_IID}.apk
-
+    paths:
+      - mobile/platforms/android/app/build/outputs/apk/debug/app-debug.apk
 
 build_apk_production:
   image: docker:latest
@@ -172,8 +158,7 @@ build_apk_production:
     - docker-compose exec -T app ls -al
     - docker-compose exec -T app ls -al platforms/android/app/build/outputs/apk/release/
     - docker-compose exec -T app apksigner verify app-release-signed-${CI_PIPELINE_IID}.apk
-    - docker-compose exec -T mv apksigner verify app-release-signed-${CI_PIPELINE_IID}.apk .
-    - ls -al .
+    - ls -al platforms/android/app/build/outputs/apk/release/
   artifacts:
-     paths:
-       - app-release-signed-${CI_PIPELINE_IID}.apk
+    paths:
+      - mobile/app-release-signed-${CI_PIPELINE_IID}.apk

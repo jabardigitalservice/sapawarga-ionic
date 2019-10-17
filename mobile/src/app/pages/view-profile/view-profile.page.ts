@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ProfileService } from 'src/app/services/profile.service';
-import { LoadingController, PopoverController, Platform } from '@ionic/angular';
+import { PopoverController, Platform } from '@ionic/angular';
 import { Profile } from '../../interfaces/profile';
 import { MenuNavbarComponent } from '../../components/menu-navbar/menu-navbar.component';
 import { AppAvailability } from '@ionic-native/app-availability/ngx';
@@ -25,7 +25,6 @@ export class ViewProfilePage implements OnInit {
   };
 
   constructor(
-    public loadingCtrl: LoadingController,
     private profileService: ProfileService,
     public popoverCtrl: PopoverController,
     private appAvailability: AppAvailability,
@@ -60,6 +59,8 @@ export class ViewProfilePage implements OnInit {
       type: '',
       msg: ''
     };
+
+    this.dataProfile = null;
 
     if (!navigator.onLine) {
       // get data profile from local storage
@@ -141,7 +142,7 @@ export class ViewProfilePage implements OnInit {
     );
   }
 
-  async getDataProfile(event) {
+  getDataProfile(event) {
     // check internet
     if (!navigator.onLine) {
       this.msgResponse = {
@@ -151,19 +152,12 @@ export class ViewProfilePage implements OnInit {
       return;
     }
 
-    const loader = await this.loadingCtrl.create({
-      duration: 10000
-    });
-    if (event === null) {
-      loader.present();
-    }
     this.profileService.getProfile().subscribe(
       res => {
         this.dataProfile = res['data'];
 
         // save to local storage
         this.profileService.saveProfile(res['data']);
-        loader.dismiss();
         if (
           !this.dataProfile.twitter ||
           !this.dataProfile.facebook ||
@@ -173,7 +167,6 @@ export class ViewProfilePage implements OnInit {
         }
       },
       err => {
-        loader.dismiss();
         if (err) {
           this.msgResponse = {
             type: 'server-error',

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { LoadingController, NavController, Platform } from '@ionic/angular';
+import { NavController, Platform } from '@ionic/angular';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { Notifikasi } from '../../interfaces/notifikasi';
 import { NotifikasiService } from '../../services/notifikasi.service';
@@ -21,13 +21,13 @@ export class NotifikasiPage implements OnInit {
     type: '',
     msg: ''
   };
+  isLoading = false;
 
   constructor(
     private inAppBrowser: InAppBrowser,
     private notifikasiService: NotifikasiService,
     private platform: Platform,
     private router: Router,
-    public loadingCtrl: LoadingController,
     public navCtrl: NavController,
     public constants: Constants,
     private util: UtilitiesService
@@ -66,8 +66,15 @@ export class NotifikasiPage implements OnInit {
       this.util.launchweb(meta.url); // call webview external
     } else if (target === 'notifikasi' && meta.target === 'url') {
       this.inAppBrowser.create(meta.url, '_system'); // call yotube app
+    } else if (target === 'notifikasi' && meta.target === 'home-results') {
+      this.navCtrl.navigateRoot('/');
     } else {
-      this.router.navigate([`/${meta.target}`, meta.id]);
+      // check if meta.id === null then direct to list
+      if (!meta.id) {
+        this.router.navigate([`/${meta.target}`]);
+      } else {
+        this.router.navigate([`/${meta.target}`, meta.id]);
+      }
     }
 
     this.dataNotifikasi[index].read = true;
@@ -122,7 +129,7 @@ export class NotifikasiPage implements OnInit {
     });
   }
 
-  async getNotifikasi() {
+  getNotifikasi() {
     // get local
     const localNotifikasi = this.notifikasiService.getLocalNotifikasi();
 
@@ -139,10 +146,7 @@ export class NotifikasiPage implements OnInit {
       return;
     }
 
-    const loader = await this.loadingCtrl.create({
-      duration: 10000
-    });
-    loader.present();
+    this.isLoading = true;
 
     this.notifikasiService.getNotifikasi().subscribe(
       res => {
@@ -153,10 +157,9 @@ export class NotifikasiPage implements OnInit {
             msg: Dictionary.empty
           };
         }
-        loader.dismiss();
+        this.isLoading = false;
       },
       err => {
-        loader.dismiss();
         if (err) {
           this.msgResponse = {
             type: 'server-error',
@@ -164,6 +167,7 @@ export class NotifikasiPage implements OnInit {
           };
           this.dataNotifikasi = [];
         }
+        this.isLoading = false;
       }
     );
   }

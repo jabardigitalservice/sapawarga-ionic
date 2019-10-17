@@ -66,7 +66,7 @@ export class EditProfilePage implements OnInit {
           Validators.required,
           Validators.maxLength(255),
           Validators.minLength(4),
-          Validators.pattern(/^[A-Za-z ]+$/)
+          Validators.pattern(/^[A-Za-z `'.]+$/)
         ]
       ],
       username: [

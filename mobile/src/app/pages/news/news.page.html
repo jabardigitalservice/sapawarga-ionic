@@ -1,13 +1,55 @@
 <ion-header>
-  <ion-toolbar color="light"
-    ><ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
+  <ion-toolbar color="light">
+    <ion-buttons slot="start">
+      <ion-button class="back-btn" color="dark" (click)="backButton()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </ion-button>
     </ion-buttons>
     <ion-title>Indeks Berita</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <div *ngIf="isLoading">
+    <div padding>
+      <app-skeleton height="120px" width="100%"></app-skeleton>
+    </div>
+
+    <ion-grid>
+      <ion-row small class="text-dark">
+        <ion-col size="6" no-padding *ngFor="let key of [0, 1, 2, 3]">
+          <ion-card class="desc-featured">
+            <app-skeleton height="60px" width="100%"></app-skeleton>
+
+            <ion-card-content class="box-featured">
+              <p class="text-dark text-featured box-text-featured">
+                <app-skeleton height="20px" width="100%"></app-skeleton>
+              </p>
+            </ion-card-content>
+            <div style="margin-left: 15px;">
+              <app-skeleton height="20px" width="20%"></app-skeleton>
+            </div>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ion-card
+      class="text-dark ion-margin-top ion-margin-bottom"
+      *ngFor="let key of [0, 1]"
+    >
+      <ion-item>
+        <ion-text class="mb-5" style="width: 100%;">
+          <p class="text-title">
+            <app-skeleton height="20px" width="80%"></app-skeleton>
+          </p>
+          <app-skeleton height="20px" width="20%"></app-skeleton>
+        </ion-text>
+        <app-skeleton height="40px" width="40px"></app-skeleton>
+      </ion-item>
+    </ion-card>
+  </div>
+
   <ion-card
     class="headline ion-margin-top"
     *ngIf="dataFeatured && dataFeatured[0] !== null"
@@ -95,7 +137,11 @@
     </ion-card>
   </div>
 
-  <ion-infinite-scroll threshold="100px" (ionInfinite)="doInfinite($event)">
+  <ion-infinite-scroll
+    threshold="100px"
+    (ionInfinite)="doInfinite($event)"
+    *ngIf="!isLoading"
+  >
     <ion-infinite-scroll-content
       loadingSpinner="bubbles"
       loadingText="Sedang mengambil data..."

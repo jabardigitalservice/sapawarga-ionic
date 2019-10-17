@@ -19,14 +19,7 @@
 
 <ion-content>
   <div padding class="min-mt-5" *ngIf="!bannersList">
-    <ion-thumbnail
-      slot="end"
-      alt="icon"
-      class="thumbnail-image"
-      style="width: 100%; height: 120px;"
-    >
-      <ion-skeleton-text></ion-skeleton-text>
-    </ion-thumbnail>
+    <app-skeleton height="130px" width="100%"></app-skeleton>
 
     <ion-item class="list-headline-jabar">
       <ion-skeleton-text

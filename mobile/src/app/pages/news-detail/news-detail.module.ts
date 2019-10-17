@@ -9,6 +9,7 @@ import { NewsDetailPage } from './news-detail.page';
 
 // plugin in app browser
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
+import { SharedModule } from '../../shared/shared.module';
 
 const routes: Routes = [
   {
@@ -22,7 +23,8 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     IonicModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    SharedModule
   ],
   declarations: [NewsDetailPage],
   providers: [InAppBrowser]

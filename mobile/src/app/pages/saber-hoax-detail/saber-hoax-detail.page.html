@@ -1,7 +1,9 @@
 <ion-header>
-  <ion-toolbar color="light"
-    ><ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
+  <ion-toolbar color="light">
+    <ion-buttons slot="start">
+      <ion-button class="back-btn" color="dark" (click)="backButton()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </ion-button>
     </ion-buttons>
     <ion-title>Saber Hoax</ion-title>
   </ion-toolbar>
@@ -13,6 +15,26 @@
     [type]="msgResponse.type"
     [message]="msgResponse.msg"
   ></app-message-control>
+
+  <div *ngIf="!dataSaberHoax">
+    <ion-label>
+      <p padding class="title">
+        <app-skeleton height="20px" width="80%"></app-skeleton>
+        <app-skeleton height="20px" width="60%"></app-skeleton>
+      </p>
+    </ion-label>
+
+    <app-skeleton height="150px" width="100%"></app-skeleton>
+    <div padding>
+      <app-skeleton height="20px" width="100%"></app-skeleton>
+      <app-skeleton height="20px" width="100%"></app-skeleton>
+      <app-skeleton height="20px" width="100%"></app-skeleton>
+      <app-skeleton height="20px" width="100%"></app-skeleton>
+      <app-skeleton height="20px" width="90%"></app-skeleton>
+      <app-skeleton height="20px" width="70%"></app-skeleton>
+      <app-skeleton height="20px" width="60%"></app-skeleton>
+    </div>
+  </div>
 
   <div *ngIf="dataSaberHoax">
     <ion-label>

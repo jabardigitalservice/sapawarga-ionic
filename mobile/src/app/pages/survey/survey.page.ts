@@ -9,6 +9,7 @@ import { LoadingController } from '@ionic/angular';
 import { Dictionary } from '../../helpers/dictionary';
 import { Constants } from '../../helpers/constants';
 import { UtilitiesService } from '../../services/utilities.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-survey',
@@ -21,18 +22,21 @@ export class SurveyPage implements OnInit {
   maximumPages: number;
 
   dataEmpty = false;
+  isLoading = false;
 
   msgResponse = {
     type: '',
     msg: ''
   };
+  isPushNotification = false;
 
   constructor(
     private surveyService: SurveyService,
     private iab: InAppBrowser,
     public loadingCtrl: LoadingController,
     public constants: Constants,
-    private util: UtilitiesService
+    private util: UtilitiesService,
+    private route: ActivatedRoute
   ) {
     this.dataSurvey = [];
   }
@@ -40,6 +44,10 @@ export class SurveyPage implements OnInit {
   ngOnInit() {
     // google analytics
     this.util.trackPage(this.constants.pageName.survey);
+
+    this.route.queryParamMap.subscribe(params => {
+      this.isPushNotification = params['params']['isPushNotification'];
+    });
 
     this.util.trackEvent(
       this.constants.pageName.survey,
@@ -51,7 +59,11 @@ export class SurveyPage implements OnInit {
     this.getListSurvey();
   }
 
-  async getListSurvey(infiniteScroll?) {
+  backButton() {
+    this.util.backButton(this.isPushNotification);
+  }
+
+  getListSurvey(infiniteScroll?) {
     // check internet
     if (!navigator.onLine) {
       // get local
@@ -66,15 +78,11 @@ export class SurveyPage implements OnInit {
       return;
     }
 
-    const loader = await this.loadingCtrl.create({
-      duration: 10000
-    });
+    this.dataEmpty = false;
 
     if (!infiniteScroll) {
-      loader.present();
+      this.isLoading = true;
     }
-
-    this.dataEmpty = false;
 
     this.surveyService.getListSurvey(this.currentPage).subscribe(
       res => {
@@ -92,14 +100,14 @@ export class SurveyPage implements OnInit {
         }
         // set count page
         this.maximumPages = res['data']['_meta'].pageCount;
-        loader.dismiss();
         // stop infinite scroll
         if (infiniteScroll) {
           infiniteScroll.target.complete();
         }
+
+        this.isLoading = false;
       },
       err => {
-        loader.dismiss();
         // stop infinite scroll
         if (infiniteScroll) {
           infiniteScroll.target.complete();
@@ -111,6 +119,7 @@ export class SurveyPage implements OnInit {
             msg: Dictionary.internalError
           };
         }
+        this.isLoading = false;
       }
     );
   }

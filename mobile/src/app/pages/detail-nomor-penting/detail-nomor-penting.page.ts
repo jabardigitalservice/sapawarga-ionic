@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
-import { LoadingController, NavController } from '@ionic/angular';
+import { NavController } from '@ionic/angular';
 import { NomorPentingService } from '../../services/nomor-penting.service';
 import { NomorPenting } from '../../interfaces/nomor-penting';
 import { Dictionary } from '../../helpers/dictionary';
@@ -23,7 +23,6 @@ export class DetailNomorPentingPage implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private nomorPentingService: NomorPentingService,
-    private loadingCtrl: LoadingController,
     private navCtrl: NavController,
     private router: Router,
     private util: UtilitiesService,
@@ -40,7 +39,7 @@ export class DetailNomorPentingPage implements OnInit {
   }
 
   // get data nomor penting
-  async getDetailNomorPenting() {
+  getDetailNomorPenting() {
     // check internet
     if (!navigator.onLine) {
       this.msgResponse = {
@@ -49,10 +48,6 @@ export class DetailNomorPentingPage implements OnInit {
       };
       return;
     }
-    const loader = await this.loadingCtrl.create({
-      duration: 10000
-    });
-    loader.present();
 
     this.nomorPentingService.getDetailNomorPenting(this.id).subscribe(
       res => {
@@ -70,10 +65,8 @@ export class DetailNomorPentingPage implements OnInit {
           // jika data null
           this.navCtrl.back();
         }
-        loader.dismiss();
       },
       err => {
-        loader.dismiss();
         this.util.showToast(err.data.message);
         // jika data not found
         this.navCtrl.back();
