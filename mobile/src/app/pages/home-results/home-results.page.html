@@ -30,6 +30,7 @@
   </div>
 
   <ion-slides
+    *ngIf="bannersList"
     pager="true"
     [options]="slideOpts"
     (ionSlideTouchEnd)="swipeSlide()"

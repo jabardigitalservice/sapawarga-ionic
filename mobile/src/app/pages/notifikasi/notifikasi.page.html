@@ -25,7 +25,7 @@
     </ion-item>
   </ion-list>
 
-  <ion-list *ngIf="!isLoading">
+  <ion-list *ngIf="!isLoading && !msgResponse.type">
     <ion-item
       *ngFor="let notifikasi of dataNotifikasi; let i = index"
       (click)="goToDetail(i, notifikasi.meta, notifikasi.target)"
