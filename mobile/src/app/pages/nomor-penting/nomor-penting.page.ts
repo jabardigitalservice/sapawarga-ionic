@@ -119,7 +119,12 @@ export class NomorPentingPage implements OnInit {
         this.isLoading = false;
       },
       err => {
-        if (err) {
+        if (err.name === 'TimeoutError') {
+          this.msgResponse = {
+            type: 'offline',
+            msg: Dictionary.offline
+          };
+        } else {
           this.msgResponse = {
             type: 'server-error',
             msg: Dictionary.internalError
@@ -165,7 +170,12 @@ export class NomorPentingPage implements OnInit {
         },
         err => {
           loader.dismiss();
-          if (err) {
+          if (err.name === 'TimeoutError') {
+            this.msgResponse = {
+              type: 'offline',
+              msg: Dictionary.offline
+            };
+          } else {
             this.msgResponse = {
               type: 'server-error',
               msg: Dictionary.internalError
@@ -213,7 +223,12 @@ export class NomorPentingPage implements OnInit {
       },
       err => {
         loader.dismiss();
-        if (err) {
+        if (err.name === 'TimeoutError') {
+          this.msgResponse = {
+            type: 'offline',
+            msg: Dictionary.offline
+          };
+        } else {
           this.msgResponse = {
             type: 'server-error',
             msg: Dictionary.internalError
@@ -383,7 +398,12 @@ export class NomorPentingPage implements OnInit {
         }
       },
       err => {
-        if (err) {
+        if (err.name === 'TimeoutError') {
+          this.msgResponse = {
+            type: 'offline',
+            msg: Dictionary.offline
+          };
+        } else {
           this.msgResponse = {
             type: 'server-error',
             msg: Dictionary.internalError

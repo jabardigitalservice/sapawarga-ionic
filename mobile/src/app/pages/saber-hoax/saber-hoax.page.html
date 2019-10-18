@@ -20,7 +20,7 @@
     Berita Terverifikasi
   </ion-label>
 
-  <div *ngIf="isLoading">
+  <div *ngIf="isLoading && !msgResponse.type">
     <ion-card *ngFor="let key of [0, 1]">
       <app-skeleton height="150px" width="100%"></app-skeleton>
       <ion-item>

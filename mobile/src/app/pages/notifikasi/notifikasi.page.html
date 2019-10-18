@@ -14,7 +14,7 @@
     [message]="msgResponse.msg"
   ></app-message-control>
 
-  <ion-list *ngIf="isLoading">
+  <ion-list *ngIf="isLoading && !msgResponse.type">
     <ion-item *ngFor="let key of [0, 1, 2, 3, 4, 5, 6]">
       <ion-avatar item-start class="ion-margin-end">
         <app-skeleton height="40px" width="40px"></app-skeleton>

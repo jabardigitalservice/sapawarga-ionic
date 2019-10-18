@@ -138,10 +138,17 @@ export class PollingDetailPage implements OnInit {
             // get data from server
             this.util.showToast(Dictionary.have_done_vote);
           } else {
-            this.msgResponse = {
-              type: 'server-error',
-              msg: Dictionary.internalError
-            };
+            if (err.name === 'TimeoutError') {
+              this.msgResponse = {
+                type: 'offline',
+                msg: Dictionary.offline
+              };
+            } else {
+              this.msgResponse = {
+                type: 'server-error',
+                msg: Dictionary.internalError
+              };
+            }
           }
         }
       );

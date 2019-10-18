@@ -110,7 +110,12 @@ export class AspirasiListComponent implements OnInit {
         if (infiniteScroll) {
           infiniteScroll.target.complete();
         }
-        if (err) {
+        if (err.name === 'TimeoutError') {
+          this.msgResponse = {
+            type: 'offline',
+            msg: Dictionary.offline
+          };
+        } else {
           this.msgResponse = {
             type: 'server-error',
             msg: Dictionary.internalError
