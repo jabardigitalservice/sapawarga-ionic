@@ -122,7 +122,12 @@ export class BroadcastsPage implements OnInit {
         this.maximumPages = res['data']['_meta'].pageCount;
       },
       err => {
-        if (err) {
+        if (err.name === 'TimeoutError') {
+          this.msgResponse = {
+            type: 'offline',
+            msg: Dictionary.offline
+          };
+        } else {
           this.msgResponse = {
             type: 'server-error',
             msg: Dictionary.internalError

@@ -8,7 +8,7 @@ import {
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
-import { map, catchError, delay } from 'rxjs/operators';
+import { map, catchError, delay, timeout } from 'rxjs/operators';
 import { NavController, Platform } from '@ionic/angular';
 import { UtilitiesService } from '../services/utilities.service';
 import { AppVersion } from '@ionic-native/app-version/ngx';
@@ -65,6 +65,7 @@ export class TokenInterceptor implements HttpInterceptor {
 
     return next.handle(request).pipe(
       delay(1000),
+      timeout(200),
       map((event: HttpEvent<any>) => {
         if (event instanceof HttpResponse) {
         }

@@ -11,7 +11,7 @@
     [message]="msgResponse.msg"
   ></app-message-control>
 
-  <div *ngIf="!dataBroadcast">
+  <div *ngIf="!dataBroadcast && !msgResponse.type">
     <ion-card *ngFor="let key of [0, 1, 2]">
       <ion-card-header>
         <ion-card-subtitle class="dark-read"
