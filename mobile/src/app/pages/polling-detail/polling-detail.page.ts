@@ -72,18 +72,11 @@ export class PollingDetailPage implements OnInit {
   }
 
   async getDetailPolling() {
-    const loader = await this.loadingCtrl.create({
-      duration: 10000
-    });
-    loader.present();
-
     this.pollingService.getDetailPolling(this.id).subscribe(
       res => {
         this.dataPolling = res['data'];
-        loader.dismiss();
       },
       err => {
-        loader.dismiss();
         this.util.showToast(err.data.message);
         // jika data not found
         this.navCtrl.back();
