@@ -73,7 +73,8 @@ export class Constants {
     aspirasiUser: 'aspirasi-user',
     pollingData: 'data-polling',
     onBoarding: 'has-onboarding',
-    forceChange: 'forceChange'
+    forceChange: 'forceChange',
+    informationPopup: 'information-popup'
   };
 
   public telpLapor = '1708';

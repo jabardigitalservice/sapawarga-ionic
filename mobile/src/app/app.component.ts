@@ -112,8 +112,8 @@ export class AppComponent {
         // check app is up to date / not
         this.appUpdateService.checkAppUpdate();
 
-        // show information modal
-        this.informationPopupService.showModal();
+        // check information popup
+        this.informationPopupService.checkInformationPopup();
 
         // integration google analytics
         this.googleAnalytics
