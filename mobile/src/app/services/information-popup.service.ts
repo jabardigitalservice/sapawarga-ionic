@@ -42,7 +42,7 @@ export class InformationPopupService {
       // this.setStoragePopup(currentDate);
       console.log(getCompareDate);
       console.log(lastDatePopup);
-      this.showModal();
+      // this.showModal();
 
       if (getCompareDate > 0) {
         this.showModal();
