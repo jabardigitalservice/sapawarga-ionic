@@ -77,6 +77,16 @@ export class SaberHoaxDetailPage implements OnInit {
             type: 'empty',
             msg: Dictionary.empty
           };
+        } else if (err.name === 'TimeoutError') {
+          this.msgResponse = {
+            type: 'offline',
+            msg: Dictionary.offline
+          };
+        } else {
+          this.msgResponse = {
+            type: 'server-error',
+            msg: Dictionary.internalError
+          };
         }
       }
     );

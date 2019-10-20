@@ -16,7 +16,7 @@
     [message]="msgResponse.msg"
   ></app-message-control>
 
-  <div *ngIf="!dataSaberHoax">
+  <div *ngIf="!dataSaberHoax && !msgResponse.type">
     <ion-label>
       <p padding class="title">
         <app-skeleton height="20px" width="80%"></app-skeleton>

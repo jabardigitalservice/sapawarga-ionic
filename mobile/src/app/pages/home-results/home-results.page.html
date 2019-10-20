@@ -18,7 +18,13 @@
 </ion-header>
 
 <ion-content>
-  <div padding class="min-mt-5" *ngIf="!bannersList">
+  <app-message-control
+    *ngIf="msgResponse.type"
+    [type]="msgResponse.type"
+    [message]="msgResponse.msg"
+  ></app-message-control>
+
+  <div padding class="min-mt-5" *ngIf="!bannersList && !msgResponse.type">
     <app-skeleton height="130px" width="100%"></app-skeleton>
 
     <ion-item class="list-headline-jabar">
@@ -30,6 +36,7 @@
   </div>
 
   <ion-slides
+    *ngIf="bannersList"
     pager="true"
     [options]="slideOpts"
     (ionSlideTouchEnd)="swipeSlide()"

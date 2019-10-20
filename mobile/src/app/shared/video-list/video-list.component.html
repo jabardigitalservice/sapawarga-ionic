@@ -3,6 +3,12 @@
     <h5 class="bold" slot="start">Video Post</h5>
   </ion-item>
 
+  <app-message-control
+    *ngIf="msgResponse.type"
+    [type]="msgResponse.type"
+    [message]="msgResponse.msg"
+  ></app-message-control>
+
   <div padding class="min-mt-5" *ngIf="isLoading.videoPost">
     <ion-thumbnail
       slot="end"

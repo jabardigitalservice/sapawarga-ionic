@@ -103,7 +103,12 @@ export class SaberHoaxPage implements OnInit {
         this.isLoading = false;
       },
       err => {
-        if (err) {
+        if (err.name === 'TimeoutError') {
+          this.msgResponse = {
+            type: 'offline',
+            msg: Dictionary.offline
+          };
+        } else {
           this.msgResponse = {
             type: 'server-error',
             msg: Dictionary.internalError

@@ -28,7 +28,7 @@
     </ion-refresher-content>
   </ion-refresher>
 
-  <div *ngIf="!dataProfile">
+  <div *ngIf="!dataProfile && !msgResponse.type">
     <div style="text-align: -webkit-center; margin-top: 30px;">
       <ion-card-content class="bg-profile">
         <ion-avatar>

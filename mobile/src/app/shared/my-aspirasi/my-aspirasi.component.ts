@@ -112,8 +112,16 @@ export class MyAspirasiComponent implements OnInit {
         if (infiniteScroll) {
           infiniteScroll.target.complete();
         }
-        if (err) {
-          this.messageResponse('server-error', Dictionary.internalError);
+        if (err.name === 'TimeoutError') {
+          this.msgResponse = {
+            type: 'offline',
+            msg: Dictionary.offline
+          };
+        } else {
+          this.msgResponse = {
+            type: 'server-error',
+            msg: Dictionary.internalError
+          };
         }
         this.isLoading = false;
       }

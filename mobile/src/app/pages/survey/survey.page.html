@@ -16,7 +16,7 @@
     [message]="msgResponse.msg"
   ></app-message-control>
 
-  <div *ngIf="isLoading">
+  <div *ngIf="isLoading && !msgResponse.type">
     <ion-card *ngFor="let key of [0, 1, 2, 3, 4, 5, 6]">
       <ion-item>
         <app-skeleton height="20px" style="width: 100%"></app-skeleton>

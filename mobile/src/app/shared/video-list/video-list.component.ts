@@ -31,6 +31,11 @@ export class VideoListComponent implements OnInit {
     videoPostKabkota: false
   };
 
+  msgResponse = {
+    type: '',
+    msg: ''
+  };
+
   VIDEO_POST = 'video-post';
   VIDEO_POST_KABKOTA = 'video-post-kabkota';
   constructor(
@@ -85,6 +90,18 @@ export class VideoListComponent implements OnInit {
         }
       },
       err => {
+        if (err.name === 'TimeoutError') {
+          this.msgResponse = {
+            type: 'offline',
+            msg: Dictionary.offline
+          };
+        } else {
+          this.msgResponse = {
+            type: 'server-error',
+            msg: Dictionary.internalError
+          };
+        }
+
         if (idkabkota) {
           this.isLoading.videoPostKabkota = false;
         } else {

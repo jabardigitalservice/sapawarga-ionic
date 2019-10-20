@@ -19,6 +19,23 @@
     [message]="msgResponse.msg"
   ></app-message-control>
 
+  <div *ngIf="!dataPolling && !msgResponse.type">
+    <ion-card>
+      <ion-list>
+        <app-skeleton height="20px" width="100%"></app-skeleton>
+        <app-skeleton height="20px" width="100%"></app-skeleton>
+        <app-skeleton height="20px" width="100%"></app-skeleton>
+        <div
+          text-center
+          class="btn-voted"
+          style="position: relative; margin-top: 20px; left: 40%;"
+        >
+          <app-skeleton height="30px" width="50px"></app-skeleton>
+        </div>
+      </ion-list>
+    </ion-card>
+  </div>
+
   <ion-card *ngIf="dataPolling">
     <ion-list>
       <ion-radio-group>

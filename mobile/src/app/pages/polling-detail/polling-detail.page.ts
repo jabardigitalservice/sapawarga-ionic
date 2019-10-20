@@ -72,18 +72,11 @@ export class PollingDetailPage implements OnInit {
   }
 
   async getDetailPolling() {
-    const loader = await this.loadingCtrl.create({
-      duration: 10000
-    });
-    loader.present();
-
     this.pollingService.getDetailPolling(this.id).subscribe(
       res => {
         this.dataPolling = res['data'];
-        loader.dismiss();
       },
       err => {
-        loader.dismiss();
         this.util.showToast(err.data.message);
         // jika data not found
         this.navCtrl.back();
@@ -138,10 +131,17 @@ export class PollingDetailPage implements OnInit {
             // get data from server
             this.util.showToast(Dictionary.have_done_vote);
           } else {
-            this.msgResponse = {
-              type: 'server-error',
-              msg: Dictionary.internalError
-            };
+            if (err.name === 'TimeoutError') {
+              this.msgResponse = {
+                type: 'offline',
+                msg: Dictionary.offline
+              };
+            } else {
+              this.msgResponse = {
+                type: 'server-error',
+                msg: Dictionary.internalError
+              };
+            }
           }
         }
       );

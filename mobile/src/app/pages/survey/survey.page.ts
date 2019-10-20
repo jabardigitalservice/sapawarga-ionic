@@ -113,12 +113,18 @@ export class SurveyPage implements OnInit {
           infiniteScroll.target.complete();
         }
 
-        if (err) {
+        if (err.name === 'TimeoutError') {
+          this.msgResponse = {
+            type: 'offline',
+            msg: Dictionary.offline
+          };
+        } else {
           this.msgResponse = {
             type: 'server-error',
             msg: Dictionary.internalError
           };
         }
+
         this.isLoading = false;
       }
     );
