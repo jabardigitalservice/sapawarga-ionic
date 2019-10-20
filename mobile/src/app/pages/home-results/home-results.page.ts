@@ -47,6 +47,11 @@ export class HomeResultsPage implements OnInit {
 
   unreadNotif: 0;
 
+  msgResponse = {
+    type: '',
+    msg: ''
+  };
+
   constructor(
     public navCtrl: NavController,
     private notifikasiService: NotifikasiService,
@@ -173,7 +178,19 @@ export class HomeResultsPage implements OnInit {
           this.bannersList = res['data']['items'];
         }
       },
-      err => {}
+      err => {
+        if (err.name === 'TimeoutError') {
+          this.msgResponse = {
+            type: 'offline',
+            msg: Dictionary.offline
+          };
+        } else {
+          this.msgResponse = {
+            type: 'server-error',
+            msg: Dictionary.internalError
+          };
+        }
+      }
     );
   }
 

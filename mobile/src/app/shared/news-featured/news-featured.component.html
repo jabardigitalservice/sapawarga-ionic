@@ -1,6 +1,12 @@
 <div style="margin-left: 5px">
   <h5 class="bold ml-15">Berita</h5>
 
+  <app-message-control
+    *ngIf="msgResponse.type"
+    [type]="msgResponse.type"
+    [message]="msgResponse.msg"
+  ></app-message-control>
+
   <!-- Skeleton screen news -->
   <ion-card class="text-dark min-mt-5 ion-margin-bottom" *ngIf="isLoading.news">
     <ion-item>

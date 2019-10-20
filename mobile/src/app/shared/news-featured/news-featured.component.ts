@@ -33,6 +33,11 @@ export class NewsFeaturedComponent implements OnInit {
     news: false,
     newsKabkota: false
   };
+
+  msgResponse = {
+    type: '',
+    msg: ''
+  };
   constructor(
     private newsService: NewsService,
     private profileService: ProfileService,
@@ -98,24 +103,32 @@ export class NewsFeaturedComponent implements OnInit {
         }
       },
       err => {
-        setTimeout(() => {
-          // get local
-          if (this.newsService.getLocal(this.NEWS) && !idkabkota) {
-            this.dataNews = JSON.parse(this.newsService.getLocal(this.NEWS));
-          } else if (
-            this.newsService.getLocal(this.NEWS_KABKOTA) &&
-            idkabkota
-          ) {
-            this.dataNewsKabkota = JSON.parse(
-              this.newsService.getLocal(this.NEWS_KABKOTA)
-            );
-          }
-          if (idkabkota) {
-            this.isLoading.newsKabkota = false;
+        // get local
+        if (this.newsService.getLocal(this.NEWS) && !idkabkota) {
+          this.dataNews = JSON.parse(this.newsService.getLocal(this.NEWS));
+        } else if (this.newsService.getLocal(this.NEWS_KABKOTA) && idkabkota) {
+          this.dataNewsKabkota = JSON.parse(
+            this.newsService.getLocal(this.NEWS_KABKOTA)
+          );
+        } else {
+          if (err.name === 'TimeoutError') {
+            this.msgResponse = {
+              type: 'offline',
+              msg: Dictionary.offline
+            };
           } else {
-            this.isLoading.news = false;
+            this.msgResponse = {
+              type: 'server-error',
+              msg: Dictionary.internalError
+            };
           }
-        }, 3000);
+        }
+
+        if (idkabkota) {
+          this.isLoading.newsKabkota = false;
+        } else {
+          this.isLoading.news = false;
+        }
       }
     );
   }
