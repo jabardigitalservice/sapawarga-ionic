@@ -20,6 +20,15 @@
   text-transform: capitalize;
 }
 
+.btn-close {
+  position: absolute;
+  right: 0;
+}
+
+.border-radius {
+  border-radius: 0px 5px 0px;
+}
+
 @media only screen and (min-width: 400px) {
   .modal-card .img img {
     width: 65%;
