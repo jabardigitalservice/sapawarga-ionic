@@ -25,7 +25,8 @@ export class Constants {
     perizinan: 'Perizinan',
     home_pages: 'Home Pages',
     forceUpdate: 'Force Update',
-    saberHoax: 'Saber Hoax'
+    saberHoax: 'Saber Hoax',
+    informationPopup: 'Informasi Popup'
   };
 
   public inAppBrowserOptions: any = {
@@ -73,7 +74,8 @@ export class Constants {
     aspirasiUser: 'aspirasi-user',
     pollingData: 'data-polling',
     onBoarding: 'has-onboarding',
-    forceChange: 'forceChange'
+    forceChange: 'forceChange',
+    informationPopup: 'information-popup'
   };
 
   public telpLapor = '1708';
