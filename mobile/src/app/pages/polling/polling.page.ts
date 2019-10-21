@@ -133,44 +133,7 @@ export class PollingPage implements OnInit {
       return;
     }
 
-    this.CheckVote(id);
-  }
-
-  CheckVote(id: number) {
-    // check internet
-    if (!navigator.onLine) {
-      this.msgResponse = {
-        type: 'offline',
-        msg: Dictionary.offline
-      };
-      return;
-    }
-
-    // check jika belum pernah vote polling
-    this.pollingService.getCheckPolling(id).subscribe(
-      res => {
-        if (res['status'] === 200) {
-          if (res['data']['is_voted'] === false) {
-            this.router.navigate(['/polling', id]);
-          } else {
-            this.util.showToast(Dictionary.have_done_vote);
-          }
-        }
-      },
-      err => {
-        if (err.name === 'TimeoutError') {
-          this.msgResponse = {
-            type: 'offline',
-            msg: Dictionary.offline
-          };
-        } else {
-          this.msgResponse = {
-            type: 'server-error',
-            msg: Dictionary.internalError
-          };
-        }
-      }
-    );
+    this.router.navigate(['/polling', id]);
   }
 
   // infinite scroll

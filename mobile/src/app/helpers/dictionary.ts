@@ -33,6 +33,7 @@ export enum Dictionary {
   // polling message
   success_polling = 'Terima kasih anda sudah mengisi polling',
   have_done_vote = 'Anda sudah melakukan polling ini sebelumnya',
+  polling_not_found = 'Polling tidak ditemukan',
 
   // view profile message
   complete_sosmed = 'Mohon lengkapi akun sosial media anda',
@@ -49,9 +50,12 @@ export enum Dictionary {
   // version update
   msg_update_app = 'Versi terbaru telah tersedia. segera perbaharui aplikasi anda.',
 
-  msg_news = 'Tidak ada daftar berita yang dibuat',
   msg_saber_hoax = 'Tidak ada daftar Saber Hoax yang dibuat',
   msg_change_password = 'Kata sandi berhasil diubah',
   msg_forgot_password = 'Tautan reset password telah di kirim ke email anda',
-  msg_error_forgot_password = 'Tidak ada user dengan email tersebut'
+  msg_error_forgot_password = 'Tidak ada user dengan email tersebut',
+
+  // news message
+  news_not_found = 'Berita tidak ditemukan',
+  msg_news = 'Tidak ada daftar berita yang dibuat'
 }

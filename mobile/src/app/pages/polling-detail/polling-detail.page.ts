@@ -6,6 +6,7 @@ import { Polling } from '../../interfaces/polling';
 import { Dictionary } from '../../helpers/dictionary';
 import { UtilitiesService } from '../../services/utilities.service';
 import { Constants } from '../../helpers/constants';
+import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-polling-detail',
@@ -56,7 +57,7 @@ export class PollingDetailPage implements OnInit {
       this.isPushNotification = params['params']['isPushNotification'];
     });
 
-    this.getDetailPolling();
+    this.CheckVote(this.id);
   }
 
   ionViewDidEnter() {
@@ -71,14 +72,67 @@ export class PollingDetailPage implements OnInit {
     this.backButton.unsubscribe();
   }
 
+  CheckVote(id: number) {
+    // check internet
+    if (!navigator.onLine) {
+      this.msgResponse = {
+        type: 'offline',
+        msg: Dictionary.offline
+      };
+      return;
+    }
+
+    // check voted
+    this.pollingService.getCheckPolling(id).subscribe(
+      res => {
+        if (res['status'] === 200) {
+          if (res['data']['is_voted'] === false) {
+            this.getDetailPolling();
+          } else {
+            this.util.showToast(Dictionary.have_done_vote);
+
+            // go back to previous page
+            this.util.backButton(this.isPushNotification);
+          }
+        }
+      },
+      err => {
+        if (err.name === 'TimeoutError') {
+          this.msgResponse = {
+            type: 'offline',
+            msg: Dictionary.offline
+          };
+        } else {
+          this.msgResponse = {
+            type: 'server-error',
+            msg: Dictionary.internalError
+          };
+        }
+      }
+    );
+  }
+
   async getDetailPolling() {
+    const currentDate = formatDate(new Date(), 'yyyy/MM/dd', 'en');
     this.pollingService.getDetailPolling(this.id).subscribe(
       res => {
-        this.dataPolling = res['data'];
+        const getCompare = this.compareDate(
+          currentDate,
+          res['data']['end_date']
+        );
+
+        if (getCompare > 0) {
+          this.dataPolling = res['data'];
+        } else {
+          this.util.showToast(Dictionary.polling_not_found);
+
+          // go back to previous page
+          this.util.backButton(this.isPushNotification);
+        }
       },
       err => {
         this.util.showToast(err.data.message);
-        // jika data not found
+        // if data not found
         this.navCtrl.back();
       }
     );
@@ -171,5 +225,18 @@ export class PollingDetailPage implements OnInit {
     ];
 
     this.util.alertConfirmation(Dictionary.polling_leave, buttons, header);
+  }
+
+  compareDate(currentDate: any, endDate: any): number {
+    // compare dates, create a new instance of Date with 'new Date()'
+    const current = new Date(currentDate);
+    const end = new Date(endDate);
+
+    // Check if the currentDate is less than endDate
+    if (current <= end) {
+      return 1;
+    } else {
+      return 0;
+    }
   }
 }
