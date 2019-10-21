@@ -57,7 +57,8 @@ export class PollingDetailPage implements OnInit {
       this.isPushNotification = params['params']['isPushNotification'];
     });
 
-    this.getDetailPolling();
+    // this.getDetailPolling();
+    this.CheckVote(this.id);
   }
 
   ionViewDidEnter() {
@@ -70,6 +71,46 @@ export class PollingDetailPage implements OnInit {
   // unsubscribe backButton
   ionViewWillLeave() {
     this.backButton.unsubscribe();
+  }
+
+  CheckVote(id: number) {
+    // check internet
+    if (!navigator.onLine) {
+      this.msgResponse = {
+        type: 'offline',
+        msg: Dictionary.offline
+      };
+      return;
+    }
+
+    // check voted
+    this.pollingService.getCheckPolling(id).subscribe(
+      res => {
+        if (res['status'] === 200) {
+          if (res['data']['is_voted'] === false) {
+            this.getDetailPolling();
+          } else {
+            this.util.showToast(Dictionary.have_done_vote);
+
+            // go back to previous page
+            this.util.backButton(this.isPushNotification);
+          }
+        }
+      },
+      err => {
+        if (err.name === 'TimeoutError') {
+          this.msgResponse = {
+            type: 'offline',
+            msg: Dictionary.offline
+          };
+        } else {
+          this.msgResponse = {
+            type: 'server-error',
+            msg: Dictionary.internalError
+          };
+        }
+      }
+    );
   }
 
   async getDetailPolling() {
