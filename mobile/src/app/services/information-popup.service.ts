@@ -8,12 +8,13 @@ import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { formatDate } from '@angular/common';
 import { Constants } from '../helpers/constants';
+import { InformationPopup } from '../interfaces/information-popup';
 
 @Injectable({
   providedIn: 'root'
 })
 export class InformationPopupService {
-  dataPopup: any;
+  dataPopup: InformationPopup;
 
   constructor(
     private http: HttpClient,
@@ -24,14 +25,13 @@ export class InformationPopupService {
 
   checkInformationPopup() {
     this.getInformationPopup().subscribe(respons => {
-      // console.log(respons.data.items[0]);
-      this.dataPopup = respons.data.items[0];
+      this.dataPopup = respons['data'].items[0];
 
       const lastDatePopup = this.getStoragePopup();
-      const currentDate = formatDate(new Date(), 'yyyy/MM/dd', 'en');
+      const currentDate = formatDate(new Date(), 'yyyy-MM-dd', 'en');
       const endDate = formatDate(
         new Date(this.dataPopup.end_date),
-        'yyyy/MM/dd',
+        'yyyy-MM-dd',
         'en'
       );
       const getCompareDate = this.compareDate(
@@ -39,11 +39,8 @@ export class InformationPopupService {
         endDate,
         lastDatePopup
       );
-      // this.setStoragePopup(currentDate);
-      console.log(getCompareDate);
-      console.log(lastDatePopup);
-      // this.showModal();
 
+      // check if getCompareDate 1 then call show modal
       if (getCompareDate > 0) {
         this.showModal();
       }
@@ -70,9 +67,9 @@ export class InformationPopupService {
     }
   }
 
-  private getInformationPopup(): Observable<any> {
+  private getInformationPopup(): Observable<InformationPopup> {
     return this.http
-      .get<any>(`${environment.API_MOCK}/popups`)
+      .get<InformationPopup>(`${environment.API_URL}/popups`)
       .pipe(catchError(this.util.handleError));
   }
 
@@ -89,6 +86,9 @@ export class InformationPopupService {
   async showModal() {
     const modal = await this.modalController.create({
       component: InformationPopupComponent,
+      componentProps: {
+        dataPopup: this.dataPopup
+      },
       cssClass: 'popup-information',
       backdropDismiss: false
     });

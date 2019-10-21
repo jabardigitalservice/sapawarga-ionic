@@ -1,16 +1,19 @@
-<div class="modal-card">
-  <ion-buttons class="btn-close">
+<div class="modal-card" *ngIf="dataPopup">
+  <ion-buttons class="btn-close" (click)="btnClose()">
     <button class="border-radius">
-      <ion-icon name="close" size="large"></ion-icon>
+      <ion-icon name="close" style="font-size: 25px!important;"></ion-icon>
     </button>
   </ion-buttons>
-  <div class="img">
-    <img src="assets/img/banner-01.jpg" />
+  <div class="img-popup">
+    <img
+      class="img"
+      [src]="dataPopup.image_path_url"
+      onError="this.src='assets/img/placeholder_image.png';"
+    />
   </div>
   <div class="mid-section">
     <ion-text>
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. laudantium
-      molestiae? Vitae et quidem saepe?
+      {{ dataPopup.description }}
     </ion-text>
   </div>
   <div class="links">

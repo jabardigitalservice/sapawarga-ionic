@@ -29,14 +29,10 @@
   border-radius: 0px 5px 0px;
 }
 
-@media only screen and (min-width: 400px) {
-  .modal-card .img img {
-    width: 65%;
-  }
+.img-popup {
+  height: 85%;
 }
 
-@media only screen and (min-width: 500px) {
-  .modal-card .img img {
-    width: 60%;
-  }
+.img {
+  max-height: 210px;
 }

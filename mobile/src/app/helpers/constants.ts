@@ -25,7 +25,8 @@ export class Constants {
     perizinan: 'Perizinan',
     home_pages: 'Home Pages',
     forceUpdate: 'Force Update',
-    saberHoax: 'Saber Hoax'
+    saberHoax: 'Saber Hoax',
+    informationPopup: 'Informasi Popup'
   };
 
   public inAppBrowserOptions: any = {

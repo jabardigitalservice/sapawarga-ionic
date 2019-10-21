@@ -165,4 +165,11 @@ export class UtilitiesService {
       this.navCtrl.back();
     }
   }
+
+  // dismiss modal
+  dismissModal() {
+    this.modalController.dismiss({
+      dismissed: true
+    });
+  }
 }
