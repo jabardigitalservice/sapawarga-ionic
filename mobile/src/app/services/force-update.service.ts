@@ -58,8 +58,6 @@ export class ForceUpdateService {
       dataForceChange.isChangePassword === true &&
       dataForceChange.isChangeProfile === false
     ) {
-      // console.log('enter modal force profile');
-
       stateUpdate = 2;
     }
 
