@@ -57,7 +57,6 @@ export class PollingDetailPage implements OnInit {
       this.isPushNotification = params['params']['isPushNotification'];
     });
 
-    // this.getDetailPolling();
     this.CheckVote(this.id);
   }
 
