@@ -92,7 +92,7 @@ export class PollingDetailPage implements OnInit {
       },
       err => {
         this.util.showToast(err.data.message);
-        // jika data not found
+        // if data not found
         this.navCtrl.back();
       }
     );
