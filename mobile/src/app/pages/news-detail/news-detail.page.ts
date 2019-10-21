@@ -56,7 +56,8 @@ export class NewsDetailPage implements OnInit {
 
     this.newsService.getDetailNews(id).subscribe(
       res => {
-        if (res['status'] === 200) {
+        // check if status respon 200 and status news not equal 0
+        if (res['status'] === 200 && res['data']['status'] !== 0) {
           this.dataNews = res['data'];
 
           // google event analytics
@@ -66,6 +67,11 @@ export class NewsDetailPage implements OnInit {
             this.dataNews.title,
             1
           );
+        } else if (res['data']['status'] === 0) {
+          this.util.showToast(Dictionary.news_not_found);
+
+          // go back to previous page
+          this.backButton();
         }
       },
       err => {}

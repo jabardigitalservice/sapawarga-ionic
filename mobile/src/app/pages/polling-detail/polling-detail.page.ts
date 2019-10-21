@@ -6,6 +6,7 @@ import { Polling } from '../../interfaces/polling';
 import { Dictionary } from '../../helpers/dictionary';
 import { UtilitiesService } from '../../services/utilities.service';
 import { Constants } from '../../helpers/constants';
+import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-polling-detail',
@@ -72,9 +73,22 @@ export class PollingDetailPage implements OnInit {
   }
 
   async getDetailPolling() {
+    const currentDate = formatDate(new Date(), 'yyyy/MM/dd', 'en');
     this.pollingService.getDetailPolling(this.id).subscribe(
       res => {
-        this.dataPolling = res['data'];
+        const getCompare = this.compareDate(
+          currentDate,
+          res['data']['end_date']
+        );
+
+        if (getCompare > 0) {
+          this.dataPolling = res['data'];
+        } else {
+          this.util.showToast(Dictionary.polling_not_found);
+
+          // go back to previous page
+          this.util.backButton(this.isPushNotification);
+        }
       },
       err => {
         this.util.showToast(err.data.message);
@@ -171,5 +185,18 @@ export class PollingDetailPage implements OnInit {
     ];
 
     this.util.alertConfirmation(Dictionary.polling_leave, buttons, header);
+  }
+
+  compareDate(currentDate: any, endDate: any): number {
+    // compare dates, create a new instance of Date with 'new Date()'
+    const current = new Date(currentDate);
+    const end = new Date(endDate);
+
+    // Check if the currentDate is less than endDate
+    if (current <= end) {
+      return 1;
+    } else {
+      return 0;
+    }
   }
 }
