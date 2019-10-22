@@ -26,7 +26,7 @@ const TOKEN_KEY = 'auth-token';
 })
 export class AspirasiFormPage implements OnInit {
   formAddAspirasi: FormGroup;
-  CategoriesAspirasi: Aspirasi[];
+  CategoriesAspirasi: any[];
   dataProfile: Profile;
   submitted = false;
   imageData: any;
@@ -51,7 +51,9 @@ export class AspirasiFormPage implements OnInit {
     private platform: Platform,
     private util: UtilitiesService,
     private constants: Constants
-  ) {}
+  ) {
+    this.CategoriesAspirasi = [];
+  }
 
   ionViewDidEnter() {
     // handle hardware backbutton
@@ -155,6 +157,18 @@ export class AspirasiFormPage implements OnInit {
     this.aspirasiService.getCategories().subscribe(
       res => {
         this.CategoriesAspirasi = res['data']['items'];
+
+        // move array element 'Lainnya' to end of array
+        const stringToFilter = 'Lainnya';
+        this.CategoriesAspirasi.push(
+          this.CategoriesAspirasi.splice(
+            this.CategoriesAspirasi.findIndex(
+              (value: any) => value.name === stringToFilter
+            ),
+            1
+          )[0]
+        );
+
         loader.dismiss();
       },
       err => {
