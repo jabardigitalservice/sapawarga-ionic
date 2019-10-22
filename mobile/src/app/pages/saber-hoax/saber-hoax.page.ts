@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Platform } from '@ionic/angular';
+import { Platform, NavController } from '@ionic/angular';
 import { Dictionary } from '../../helpers/dictionary';
 import { SaberHoaxService } from 'src/app/services/saber-hoax.service';
 import { SaberHoax } from 'src/app/interfaces/saber-hoax';
@@ -32,7 +32,8 @@ export class SaberHoaxPage implements OnInit {
     private platform: Platform,
     private inAppBrowser: InAppBrowser,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private navCtrl: NavController
   ) {
     this.telpSaberHoax = this.constants.telpSaberHoax;
   }
@@ -65,6 +66,7 @@ export class SaberHoaxPage implements OnInit {
   getListSaberHoax(infiniteScroll?: any) {
     if (!navigator.onLine) {
       alert(Dictionary.offline);
+      this.navCtrl.navigateRoot('/');
       return;
     }
 
