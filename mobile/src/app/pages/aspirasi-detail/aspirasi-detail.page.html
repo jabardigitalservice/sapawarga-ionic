@@ -97,7 +97,7 @@
         </div>
         <div slot="end">
           <ion-text class="date-text">{{
-            dataAspirasi.updated_at * 1000 | date: 'd MMMM y h:mm'
+            dataAspirasi.updated_at * 1000 | date: 'd MMMM y H:mm'
           }}</ion-text>
         </div>
       </ion-item>
@@ -105,7 +105,9 @@
 
     <div
       class="section-desc"
-      *ngIf="myAspirasi && (dataAspirasi.status === 3 || dataAspirasi.status === 10)"
+      *ngIf="
+        myAspirasi && (dataAspirasi.status === 3 || dataAspirasi.status === 10)
+      "
     >
       <ion-text class="category-text">{{
         dataAspirasi['category']['name']
