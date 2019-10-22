@@ -112,9 +112,6 @@ export class AppComponent {
         // check app is up to date / not
         this.appUpdateService.checkAppUpdate();
 
-        // check information popup
-        this.informationPopupService.checkInformationPopup();
-
         // integration google analytics
         this.googleAnalytics
           .startTrackerWithId(this.constants.trackIdGoogleAnalytics)
@@ -132,6 +129,9 @@ export class AppComponent {
               // show component modal force profile
               this.showModalUpdate(2);
             }
+
+            // check information popup
+            this.informationPopupService.checkInformationPopup();
 
             this.navCtrl.navigateRoot('/');
 
