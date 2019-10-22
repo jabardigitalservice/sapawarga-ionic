@@ -28,8 +28,6 @@ export class AspirasiDetailPage implements OnInit {
 
   offline = false;
 
-  prefixUrl = `${environment.API_STORAGE}/image/`;
-
   constructor(
     private route: ActivatedRoute,
     private aspirasiService: AspirasiService,

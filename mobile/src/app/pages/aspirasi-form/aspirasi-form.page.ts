@@ -31,7 +31,6 @@ export class AspirasiFormPage implements OnInit {
   submitted = false;
   imageData: any;
   images = [];
-  urlStorage = `${environment.API_STORAGE}/image/`;
 
   dataAspirasi: Aspirasi;
 
@@ -351,7 +350,8 @@ export class AspirasiFormPage implements OnInit {
           if (response['success'] === true) {
             const image = {
               type: 'photo',
-              path: response['data']['path']
+              path: response['data']['path'],
+              url: response['data']['url']
             };
 
             this.images.push(image);
