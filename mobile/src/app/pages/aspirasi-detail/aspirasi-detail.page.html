@@ -103,7 +103,10 @@
       </ion-item>
     </div>
 
-    <div class="section-desc">
+    <div
+      class="section-desc"
+      *ngIf="myAspirasi && (dataAspirasi.status === 3 || dataAspirasi.status === 10)"
+    >
       <ion-text class="category-text">{{
         dataAspirasi['category']['name']
       }}</ion-text>
