@@ -163,7 +163,7 @@ export class AspirasiFormPage implements OnInit {
         this.CategoriesAspirasi.push(
           this.CategoriesAspirasi.splice(
             this.CategoriesAspirasi.findIndex(
-              (v: any) => v.name === stringToFilter
+              (value: any) => value.name === stringToFilter
             ),
             1
           )[0]
