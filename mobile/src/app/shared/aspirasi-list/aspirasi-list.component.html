@@ -91,6 +91,11 @@
           aspirasi.category.name
         }}</ion-text>
       </ion-item>
+      <ion-text>
+        <p class="text08">
+          {{ aspirasi.updated_at * 1000 | date: 'd MMMM y h:mm' }}
+        </p>
+      </ion-text>
 
       <ion-text>{{ aspirasi.title }}</ion-text>
     </div>
