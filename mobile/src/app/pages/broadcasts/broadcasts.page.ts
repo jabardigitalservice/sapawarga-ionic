@@ -29,6 +29,10 @@ export class BroadcastsPage implements OnInit {
 
   idUser: number;
 
+  isIndeterminate: boolean;
+  masterCheck: boolean;
+  checkBoxList: any;
+
   constructor(
     private broadcastService: BroadcastService,
     public loadingCtrl: LoadingController,
@@ -38,6 +42,29 @@ export class BroadcastsPage implements OnInit {
     private profileService: ProfileService
   ) {
     this.idUser = this.profileService.getLocalProfile().id;
+
+    this.checkBoxList = [
+      {
+        value: 'Esteban Gutmann IV',
+        isChecked: false
+      },
+      {
+        value: 'Bernardo Prosacco Jr.',
+        isChecked: false
+      },
+      {
+        value: 'Nicholaus Kulas PhD',
+        isChecked: false
+      },
+      {
+        value: 'Jennie Feeney',
+        isChecked: false
+      },
+      {
+        value: 'Shanon Heaney',
+        isChecked: false
+      }
+    ];
   }
 
   ngOnInit() {
@@ -109,6 +136,11 @@ export class BroadcastsPage implements OnInit {
         if (res['data']['items'].length) {
           this.dataBroadcast = res['data']['items'];
 
+          // add new element isChecked for identify delete broadcast
+          this.dataBroadcast.forEach(key => {
+            key['isChecked'] = false;
+          });
+
           // save to local
           this.broadcastService.saveLocalBroadcast(this.dataBroadcast);
         } else {
@@ -178,5 +210,48 @@ export class BroadcastsPage implements OnInit {
   // check if data isRead/UnRead
   checkRead(id: string) {
     return this.dataRead.filter(x => x.id === id).length > 0;
+  }
+
+  // checkMaster() {
+  //   setTimeout(() => {
+  //     this.dataBroadcast.forEach(obj => {
+  //       obj.isChecked = this.masterCheck;
+  //     });
+  //   });
+  // }
+
+  checkEvent() {
+    const totalItems = this.dataBroadcast.length;
+    let checked = 0;
+    this.dataBroadcast.map(obj => {
+      if (obj.isChecked) {
+        checked++;
+      }
+    });
+    if (checked > 0 && checked < totalItems) {
+      // If even one item is checked but not all
+      this.isIndeterminate = true;
+      this.masterCheck = false;
+    } else if (checked === totalItems) {
+      // If all are checked
+      this.masterCheck = true;
+      this.isIndeterminate = false;
+    } else {
+      // If none is checked
+      this.isIndeterminate = false;
+      this.masterCheck = false;
+    }
+
+    // console.log(this.dataBroadcast);
+  }
+
+  deleteBroadcast() {
+    const dataDeleteBroadcast: Broadcast[] = [];
+    this.dataBroadcast.map(obj => {
+      if (obj.isChecked) {
+        dataDeleteBroadcast.push(obj);
+      }
+    });
+    console.log(dataDeleteBroadcast);
   }
 }

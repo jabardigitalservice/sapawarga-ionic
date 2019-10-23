@@ -7,6 +7,19 @@
   ion-card-subtitle {
     margin-bottom: 8px !important;
   }
+
+  ion-item {
+    --inner-border-width: 0 0 0 0;
+  }
+
+  ion-card {
+    width: 100%;
+  }
+
+  ion-checkbox {
+    -webkit-margin-start: 0px;
+    margin-inline-start: 5px;
+  }
 }
 
 .dark-read {

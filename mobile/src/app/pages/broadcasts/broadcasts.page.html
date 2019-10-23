@@ -1,6 +1,13 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>Pesan</ion-title>
+
+    <ion-icon
+      name="trash"
+      slot="end"
+      size="large"
+      (click)="deleteBroadcast()"
+    ></ion-icon>
   </ion-toolbar>
 </ion-header>
 
@@ -30,27 +37,73 @@
     </ion-card>
   </div>
 
-  <div *ngIf="dataBroadcast">
-    <ion-card
-      *ngFor="let broadcast of dataBroadcast"
-      (click)="goDetail(broadcast)"
-    >
-      <ion-card-header>
-        <ion-card-subtitle
-          class="dark-read"
-          [ngClass]="{ 'dark-read': !checkRead(broadcast.id) }"
-          >Dari: {{ broadcast.sender_name }}</ion-card-subtitle
-        >
-        <ion-card-subtitle>{{
-          broadcast.updated_at * 1000 | date: 'd MMMM y h:mm'
-        }}</ion-card-subtitle>
-        <ion-card-subtitle [ngClass]="{ 'dark-read': !checkRead(broadcast.id) }"
-          >[ {{ broadcast.category_name }} ]</ion-card-subtitle
-        >
-        <ion-text [ngClass]="{ 'dark-read': !checkRead(broadcast.id) }">{{
-          broadcast.title
-        }}</ion-text>
-      </ion-card-header>
-    </ion-card>
-  </div>
+  <!-- <div *ngIf="dataBroadcast">
+    <ion-item>
+      <ion-checkbox slot="start"></ion-checkbox>
+
+      <ion-card
+        *ngFor="let broadcast of dataBroadcast"
+        (click)="goDetail(broadcast)"
+      >
+        <ion-card-header>
+          <ion-card-subtitle
+            class="dark-read"
+            [ngClass]="{ 'dark-read': !checkRead(broadcast.id) }"
+            >Dari: {{ broadcast.sender_name }}</ion-card-subtitle
+          >
+          <ion-card-subtitle>{{
+            broadcast.updated_at * 1000 | date: 'd MMMM y h:mm'
+          }}</ion-card-subtitle>
+          <ion-card-subtitle
+            [ngClass]="{ 'dark-read': !checkRead(broadcast.id) }"
+            >[ {{ broadcast.category_name }} ]</ion-card-subtitle
+          >
+          <ion-text [ngClass]="{ 'dark-read': !checkRead(broadcast.id) }">{{
+            broadcast.title
+          }}</ion-text>
+        </ion-card-header>
+      </ion-card>
+    </ion-item>
+  </div> -->
+
+  <!-- <ion-list>
+    <ion-item>
+      <ion-label><strong>Select All</strong></ion-label>
+      <ion-checkbox
+        slot="start"
+        [(ngModel)]="masterCheck"
+        [indeterminate]="isIndeterminate"
+        (click)="checkMaster($event)"
+      ></ion-checkbox>
+    </ion-item>
+  </ion-list> -->
+  <ion-list *ngIf="dataBroadcast">
+    <ion-item *ngFor="let broadcast of dataBroadcast">
+      <ion-card>
+        <ion-card-header>
+          <ion-card-subtitle
+            class="dark-read"
+            [ngClass]="{ 'dark-read': !checkRead(broadcast.id) }"
+            >Dari: {{ broadcast.sender_name }}</ion-card-subtitle
+          >
+          <ion-card-subtitle>{{
+            broadcast.updated_at * 1000 | date: 'd MMMM y h:mm'
+          }}</ion-card-subtitle>
+          <ion-card-subtitle
+            [ngClass]="{ 'dark-read': !checkRead(broadcast.id) }"
+            >[ {{ broadcast.category_name }} ]</ion-card-subtitle
+          >
+          <ion-text [ngClass]="{ 'dark-read': !checkRead(broadcast.id) }">{{
+            broadcast.title
+          }}</ion-text>
+        </ion-card-header>
+      </ion-card>
+
+      <ion-checkbox
+        slot="end"
+        [(ngModel)]="broadcast.isChecked"
+        (ionChange)="checkEvent()"
+      ></ion-checkbox>
+    </ion-item>
+  </ion-list>
 </ion-content>
