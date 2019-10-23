@@ -64,12 +64,6 @@ export class SaberHoaxPage implements OnInit {
   }
 
   getListSaberHoax(infiniteScroll?: any) {
-    if (!navigator.onLine) {
-      alert(Dictionary.offline);
-      this.navCtrl.navigateRoot('/');
-      return;
-    }
-
     // clear state
     this.msgResponse = {
       type: '',
