@@ -7,7 +7,6 @@ import { MenuNavbarAspirasiComponent } from '../../components/menu-navbar-aspira
 import { Dictionary } from '../../helpers/dictionary';
 import { UtilitiesService } from '../../services/utilities.service';
 import { Constants } from '../../helpers/constants';
-import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-aspirasi-detail',
@@ -27,8 +26,6 @@ export class AspirasiDetailPage implements OnInit {
   myAspirasi = false;
 
   offline = false;
-
-  prefixUrl = `${environment.API_STORAGE}/image/`;
 
   constructor(
     private route: ActivatedRoute,
@@ -236,11 +233,5 @@ export class AspirasiDetailPage implements OnInit {
     popover.onDidDismiss();
 
     return await popover.present();
-  }
-
-  async viewNote(message: string) {
-    const buttons = ['OK'];
-
-    this.util.alertConfirmation(message, buttons);
   }
 }

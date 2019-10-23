@@ -30,8 +30,6 @@ export class AspirasiListComponent implements OnInit {
     msg: ''
   };
 
-  prefixUrl = `${environment.API_STORAGE}/image/`;
-
   constructor(
     private aspirasiService: AspirasiService,
     private router: Router,

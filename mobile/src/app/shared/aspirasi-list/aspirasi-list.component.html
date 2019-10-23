@@ -41,7 +41,7 @@
     <ion-item (click)="goDetail(aspirasi.id)">
       <ion-avatar slot="start">
         <img
-          [src]="prefixUrl + aspirasi.author.photo_url"
+          [src]="aspirasi.author.photo_url_full"
           onError="this.src='assets/img/user.png';"
         />
       </ion-avatar>
@@ -91,6 +91,11 @@
           aspirasi.category.name
         }}</ion-text>
       </ion-item>
+      <ion-text>
+        <p class="font-10">
+          {{ aspirasi.updated_at * 1000 | date: 'd MMMM y H:mm' }}
+        </p>
+      </ion-text>
 
       <ion-text>{{ aspirasi.title }}</ion-text>
     </div>

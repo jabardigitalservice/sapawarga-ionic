@@ -18,14 +18,13 @@
   .section-2 {
     --padding-start: none;
     --inner-padding-end: none;
-    margin-bottom: 5px;
+    margin-bottom: -15px;
   }
 }
 
 .img-cover {
   border-radius: 3px;
   object-fit: cover;
-  // max-height: 200px;
 }
 
 .icon-heart {
@@ -50,6 +49,10 @@
 .category-text {
   font-size: 15px;
   color: gray;
+}
+
+.font-10 {
+  font-size: 11px;
 }
 
 .liked {
