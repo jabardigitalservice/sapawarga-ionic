@@ -12,7 +12,6 @@ import { map, catchError, delay, timeout } from 'rxjs/operators';
 import { NavController, Platform } from '@ionic/angular';
 import { UtilitiesService } from '../services/utilities.service';
 import { AppVersion } from '@ionic-native/app-version/ngx';
-import { Constants } from './constants';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
@@ -21,8 +20,7 @@ export class TokenInterceptor implements HttpInterceptor {
     private navCtrl: NavController,
     private util: UtilitiesService,
     private platform: Platform,
-    public appVersion: AppVersion,
-    private constants: Constants
+    public appVersion: AppVersion
   ) {
     if (this.platform.platforms()) {
       this.appVersion
@@ -73,11 +71,6 @@ export class TokenInterceptor implements HttpInterceptor {
       }),
       catchError((error: HttpErrorResponse) => {
         if (error.status === 401) {
-          // if (error.error.success === false) {
-          //   console.log('Login failed');
-          // } else {
-          //   this.navCtrl.navigateRoot(['login']);
-          // }
           this.util.showToast(error.error.data.message);
           this.navCtrl.navigateRoot(['login']);
 
