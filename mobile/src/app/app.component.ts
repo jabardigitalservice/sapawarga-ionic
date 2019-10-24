@@ -196,7 +196,8 @@ export class AppComponent {
               this.inAppBrowser.create(meta.url, '_system'); // call webview in app
             } else if (
               data.target === 'notifikasi' &&
-              meta.target === 'survey'
+              meta.target === 'survey' &&
+              meta.url
             ) {
               this.util.launchweb(meta.url); // call webview external
             } else if (data.target === 'notifikasi' && meta.target === 'url') {
