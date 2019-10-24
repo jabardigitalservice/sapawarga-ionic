@@ -24,8 +24,8 @@ export class AspirasiDetailPage implements OnInit {
   };
 
   myAspirasi = false;
-
   offline = false;
+  isPushNotification = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -47,7 +47,13 @@ export class AspirasiDetailPage implements OnInit {
     // get data queryParam
     this.route.queryParamMap.subscribe(params => {
       this.myAspirasi = params['params']['myaspirasi'] ? true : false;
+
+      this.isPushNotification = params['params']['isPushNotification'];
     });
+  }
+
+  backButton() {
+    this.util.backButton(this.isPushNotification);
   }
 
   ionViewDidEnter() {
