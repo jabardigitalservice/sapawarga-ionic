@@ -83,9 +83,22 @@
         </p>
       </div>
 
-      <ion-text slot="end" class="category-text">{{
-        dataAspirasi['category']['name']
-      }}</ion-text>
+      <ion-text
+        slot="end"
+        class="date-text"
+        *ngIf="dataAspirasi.status === 5"
+        >{{
+          dataAspirasi.submitted_at * 1000 | date: 'd MMMM y H:mm'
+        }}</ion-text
+      >
+
+      <ion-text
+        slot="end"
+        class="date-text"
+        *ngIf="dataAspirasi.status === 3 || dataAspirasi.status === 10"
+      >
+        {{ dataAspirasi.approved_at * 1000 | date: 'd MMMM y H:mm' }}</ion-text
+      >
     </ion-item>
 
     <div *ngIf="myAspirasi" style="margin-bottom: 10px">
@@ -96,19 +109,32 @@
           </ion-text>
         </div>
         <div slot="end">
-          <ion-text class="date-text">{{
-            dataAspirasi.updated_at * 1000 | date: 'd MMMM y H:mm'
-          }}</ion-text>
+          <ion-text class="date-text" *ngIf="dataAspirasi.status === 5">
+            {{
+              dataAspirasi.submitted_at * 1000 | date: 'd MMMM y H:mm'
+            }}</ion-text
+          >
+
+          <ion-text
+            class="date-text"
+            *ngIf="dataAspirasi.status === 3 || dataAspirasi.status === 10"
+          >
+            {{
+              dataAspirasi.approved_at * 1000 | date: 'd MMMM y H:mm'
+            }}</ion-text
+          >
         </div>
       </ion-item>
     </div>
 
-    <div
+    <!-- <div
       class="section-desc"
       *ngIf="
         myAspirasi && (dataAspirasi.status === 3 || dataAspirasi.status === 10)
       "
-    >
+    > -->
+
+    <div class="section-desc">
       <ion-text class="category-text">{{
         dataAspirasi['category']['name']
       }}</ion-text>
