@@ -28,6 +28,7 @@ import { ForceChangePasswordComponent } from '../../shared/force-change-password
 import { ForceUpdateService } from '../../services/force-update.service';
 import { ForceChangeProfileComponent } from 'src/app/shared/force-change-profile/force-change-profile.component';
 import { ForgotPasswordComponent } from '../../shared/forgot-password/forgot-password.component';
+import { InformationPopupService } from '../../services/information-popup.service';
 
 @Component({
   selector: 'app-login',
@@ -62,7 +63,8 @@ export class LoginPage implements OnInit {
     private profileService: ProfileService,
     private util: UtilitiesService,
     private modalController: ModalController,
-    private forceUpdateService: ForceUpdateService
+    private forceUpdateService: ForceUpdateService,
+    private informationPopupService: InformationPopupService
   ) {
     this.appVersion
       .getVersionNumber()
@@ -239,6 +241,9 @@ export class LoginPage implements OnInit {
           res['data'].profile_updated_at !== null
         ) {
           this.navCtrl.navigateRoot(['/tabs']['home']);
+
+          // check information popup
+          this.informationPopupService.checkInformationPopup();
         } else {
           // check which should be update
           let isForceUpdate;
