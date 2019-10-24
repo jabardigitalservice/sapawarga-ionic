@@ -73,22 +73,15 @@ export class TokenInterceptor implements HttpInterceptor {
       }),
       catchError((error: HttpErrorResponse) => {
         if (error.status === 401) {
-          if (error.error.success === false) {
-            console.log('Login failed');
-          } else {
-            this.navCtrl.navigateRoot(['login']);
-            // clear locastorage
-            localStorage.clear();
-            localStorage.setItem(
-              this.constants.localStorage.onBoarding,
-              'true'
-            );
-          }
+          // if (error.error.success === false) {
+          //   console.log('Login failed');
+          // } else {
+          //   this.navCtrl.navigateRoot(['login']);
+          // }
           this.util.showToast(error.error.data.message);
           this.navCtrl.navigateRoot(['login']);
-          // clear locastorage
-          localStorage.clear();
-          localStorage.setItem(this.constants.localStorage.onBoarding, 'true');
+
+          localStorage.removeItem('auth-token');
         }
         return throwError(error);
       })
