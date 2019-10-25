@@ -46,10 +46,19 @@
         </ion-thumbnail>
         <ion-label>
           <h2>{{ aspirasi.title }}</h2>
+
+          <p class="font-10" *ngIf="aspirasi.status === 5">
+            {{ aspirasi.submitted_at * 1000 | date: 'd MMMM y H:mm' }}
+          </p>
+
+          <p
+            class="font-10"
+            *ngIf="aspirasi.status === 3 || aspirasi.status === 10"
+          >
+            {{ aspirasi.approved_at * 1000 | date: 'd MMMM y H:mm' }}
+          </p>
+
           <ion-item class="section-2">
-            <p class="font-10">
-              {{ aspirasi.updated_at * 1000 | date: 'd MMMM y h:mm' }}
-            </p>
             <ion-badge
               class="font-10"
               [color]="checkStatus(aspirasi.status)"

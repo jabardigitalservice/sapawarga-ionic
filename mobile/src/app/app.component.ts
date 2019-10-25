@@ -130,9 +130,6 @@ export class AppComponent {
               this.showModalUpdate(2);
             }
 
-            // check information popup
-            this.informationPopupService.checkInformationPopup();
-
             this.navCtrl.navigateRoot('/');
 
             //  get ID user
@@ -176,6 +173,11 @@ export class AppComponent {
 
               // set user id
               this.googleAnalytics.addCustomDimension(9, dataUser.id);
+
+              if (dataUser.password_updated_at) {
+                // check information popup
+                this.informationPopupService.checkInformationPopup();
+              }
             }
           } else {
             const hasOnboarding = localStorage.getItem('has-onboarding');
@@ -194,7 +196,8 @@ export class AppComponent {
               this.inAppBrowser.create(meta.url, '_system'); // call webview in app
             } else if (
               data.target === 'notifikasi' &&
-              meta.target === 'survey'
+              meta.target === 'survey' &&
+              meta.url
             ) {
               this.util.launchweb(meta.url); // call webview external
             } else if (data.target === 'notifikasi' && meta.target === 'url') {

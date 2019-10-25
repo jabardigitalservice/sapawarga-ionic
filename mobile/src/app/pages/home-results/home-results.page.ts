@@ -261,6 +261,12 @@ export class HomeResultsPage implements OnInit {
         this.navigationForward(path, 'tapped_survei');
         break;
       case 'Saber Hoaks':
+        // check if offline
+        if (!navigator.onLine) {
+          alert(Dictionary.offline);
+          return;
+        }
+
         this.navigationForward(path, 'tapped_saber_hoax');
         break;
       case 'Lainnya':

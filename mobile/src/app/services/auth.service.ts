@@ -18,8 +18,7 @@ export class AuthService {
   constructor(
     private http: HttpClient,
     private plt: Platform,
-    private util: UtilitiesService,
-    private constants: Constants
+    private util: UtilitiesService
   ) {
     this.plt.ready().then(() => {
       this.checkToken();
@@ -48,7 +47,7 @@ export class AuthService {
 
   // logout and clear session
   logout() {
-    localStorage.clear();
+    localStorage.removeItem(TOKEN_KEY);
     this.authenticationState.next(false);
 
     const httpPost = this.http

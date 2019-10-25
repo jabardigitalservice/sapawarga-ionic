@@ -25,7 +25,6 @@ export class InformationPopupComponent implements OnInit {
 
   ngOnInit() {
     this.dataPopup = this.navParams.get('dataPopup');
-    console.log(this.dataPopup);
   }
 
   goToDetail() {

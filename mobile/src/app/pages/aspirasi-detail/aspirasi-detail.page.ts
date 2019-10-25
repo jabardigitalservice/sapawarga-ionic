@@ -7,7 +7,6 @@ import { MenuNavbarAspirasiComponent } from '../../components/menu-navbar-aspira
 import { Dictionary } from '../../helpers/dictionary';
 import { UtilitiesService } from '../../services/utilities.service';
 import { Constants } from '../../helpers/constants';
-import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-aspirasi-detail',
@@ -25,10 +24,8 @@ export class AspirasiDetailPage implements OnInit {
   };
 
   myAspirasi = false;
-
   offline = false;
-
-  prefixUrl = `${environment.API_STORAGE}/image/`;
+  isPushNotification = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -50,7 +47,13 @@ export class AspirasiDetailPage implements OnInit {
     // get data queryParam
     this.route.queryParamMap.subscribe(params => {
       this.myAspirasi = params['params']['myaspirasi'] ? true : false;
+
+      this.isPushNotification = params['params']['isPushNotification'];
     });
+  }
+
+  backButton() {
+    this.util.backButton(this.isPushNotification);
   }
 
   ionViewDidEnter() {
@@ -236,11 +239,5 @@ export class AspirasiDetailPage implements OnInit {
     popover.onDidDismiss();
 
     return await popover.present();
-  }
-
-  async viewNote(message: string) {
-    const buttons = ['OK'];
-
-    this.util.alertConfirmation(message, buttons);
   }
 }

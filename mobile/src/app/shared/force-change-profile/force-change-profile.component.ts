@@ -10,6 +10,7 @@ import {
   Platform
 } from '@ionic/angular';
 import { Constants } from '../../helpers/constants';
+import { InformationPopupService } from '../../services/information-popup.service';
 
 @Component({
   selector: 'app-force-change-profile',
@@ -28,7 +29,8 @@ export class ForceChangeProfileComponent implements OnInit {
     private navCtrl: NavController,
     private modalCtrl: ModalController,
     private constants: Constants,
-    private platform: Platform
+    private platform: Platform,
+    private informationPopupService: InformationPopupService
   ) {
     this.changeProfileForm = this.formBuilder.group({
       name: [
@@ -115,6 +117,9 @@ export class ForceChangeProfileComponent implements OnInit {
             loader.dismiss();
             localStorage.removeItem('forceChange');
             this.navCtrl.navigateRoot('/');
+
+            // check information popup
+            this.informationPopupService.checkInformationPopup();
 
             // event google analytics
             this.util.trackEvent(

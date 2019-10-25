@@ -1,7 +1,11 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
+      <ion-buttons slot="start" (click)="backButton()">
+        <ion-button shape="round" color="dark">
+          <ion-icon name="arrow-back"></ion-icon>
+        </ion-button>
+      </ion-buttons>
     </ion-buttons>
     <ion-title>Detail Usulan</ion-title>
     <ion-icon
@@ -42,7 +46,7 @@
     <ion-item style="margin-top: 10px;">
       <ion-avatar slot="start">
         <img
-          [src]="prefixUrl + dataAspirasi.author.photo_url"
+          [src]="dataAspirasi.author.photo_url_full"
           onError="this.src='assets/img/user.png';"
         />
       </ion-avatar>
@@ -83,9 +87,22 @@
         </p>
       </div>
 
-      <ion-text slot="end" class="category-text">{{
-        dataAspirasi['category']['name']
-      }}</ion-text>
+      <ion-text
+        slot="end"
+        class="date-text"
+        *ngIf="dataAspirasi.status === 5"
+        >{{
+          dataAspirasi.submitted_at * 1000 | date: 'd MMMM y H:mm'
+        }}</ion-text
+      >
+
+      <ion-text
+        slot="end"
+        class="date-text"
+        *ngIf="dataAspirasi.status === 3 || dataAspirasi.status === 10"
+      >
+        {{ dataAspirasi.approved_at * 1000 | date: 'd MMMM y H:mm' }}</ion-text
+      >
     </ion-item>
 
     <div *ngIf="myAspirasi" style="margin-bottom: 10px">
@@ -96,20 +113,30 @@
           </ion-text>
         </div>
         <div slot="end">
-          <ion-text class="date-text">{{
-            dataAspirasi.updated_at * 1000 | date: 'd MMMM y h:mm'
-          }}</ion-text>
+          <ion-text class="date-text" *ngIf="dataAspirasi.status === 5">
+            {{
+              dataAspirasi.submitted_at * 1000 | date: 'd MMMM y H:mm'
+            }}</ion-text
+          >
+
+          <ion-text
+            class="date-text"
+            *ngIf="dataAspirasi.status === 3 || dataAspirasi.status === 10"
+          >
+            {{
+              dataAspirasi.approved_at * 1000 | date: 'd MMMM y H:mm'
+            }}</ion-text
+          >
         </div>
       </ion-item>
-
-      <div *ngIf="dataAspirasi.status === 3" class="section-note">
-        <ion-badge
-          class="badge-size badge-note"
-          (click)="viewNote(dataAspirasi.approval_note)"
-          >Lihat Catatan</ion-badge
-        >
-      </div>
     </div>
+
+    <!-- <div
+      class="section-desc"
+      *ngIf="
+        myAspirasi && (dataAspirasi.status === 3 || dataAspirasi.status === 10)
+      "
+    > -->
 
     <div class="section-desc">
       <ion-text class="category-text">{{
@@ -119,7 +146,15 @@
       <ion-label class="ion-text-justify">{{
         dataAspirasi['description']
       }}</ion-label>
+
+      <div *ngIf="dataAspirasi['approval_note']" class="section-note">
+        <h6 style="font-weight: bold;">Catatan</h6>
+        <ion-label class="ion-text-justify">{{
+          dataAspirasi['approval_note']
+        }}</ion-label>
+      </div>
     </div>
+
     <ion-text padding class="location" *ngIf="!myAspirasi">
       {{ dataAspirasi['kabkota']['name'] }},
       {{ dataAspirasi['kecamatan']['name'] }},

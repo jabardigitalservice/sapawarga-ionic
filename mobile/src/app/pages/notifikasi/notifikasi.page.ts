@@ -62,7 +62,11 @@ export class NotifikasiPage implements OnInit {
   goToDetail(index: number, meta: any, target: string) {
     if (target === 'url') {
       this.inAppBrowser.create(meta.url, '_system'); // call webview in app
-    } else if (target === 'notifikasi' && meta.target === 'survey') {
+    } else if (
+      target === 'notifikasi' &&
+      meta.target === 'survey' &&
+      meta.url
+    ) {
       this.util.launchweb(meta.url); // call webview external
     } else if (target === 'notifikasi' && meta.target === 'url') {
       this.inAppBrowser.create(meta.url, '_system'); // call yotube app
