@@ -240,4 +240,18 @@ export class AspirasiDetailPage implements OnInit {
 
     return await popover.present();
   }
+
+  checkPublish() {
+    let status: boolean;
+    switch (this.dataAspirasi.status) {
+      case 10:
+        status = true;
+        break;
+      default:
+        status = false;
+        break;
+    }
+
+    return status;
+  }
 }
