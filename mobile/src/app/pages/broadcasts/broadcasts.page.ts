@@ -222,27 +222,27 @@ export class BroadcastsPage implements OnInit {
 
   checkEvent() {
     const totalItems = this.dataBroadcast.length;
+    const itemSelected = [];
     let checked = 0;
     this.dataBroadcast.map(obj => {
       if (obj.isChecked) {
         checked++;
+        // add object to list
+        itemSelected.push(obj);
       }
     });
+
+    console.log(itemSelected);
+
     if (checked > 0 && checked < totalItems) {
       // If even one item is checked but not all
       this.isIndeterminate = true;
       this.masterCheck = false;
-    } else if (checked === totalItems) {
-      // If all are checked
-      this.masterCheck = true;
-      this.isIndeterminate = false;
     } else {
       // If none is checked
       this.isIndeterminate = false;
       this.masterCheck = false;
     }
-
-    // console.log(this.dataBroadcast);
   }
 
   deleteBroadcast() {
