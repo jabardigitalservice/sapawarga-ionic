@@ -5,6 +5,7 @@ import { catchError } from 'rxjs/operators';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { Profile } from '../interfaces/profile';
 import { UtilitiesService } from './utilities.service';
+import { JobTypes } from '../interfaces/job-types';
 
 const PROFILE = 'PROFILE';
 @Injectable({
@@ -72,6 +73,12 @@ export class ProfileService {
   changePassword(data: any): Observable<any> {
     return this.http
       .post(`${environment.API_URL}/user/me/change-password`, data)
+      .pipe(catchError(this.util.handleError));
+  }
+
+  getJobs() {
+    return this.http
+      .get<JobTypes[]>(`${environment.API_URL}/job-types`)
       .pipe(catchError(this.util.handleError));
   }
 }

@@ -102,6 +102,8 @@ export class EditProfilePage implements OnInit {
       lat: [''],
       lon: ['']
     });
+
+    this.getJobs();
   }
 
   ionViewDidEnter() {
@@ -291,6 +293,24 @@ export class EditProfilePage implements OnInit {
     this.areasService.getKabKota().subscribe(
       res => {
         this.dataKabkota = res['data']['items'];
+        loader.dismiss();
+      },
+      err => {
+        this.util.showToast(Dictionary.check_internal);
+        loader.dismiss();
+      }
+    );
+  }
+
+  async getJobs() {
+    const loader = await this.loadingCtrl.create({
+      duration: 10000
+    });
+    loader.present();
+
+    this.profileService.getJobs().subscribe(
+      res => {
+        console.log(res['data']['items']);
         loader.dismiss();
       },
       err => {
