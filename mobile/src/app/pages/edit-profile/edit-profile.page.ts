@@ -18,6 +18,8 @@ import {
 import { environment } from '../../../environments/environment';
 import { Dictionary } from '../../helpers/dictionary';
 import { Constants } from '../../helpers/constants';
+import { JobTypes } from '../../interfaces/job-types';
+import { Education } from '../../interfaces/education';
 
 const TOKEN_KEY = 'auth-token';
 @Component({
@@ -32,6 +34,8 @@ export class EditProfilePage implements OnInit {
   dataKabkota: Areas;
   dataKecamatan: Areas;
   dataKelurahan: Areas;
+  dataJobs: JobTypes;
+  dataEducations: Education;
 
   imageData: any;
   image: any;
@@ -100,10 +104,14 @@ export class EditProfilePage implements OnInit {
       facebook: [''],
       twitter: ['', [Validators.pattern(/^[a-z0-9_.]+$/)]],
       lat: [''],
-      lon: ['']
+      lon: [''],
+      birthday: ['', [Validators.required]],
+      education: ['', [Validators.required]],
+      job: ['', [Validators.required]]
     });
 
     this.getJobs();
+    this.getEducations();
   }
 
   ionViewDidEnter() {
@@ -310,7 +318,29 @@ export class EditProfilePage implements OnInit {
 
     this.profileService.getJobs().subscribe(
       res => {
-        console.log(res['data']['items']);
+        this.dataJobs = res['data']['items'];
+
+        console.log(this.dataJobs);
+        loader.dismiss();
+      },
+      err => {
+        this.util.showToast(Dictionary.check_internal);
+        loader.dismiss();
+      }
+    );
+  }
+
+  async getEducations() {
+    const loader = await this.loadingCtrl.create({
+      duration: 10000
+    });
+    loader.present();
+
+    this.profileService.getEducations().subscribe(
+      res => {
+        this.dataEducations = res['data']['items'];
+
+        console.log(this.dataEducations);
         loader.dismiss();
       },
       err => {

@@ -68,6 +68,51 @@
               </div>
 
               <ion-item>
+                <ion-label color="dark" position="stacked"
+                  >Tanggal lahir:</ion-label
+                >
+                <ion-datetime
+                  displayFormat="DDDD MMM D, YYYY"
+                  min="1945"
+                  max="2000"
+                  formControlName="birthday"
+                  placeholder="Masukkan tanggal lahir anda"
+                ></ion-datetime>
+              </ion-item>
+
+              <ion-item *ngIf="dataEducations">
+                <ion-label>Pendidikan:</ion-label>
+                <ion-select
+                  formControlName="education"
+                  okText="Pilih"
+                  cancelText="Batal"
+                  placeholder="Pilih Pendidikan"
+                >
+                  <ion-select-option
+                    *ngFor="let education of dataEducations"
+                    value="{{ education.id }}"
+                    >{{ education.name }}
+                  </ion-select-option>
+                </ion-select>
+              </ion-item>
+
+              <ion-item *ngIf="dataJobs">
+                <ion-label>Pekerjaan:</ion-label>
+                <ion-select
+                  formControlName="job"
+                  okText="Pilih"
+                  cancelText="Batal"
+                  placeholder="Pilih Pekerjaan"
+                >
+                  <ion-select-option
+                    *ngFor="let job of dataJobs"
+                    value="{{ job.id }}"
+                    >{{ job.name }}
+                  </ion-select-option>
+                </ion-select>
+              </ion-item>
+
+              <ion-item>
                 <ion-label color="dark" position="stacked">Username:</ion-label>
                 <ion-input
                   type="text"

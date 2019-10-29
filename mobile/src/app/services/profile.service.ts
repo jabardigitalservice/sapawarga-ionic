@@ -6,6 +6,7 @@ import { Observable, BehaviorSubject } from 'rxjs';
 import { Profile } from '../interfaces/profile';
 import { UtilitiesService } from './utilities.service';
 import { JobTypes } from '../interfaces/job-types';
+import { Education } from '../interfaces/education';
 
 const PROFILE = 'PROFILE';
 @Injectable({
@@ -78,7 +79,13 @@ export class ProfileService {
 
   getJobs() {
     return this.http
-      .get<JobTypes[]>(`${environment.API_URL}/job-types`)
+      .get<JobTypes[]>(`${environment.API_MOCK}/job-types`)
+      .pipe(catchError(this.util.handleError));
+  }
+
+  getEducations() {
+    return this.http
+      .get<Education[]>(`${environment.API_MOCK}/education-levels`)
       .pipe(catchError(this.util.handleError));
   }
 }
