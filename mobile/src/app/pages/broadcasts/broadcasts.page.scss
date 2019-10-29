@@ -20,6 +20,11 @@
     -webkit-margin-start: 0px;
     margin-inline-start: 5px;
   }
+
+  ion-button {
+    --color: var(--ion-toolbar-color, var(--ion-text-color, #424242));
+    text-transform: unset;
+  }
 }
 
 .dark-read {

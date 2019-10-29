@@ -33,6 +33,8 @@ export class BroadcastsPage implements OnInit {
   masterCheck: boolean;
   checkBoxList: any;
 
+  isPressDelete = false;
+
   constructor(
     private broadcastService: BroadcastService,
     public loadingCtrl: LoadingController,
@@ -104,6 +106,9 @@ export class BroadcastsPage implements OnInit {
     if (this.dataRead && this.dataBroadcast) {
       this.checkLenghtRead();
     }
+
+    this.isPressDelete = false;
+    this.isIndeterminate = false;
   }
 
   // Called when view is left
@@ -171,6 +176,9 @@ export class BroadcastsPage implements OnInit {
 
   // go to detail broadcast with param id
   goDetail(broadcast: Broadcast) {
+    if (this.isPressDelete) {
+      return;
+    }
     // add to list dataRead
     if (this.checkRead(broadcast.id) === false) {
       const data = {
@@ -232,7 +240,7 @@ export class BroadcastsPage implements OnInit {
       }
     });
 
-    console.log(itemSelected);
+    // console.log(itemSelected);
 
     if (checked > 0 && checked < totalItems) {
       // If even one item is checked but not all
@@ -253,5 +261,13 @@ export class BroadcastsPage implements OnInit {
       }
     });
     console.log(dataDeleteBroadcast);
+  }
+
+  eventDelete($event) {
+    if (this.isPressDelete === false) {
+      this.isPressDelete = true;
+    } else {
+      this.isPressDelete = false;
+    }
   }
 }

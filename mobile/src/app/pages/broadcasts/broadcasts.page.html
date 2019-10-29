@@ -2,6 +2,15 @@
   <ion-toolbar>
     <ion-title>Pesan</ion-title>
 
+    <ion-button
+      *ngIf="isPressDelete"
+      strong
+      slot="end"
+      fill="clear"
+      (click)="eventDelete()"
+      >Batal</ion-button
+    >
+
     <ion-icon
       *ngIf="isIndeterminate"
       name="trash"
@@ -80,7 +89,7 @@
   </ion-list> -->
   <ion-list *ngIf="dataBroadcast">
     <ion-item *ngFor="let broadcast of dataBroadcast">
-      <ion-card>
+      <ion-card (click)="goDetail(broadcast)" (press)="eventDelete($event)">
         <ion-card-header>
           <ion-card-subtitle
             class="dark-read"
@@ -101,6 +110,7 @@
       </ion-card>
 
       <ion-checkbox
+        *ngIf="isPressDelete"
         slot="end"
         [(ngModel)]="broadcast.isChecked"
         (ionChange)="checkEvent()"
