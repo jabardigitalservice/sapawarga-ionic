@@ -72,7 +72,7 @@
 
     <ion-item
       class="section-2"
-      *ngIf="!myAspirasi && dataAspirasi.status === 10"
+      *ngIf="!myAspirasi && checkPublish() && dataAspirasi.status === 10"
     >
       <div class="d-inline-f" slot="start">
         <ion-icon
@@ -105,7 +105,10 @@
       >
     </ion-item>
 
-    <div *ngIf="myAspirasi" style="margin-bottom: 10px">
+    <div
+      *ngIf="myAspirasi || checkPublish() === false"
+      style="margin-bottom: 10px"
+    >
       <ion-item>
         <div slot="start">
           <ion-text [color]="checkStatus(dataAspirasi.status)">
@@ -155,7 +158,7 @@
       </div>
     </div>
 
-    <ion-text padding class="location" *ngIf="!myAspirasi">
+    <ion-text padding class="location" *ngIf="!myAspirasi && checkPublish()">
       {{ dataAspirasi['kabkota']['name'] }},
       {{ dataAspirasi['kecamatan']['name'] }},
       {{ dataAspirasi['kelurahan']['name'] }}
