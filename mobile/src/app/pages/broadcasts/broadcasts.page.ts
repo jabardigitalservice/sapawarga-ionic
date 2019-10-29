@@ -110,7 +110,7 @@ export class BroadcastsPage implements OnInit {
     this.isPressDelete = false;
     this.isIndeterminate = false;
 
-    this.clearChecked();
+    // this.clearChecked();
   }
 
   // Called when view is left
@@ -269,13 +269,27 @@ export class BroadcastsPage implements OnInit {
   }
 
   deleteBroadcast() {
-    const dataDeleteBroadcast: Broadcast[] = [];
+    const dataDeleteBroadcast = [];
     this.dataBroadcast.map(obj => {
       if (obj.isChecked) {
-        dataDeleteBroadcast.push(obj);
+        dataDeleteBroadcast.push(obj.id);
       }
     });
-    console.log(dataDeleteBroadcast);
+    // console.log(dataDeleteBroadcast);
+    // check internet
+    if (!navigator.onLine) {
+      alert(Dictionary.offline);
+      return;
+    }
+
+    this.broadcastService.deleteBroadcast(dataDeleteBroadcast).subscribe(
+      res => {
+        console.log(res);
+      },
+      err => {
+        console.log(err);
+      }
+    );
   }
 
   eventDelete($event) {
@@ -288,6 +302,7 @@ export class BroadcastsPage implements OnInit {
   }
 
   clearChecked() {
+    this.isIndeterminate = false;
     // clear checked
     this.dataBroadcast.map(obj => {
       obj.isChecked = false;
