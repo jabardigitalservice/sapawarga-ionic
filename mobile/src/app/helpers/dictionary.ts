@@ -57,5 +57,9 @@ export enum Dictionary {
 
   // news message
   news_not_found = 'Berita tidak ditemukan',
-  msg_news = 'Tidak ada daftar berita yang dibuat'
+  msg_news = 'Tidak ada daftar berita yang dibuat',
+
+  // broadcast
+  delete_broadcast = 'Apakah Anda yakin ingin menghapus pesan ini?',
+  header_broadcast = 'Hapus Pesan'
 }

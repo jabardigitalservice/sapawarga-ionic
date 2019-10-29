@@ -109,6 +109,8 @@ export class BroadcastsPage implements OnInit {
 
     this.isPressDelete = false;
     this.isIndeterminate = false;
+
+    this.clearChecked();
   }
 
   // Called when view is left
@@ -220,14 +222,6 @@ export class BroadcastsPage implements OnInit {
     return this.dataRead.filter(x => x.id === id).length > 0;
   }
 
-  // checkMaster() {
-  //   setTimeout(() => {
-  //     this.dataBroadcast.forEach(obj => {
-  //       obj.isChecked = this.masterCheck;
-  //     });
-  //   });
-  // }
-
   checkEvent() {
     const totalItems = this.dataBroadcast.length;
     const itemSelected = [];
@@ -240,8 +234,6 @@ export class BroadcastsPage implements OnInit {
       }
     });
 
-    // console.log(itemSelected);
-
     if (checked > 0 && checked < totalItems) {
       // If even one item is checked but not all
       this.isIndeterminate = true;
@@ -251,6 +243,29 @@ export class BroadcastsPage implements OnInit {
       this.isIndeterminate = false;
       this.masterCheck = false;
     }
+  }
+
+  confirmDelete() {
+    const buttons = [
+      {
+        text: 'Batal',
+        role: 'cancel',
+        cssClass: 'secondary',
+        handler: () => {}
+      },
+      {
+        text: 'Hapus',
+        handler: () => {
+          this.deleteBroadcast();
+        }
+      }
+    ];
+
+    this.util.alertConfirmation(
+      Dictionary.delete_broadcast,
+      buttons,
+      Dictionary.header_broadcast
+    );
   }
 
   deleteBroadcast() {
@@ -268,6 +283,14 @@ export class BroadcastsPage implements OnInit {
       this.isPressDelete = true;
     } else {
       this.isPressDelete = false;
+      this.clearChecked();
     }
+  }
+
+  clearChecked() {
+    // clear checked
+    this.dataBroadcast.map(obj => {
+      obj.isChecked = false;
+    });
   }
 }
