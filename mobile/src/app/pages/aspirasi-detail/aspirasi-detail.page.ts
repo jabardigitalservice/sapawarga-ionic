@@ -68,7 +68,7 @@ export class AspirasiDetailPage implements OnInit {
     if (!navigator.onLine) {
       // stop infinite scroll
       this.offline = true;
-      // get local
+      // get local data like
       this.dataLike = JSON.parse(this.aspirasiService.getLocalLikes()).filter(
         x => x.id === this.id
       );
