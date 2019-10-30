@@ -1,23 +1,31 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Pesan</ion-title>
+    <ion-title *ngIf="!isPressDelete">Pesan</ion-title>
 
     <ion-button
       *ngIf="isPressDelete"
       strong
-      slot="end"
       fill="clear"
       (click)="eventDelete()"
       >Batal</ion-button
     >
 
-    <ion-icon
+    <!-- <ion-icon
       *ngIf="isIndeterminate"
       name="trash"
       slot="end"
       size="large"
       (click)="confirmDelete()"
-    ></ion-icon>
+    ></ion-icon> -->
+
+    <ion-button
+      *ngIf="isIndeterminate"
+      strong
+      slot="end"
+      fill="clear"
+      (click)="confirmDelete()"
+      >Hapus</ion-button
+    >
   </ion-toolbar>
 </ion-header>
 
