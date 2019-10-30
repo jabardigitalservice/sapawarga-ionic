@@ -191,6 +191,9 @@ export class AppComponent {
 
         this.fcm.onNotification().subscribe(data => {
           const meta = JSON.parse(data.meta);
+          // save state
+          this.isPushNotification = data.push_notification;
+
           if (data.wasTapped) {
             if (data.target === 'url') {
               this.inAppBrowser.create(meta.url, '_system'); // call webview in app
@@ -207,10 +210,17 @@ export class AppComponent {
               meta.target === 'home-results'
             ) {
               this.navCtrl.navigateRoot('/');
+            } else if (
+              data.target === 'notifikasi' &&
+              meta.target === 'aspirasi'
+            ) {
+              this.router.navigate([`/${meta.target}`, meta.id], {
+                queryParams: {
+                  myaspirasi: true,
+                  isPushNotification: this.isPushNotification
+                }
+              });
             } else {
-              // save state
-              this.isPushNotification = data.push_notification;
-
               // check if meta.id === null then direct to list
               if (!meta.id) {
                 this.router.navigate([`/${meta.target}`], {
