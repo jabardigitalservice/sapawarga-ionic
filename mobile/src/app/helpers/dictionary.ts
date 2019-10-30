@@ -61,5 +61,6 @@ export enum Dictionary {
 
   // broadcast
   delete_broadcast = 'Apakah Anda yakin ingin menghapus pesan ini?',
-  header_broadcast = 'Hapus Pesan'
+  header_broadcast = 'Hapus Pesan',
+  success_delete_broadcast = 'Pesan berhasil dihapus'
 }

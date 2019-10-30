@@ -268,28 +268,47 @@ export class BroadcastsPage implements OnInit {
     );
   }
 
-  deleteBroadcast() {
+  async deleteBroadcast() {
     const dataDeleteBroadcast = [];
     this.dataBroadcast.map(obj => {
       if (obj.isChecked) {
         dataDeleteBroadcast.push(obj.id);
       }
     });
-    // console.log(dataDeleteBroadcast);
+
     // check internet
     if (!navigator.onLine) {
       alert(Dictionary.offline);
       return;
     }
 
+    const loader = await this.loadingCtrl.create({
+      duration: 10000
+    });
+    loader.present();
+
     this.broadcastService.deleteBroadcast(dataDeleteBroadcast).subscribe(
-      res => {
-        console.log(res);
+      _ => {
+        // remove data selected
+        const getDataBroadcast = this.dataBroadcast.filter(
+          item => !dataDeleteBroadcast.includes(item.id)
+        );
+
+        this.dataBroadcast = getDataBroadcast;
+
+        this.clearChecked();
+        this.isPressDelete = false;
+
+        this.util.alertConfirmation(Dictionary.success_delete_broadcast, [
+          'Mengerti'
+        ]);
       },
-      err => {
-        console.log(err);
+      _ => {
+        this.util.alertConfirmation(Dictionary.terjadi_kesalahan, ['OK']);
       }
     );
+
+    loader.dismiss();
   }
 
   eventDelete($event) {
