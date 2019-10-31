@@ -275,7 +275,7 @@ export class BroadcastsPage implements OnInit {
         this.isPressDelete = false;
 
         this.util.alertConfirmation(Dictionary.success_delete_broadcast, [
-          'Mengerti'
+          'OK'
         ]);
       },
       err => {
