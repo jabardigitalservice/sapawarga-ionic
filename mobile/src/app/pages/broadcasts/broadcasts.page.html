@@ -1,6 +1,23 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Pesan</ion-title>
+    <ion-title *ngIf="!isPressDelete">Pesan</ion-title>
+
+    <ion-button
+      *ngIf="isPressDelete"
+      strong
+      fill="clear"
+      (click)="eventDelete()"
+      >Batal</ion-button
+    >
+
+    <ion-button
+      *ngIf="isIndeterminate"
+      strong
+      slot="end"
+      fill="clear"
+      (click)="confirmDelete()"
+      >Hapus</ion-button
+    >
   </ion-toolbar>
 </ion-header>
 
@@ -30,27 +47,34 @@
     </ion-card>
   </div>
 
-  <div *ngIf="dataBroadcast">
-    <ion-card
-      *ngFor="let broadcast of dataBroadcast"
-      (click)="goDetail(broadcast)"
-    >
-      <ion-card-header>
-        <ion-card-subtitle
-          class="dark-read"
-          [ngClass]="{ 'dark-read': !checkRead(broadcast.id) }"
-          >Dari: {{ broadcast.sender_name }}</ion-card-subtitle
-        >
-        <ion-card-subtitle>{{
-          broadcast.updated_at * 1000 | date: 'd MMMM y h:mm'
-        }}</ion-card-subtitle>
-        <ion-card-subtitle [ngClass]="{ 'dark-read': !checkRead(broadcast.id) }"
-          >[ {{ broadcast.category_name }} ]</ion-card-subtitle
-        >
-        <ion-text [ngClass]="{ 'dark-read': !checkRead(broadcast.id) }">{{
-          broadcast.title
-        }}</ion-text>
-      </ion-card-header>
-    </ion-card>
-  </div>
+  <ion-list *ngIf="dataBroadcast">
+    <ion-item *ngFor="let broadcast of dataBroadcast">
+      <ion-checkbox
+        slot="start"
+        *ngIf="isPressDelete"
+        [(ngModel)]="broadcast.isChecked"
+        (ionChange)="checkEvent()"
+      ></ion-checkbox>
+
+      <ion-card (click)="goDetail(broadcast)" (press)="eventDelete($event)">
+        <ion-card-header>
+          <ion-card-subtitle
+            class="dark-read"
+            [ngClass]="{ 'dark-read': !checkRead(broadcast.id) }"
+            >Dari: {{ broadcast.sender_name }}</ion-card-subtitle
+          >
+          <ion-card-subtitle>{{
+            broadcast.updated_at * 1000 | date: 'd MMMM y h:mm'
+          }}</ion-card-subtitle>
+          <ion-card-subtitle
+            [ngClass]="{ 'dark-read': !checkRead(broadcast.id) }"
+            >[ {{ broadcast.category_name }} ]</ion-card-subtitle
+          >
+          <ion-text [ngClass]="{ 'dark-read': !checkRead(broadcast.id) }">{{
+            broadcast.title
+          }}</ion-text>
+        </ion-card-header>
+      </ion-card>
+    </ion-item>
+  </ion-list>
 </ion-content>

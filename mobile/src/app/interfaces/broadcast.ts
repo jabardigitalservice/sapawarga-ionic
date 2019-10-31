@@ -1,4 +1,5 @@
 export interface Broadcast {
+  isChecked: boolean;
   id: string;
   type: string;
   message_id: number;
