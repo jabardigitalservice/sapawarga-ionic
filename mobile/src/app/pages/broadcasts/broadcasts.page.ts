@@ -109,8 +109,6 @@ export class BroadcastsPage implements OnInit {
 
     this.isPressDelete = false;
     this.isIndeterminate = false;
-
-    // this.clearChecked();
   }
 
   // Called when view is left
@@ -303,8 +301,12 @@ export class BroadcastsPage implements OnInit {
           'Mengerti'
         ]);
       },
-      _ => {
-        this.util.alertConfirmation(Dictionary.terjadi_kesalahan, ['OK']);
+      err => {
+        if (err.name === 'TimeoutError') {
+          this.util.alertConfirmation(Dictionary.offline, ['OK']);
+        } else {
+          this.util.alertConfirmation(Dictionary.terjadi_kesalahan, ['OK']);
+        }
       }
     );
 
