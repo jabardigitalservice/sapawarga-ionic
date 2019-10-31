@@ -7,8 +7,6 @@ import { Platform } from '@ionic/angular';
 import { UtilitiesService } from './utilities.service';
 import { Constants } from '../helpers/constants';
 
-const TOKEN_KEY = 'auth-token';
-
 @Injectable({
   providedIn: 'root'
 })
@@ -18,7 +16,8 @@ export class AuthService {
   constructor(
     private http: HttpClient,
     private plt: Platform,
-    private util: UtilitiesService
+    private util: UtilitiesService,
+    private constants: Constants
   ) {
     this.plt.ready().then(() => {
       this.checkToken();
@@ -27,7 +26,7 @@ export class AuthService {
 
   // check if token true
   checkToken() {
-    if (localStorage.getItem(TOKEN_KEY)) {
+    if (localStorage.getItem(this.constants.localStorage.authToken)) {
       this.authenticationState.next(true);
     }
   }
@@ -41,13 +40,28 @@ export class AuthService {
 
   // save token into local storage
   saveToken(token: string) {
-    localStorage.setItem(TOKEN_KEY, token);
+    localStorage.setItem(this.constants.localStorage.authToken, token);
     this.authenticationState.next(true);
   }
 
   // logout and clear session
   logout() {
-    localStorage.removeItem(TOKEN_KEY);
+    // clear data local storages
+    localStorage.removeItem(this.constants.localStorage.authToken);
+    localStorage.removeItem(this.constants.localStorage.videoPostData);
+    localStorage.removeItem(this.constants.localStorage.profileData);
+    localStorage.removeItem(this.constants.localStorage.NewsHeadlines);
+    localStorage.removeItem(this.constants.localStorage.NewsKabkotaHeadlines);
+    localStorage.removeItem(this.constants.localStorage.notification);
+    localStorage.removeItem(this.constants.localStorage.broadcastData);
+    localStorage.removeItem(this.constants.localStorage.broadcast);
+    localStorage.removeItem(this.constants.localStorage.aspirasi);
+    localStorage.removeItem(this.constants.localStorage.aspirasiLikes);
+    localStorage.removeItem(this.constants.localStorage.aspirasiUser);
+    localStorage.removeItem(this.constants.localStorage.pollingData);
+    localStorage.removeItem(this.constants.localStorage.surveyData);
+    localStorage.removeItem(this.constants.localStorage.forceChange);
+
     this.authenticationState.next(false);
 
     const httpPost = this.http

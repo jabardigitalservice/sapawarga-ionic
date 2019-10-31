@@ -30,19 +30,25 @@ export class InformationPopupService {
     this.profileService.currentUser.subscribe((state: Profile) => {
       // get request to server
       this.getInformationPopup().subscribe(respons => {
-        this.dataPopup = respons['data'].items[0];
+        if (respons['data']['items'].length) {
+          this.dataPopup = respons['data'].items[0];
 
-        const currentDate = formatDate(new Date(), 'yyyy-MM-dd', 'en');
-        const endDate = formatDate(
-          new Date(this.dataPopup.end_date),
-          'yyyy-MM-dd',
-          'en'
-        );
-        const getCompareDate = this.compareDate(currentDate, endDate, state.id);
+          const currentDate = formatDate(new Date(), 'yyyy-MM-dd', 'en');
+          const endDate = formatDate(
+            new Date(this.dataPopup.end_date),
+            'yyyy-MM-dd',
+            'en'
+          );
+          const getCompareDate = this.compareDate(
+            currentDate,
+            endDate,
+            state.id
+          );
 
-        // check if getCompareDate 1 then call show modal
-        if (getCompareDate > 0) {
-          this.showModal();
+          // check if getCompareDate 1 then call show modal
+          if (getCompareDate > 0) {
+            this.showModal();
+          }
         }
       });
     });

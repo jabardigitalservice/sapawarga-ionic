@@ -74,6 +74,7 @@ export class Constants {
     aspirasiUser: 'aspirasi-user',
     pollingData: 'data-polling',
     onBoarding: 'has-onboarding',
+    surveyData: 'data-survey',
     forceChange: 'forceChange',
     informationPopup: 'information-popup'
   };
