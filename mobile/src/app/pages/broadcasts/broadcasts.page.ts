@@ -44,29 +44,6 @@ export class BroadcastsPage implements OnInit {
     private profileService: ProfileService
   ) {
     this.idUser = this.profileService.getLocalProfile().id;
-
-    this.checkBoxList = [
-      {
-        value: 'Esteban Gutmann IV',
-        isChecked: false
-      },
-      {
-        value: 'Bernardo Prosacco Jr.',
-        isChecked: false
-      },
-      {
-        value: 'Nicholaus Kulas PhD',
-        isChecked: false
-      },
-      {
-        value: 'Jennie Feeney',
-        isChecked: false
-      },
-      {
-        value: 'Shanon Heaney',
-        isChecked: false
-      }
-    ];
   }
 
   ngOnInit() {
