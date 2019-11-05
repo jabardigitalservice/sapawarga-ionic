@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { NewsService } from '../../services/news.service';
 import { News } from '../../interfaces/news';
 import { Dictionary } from '../../helpers/dictionary';
-import { LoadingController } from '@ionic/angular';
 import { Router, ActivatedRoute } from '@angular/router';
 import { UtilitiesService } from '../../services/utilities.service';
 import { Constants } from '../../helpers/constants';
@@ -28,7 +27,6 @@ export class NewsPage implements OnInit {
 
   constructor(
     private newsService: NewsService,
-    private loadingCtrl: LoadingController,
     private router: Router,
     private route: ActivatedRoute,
     private util: UtilitiesService,
