@@ -7,7 +7,6 @@ import { IonicModule } from '@ionic/angular';
 import { HomeResultsPage } from './home-results.page';
 
 // plugin app browser
-import { YoutubeVideoPlayer } from '@ionic-native/youtube-video-player/ngx';
 import { SharedModule } from '../../shared/shared.module';
 
 const routes: Routes = [
@@ -26,7 +25,6 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     SharedModule
   ],
-  providers: [YoutubeVideoPlayer],
   declarations: [HomeResultsPage]
 })
 export class HomeResultsPageModule {}

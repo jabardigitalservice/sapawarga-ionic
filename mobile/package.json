@@ -75,7 +75,6 @@
     "cordova-plugin-splashscreen": "^5.0.2",
     "cordova-plugin-statusbar": "^2.4.2",
     "cordova-plugin-whitelist": "^1.3.3",
-    "cordova-plugin-youtube-video-player": "2.3.0",
     "cordova-sms-plugin": "^1.0.0",
     "cordova.plugins.diagnostic": "^4.0.12",
     "core-js": "^2.5.4",
@@ -156,7 +155,6 @@
       "cordova-plugin-advanced-http": {},
       "cordova-plugin-app-version": {},
       "integrator-cordova-plugin-downloader": {},
-      "cordova-plugin-youtube-video-player": {},
       "cordova-plugin-google-analytics": {
         "GMS_VERSION": "12.0.1"
       }
