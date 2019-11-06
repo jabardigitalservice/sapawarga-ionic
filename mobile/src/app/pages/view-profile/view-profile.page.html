@@ -108,8 +108,8 @@
     </ion-card-content>
 
     <ion-grid fixed no-padding>
-      <ion-row class="ion-padding-start ion-margin-top">
-        <ion-col size="4">
+      <ion-row class="ion-margin-top">
+        <ion-col size="5">
           <div class="profile-content">
             <ion-label>Nama<span class="ion-text-right">:</span></ion-label>
           </div>
@@ -120,8 +120,50 @@
           </div>
         </ion-col>
       </ion-row>
-      <ion-row class="ion-padding-start">
-        <ion-col size="4">
+      <ion-row>
+        <ion-col size="5">
+          <div class="profile-content">
+            <ion-label
+              >Tanggal Lahir<span class="ion-text-right">:</span></ion-label
+            >
+          </div>
+        </ion-col>
+        <ion-col>
+          <div class="profile-data">
+            <ion-label>{{ dataProfile?.birth_date }}</ion-label>
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="5">
+          <div class="profile-content">
+            <ion-label
+              >Pendidikan<span class="ion-text-right">:</span></ion-label
+            >
+          </div>
+        </ion-col>
+        <ion-col>
+          <div class="profile-data">
+            <ion-label>{{ dataProfile?.education_level.title }}</ion-label>
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="5">
+          <div class="profile-content">
+            <ion-label
+              >Pekerjaan<span class="ion-text-right">:</span></ion-label
+            >
+          </div>
+        </ion-col>
+        <ion-col>
+          <div class="profile-data">
+            <ion-label>{{ dataProfile?.job_type.title }}</ion-label>
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="5">
           <div class="profile-content nama-pengguna">
             <ion-label
               >Username<span class="ion-text-right nama-pengguna-span"
@@ -136,8 +178,8 @@
           </div>
         </ion-col>
       </ion-row>
-      <ion-row class="ion-padding-start">
-        <ion-col size="4">
+      <ion-row>
+        <ion-col size="5">
           <div class="profile-content">
             <ion-label>Email <span class="ion-text-right">:</span></ion-label>
           </div>
@@ -148,10 +190,10 @@
           </div>
         </ion-col>
       </ion-row>
-      <ion-row class="ion-padding-start">
-        <ion-col size="4">
+      <ion-row>
+        <ion-col size="5">
           <div class="profile-content">
-            <ion-label>Telpon <span class="ion-text-right">:</span></ion-label>
+            <ion-label>Telepon <span class="ion-text-right">:</span></ion-label>
           </div>
         </ion-col>
         <ion-col>
@@ -160,10 +202,12 @@
           </div>
         </ion-col>
       </ion-row>
-      <ion-row class="ion-padding-start">
-        <ion-col size="4">
+      <ion-row>
+        <ion-col size="5">
           <div class="profile-content">
-            <ion-label>Alamat <span class="ion-text-right">:</span></ion-label>
+            <ion-label
+              >Alamat Lengkap<span class="ion-text-right">:</span></ion-label
+            >
           </div>
         </ion-col>
         <ion-col>
@@ -172,48 +216,22 @@
           </div>
         </ion-col>
       </ion-row>
-      <ion-row class="ion-padding-start">
-        <ion-col size="4">
-          <div class="profile-content">
-            <ion-label>RW <span class="ion-text-right">:</span></ion-label>
-          </div>
-        </ion-col>
-        <ion-col>
-          <div class="profile-data">
-            <ion-label>{{ convertNumber(dataProfile.rw) }}</ion-label>
-          </div>
-        </ion-col>
-      </ion-row>
-      <ion-row class="ion-padding-start">
-        <ion-col size="4">
-          <div class="profile-content">
-            <ion-label>RT <span class="ion-text-right">:</span></ion-label>
-          </div>
-        </ion-col>
-        <ion-col>
-          <div class="profile-data">
-            <ion-label *ngIf="dataProfile.rt">{{
-              convertNumber(dataProfile.rt)
-            }}</ion-label>
-          </div>
-        </ion-col>
-      </ion-row>
-      <ion-row class="ion-padding-start">
-        <ion-col size="4">
+      <ion-row>
+        <ion-col size="5">
           <div class="profile-content">
             <ion-label
-              >Kelurahan <span class="ion-text-right">:</span></ion-label
+              >Kab / Kota <span class="ion-text-right">:</span></ion-label
             >
           </div>
         </ion-col>
         <ion-col>
           <div class="profile-data">
-            <ion-label>{{ dataProfile.kelurahan.name }}</ion-label>
+            <ion-label>{{ dataProfile.kabkota.name | titlecase }}</ion-label>
           </div>
         </ion-col>
       </ion-row>
-      <ion-row class="ion-padding-start">
-        <ion-col size="4">
+      <ion-row>
+        <ion-col size="5">
           <div class="profile-content">
             <ion-label
               >Kecamatan <span class="ion-text-right">:</span></ion-label
@@ -222,21 +240,47 @@
         </ion-col>
         <ion-col>
           <div class="profile-data">
-            <ion-label>{{ dataProfile.kecamatan.name }}</ion-label>
+            <ion-label>{{ dataProfile.kecamatan.name | titlecase }}</ion-label>
           </div>
         </ion-col>
       </ion-row>
-      <ion-row class="ion-padding-start">
-        <ion-col size="4">
+      <ion-row>
+        <ion-col size="5">
           <div class="profile-content">
             <ion-label
-              >Kab/Kota <span class="ion-text-right">:</span></ion-label
+              >Kelurahan <span class="ion-text-right">:</span></ion-label
             >
           </div>
         </ion-col>
-        <ion-col class="ion-margin-bottom">
+        <ion-col>
           <div class="profile-data">
-            <ion-label>{{ dataProfile.kabkota.name }}</ion-label>
+            <ion-label>{{ dataProfile.kelurahan.name | titlecase }}</ion-label>
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="5">
+          <div class="profile-content">
+            <ion-label>Rw <span class="ion-text-right">:</span></ion-label>
+          </div>
+        </ion-col>
+        <ion-col>
+          <div class="profile-data">
+            <ion-label>{{ convertNumber(dataProfile.rw) }}</ion-label>
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="5">
+          <div class="profile-content">
+            <ion-label>Rt <span class="ion-text-right">:</span></ion-label>
+          </div>
+        </ion-col>
+        <ion-col>
+          <div class="profile-data">
+            <ion-label *ngIf="dataProfile.rt">{{
+              convertNumber(dataProfile.rt)
+            }}</ion-label>
           </div>
         </ion-col>
       </ion-row>

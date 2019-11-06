@@ -29,6 +29,12 @@ export class BroadcastsPage implements OnInit {
 
   idUser: number;
 
+  isIndeterminate: boolean;
+  masterCheck: boolean;
+  checkBoxList: any;
+
+  isPressDelete = false;
+
   constructor(
     private broadcastService: BroadcastService,
     public loadingCtrl: LoadingController,
@@ -77,6 +83,9 @@ export class BroadcastsPage implements OnInit {
     if (this.dataRead && this.dataBroadcast) {
       this.checkLenghtRead();
     }
+
+    this.isPressDelete = false;
+    this.isIndeterminate = false;
   }
 
   // Called when view is left
@@ -109,6 +118,11 @@ export class BroadcastsPage implements OnInit {
         if (res['data']['items'].length) {
           this.dataBroadcast = res['data']['items'];
 
+          // add new element isChecked for identify delete broadcast
+          this.dataBroadcast.forEach(key => {
+            key['isChecked'] = false;
+          });
+
           // save to local
           this.broadcastService.saveLocalBroadcast(this.dataBroadcast);
         } else {
@@ -139,6 +153,9 @@ export class BroadcastsPage implements OnInit {
 
   // go to detail broadcast with param id
   goDetail(broadcast: Broadcast) {
+    if (this.isPressDelete) {
+      return;
+    }
     // add to list dataRead
     if (this.checkRead(broadcast.id) === false) {
       const data = {
@@ -178,5 +195,115 @@ export class BroadcastsPage implements OnInit {
   // check if data isRead/UnRead
   checkRead(id: string) {
     return this.dataRead.filter(x => x.id === id).length > 0;
+  }
+
+  checkEvent() {
+    const totalItems = this.dataBroadcast.length;
+    const itemSelected = [];
+    let checked = 0;
+    this.dataBroadcast.map(obj => {
+      if (obj.isChecked) {
+        checked++;
+        // add object to list
+        itemSelected.push(obj);
+      }
+    });
+
+    if (checked > 0 && checked < totalItems) {
+      // If even one item is checked but not all
+      this.isIndeterminate = true;
+      this.masterCheck = false;
+    } else {
+      // If none is checked
+      this.isIndeterminate = false;
+      this.masterCheck = false;
+    }
+  }
+
+  confirmDelete() {
+    const buttons = [
+      {
+        text: 'Batal',
+        role: 'cancel',
+        cssClass: 'secondary',
+        handler: () => {}
+      },
+      {
+        text: 'Hapus',
+        handler: () => {
+          this.deleteBroadcast();
+        }
+      }
+    ];
+
+    this.util.alertConfirmation(
+      Dictionary.delete_broadcast,
+      buttons,
+      Dictionary.header_broadcast
+    );
+  }
+
+  async deleteBroadcast() {
+    const dataDeleteBroadcast = [];
+    this.dataBroadcast.map(obj => {
+      if (obj.isChecked) {
+        dataDeleteBroadcast.push(obj.id);
+      }
+    });
+
+    // check internet
+    if (!navigator.onLine) {
+      alert(Dictionary.offline);
+      return;
+    }
+
+    const loader = await this.loadingCtrl.create({
+      duration: 10000
+    });
+    loader.present();
+
+    this.broadcastService.deleteBroadcast(dataDeleteBroadcast).subscribe(
+      _ => {
+        // remove data selected
+        const getDataBroadcast = this.dataBroadcast.filter(
+          item => !dataDeleteBroadcast.includes(item.id)
+        );
+
+        this.dataBroadcast = getDataBroadcast;
+
+        this.clearChecked();
+        this.isPressDelete = false;
+
+        this.util.alertConfirmation(Dictionary.success_delete_broadcast, [
+          'OK'
+        ]);
+      },
+      err => {
+        if (err.name === 'TimeoutError') {
+          this.util.alertConfirmation(Dictionary.offline, ['OK']);
+        } else {
+          this.util.alertConfirmation(Dictionary.terjadi_kesalahan, ['OK']);
+        }
+      }
+    );
+
+    loader.dismiss();
+  }
+
+  eventDelete($event) {
+    if (this.isPressDelete === false) {
+      this.isPressDelete = true;
+    } else {
+      this.isPressDelete = false;
+      this.clearChecked();
+    }
+  }
+
+  clearChecked() {
+    this.isIndeterminate = false;
+    // clear checked
+    this.dataBroadcast.map(obj => {
+      obj.isChecked = false;
+    });
   }
 }

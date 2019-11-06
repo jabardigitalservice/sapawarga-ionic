@@ -68,7 +68,7 @@ export class AspirasiDetailPage implements OnInit {
     if (!navigator.onLine) {
       // stop infinite scroll
       this.offline = true;
-      // get local
+      // get local data like
       this.dataLike = JSON.parse(this.aspirasiService.getLocalLikes()).filter(
         x => x.id === this.id
       );
@@ -239,5 +239,19 @@ export class AspirasiDetailPage implements OnInit {
     popover.onDidDismiss();
 
     return await popover.present();
+  }
+
+  checkPublish() {
+    let status: boolean;
+    switch (this.dataAspirasi.status) {
+      case 10:
+        status = true;
+        break;
+      default:
+        status = false;
+        break;
+    }
+
+    return status;
   }
 }

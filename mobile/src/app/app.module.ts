@@ -1,5 +1,8 @@
 import { NgModule, LOCALE_ID } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import {
+  BrowserModule,
+  HAMMER_GESTURE_CONFIG
+} from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -42,6 +45,7 @@ import { SMS } from '@ionic-native/sms/ngx';
 import { registerLocaleData } from '@angular/common';
 import localeId from '@angular/common/locales/id';
 import { InformationPopupComponent } from './shared/information-popup/information-popup.component';
+import { GestureConfig } from './helpers/GestureConfig';
 
 registerLocaleData(localeId);
 @NgModule({
@@ -96,7 +100,11 @@ registerLocaleData(localeId);
     HTTP,
     AppVersion,
     ScreenOrientation,
-    SMS
+    SMS,
+    {
+      provide: HAMMER_GESTURE_CONFIG,
+      useClass: GestureConfig
+    }
   ],
   bootstrap: [AppComponent]
 })

@@ -254,7 +254,7 @@ export class EditProfilePage implements OnInit {
       res => {
         if (res.status === 200) {
           this.util.showToast(Dictionary.success_save);
-          this.navCtrl.navigateForward('/tabs/akun');
+          this.navCtrl.navigateForward('/view-profile');
 
           // google event analytics
           this.util.trackEvent(
@@ -475,6 +475,6 @@ export class EditProfilePage implements OnInit {
   }
 
   backViewProfile() {
-    this.navCtrl.navigateForward('/tabs/akun');
+    this.navCtrl.navigateForward('/view-profile');
   }
 }

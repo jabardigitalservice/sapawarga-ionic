@@ -49,4 +49,10 @@ export class BroadcastService {
   getNotification() {
     return this.notificationState.value;
   }
+
+  deleteBroadcast(data): Observable<any> {
+    return this.http
+      .post(`${environment.API_URL}/user-messages/bulk-delete`, { ids: data })
+      .pipe(catchError(this.util.handleError));
+  }
 }
