@@ -19,6 +19,11 @@ export interface Profile {
   instagram: string;
   twitter: string;
   password_updated_at: string;
+  birth_date: string;
+  education_level: EducationLevel;
+  education_level_id: number;
+  job_type: JobType;
+  job_type_id: number;
 }
 
 interface Kelurahan {
@@ -34,4 +39,17 @@ interface Kecamatan {
 interface Kabkota {
   id: number;
   name: string;
+}
+
+interface EducationLevel {
+  id: number;
+  seq: number;
+  title: string;
+}
+
+interface JobType {
+  id: number;
+  seq: number;
+  status: number;
+  title: string;
 }
