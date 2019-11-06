@@ -62,6 +62,9 @@ export class ProfileService {
     this.currentUserSubject.next(data);
   }
 
+  saveDataProfile(data: Profile) {
+    localStorage.setItem(PROFILE, JSON.stringify(data));
+  }
   // save data into local storage
   getLocalProfile() {
     if (localStorage.getItem(PROFILE)) {
@@ -79,13 +82,13 @@ export class ProfileService {
 
   getJobs() {
     return this.http
-      .get<JobTypes[]>(`${environment.API_MOCK}/job-types`)
+      .get<JobTypes[]>(`${environment.API_URL}/job-types`)
       .pipe(catchError(this.util.handleError));
   }
 
   getEducations() {
     return this.http
-      .get<Education[]>(`${environment.API_MOCK}/education-levels`)
+      .get<Education[]>(`${environment.API_URL}/education-levels`)
       .pipe(catchError(this.util.handleError));
   }
 }

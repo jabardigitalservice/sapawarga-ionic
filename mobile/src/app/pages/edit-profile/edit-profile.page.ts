@@ -20,6 +20,7 @@ import { Dictionary } from '../../helpers/dictionary';
 import { Constants } from '../../helpers/constants';
 import { JobTypes } from '../../interfaces/job-types';
 import { Education } from '../../interfaces/education';
+import { DatePipe } from '@angular/common';
 
 const TOKEN_KEY = 'auth-token';
 @Component({
@@ -47,6 +48,7 @@ export class EditProfilePage implements OnInit {
     username: null,
     email: null
   };
+  customPickerOptions: any;
 
   constructor(
     private route: ActivatedRoute,
@@ -58,7 +60,8 @@ export class EditProfilePage implements OnInit {
     private camera: Camera,
     private transfer: FileTransfer,
     private util: UtilitiesService,
-    private constants: Constants
+    private constants: Constants,
+    private datePipe: DatePipe
   ) {}
 
   ngOnInit() {
@@ -105,13 +108,10 @@ export class EditProfilePage implements OnInit {
       twitter: ['', [Validators.pattern(/^[a-z0-9_.]+$/)]],
       lat: [''],
       lon: [''],
-      birthday: ['', [Validators.required]],
-      education: ['', [Validators.required]],
-      job: ['', [Validators.required]]
+      birth_date: [''],
+      education_level_id: [''],
+      job_type_id: ['']
     });
-
-    this.getJobs();
-    this.getEducations();
   }
 
   ionViewDidEnter() {
@@ -168,9 +168,12 @@ export class EditProfilePage implements OnInit {
       role: this.role_user,
       instagram: this.dataProfile.instagram,
       facebook: this.dataProfile.facebook,
-      twitter: this.dataProfile.twitter
+      twitter: this.dataProfile.twitter,
+      birth_date: this.dataProfile.birth_date
     });
 
+    this.getJobs();
+    this.getEducations();
     this.getKabKota();
     this.getKecamatan(this.dataProfile.kabkota_id);
     this.getKelurahan(this.dataProfile.kec_id);
@@ -250,7 +253,14 @@ export class EditProfilePage implements OnInit {
       duration: 10000
     });
     loader.present();
-    this.profileService.editProfile(form).subscribe(
+
+    // format birth_date to yyyy-MM-dd
+    const sendData = {
+      ...form,
+      birth_date: this.datePipe.transform(this.f.birth_date.value, 'yyyy-MM-dd')
+    };
+
+    this.profileService.editProfile(sendData).subscribe(
       res => {
         if (res.status === 200) {
           this.util.showToast(Dictionary.success_save);
@@ -320,7 +330,8 @@ export class EditProfilePage implements OnInit {
       res => {
         this.dataJobs = res['data']['items'];
 
-        console.log(this.dataJobs);
+        // set value job
+        this.f.job_type_id.setValue(this.dataProfile.job_type_id);
         loader.dismiss();
       },
       err => {
@@ -340,7 +351,8 @@ export class EditProfilePage implements OnInit {
       res => {
         this.dataEducations = res['data']['items'];
 
-        console.log(this.dataEducations);
+        // set value education
+        this.f.education_level_id.setValue(this.dataProfile.education_level_id);
         loader.dismiss();
       },
       err => {
@@ -476,5 +488,6 @@ export class EditProfilePage implements OnInit {
 
   backViewProfile() {
     this.navCtrl.navigateForward('/view-profile');
+    // this.navCtrl.navigateForward('/tabs/akun');
   }
 }

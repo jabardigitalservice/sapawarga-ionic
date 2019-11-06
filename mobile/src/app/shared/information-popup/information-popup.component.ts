@@ -82,5 +82,8 @@ export class InformationPopupComponent implements OnInit {
         this.util.showToast(Dictionary.terjadi_kesalahan);
       }
     );
+
+    // close modal
+    this.btnClose();
   }
 }

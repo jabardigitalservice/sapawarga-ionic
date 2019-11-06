@@ -46,12 +46,12 @@ export class ViewProfilePage implements OnInit {
       1
     );
 
-    if (!navigator.onLine) {
-      // get data profile from local storage
-      this.dataProfile = this.profileService.getLocalProfile();
-    } else {
-      this.getDataProfile(null);
-    }
+    // if (!navigator.onLine) {
+    //   // get data profile from local storage
+    //   this.dataProfile = this.profileService.getLocalProfile();
+    // } else {
+    //   this.getDataProfile(null);
+    // }
   }
 
   ionViewDidEnter() {
@@ -157,7 +157,7 @@ export class ViewProfilePage implements OnInit {
         this.dataProfile = res['data'];
 
         // save to local storage
-        this.profileService.saveProfile(res['data']);
+        this.profileService.saveDataProfile(res['data']);
         if (
           !this.dataProfile.twitter ||
           !this.dataProfile.facebook ||

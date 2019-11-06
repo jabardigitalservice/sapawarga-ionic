@@ -1,5 +1,6 @@
 export interface JobTypes {
   id: number;
-  name: string;
+  title: string;
+  status: number;
   seq: number;
 }

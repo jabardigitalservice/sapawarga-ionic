@@ -1,5 +1,5 @@
 export interface Education {
   id: number;
-  name: string;
+  title: string;
   seq: number;
 }

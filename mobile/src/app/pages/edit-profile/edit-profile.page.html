@@ -68,22 +68,23 @@
               </div>
 
               <ion-item>
-                <ion-label color="dark" position="stacked"
-                  >Tanggal lahir:</ion-label
-                >
+                <ion-label color="dark">Tanggal lahir:</ion-label>
                 <ion-datetime
-                  displayFormat="DDDD MMM D, YYYY"
+                  [pickerOptions]="customPickerOptions"
+                  doneText="simpan"
+                  cancelText="batal"
+                  displayFormat="DD/MM/YYYY"
                   min="1945"
-                  max="2000"
-                  formControlName="birthday"
-                  placeholder="Masukkan tanggal lahir anda"
+                  max="1999"
+                  formControlName="birth_date"
+                  placeholder="dd/mm/yyyy"
                 ></ion-datetime>
               </ion-item>
 
               <ion-item *ngIf="dataEducations">
                 <ion-label>Pendidikan:</ion-label>
                 <ion-select
-                  formControlName="education"
+                  formControlName="education_level_id"
                   okText="Pilih"
                   cancelText="Batal"
                   placeholder="Pilih Pendidikan"
@@ -91,7 +92,7 @@
                   <ion-select-option
                     *ngFor="let education of dataEducations"
                     value="{{ education.id }}"
-                    >{{ education.name }}
+                    >{{ education.title }}
                   </ion-select-option>
                 </ion-select>
               </ion-item>
@@ -99,7 +100,7 @@
               <ion-item *ngIf="dataJobs">
                 <ion-label>Pekerjaan:</ion-label>
                 <ion-select
-                  formControlName="job"
+                  formControlName="job_type_id"
                   okText="Pilih"
                   cancelText="Batal"
                   placeholder="Pilih Pekerjaan"
@@ -107,7 +108,7 @@
                   <ion-select-option
                     *ngFor="let job of dataJobs"
                     value="{{ job.id }}"
-                    >{{ job.name }}
+                    >{{ job.title }}
                   </ion-select-option>
                 </ion-select>
               </ion-item>
