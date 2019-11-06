@@ -3,7 +3,7 @@ import { NavController, LoadingController } from '@ionic/angular';
 import { ProfileService } from '../../services/profile.service';
 import { FormGroup, FormBuilder, Validators, NgForm } from '@angular/forms';
 import { Profile } from '../../interfaces/profile';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AreasService } from '../../services/areas.service';
 import { Areas } from '../../interfaces/areas';
 import { UtilitiesService } from '../../services/utilities.service';
@@ -61,7 +61,8 @@ export class EditProfilePage implements OnInit {
     private transfer: FileTransfer,
     private util: UtilitiesService,
     private constants: Constants,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -264,7 +265,8 @@ export class EditProfilePage implements OnInit {
       res => {
         if (res.status === 200) {
           this.util.showToast(Dictionary.success_save);
-          this.navCtrl.navigateForward('/view-profile');
+          this.getDataProfile();
+          this.router.navigate(['tabs/akun']);
 
           // google event analytics
           this.util.trackEvent(
@@ -486,8 +488,18 @@ export class EditProfilePage implements OnInit {
     return ans;
   }
 
-  backViewProfile() {
-    this.navCtrl.navigateForward('/view-profile');
-    // this.navCtrl.navigateForward('/tabs/akun');
+  getDataProfile() {
+    // check internet
+    if (!navigator.onLine) {
+      return;
+    }
+
+    this.profileService.getProfile().subscribe(
+      res => {
+        // save to local storage
+        this.profileService.saveProfile(res['data']);
+      },
+      err => {}
+    );
   }
 }

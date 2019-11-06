@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { ProfileService } from 'src/app/services/profile.service';
 import { PopoverController, Platform } from '@ionic/angular';
 import { Profile } from '../../interfaces/profile';
@@ -31,8 +31,13 @@ export class ViewProfilePage implements OnInit {
     private platform: Platform,
     private inAppBrowser: InAppBrowser,
     private util: UtilitiesService,
-    private constants: Constants
-  ) {}
+    private constants: Constants,
+    private ref: ChangeDetectorRef
+  ) {
+    this.profileService.currentUser.subscribe((state: Profile) => {
+      this.dataProfile = state;
+    });
+  }
 
   ngOnInit() {
     // google analytics
@@ -45,13 +50,6 @@ export class ViewProfilePage implements OnInit {
       '',
       1
     );
-
-    // if (!navigator.onLine) {
-    //   // get data profile from local storage
-    //   this.dataProfile = this.profileService.getLocalProfile();
-    // } else {
-    //   this.getDataProfile(null);
-    // }
   }
 
   ionViewDidEnter() {
@@ -154,10 +152,8 @@ export class ViewProfilePage implements OnInit {
 
     this.profileService.getProfile().subscribe(
       res => {
-        this.dataProfile = res['data'];
-
         // save to local storage
-        this.profileService.saveDataProfile(res['data']);
+        this.profileService.saveProfile(res['data']);
         if (
           !this.dataProfile.twitter ||
           !this.dataProfile.facebook ||

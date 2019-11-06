@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar color="light">
     <ion-buttons slot="start">
-      <ion-back-button (click)="backViewProfile()"></ion-back-button>
+      <ion-back-button></ion-back-button>
     </ion-buttons>
     <ion-title color="dark">Edit Akun</ion-title>
   </ion-toolbar>
@@ -70,7 +70,6 @@
               <ion-item>
                 <ion-label color="dark">Tanggal lahir:</ion-label>
                 <ion-datetime
-                  [pickerOptions]="customPickerOptions"
                   doneText="simpan"
                   cancelText="batal"
                   displayFormat="DD/MM/YYYY"
