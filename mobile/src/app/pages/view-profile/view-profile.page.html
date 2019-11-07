@@ -6,7 +6,7 @@
       slot="end"
       size="large"
       (click)="navbarMore($event)"
-      *ngIf="msgResponse.type !== 'server-error'"
+      *ngIf="dataProfile && msgResponse.type !== 'server-error'"
     ></ion-icon>
   </ion-toolbar>
 </ion-header>

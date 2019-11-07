@@ -8,7 +8,58 @@
 </ion-header>
 
 <ion-content class="profile" color="light">
-  <ion-card no-margin>
+  <app-message-control
+    *ngIf="msgResponse.type"
+    [type]="msgResponse.type"
+    [message]="msgResponse.msg"
+  ></app-message-control>
+
+  <div
+    *ngIf="!dataJobs && !dataEducations && !dataKabkota && !msgResponse.type"
+  >
+    <div style="text-align: -webkit-center; margin-top: 30px;">
+      <ion-card-content class="bg-profile">
+        <ion-avatar>
+          <app-skeleton height="100%" width="100%"></app-skeleton>
+        </ion-avatar>
+
+        <h1 class="fw500" style="margin-top: 15px;">
+          <app-skeleton height="20px" width="60%"></app-skeleton>
+        </h1>
+
+        <h1 class="fw500" style="margin-top: 15px;">
+          <app-skeleton height="20px" width="60%"></app-skeleton>
+        </h1>
+      </ion-card-content>
+    </div>
+
+    <ion-grid>
+      <ion-row>
+        <ion-col size="12" padding>
+          <ion-item>
+            <app-skeleton height="30px" style="width: 100%;"></app-skeleton>
+          </ion-item>
+          <ion-item>
+            <app-skeleton height="30px" style="width: 100%;"></app-skeleton>
+          </ion-item>
+          <ion-item>
+            <app-skeleton height="30px" style="width: 100%;"></app-skeleton>
+          </ion-item>
+          <ion-item>
+            <app-skeleton height="30px" style="width: 100%;"></app-skeleton>
+          </ion-item>
+          <ion-item>
+            <app-skeleton height="30px" style="width: 100%;"></app-skeleton>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+
+  <ion-card
+    no-margin
+    *ngIf="dataJobs && dataEducations && dataKabkota && !msgResponse.type"
+  >
     <ion-card-content class="bg-profile">
       <img *ngIf="!image" src="../../../assets/img/user.png" />
       <img *ngIf="image" src="{{ image }}" />

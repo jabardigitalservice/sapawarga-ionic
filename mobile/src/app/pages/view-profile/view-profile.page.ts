@@ -216,15 +216,4 @@ export class ViewProfilePage implements OnInit {
     const ans = pad.substring(0, pad.length - str.length) + str;
     return ans;
   }
-
-  checkInternet() {
-    // check internet
-    if (!navigator.onLine) {
-      // offline
-      return true;
-    } else {
-      // online
-      return false;
-    }
-  }
 }

@@ -48,7 +48,10 @@ export class EditProfilePage implements OnInit {
     username: null,
     email: null
   };
-  customPickerOptions: any;
+  msgResponse = {
+    type: '',
+    msg: ''
+  };
 
   constructor(
     private route: ActivatedRoute,
@@ -63,7 +66,11 @@ export class EditProfilePage implements OnInit {
     private constants: Constants,
     private datePipe: DatePipe,
     private router: Router
-  ) {}
+  ) {
+    this.getJobs();
+    this.getEducations();
+    this.getKabKota();
+  }
 
   ngOnInit() {
     // defined directive form
@@ -173,9 +180,6 @@ export class EditProfilePage implements OnInit {
       birth_date: this.dataProfile.birth_date
     });
 
-    this.getJobs();
-    this.getEducations();
-    this.getKabKota();
     this.getKecamatan(this.dataProfile.kabkota_id);
     this.getKelurahan(this.dataProfile.kec_id);
   }
@@ -184,6 +188,11 @@ export class EditProfilePage implements OnInit {
   ionViewWillLeave() {
     // Unregister the custom back button action for this page
     this.navCtrl.navigateForward('/tabs/akun');
+
+    this.msgResponse = {
+      type: '',
+      msg: ''
+    };
   }
 
   // detect form onchange
@@ -305,28 +314,44 @@ export class EditProfilePage implements OnInit {
 
   // get data kab/kota
   async getKabKota() {
-    const loader = await this.loadingCtrl.create({
-      duration: 10000
-    });
-    loader.present();
+    // check internet
+    if (!navigator.onLine) {
+      this.msgResponse = {
+        type: 'offline',
+        msg: Dictionary.offline
+      };
+      return;
+    }
 
     this.areasService.getKabKota().subscribe(
       res => {
         this.dataKabkota = res['data']['items'];
-        loader.dismiss();
       },
       err => {
-        this.util.showToast(Dictionary.check_internal);
-        loader.dismiss();
+        if (err.name === 'TimeoutError') {
+          this.msgResponse = {
+            type: 'offline',
+            msg: Dictionary.offline
+          };
+        } else {
+          this.msgResponse = {
+            type: 'server-error',
+            msg: Dictionary.check_internal
+          };
+        }
       }
     );
   }
 
   async getJobs() {
-    const loader = await this.loadingCtrl.create({
-      duration: 10000
-    });
-    loader.present();
+    // check internet
+    if (!navigator.onLine) {
+      this.msgResponse = {
+        type: 'offline',
+        msg: Dictionary.offline
+      };
+      return;
+    }
 
     this.profileService.getJobs().subscribe(
       res => {
@@ -334,20 +359,32 @@ export class EditProfilePage implements OnInit {
 
         // set value job
         this.f.job_type_id.setValue(this.dataProfile.job_type_id);
-        loader.dismiss();
       },
       err => {
-        this.util.showToast(Dictionary.check_internal);
-        loader.dismiss();
+        if (err.name === 'TimeoutError') {
+          this.msgResponse = {
+            type: 'offline',
+            msg: Dictionary.offline
+          };
+        } else {
+          this.msgResponse = {
+            type: 'server-error',
+            msg: Dictionary.check_internal
+          };
+        }
       }
     );
   }
 
   async getEducations() {
-    const loader = await this.loadingCtrl.create({
-      duration: 10000
-    });
-    loader.present();
+    // check internet
+    if (!navigator.onLine) {
+      this.msgResponse = {
+        type: 'offline',
+        msg: Dictionary.offline
+      };
+      return;
+    }
 
     this.profileService.getEducations().subscribe(
       res => {
@@ -355,11 +392,19 @@ export class EditProfilePage implements OnInit {
 
         // set value education
         this.f.education_level_id.setValue(this.dataProfile.education_level_id);
-        loader.dismiss();
       },
       err => {
-        this.util.showToast(Dictionary.check_internal);
-        loader.dismiss();
+        if (err.name === 'TimeoutError') {
+          this.msgResponse = {
+            type: 'offline',
+            msg: Dictionary.offline
+          };
+        } else {
+          this.msgResponse = {
+            type: 'server-error',
+            msg: Dictionary.check_internal
+          };
+        }
       }
     );
   }
