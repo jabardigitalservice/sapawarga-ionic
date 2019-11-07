@@ -158,7 +158,7 @@ export class SaberHoaxPage implements OnInit {
     // check if the platform is ios or android, else open the web url
     this.platform.ready().then(() => {
       this.inAppBrowser.create(
-        `https://wa.me/${this.telpSaberHoax}`,
+        `https://wa.me/${this.telpSaberHoax}?text=${Dictionary.msg_wa_saber_hoax}%0A%0A`,
         '_system'
       );
 

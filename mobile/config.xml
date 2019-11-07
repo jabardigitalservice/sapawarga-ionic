@@ -26,7 +26,6 @@
     </edit-config>
     <preference name="GOOGLE_MAPS_ANDROID_API_KEY" value="%GOOGLE_MAPS_ANDROID_API_KEY%" />
     <preference name="GOOGLE_MAPS_IOS_API_KEY" value="****" />
-    <preference name="YouTubeDataApiKey" value="%GOOGLE_MAPS_ANDROID_API_KEY%" />
     <platform name="android">
         <allow-intent href="market:*" />
         <icon density="ldpi" src="resources/android/icon/drawable-ldpi-icon.png" />

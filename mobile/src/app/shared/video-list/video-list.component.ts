@@ -4,10 +4,10 @@ import { VideoPost } from '../../interfaces/video-post';
 import { VideoPostService } from '../../services/video-post.service';
 import { ProfileService } from '../../services/profile.service';
 import { Profile } from '../../interfaces/profile';
-import { YoutubeVideoPlayer } from '@ionic-native/youtube-video-player/ngx';
 import { Constants } from '../../helpers/constants';
 import { UtilitiesService } from '../../services/utilities.service';
 import { IonSlides } from '@ionic/angular';
+import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 
 @Component({
   selector: 'app-video-list',
@@ -42,8 +42,8 @@ export class VideoListComponent implements OnInit {
     private videoPostService: VideoPostService,
     private profileService: ProfileService,
     private constants: Constants,
-    private youtube: YoutubeVideoPlayer,
-    private util: UtilitiesService
+    private util: UtilitiesService,
+    private inAppBrowser: InAppBrowser
   ) {}
 
   ngOnInit() {
@@ -127,7 +127,9 @@ export class VideoListComponent implements OnInit {
       alert(Dictionary.offline);
       return;
     }
-    this.youtube.openVideo(this.parsingDataUrl(url));
+
+    // open youtube app
+    this.inAppBrowser.create(url, '_system');
 
     // google event analytics
     this.util.trackEvent(

@@ -51,6 +51,8 @@ export enum Dictionary {
   msg_update_app = 'Versi terbaru telah tersedia. segera perbaharui aplikasi anda.',
 
   msg_saber_hoax = 'Tidak ada daftar Saber Hoax yang dibuat',
+  // tslint:disable-next-line:max-line-length
+  msg_wa_saber_hoax = 'Sampurasun, wargi! Terima kasih sudah menghubungi Jabar Saber Hoaks melalui SAPAWARGA. Silakan tulis laporan dan lampirkan tautan atau gambar dugaan hoaks di bawah ini.',
   msg_change_password = 'Kata sandi berhasil diubah',
   msg_forgot_password = 'Tautan reset password telah di kirim ke email anda',
   msg_error_forgot_password = 'Tidak ada user dengan email tersebut',
