@@ -100,7 +100,7 @@ export class HomeResultsPage implements OnInit {
         path: 'e-samsat'
       },
       {
-        title: 'Saber Hoaks',
+        title: 'Jabar Saber Hoaks',
         url: '',
         icon: 'assets/icon/saber_hoax.png',
         path: 'saber-hoax'
@@ -260,7 +260,7 @@ export class HomeResultsPage implements OnInit {
       case 'Survei':
         this.navigationForward(path, 'tapped_survei');
         break;
-      case 'Saber Hoaks':
+      case 'Jabar Saber Hoaks':
         // check if offline
         if (!navigator.onLine) {
           alert(Dictionary.offline);
