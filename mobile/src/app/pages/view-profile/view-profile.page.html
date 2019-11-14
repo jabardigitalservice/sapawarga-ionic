@@ -132,7 +132,8 @@
         <ion-col>
           <div class="profile-data">
             <ion-label
-              >{{ dataProfile?.birth_date | date: 'dd-MM-yyyy' }}</ion-label
+              >{{ dataProfile?.birth_date ? (dataProfile?.birth_date | date:
+              'dd-MM-yyyy') : '-'}}</ion-label
             >
           </div>
         </ion-col>
@@ -147,7 +148,10 @@
         </ion-col>
         <ion-col>
           <div class="profile-data">
-            <ion-label>{{ dataProfile?.education_level?.title }}</ion-label>
+            <ion-label
+              >{{ dataProfile?.education_level?.title ?
+              dataProfile?.education_level?.title : '-' }}</ion-label
+            >
           </div>
         </ion-col>
       </ion-row>
@@ -161,7 +165,10 @@
         </ion-col>
         <ion-col>
           <div class="profile-data">
-            <ion-label>{{ dataProfile?.job_type?.title }}</ion-label>
+            <ion-label
+              >{{ dataProfile?.job_type?.title ? dataProfile?.job_type?.title :
+              '-' }}</ion-label
+            >
           </div>
         </ion-col>
       </ion-row>
