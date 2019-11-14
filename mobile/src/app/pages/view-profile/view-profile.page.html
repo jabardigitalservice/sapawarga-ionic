@@ -28,15 +28,16 @@
     </ion-refresher-content>
   </ion-refresher>
 
-  <div *ngIf="!dataProfile && !msgResponse.type">
+  <!-- <div *ngIf="!dataProfile && !msgResponse.type" class="ion-text-center"> -->
+  <div *ngIf="!dataProfile && !msgResponse.type" class="ion-text-center">
     <div style="text-align: -webkit-center; margin-top: 30px;">
       <ion-card-content class="bg-profile">
-        <ion-avatar>
+        <ion-avatar style="margin: 0 auto;">
           <app-skeleton height="100%" width="100%"></app-skeleton>
         </ion-avatar>
 
-        <h1 class="fw500" style="margin-top: 15px;">
-          <app-skeleton height="20px" width="60%"></app-skeleton>
+        <h1 class="fw500" style="margin: 15px; position: relative; left: 17%;">
+          <app-skeleton height="25px" width="60%"></app-skeleton>
         </h1>
 
         <div class="sosial-media" style="display: inline-flex;">
@@ -278,9 +279,9 @@
         </ion-col>
         <ion-col>
           <div class="profile-data">
-            <ion-label *ngIf="dataProfile.rt">{{
-              convertNumber(dataProfile.rt)
-            }}</ion-label>
+            <ion-label *ngIf="dataProfile.rt"
+              >{{ convertNumber(dataProfile.rt) }}</ion-label
+            >
           </div>
         </ion-col>
       </ion-row>
