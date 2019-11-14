@@ -37,6 +37,12 @@ export class MenuNavbarComponent implements OnInit {
   }
 
   editProfile() {
+    // check internet
+    if (!navigator.onLine) {
+      alert(Dictionary.offline);
+      return;
+    }
+
     this.router.navigate(['edit-profile'], {
       queryParams: this.navParams.get('dataUser')
     });

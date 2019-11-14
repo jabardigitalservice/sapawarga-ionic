@@ -3,7 +3,7 @@ import { NavController, LoadingController } from '@ionic/angular';
 import { ProfileService } from '../../services/profile.service';
 import { FormGroup, FormBuilder, Validators, NgForm } from '@angular/forms';
 import { Profile } from '../../interfaces/profile';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AreasService } from '../../services/areas.service';
 import { Areas } from '../../interfaces/areas';
 import { UtilitiesService } from '../../services/utilities.service';
@@ -18,6 +18,9 @@ import {
 import { environment } from '../../../environments/environment';
 import { Dictionary } from '../../helpers/dictionary';
 import { Constants } from '../../helpers/constants';
+import { JobTypes } from '../../interfaces/job-types';
+import { Education } from '../../interfaces/education';
+import { DatePipe } from '@angular/common';
 
 const TOKEN_KEY = 'auth-token';
 @Component({
@@ -32,6 +35,8 @@ export class EditProfilePage implements OnInit {
   dataKabkota: Areas;
   dataKecamatan: Areas;
   dataKelurahan: Areas;
+  dataJobs: JobTypes;
+  dataEducations: Education;
 
   imageData: any;
   image: any;
@@ -42,6 +47,10 @@ export class EditProfilePage implements OnInit {
   msg_server = {
     username: null,
     email: null
+  };
+  msgResponse = {
+    type: '',
+    msg: ''
   };
 
   constructor(
@@ -54,8 +63,14 @@ export class EditProfilePage implements OnInit {
     private camera: Camera,
     private transfer: FileTransfer,
     private util: UtilitiesService,
-    private constants: Constants
-  ) {}
+    private constants: Constants,
+    private datePipe: DatePipe,
+    private router: Router
+  ) {
+    this.getJobs();
+    this.getEducations();
+    this.getKabKota();
+  }
 
   ngOnInit() {
     // defined directive form
@@ -100,7 +115,10 @@ export class EditProfilePage implements OnInit {
       facebook: [''],
       twitter: ['', [Validators.pattern(/^[a-z0-9_.]+$/)]],
       lat: [''],
-      lon: ['']
+      lon: [''],
+      birth_date: [''],
+      education_level_id: [''],
+      job_type_id: ['']
     });
   }
 
@@ -158,10 +176,10 @@ export class EditProfilePage implements OnInit {
       role: this.role_user,
       instagram: this.dataProfile.instagram,
       facebook: this.dataProfile.facebook,
-      twitter: this.dataProfile.twitter
+      twitter: this.dataProfile.twitter,
+      birth_date: this.dataProfile.birth_date
     });
 
-    this.getKabKota();
     this.getKecamatan(this.dataProfile.kabkota_id);
     this.getKelurahan(this.dataProfile.kec_id);
   }
@@ -170,6 +188,11 @@ export class EditProfilePage implements OnInit {
   ionViewWillLeave() {
     // Unregister the custom back button action for this page
     this.navCtrl.navigateForward('/tabs/akun');
+
+    this.msgResponse = {
+      type: '',
+      msg: ''
+    };
   }
 
   // detect form onchange
@@ -240,11 +263,19 @@ export class EditProfilePage implements OnInit {
       duration: 10000
     });
     loader.present();
-    this.profileService.editProfile(form).subscribe(
+
+    // format birth_date to yyyy-MM-dd
+    const sendData = {
+      ...form,
+      birth_date: this.datePipe.transform(this.f.birth_date.value, 'yyyy-MM-dd')
+    };
+
+    this.profileService.editProfile(sendData).subscribe(
       res => {
         if (res.status === 200) {
           this.util.showToast(Dictionary.success_save);
-          this.navCtrl.navigateForward('/tabs/akun');
+          this.getDataProfile();
+          this.router.navigate(['tabs/akun']);
 
           // google event analytics
           this.util.trackEvent(
@@ -283,19 +314,97 @@ export class EditProfilePage implements OnInit {
 
   // get data kab/kota
   async getKabKota() {
-    const loader = await this.loadingCtrl.create({
-      duration: 10000
-    });
-    loader.present();
+    // check internet
+    if (!navigator.onLine) {
+      this.msgResponse = {
+        type: 'offline',
+        msg: Dictionary.offline
+      };
+      return;
+    }
 
     this.areasService.getKabKota().subscribe(
       res => {
         this.dataKabkota = res['data']['items'];
-        loader.dismiss();
       },
       err => {
-        this.util.showToast(Dictionary.check_internal);
-        loader.dismiss();
+        if (err.name === 'TimeoutError') {
+          this.msgResponse = {
+            type: 'offline',
+            msg: Dictionary.offline
+          };
+        } else {
+          this.msgResponse = {
+            type: 'server-error',
+            msg: Dictionary.check_internal
+          };
+        }
+      }
+    );
+  }
+
+  async getJobs() {
+    // check internet
+    if (!navigator.onLine) {
+      this.msgResponse = {
+        type: 'offline',
+        msg: Dictionary.offline
+      };
+      return;
+    }
+
+    this.profileService.getJobs().subscribe(
+      res => {
+        this.dataJobs = res['data']['items'];
+
+        // set value job
+        this.f.job_type_id.setValue(this.dataProfile.job_type_id);
+      },
+      err => {
+        if (err.name === 'TimeoutError') {
+          this.msgResponse = {
+            type: 'offline',
+            msg: Dictionary.offline
+          };
+        } else {
+          this.msgResponse = {
+            type: 'server-error',
+            msg: Dictionary.check_internal
+          };
+        }
+      }
+    );
+  }
+
+  async getEducations() {
+    // check internet
+    if (!navigator.onLine) {
+      this.msgResponse = {
+        type: 'offline',
+        msg: Dictionary.offline
+      };
+      return;
+    }
+
+    this.profileService.getEducations().subscribe(
+      res => {
+        this.dataEducations = res['data']['items'];
+
+        // set value education
+        this.f.education_level_id.setValue(this.dataProfile.education_level_id);
+      },
+      err => {
+        if (err.name === 'TimeoutError') {
+          this.msgResponse = {
+            type: 'offline',
+            msg: Dictionary.offline
+          };
+        } else {
+          this.msgResponse = {
+            type: 'server-error',
+            msg: Dictionary.check_internal
+          };
+        }
       }
     );
   }
@@ -424,7 +533,18 @@ export class EditProfilePage implements OnInit {
     return ans;
   }
 
-  backViewProfile() {
-    this.navCtrl.navigateForward('/tabs/akun');
+  getDataProfile() {
+    // check internet
+    if (!navigator.onLine) {
+      return;
+    }
+
+    this.profileService.getProfile().subscribe(
+      res => {
+        // save to local storage
+        this.profileService.saveProfile(res['data']);
+      },
+      err => {}
+    );
   }
 }

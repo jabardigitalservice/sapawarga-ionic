@@ -5,6 +5,8 @@ import { catchError } from 'rxjs/operators';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { Profile } from '../interfaces/profile';
 import { UtilitiesService } from './utilities.service';
+import { JobTypes } from '../interfaces/job-types';
+import { Education } from '../interfaces/education';
 
 const PROFILE = 'PROFILE';
 @Injectable({
@@ -60,6 +62,9 @@ export class ProfileService {
     this.currentUserSubject.next(data);
   }
 
+  saveDataProfile(data: Profile) {
+    localStorage.setItem(PROFILE, JSON.stringify(data));
+  }
   // save data into local storage
   getLocalProfile() {
     if (localStorage.getItem(PROFILE)) {
@@ -72,6 +77,18 @@ export class ProfileService {
   changePassword(data: any): Observable<any> {
     return this.http
       .post(`${environment.API_URL}/user/me/change-password`, data)
+      .pipe(catchError(this.util.handleError));
+  }
+
+  getJobs() {
+    return this.http
+      .get<JobTypes[]>(`${environment.API_URL}/job-types`)
+      .pipe(catchError(this.util.handleError));
+  }
+
+  getEducations() {
+    return this.http
+      .get<Education[]>(`${environment.API_URL}/education-levels`)
       .pipe(catchError(this.util.handleError));
   }
 }

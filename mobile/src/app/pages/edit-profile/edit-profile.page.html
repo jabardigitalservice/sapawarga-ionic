@@ -1,14 +1,65 @@
 <ion-header>
   <ion-toolbar color="light">
     <ion-buttons slot="start">
-      <ion-back-button (click)="backViewProfile()"></ion-back-button>
+      <ion-back-button></ion-back-button>
     </ion-buttons>
     <ion-title color="dark">Edit Akun</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="profile" color="light">
-  <ion-card no-margin>
+  <app-message-control
+    *ngIf="msgResponse.type"
+    [type]="msgResponse.type"
+    [message]="msgResponse.msg"
+  ></app-message-control>
+
+  <div
+    *ngIf="!dataJobs && !dataEducations && !dataKabkota && !msgResponse.type"
+  >
+    <div style="text-align: -webkit-center; margin-top: 30px;">
+      <ion-card-content class="bg-profile">
+        <ion-avatar style="margin: 0 auto;">
+          <app-skeleton height="100%" width="100%"></app-skeleton>
+        </ion-avatar>
+
+        <h1 class="fw500" style="margin: 15px; position: relative; left: 17%;">
+          <app-skeleton height="25px" width="60%"></app-skeleton>
+        </h1>
+
+        <h1 class="fw500" style="margin: 15px; position: relative; left: 17%;">
+          <app-skeleton height="25px" width="60%"></app-skeleton>
+        </h1>
+      </ion-card-content>
+    </div>
+
+    <ion-grid>
+      <ion-row>
+        <ion-col size="12" padding>
+          <ion-item>
+            <app-skeleton height="30px" style="width: 100%;"></app-skeleton>
+          </ion-item>
+          <ion-item>
+            <app-skeleton height="30px" style="width: 100%;"></app-skeleton>
+          </ion-item>
+          <ion-item>
+            <app-skeleton height="30px" style="width: 100%;"></app-skeleton>
+          </ion-item>
+          <ion-item>
+            <app-skeleton height="30px" style="width: 100%;"></app-skeleton>
+          </ion-item>
+          <ion-item>
+            <app-skeleton height="30px" style="width: 100%;"></app-skeleton>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+
+  <ion-card
+    no-margin
+    *ngIf="dataJobs && dataEducations && dataKabkota && !msgResponse.type"
+  >
     <ion-card-content class="bg-profile">
       <img *ngIf="!image" src="../../../assets/img/user.png" />
       <img *ngIf="image" src="{{ image }}" />
@@ -66,6 +117,51 @@
                   </ion-text>
                 </p>
               </div>
+
+              <ion-item>
+                <ion-label color="dark">Tanggal lahir:</ion-label>
+                <ion-datetime
+                  doneText="simpan"
+                  cancelText="batal"
+                  displayFormat="DD/MM/YYYY"
+                  min="1945"
+                  max="1999"
+                  formControlName="birth_date"
+                  placeholder="dd/mm/yyyy"
+                ></ion-datetime>
+              </ion-item>
+
+              <ion-item *ngIf="dataEducations">
+                <ion-label>Pendidikan:</ion-label>
+                <ion-select
+                  formControlName="education_level_id"
+                  okText="Pilih"
+                  cancelText="Batal"
+                  placeholder="Pilih Pendidikan"
+                >
+                  <ion-select-option
+                    *ngFor="let education of dataEducations"
+                    value="{{ education.id }}"
+                    >{{ education.title }}
+                  </ion-select-option>
+                </ion-select>
+              </ion-item>
+
+              <ion-item *ngIf="dataJobs">
+                <ion-label>Pekerjaan:</ion-label>
+                <ion-select
+                  formControlName="job_type_id"
+                  okText="Pilih"
+                  cancelText="Batal"
+                  placeholder="Pilih Pekerjaan"
+                >
+                  <ion-select-option
+                    *ngFor="let job of dataJobs"
+                    value="{{ job.id }}"
+                    >{{ job.title }}
+                  </ion-select-option>
+                </ion-select>
+              </ion-item>
 
               <ion-item>
                 <ion-label color="dark" position="stacked">Username:</ion-label>
