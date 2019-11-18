@@ -27,6 +27,10 @@ export class InformationPopupComponent implements OnInit {
     this.dataPopup = this.navParams.get('dataPopup');
   }
 
+  btnClose() {
+    this.util.dismissModal();
+  }
+
   goToDetail() {
     const action = 'tapped_detail_information_popup';
 
@@ -51,10 +55,9 @@ export class InformationPopupComponent implements OnInit {
       this.dataPopup.title,
       1
     );
-  }
 
-  btnClose() {
-    this.util.dismissModal();
+    // close modal
+    this.btnClose();
   }
 
   async getDetailSurvey(id: number) {
