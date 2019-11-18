@@ -8,6 +8,9 @@ import { UtilitiesService } from '../../services/utilities.service';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { Constants } from 'src/app/helpers/constants';
 
+// plugin sosial media
+import { SocialSharing } from '@ionic-native/social-sharing/ngx';
+
 @Component({
   selector: 'app-news-detail',
   templateUrl: './news-detail.page.html',
@@ -25,7 +28,8 @@ export class NewsDetailPage implements OnInit {
     public util: UtilitiesService,
     private navCtrl: NavController,
     private iab: InAppBrowser,
-    public constants: Constants
+    public constants: Constants,
+    private socialSharing: SocialSharing
   ) {}
 
   ngOnInit() {
@@ -124,5 +128,28 @@ export class NewsDetailPage implements OnInit {
 
     const target = '_self';
     this.iab.create(url, target, this.constants.inAppBrowserOptions);
+  }
+
+  // open native share social media
+  openSosialSharing() {
+    this.socialSharing
+      .share(
+        `${this.dataNews.title}\nBaca selengkapnya: ${this.dataNews.source_url}`,
+        '',
+        '',
+        ''
+      )
+      .then(() => {
+        // google event analytics
+        this.util.trackEvent(
+          this.constants.pageName.news,
+          'share_news',
+          this.dataNews.title,
+          1
+        );
+      })
+      .catch(() => {
+        this.util.showToast(Dictionary.terjadi_kesalahan);
+      });
   }
 }
