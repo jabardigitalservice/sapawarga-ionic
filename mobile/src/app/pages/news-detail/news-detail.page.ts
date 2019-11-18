@@ -135,11 +135,19 @@ export class NewsDetailPage implements OnInit {
     this.socialSharing
       .share(
         `${this.dataNews.title}\nBaca selengkapnya: ${this.dataNews.source_url}`,
-        null,
-        null,
-        null
+        '',
+        '',
+        ''
       )
-      .then(() => {})
+      .then(() => {
+        // google event analytics
+        this.util.trackEvent(
+          this.constants.pageName.news,
+          'share_news',
+          this.dataNews.title,
+          1
+        );
+      })
       .catch(() => {
         this.util.showToast(Dictionary.terjadi_kesalahan);
       });
