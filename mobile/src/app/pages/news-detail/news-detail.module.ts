@@ -11,6 +11,9 @@ import { NewsDetailPage } from './news-detail.page';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { SharedModule } from '../../shared/shared.module';
 
+// plugin sosial sharing
+import { SocialSharing } from '@ionic-native/social-sharing/ngx';
+
 const routes: Routes = [
   {
     path: '',
@@ -27,6 +30,6 @@ const routes: Routes = [
     SharedModule
   ],
   declarations: [NewsDetailPage],
-  providers: [InAppBrowser]
+  providers: [InAppBrowser, SocialSharing]
 })
 export class NewsDetailPageModule {}

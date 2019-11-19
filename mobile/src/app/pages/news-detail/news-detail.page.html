@@ -5,6 +5,11 @@
         <ion-icon name="arrow-back"></ion-icon>
       </ion-button>
     </ion-buttons>
+    <ion-buttons slot="end" (click)="openSosialSharing()">
+      <ion-button shape="round" color="dark" class="icon-share">
+        <ion-icon name="share"></ion-icon>
+      </ion-button>
+    </ion-buttons>
     <ion-title>Berita</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -92,8 +97,8 @@
         <ion-item>
           <ion-text class="mb-5 ml-10"
             ><p>
-              {{ news.title | slice: 0:45
-              }}{{ news.title.length > 45 ? '...' : '' }}
+              {{ news.title | slice: 0:45 }}{{ news.title.length > 45 ? '...' :
+              '' }}
             </p>
             <ion-note class="source-title-more"
               ><img
