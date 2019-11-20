@@ -139,17 +139,17 @@ export class NewsDetailPage implements OnInit {
         '',
         ''
       )
-      .then(() => {
-        // google event analytics
-        this.util.trackEvent(
-          this.constants.pageName.news,
-          'share_news',
-          this.dataNews.title,
-          1
-        );
-      })
+      .then(() => {})
       .catch(() => {
         this.util.showToast(Dictionary.terjadi_kesalahan);
       });
+
+    // google event analytics
+    this.util.trackEvent(
+      this.constants.pageName.news,
+      'share_news',
+      this.dataNews.title,
+      1
+    );
   }
 }
