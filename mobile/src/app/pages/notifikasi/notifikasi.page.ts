@@ -57,6 +57,7 @@ export class NotifikasiPage implements OnInit {
 
   ionViewWillLeave() {
     window.clearInterval(this.interval);
+    this.isLoading = false;
   }
 
   goToDetail(index: number, meta: any, target: string) {
@@ -72,7 +73,11 @@ export class NotifikasiPage implements OnInit {
       this.inAppBrowser.create(meta.url, '_system'); // call yotube app
     } else if (target === 'notifikasi' && meta.target === 'home-results') {
       this.navCtrl.navigateRoot('/');
-    } else if (target === 'notifikasi' && meta.target === 'aspirasi') {
+    } else if (
+      target === 'notifikasi' &&
+      meta.target === 'aspirasi' &&
+      meta.id
+    ) {
       this.router.navigate([`/${meta.target}`, meta.id], {
         queryParams: {
           myaspirasi: true

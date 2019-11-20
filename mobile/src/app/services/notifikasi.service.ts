@@ -33,11 +33,12 @@ export class NotifikasiService {
             // Update API data with local data
             result = listNotifikasi.map(notifikasi => {
               const oldNotifikasi = localNotifikasi.find(
-                elmt => elmt.id === notifikasi.id
+                elmt => elmt.title === notifikasi.title
               );
               notifikasi['read'] = oldNotifikasi ? oldNotifikasi.read : false;
               return notifikasi;
             });
+
             // save to local
             this.saveLocalNotifikasi(JSON.stringify(result));
 
@@ -68,13 +69,20 @@ export class NotifikasiService {
     return JSON.parse(localNotifikasi);
   }
 
-  saveReceivedNotifikasi(data: any) {
+  /**
+   *
+   *
+   * @param {*} data
+   * @param {boolean} [isRead]
+   * @memberof NotifikasiService
+   */
+  saveReceivedNotifikasi(data: any, isRead?: boolean) {
     const newNotif: Notifikasi = {
       target: data.target,
       title: data.title,
       meta: JSON.parse(data.meta),
       push_notification: data.push_notification,
-      read: false
+      read: isRead ? isRead : false
     };
 
     const notifData = this.getLocalNotifikasi();
