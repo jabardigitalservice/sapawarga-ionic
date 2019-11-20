@@ -212,7 +212,8 @@ export class AppComponent {
               this.navCtrl.navigateRoot('/');
             } else if (
               data.target === 'notifikasi' &&
-              meta.target === 'aspirasi'
+              meta.target === 'aspirasi' &&
+              meta.id
             ) {
               this.router.navigate([`/${meta.target}`, meta.id], {
                 queryParams: {
@@ -236,16 +237,20 @@ export class AppComponent {
                 });
               }
             }
+
+            if (data.target === 'notifikasi' || data.target === 'url') {
+              this.notifikasiService.saveReceivedNotifikasi(data, true);
+            }
           } else {
             // Received in foreground
             if (data.target === 'broadcast') {
               // set notification true to call state
               this.broadcastService.setNotification(true);
             }
-          }
 
-          if (data.target === 'notifikasi' || data.target === 'url') {
-            this.notifikasiService.saveReceivedNotifikasi(data);
+            if (data.target === 'notifikasi' || data.target === 'url') {
+              this.notifikasiService.saveReceivedNotifikasi(data);
+            }
           }
         });
       })

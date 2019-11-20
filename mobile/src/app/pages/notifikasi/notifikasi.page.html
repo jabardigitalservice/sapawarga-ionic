@@ -37,9 +37,9 @@
           src="{{ getImageURL(notifikasi?.meta?.target) }}"
         />
       </ion-avatar>
-      <ion-text [ngClass]="{ unread: !notifikasi['read'] }" item-end>{{
-        notifikasi['title']
-      }}</ion-text>
+      <ion-text [ngClass]="{ unread: !notifikasi['read'] }" item-end
+        >{{ notifikasi['title'] }}</ion-text
+      >
     </ion-item>
   </ion-list>
 </ion-content>
