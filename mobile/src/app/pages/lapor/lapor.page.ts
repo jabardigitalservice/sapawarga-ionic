@@ -5,6 +5,8 @@ import { UtilitiesService } from '../../services/utilities.service';
 import { Constants } from '../../helpers/constants';
 import { Profile } from '../../interfaces/profile';
 import { ProfileService } from '../../services/profile.service';
+import { ShowIntroService } from '../../services/show-intro.service';
+import { IntroConstants } from '../../helpers/introConstants';
 
 @Component({
   selector: 'app-lapor',
@@ -20,7 +22,8 @@ export class LaporPage implements OnInit {
       logo: 'assets/icon/lapor-icon.jpg',
       description:
         // tslint:disable-next-line:max-line-length
-        'Sarana aspirasi dan pengaduan berbasis media sosial bertujuan agar masyarakat dapat berpartisipasi untuk pengawasan program dan kinerja pemerintah dalam penyelenggaraan pembangunan dan pelayanan publik.'
+        'Sarana aspirasi dan pengaduan berbasis media sosial bertujuan agar masyarakat dapat berpartisipasi untuk pengawasan program dan kinerja pemerintah dalam penyelenggaraan pembangunan dan pelayanan publik.',
+      stepId: 'step1'
     },
     {
       nameInit: 'jqr',
@@ -29,7 +32,8 @@ export class LaporPage implements OnInit {
       logo: 'assets/icon/jqr.png',
       description:
         // tslint:disable-next-line:max-line-length
-        'Layanan aduan kemanusiaan bagi masyarakat Jawa Barat yang akan diterima oleh tim Jabar Quick Response dan diseleksi berdasarkan skala prioritas masalah. Laporan yang dikirim dapat berupa aduan atau permintaan bantuan kemanusiaan.'
+        'Layanan aduan kemanusiaan bagi masyarakat Jawa Barat yang akan diterima oleh tim Jabar Quick Response dan diseleksi berdasarkan skala prioritas masalah. Laporan yang dikirim dapat berupa aduan atau permintaan bantuan kemanusiaan.',
+      stepId: 'step2'
     }
   ];
 
@@ -40,7 +44,9 @@ export class LaporPage implements OnInit {
     private inAppBrowser: InAppBrowser,
     private util: UtilitiesService,
     private constants: Constants,
-    private profileService: ProfileService
+    private profileService: ProfileService,
+    private introConstants: IntroConstants,
+    private showIntroService: ShowIntroService
   ) {}
 
   ngOnInit() {
@@ -53,6 +59,20 @@ export class LaporPage implements OnInit {
     this.profileService.currentUser.subscribe((state: Profile) => {
       this.data_profile = state;
     });
+  }
+
+  ionViewDidEnter() {
+    const IsIntro = localStorage.getItem(
+      this.introConstants.introStorages.lapor
+    );
+
+    if (!IsIntro) {
+      this.showIntroService.showIntro(
+        this.introConstants.stepLapor,
+        'app-lapor',
+        this.introConstants.introStorages.lapor
+      );
+    }
   }
 
   createEventAnalytics(action: string, label?: string) {

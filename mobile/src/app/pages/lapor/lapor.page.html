@@ -10,8 +10,10 @@
 <ion-content padding color="light">
   <ion-card
     class="card-lapor"
-    *ngFor="let content of contentsLapor"
+    *ngFor="let content of contentsLapor; let i = index"
     (click)="selectLapor(content.nameInit, content.url)"
+    [id]="content.stepId"
+    data-position="bottom"
   >
     <ion-item>
       <ion-thumbnail slot="start">
