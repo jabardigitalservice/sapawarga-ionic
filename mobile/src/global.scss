@@ -14,6 +14,14 @@ ion-item {
   --ion-item-background: transparent;
 }
 
+.introjs-skipbutton {
+  visibility: hidden !important;
+}
+
+.introjs-donebutton {
+  visibility: visible !important;
+}
+
 // backgrounds //
 .bg-white {
   background-color: var(--ion-color-primary-contrast);

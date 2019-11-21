@@ -46,6 +46,7 @@ import { registerLocaleData } from '@angular/common';
 import localeId from '@angular/common/locales/id';
 import { InformationPopupComponent } from './shared/information-popup/information-popup.component';
 import { GestureConfig } from './helpers/GestureConfig';
+import { IntroConstants } from './helpers/introConstants';
 
 registerLocaleData(localeId);
 @NgModule({
@@ -97,6 +98,7 @@ registerLocaleData(localeId);
     Camera,
     InAppBrowser,
     Constants,
+    IntroConstants,
     HTTP,
     AppVersion,
     ScreenOrientation,
