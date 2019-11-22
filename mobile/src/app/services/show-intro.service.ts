@@ -42,6 +42,12 @@ export class ShowIntroService {
       });
   }
 
+  /**
+   *
+   *
+   * @param {string} storageName  // name of storage
+   * @memberof ShowIntroService
+   */
   skipIntro(storageName: string) {
     this.intro().exit();
     localStorage.setItem(storageName, 'true');
