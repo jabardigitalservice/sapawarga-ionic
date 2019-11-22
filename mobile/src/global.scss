@@ -15,11 +15,16 @@ ion-item {
 }
 
 .introjs-skipbutton {
+  color: black !important;
   visibility: hidden !important;
 }
 
 .introjs-donebutton {
   visibility: visible !important;
+}
+
+.introjs-button {
+  font: 14px / normal sans-serif !important;
 }
 
 // backgrounds //
