@@ -42,7 +42,8 @@ export class ShowIntroService {
       });
   }
 
-  skipIntro() {
+  skipIntro(storageName: string) {
     this.intro().exit();
+    localStorage.setItem(storageName, 'true');
   }
 }
