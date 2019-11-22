@@ -39,6 +39,8 @@ export class LaporPage implements OnInit {
 
   data_profile: Profile;
 
+  IsIntro = false;
+
   constructor(
     private platform: Platform,
     private inAppBrowser: InAppBrowser,
@@ -62,11 +64,11 @@ export class LaporPage implements OnInit {
   }
 
   ionViewDidEnter() {
-    const IsIntro = localStorage.getItem(
-      this.introConstants.introStorages.lapor
+    this.IsIntro = JSON.parse(
+      localStorage.getItem(this.introConstants.introStorages.lapor)
     );
 
-    if (!IsIntro) {
+    if (!this.IsIntro) {
       this.showIntroService.showIntro(
         this.introConstants.stepLapor,
         'app-lapor',
@@ -118,6 +120,10 @@ export class LaporPage implements OnInit {
   }
 
   private smsLapor() {
+    if (!this.IsIntro) {
+      return;
+    }
+
     const transformName = this.data_profile.name.replace(/ /g, '_');
     const kabkota = this.data_profile.kabkota.name.replace(/ /g, '_');
     const kecamatan = this.data_profile.kecamatan.name.replace(/ /g, '_');
