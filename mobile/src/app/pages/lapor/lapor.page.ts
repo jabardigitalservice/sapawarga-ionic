@@ -121,6 +121,7 @@ export class LaporPage implements OnInit {
 
   private smsLapor() {
     if (!this.IsIntro) {
+      this.showIntroService.skipIntro();
       return;
     }
 

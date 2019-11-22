@@ -41,4 +41,8 @@ export class ShowIntroService {
         localStorage.setItem(storageName, 'true');
       });
   }
+
+  skipIntro() {
+    this.intro().exit();
+  }
 }
