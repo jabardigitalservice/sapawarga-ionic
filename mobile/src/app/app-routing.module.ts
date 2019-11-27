@@ -108,6 +108,11 @@ const routes: Routes = [
     path: 'saber-hoax/:id',
     loadChildren:
       './pages/saber-hoax-detail/saber-hoax-detail.module#SaberHoaxDetailPageModule'
+  },
+  {
+    path: 'question-and-answer',
+    loadChildren:
+      './pages/question-and-answer/question-and-answer.module#QuestionAndAnswerPageModule'
   }
 ];
 
