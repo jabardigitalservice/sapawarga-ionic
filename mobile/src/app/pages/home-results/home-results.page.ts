@@ -97,7 +97,7 @@ export class HomeResultsPage implements OnInit {
         title: 'E-samsat',
         url: '',
         icon: 'assets/icon/SW-E-samsat.png',
-        path: 'e-samsat'
+        path: 'question-and-answer'
       },
       {
         title: 'Jabar Saber Hoaks',

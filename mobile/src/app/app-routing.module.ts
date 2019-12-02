@@ -113,6 +113,11 @@ const routes: Routes = [
     path: 'question-and-answer',
     loadChildren:
       './pages/question-and-answer/question-and-answer.module#QuestionAndAnswerPageModule'
+  },
+  {
+    path: 'question-and-answer-detail',
+    loadChildren:
+      './pages/question-and-answer-detail/question-and-answer-detail.module#QuestionAndAnswerDetailPageModule'
   }
 ];
 

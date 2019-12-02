@@ -1,0 +1,78 @@
+<ion-header>
+  <ion-toolbar color="light">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Gubernur Jawa Barat</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content
+  padding
+  color="light"
+  class="contentBg"
+  #content
+  id="chat-parent"
+  overflow-scroll="true"
+  (ionScrollStart)="logScrollStart()"
+  (ionScroll)="logScrolling($event)"
+>
+  <div>
+    <div id="chat-container">
+      <span class="line-style"></span>
+      <hr />
+      <div class="message-wrap">
+        <div
+          *ngFor="let msg of msgList;let i = index; let first = first; let last = last"
+          class="message"
+        >
+          <div class="message-left" *ngIf="msg.userId == toUser">
+            <div class="msg-detail">
+              <div class="msg-content">
+                <p class="line-breaker  ">{{msg.message}}</p>
+                <ion-note class="lastSection" style="font-size: 10px;"
+                  >14:00</ion-note
+                >
+              </div>
+            </div>
+          </div>
+          <div class="message-right" *ngIf="msg.userId == User">
+            <ion-spinner
+              name="dots"
+              *ngIf="msg.status === 'pending'"
+            ></ion-spinner>
+            <div class="msg-detail">
+              <div class="msg-info"></div>
+              <div class="msg-content">
+                <p class="line-breaker  ">{{msg.message}}</p>
+                <ion-note class="lastSection" style="font-size: 10px;"
+                  >14:00</ion-note
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-content>
+
+<ion-footer class="footer">
+  <ion-toolbar>
+    <div class="containerFooter">
+      <div class="inputConatiner">
+        <ion-textarea
+          class="inputMessage inputBg"
+          placeholder="Tulis pesan ..."
+          [(ngModel)]="inp_text"
+          autofocus="true"
+        ></ion-textarea>
+      </div>
+      <div class="send-button-parent">
+        <ion-button (click)="sendMsg()" fill="clear" class="sendBtn">
+          <ion-icon class="sendBtn-icon" name="send" color="blues"></ion-icon>
+        </ion-button>
+      </div>
+    </div>
+  </ion-toolbar>
+</ion-footer>
