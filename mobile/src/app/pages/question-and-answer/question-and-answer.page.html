@@ -5,60 +5,18 @@
     </ion-buttons>
     <ion-title>Tanya Jawab</ion-title>
   </ion-toolbar>
-  <ion-segment style="background: #f4f4f4">
+  <!-- <ion-segment style="background: #f4f4f4">
     <ion-segment-button value="diskusi" checked>
       <ion-label>Diskusi</ion-label>
     </ion-segment-button>
     <ion-segment-button value="arsip">
       <ion-label>Arsip</ion-label>
     </ion-segment-button>
-  </ion-segment>
+  </ion-segment> -->
 </ion-header>
 
 <ion-content>
-  <ion-item-divider *ngFor="let key of [0, 1, 2]">
-    <div>
-      <div class="pt-5">
-        <ion-item>
-          <img
-            class="img-avatar"
-            src="assets/img/user.png"
-            onError="this.src='assets/img/user.png';"
-          />
-          <ion-text>
-            {{ userName | slice: 0:23 }}{{ userName.length > 23 ? '...' : '' }}
-            <br />
-            <ion-note class="date-qna"> 20 agustus 2019</ion-note>
-          </ion-text>
-          <div slot="end">
-            <ion-badge color="blues" slot="end">128</ion-badge>
-            <img class="thumb-up" src="assets/icon/thumb-up.png" />
-          </div>
-        </ion-item>
-
-        <div class="pb-10 pad-left-38 pr-16 mb-5">
-          <div style="margin-top: 8px; margin-bottom: 8px;">
-            <ion-text class="desc-content">
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nobis,
-              hic numquam, amet sequi nulla culpa quia, earum nemo magni iusto
-              fugiat molestiae illum accusantium odio velit? Modi tempore culpa
-              est.
-            </ion-text>
-          </div>
-
-          <ion-item class="section-2">
-            <img
-              src="assets/icon/message-line.png"
-              style="margin-right: 3px;"
-            />
-            <ion-text style="margin-top: 3px;">
-              <ion-note> <strong>Gubernur</strong> Lorem ipsum .....</ion-note>
-            </ion-text>
-          </ion-item>
-        </div>
-      </div>
-    </div>
-  </ion-item-divider>
+  <app-question-and-answer-list></app-question-and-answer-list>
 </ion-content>
 
 <ion-button shape="round" color="blues" class="btn-bottom">

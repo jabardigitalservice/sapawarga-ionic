@@ -1,35 +1,6 @@
 :host {
-  ion-card-header {
-    padding-bottom: unset !important;
-  }
-
-  ion-item-divider {
-    --padding-start: none;
-  }
-
-  .header-md:after {
-    background-image: unset;
-  }
-
   ion-segment-button {
     text-transform: capitalize;
-  }
-
-  ion-item {
-    --border-style: none;
-  }
-
-  .section-2 {
-    --padding-start: none;
-    --inner-padding-end: none;
-    margin-bottom: -15px;
-  }
-
-  ion-badge {
-    --padding-end: 9px;
-    --padding-start: 9px;
-    font-size: 12px;
-    margin-right: 8px;
   }
 
   ion-segment {
@@ -39,31 +10,6 @@
       color: black;
     }
   }
-}
-
-.img-avatar {
-  width: 30px;
-  height: 30px;
-  border-radius: 2px;
-  margin-right: 8px;
-}
-
-.date-qna {
-  font-size: 11px;
-  color: #333333;
-}
-
-.desc-content {
-  color: #333333;
-}
-
-.pad-left-38 {
-  padding-left: 55px;
-}
-
-.thumb-up {
-  width: 20px;
-  height: 20px;
 }
 
 .btn-bottom {

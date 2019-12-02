@@ -1,0 +1,83 @@
+<div class="mto" *ngIf="isLoading && !msgResponse.type">
+  <ion-item-divider *ngFor="let key of [0, 1, 2]">
+    <div class="pt-5" style="width: 100%;">
+      <ion-item>
+        <app-skeleton
+          height="30px"
+          width="30px"
+          style="margin-right: 8px;"
+        ></app-skeleton>
+
+        <app-skeleton height="30px" style="width: 70%;"></app-skeleton>
+
+        <app-skeleton
+          slot="end"
+          height="30px"
+          style="width: 25%;"
+        ></app-skeleton>
+      </ion-item>
+
+      <div class="pb-10 pad-left-38 pr-16 mb-5">
+        <div style="margin-top: 8px; margin-bottom: 8px;">
+          <div>
+            <app-skeleton height="20px" style="width: 60%"></app-skeleton>
+            <app-skeleton height="20px" style="width: 90%"></app-skeleton>
+            <app-skeleton height="20px" style="width: 40%"></app-skeleton>
+          </div>
+        </div>
+
+        <ion-item class="section-2">
+          <app-skeleton height="20px" style="width: 70%;"></app-skeleton>
+        </ion-item>
+      </div>
+    </div>
+  </ion-item-divider>
+</div>
+
+<div class="mto" *ngIf="!isLoading">
+  <ion-item-divider *ngFor="let data of dataQnA; let i = index">
+    <div>
+      <div class="pt-5">
+        <ion-item>
+          <img
+            class="img-avatar"
+            [src]="data.user_photo_url"
+            onError="this.src='assets/img/user.png';"
+          />
+          <ion-text style="font-size: 15px;">
+            {{ data.user_name | slice: 0:23
+            }}{{ data.user_name.length > 23 ? '...' : '' }}
+            <br />
+            <ion-note class="date-qna">
+              {{ data.created_at * 1000 | date: 'd MMMM y' }}</ion-note
+            >
+          </ion-text>
+          <div slot="end">
+            <ion-badge color="blues" slot="end">{{
+              data.likes_count
+            }}</ion-badge>
+            <img class="thumb-up" src="assets/icon/thumb-up.png" />
+          </div>
+        </ion-item>
+
+        <div class="pb-10 pad-left-38 pr-16 mb-5">
+          <div style="margin-top: 8px; margin-bottom: 8px;">
+            <ion-text class="desc-content">
+              {{ data.text }}
+            </ion-text>
+          </div>
+
+          <ion-item class="section-2">
+            <img
+              src="assets/icon/message-line.png"
+              style="margin-right: 3px;"
+            />
+            <ion-text style="margin-top: 3px;">
+              <ion-note> <strong>Gubernur</strong> Lorem ipsum .....</ion-note>
+            </ion-text>
+          </ion-item>
+        </div>
+      </div>
+    </div>
+  </ion-item-divider>
+</div>
