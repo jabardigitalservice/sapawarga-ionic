@@ -51,7 +51,7 @@
     </ion-item-divider>
   </div>
 
-  <div class="mto" *ngIf="dataQnA && dataCommentsQnA && !isLoading">
+  <div class="mto" *ngIf="dataQnA && !isLoading">
     <ion-item-divider>
       <div class="pt-5 w100">
         <ion-item>
@@ -69,7 +69,12 @@
           </ion-text>
           <div slot="end">
             <ion-badge color="blues">{{ dataQnA.likes_count }}</ion-badge>
-            <img class="thumb-up" src="assets/icon/thumb-up.png" />
+            <img
+              class="thumb-up"
+              src="assets/icon/thumb-up-{{
+              dataQnA.is_liked == true ? 'blue' : 'grey'
+            }}.png"
+            />
           </div>
         </ion-item>
 
@@ -83,7 +88,7 @@
       </div>
     </ion-item-divider>
 
-    <div>
+    <div *ngIf="dataCommentsQnA">
       <ion-item-divider
         *ngFor="let data of dataCommentsQnA; let i = index"
         [ngClass]="{ 'bg-blue': data.user_role_id === 'staffProv' }"

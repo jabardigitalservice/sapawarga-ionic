@@ -93,7 +93,7 @@ export class QuestionAndAnswerListComponent implements OnInit {
     );
   }
 
-  detailQnA(dataQnA: QuestionAndAnswer) {
-    this.router.navigate(['/question-and-answer', dataQnA.id]);
+  detailQnA(id: number) {
+    this.router.navigate(['/question-and-answer', id]);
   }
 }

@@ -35,19 +35,18 @@
 </div>
 
 <div class="mto" *ngIf="!isLoading">
-  <ion-item-divider
-    *ngFor="let data of dataQnA; let i = index"
-    (click)="detailQnA(data)"
-  >
+  <ion-item-divider *ngFor="let data of dataQnA; let i = index">
     <div class="pt-5 w100">
       <ion-item>
         <img
           class="img-avatar"
           [src]="data.user_photo_url"
           onError="this.src='assets/img/user.png';"
+          (click)="detailQnA(data.id)"
         />
         <ion-text
           style="font-size: 15px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"
+          (click)="detailQnA(data.id)"
         >
           {{ data.user.name }}
           <br />
@@ -57,23 +56,28 @@
         </ion-text>
         <div slot="end">
           <ion-badge color="blues">{{ data.likes_count }}</ion-badge>
-          <img class="thumb-up" src="assets/icon/thumb-up.png" />
+          <img
+            class="thumb-up"
+            src="assets/icon/thumb-up-{{
+              data.is_liked == true ? 'blue' : 'grey'
+            }}.png"
+          />
         </div>
       </ion-item>
 
-      <div class="pb-10 pad-left-38 pr-16 mb-5">
+      <div class="pb-10 pad-left-38 pr-16 mb-5" (click)="detailQnA(data.id)">
         <div style="margin-top: 8px; margin-bottom: 8px;">
           <ion-text class="desc-content">
             {{ data.text }}
           </ion-text>
         </div>
 
-        <ion-item class="section-2">
+        <!-- <ion-item class="section-2">
           <img src="assets/icon/message-line.png" style="margin-right: 3px;" />
           <ion-text style="margin-top: 3px;">
             <ion-note> <strong>Gubernur</strong> Lorem ipsum .....</ion-note>
           </ion-text>
-        </ion-item>
+        </ion-item> -->
       </div>
     </div>
   </ion-item-divider>

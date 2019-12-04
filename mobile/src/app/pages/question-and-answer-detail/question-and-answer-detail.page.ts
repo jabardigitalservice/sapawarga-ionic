@@ -5,6 +5,7 @@ import { Dictionary } from '../../helpers/dictionary';
 import { QuestionAndAnswerService } from '../../services/question-and-answer.service';
 import { Constants } from '../../helpers/constants';
 import { UtilitiesService } from '../../services/utilities.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-question-and-answer-detail',
@@ -17,7 +18,6 @@ export class QuestionAndAnswerDetailPage implements OnInit {
 
   dataQnA: QuestionAndAnswer;
   dataCommentsQnA: QuestionAndAnswer[];
-  id = 0;
   dataEmpty = false;
   isLoading = false;
   msgResponse = {
@@ -25,8 +25,8 @@ export class QuestionAndAnswerDetailPage implements OnInit {
     msg: ''
   };
 
-  User: string = 'Me';
-  toUser: string = 'driver';
+  User = 'Me';
+  toUser = 'driver';
   inp_text: any;
   editorMsg = '';
   showEmojiPicker = false;
@@ -49,7 +49,7 @@ export class QuestionAndAnswerDetailPage implements OnInit {
       toUserName: 'Hancock',
       userAvatar: './assets/to-user.jpg',
       time: 1488349800000,
-      message: "Hey, that's an awesome chat UI",
+      message: 'Hey, thats an awesome chat UI',
       status: 'success'
     },
     {
@@ -99,7 +99,7 @@ export class QuestionAndAnswerDetailPage implements OnInit {
       userAvatar: './assets/user.jpg',
       time: 1491108720000,
       message:
-        "Wow, that's so cool. Hats off to the developers. This is gooood stuff",
+        'Wow, thats so cool. Hats off to the developers. This is gooood stuff',
       status: 'success'
     },
     {
@@ -120,7 +120,8 @@ export class QuestionAndAnswerDetailPage implements OnInit {
     private events: Events,
     private questionAndAnswerService: QuestionAndAnswerService,
     private constants: Constants,
-    private util: UtilitiesService
+    private util: UtilitiesService,
+    private route: ActivatedRoute
   ) {
     this.msgList = [
       {
@@ -128,7 +129,7 @@ export class QuestionAndAnswerDetailPage implements OnInit {
         userName: this.User,
         userAvatar: 'assets/driver.jpeg',
         time: '12:01 pm',
-        message: "Hey, that's an awesome chat UI",
+        message: 'Hey, thats an awesome chat UI',
         upertext: 'Hello'
       },
       {
@@ -162,7 +163,7 @@ export class QuestionAndAnswerDetailPage implements OnInit {
         userAvatar: 'assets/driver.jpeg',
         time: '12:01 pm',
         message:
-          "Wow, that's so cool. Hats off to the developers. This is gooood stuff",
+          'Wow, thats so cool. Hats off to the developers. This is gooood stuff',
         upertext: 'How r u '
       },
       {
@@ -179,6 +180,7 @@ export class QuestionAndAnswerDetailPage implements OnInit {
         userAvatar: 'assets/driver.jpeg',
         time: '12:01 pm',
         message:
+          // tslint:disable-next-line: max-line-length
           'Have you seen their other apps ? They have a collection of ready-made apps for developers. This makes my life so easy. I love it! ',
         upertext: 'How r u '
       }
@@ -186,8 +188,12 @@ export class QuestionAndAnswerDetailPage implements OnInit {
   }
 
   ngOnInit() {
-    this.getDetailQnA(1);
-    this.getListCommentsQnA(1);
+    this.route.params.subscribe(params => {
+      const id = params['id'];
+
+      this.getDetailQnA(id);
+      this.getListCommentsQnA(id);
+    });
   }
 
   scrollToBottom() {
@@ -216,11 +222,11 @@ export class QuestionAndAnswerDetailPage implements OnInit {
   }
 
   sendMsg() {
-    let otherUser;
+    let otherUser: string;
     if (this.count === 0) {
       otherUser = this.arr[0].message;
       this.count++;
-    } else if (this.count == this.arr.length) {
+    } else if (this.count === this.arr.length) {
       this.count = 0;
       otherUser = this.arr[this.count].message;
     } else {
