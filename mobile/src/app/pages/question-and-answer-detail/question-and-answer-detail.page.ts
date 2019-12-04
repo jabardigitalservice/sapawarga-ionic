@@ -160,14 +160,6 @@ export class QuestionAndAnswerDetailPage implements OnInit {
         message:
           'Have you seen their other apps ? They have a collection of ready-made apps for developers. This makes my life so easy. I love it! ',
         upertext: 'How r u '
-      },
-      {
-        userId: this.toUser,
-        userName: this.toUser,
-        userAvatar: 'assets/user.jpeg',
-        time: '12:01 pm',
-        message: 'Well, good things come in small package after all',
-        upertext: 'good'
       }
     ];
   }

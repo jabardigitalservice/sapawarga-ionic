@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { QuestionAndAnswerService } from '../../services/question-and-answer.service';
 import { Dictionary } from '../../helpers/dictionary';
 import { QuestionAndAnswer } from '../../interfaces/question-and-answer';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-question-and-answer-list',
@@ -20,7 +21,10 @@ export class QuestionAndAnswerListComponent implements OnInit {
   currentPage = 1;
   maximumPages: number;
 
-  constructor(private questionAndAnswerService: QuestionAndAnswerService) {}
+  constructor(
+    private questionAndAnswerService: QuestionAndAnswerService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     this.getListQnA();
@@ -87,5 +91,9 @@ export class QuestionAndAnswerListComponent implements OnInit {
         this.isLoading = false;
       }
     );
+  }
+
+  detailQnA(dataQnA: QuestionAndAnswer) {
+    this.router.navigate(['/question-and-answer', dataQnA.id]);
   }
 }
