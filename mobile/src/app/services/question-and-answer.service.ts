@@ -19,4 +19,18 @@ export class QuestionAndAnswerService {
       )
       .pipe(catchError(this.util.handleError));
   }
+
+  getDetailQnA(id: number): Observable<QuestionAndAnswer> {
+    return this.http
+      .get<QuestionAndAnswer>(`${environment.API_MOCK}/questions/${id}`)
+      .pipe(catchError(this.util.handleError));
+  }
+
+  getListCommentQnA(id: number): Observable<QuestionAndAnswer[]> {
+    return this.http
+      .get<QuestionAndAnswer[]>(
+        `${environment.API_MOCK}/questions/${id}/comments`
+      )
+      .pipe(catchError(this.util.handleError));
+  }
 }

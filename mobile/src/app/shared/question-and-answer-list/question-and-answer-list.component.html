@@ -46,9 +46,10 @@
           [src]="data.user_photo_url"
           onError="this.src='assets/img/user.png';"
         />
-        <ion-text style="font-size: 15px;">
-          {{ data.user_name | slice: 0:23
-          }}{{ data.user_name.length > 23 ? '...' : '' }}
+        <ion-text
+          style="font-size: 15px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"
+        >
+          {{ data.user.name }}
           <br />
           <ion-note class="date-qna">
             {{ data.created_at * 1000 | date: 'd MMMM y' }}</ion-note

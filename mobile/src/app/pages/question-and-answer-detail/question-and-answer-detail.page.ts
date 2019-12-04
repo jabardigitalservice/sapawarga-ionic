@@ -1,5 +1,10 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Events, IonContent } from '@ionic/angular';
+import { QuestionAndAnswer } from '../../interfaces/question-and-answer';
+import { Dictionary } from '../../helpers/dictionary';
+import { QuestionAndAnswerService } from '../../services/question-and-answer.service';
+import { Constants } from '../../helpers/constants';
+import { UtilitiesService } from '../../services/utilities.service';
 
 @Component({
   selector: 'app-question-and-answer-detail',
@@ -9,6 +14,17 @@ import { Events, IonContent } from '@ionic/angular';
 export class QuestionAndAnswerDetailPage implements OnInit {
   @ViewChild('content') content: IonContent;
   @ViewChild('chat_input') messageInput: ElementRef;
+
+  dataQnA: QuestionAndAnswer;
+  dataCommentsQnA: QuestionAndAnswer[];
+  id = 0;
+  dataEmpty = false;
+  isLoading = false;
+  msgResponse = {
+    type: '',
+    msg: ''
+  };
+
   User: string = 'Me';
   toUser: string = 'driver';
   inp_text: any;
@@ -100,7 +116,12 @@ export class QuestionAndAnswerDetailPage implements OnInit {
     }
   ];
 
-  constructor(private events: Events) {
+  constructor(
+    private events: Events,
+    private questionAndAnswerService: QuestionAndAnswerService,
+    private constants: Constants,
+    private util: UtilitiesService
+  ) {
     this.msgList = [
       {
         userId: this.User,
@@ -164,7 +185,10 @@ export class QuestionAndAnswerDetailPage implements OnInit {
     ];
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.getDetailQnA(1);
+    this.getListCommentsQnA(1);
+  }
 
   scrollToBottom() {
     this.content.scrollToBottom(100);
@@ -225,5 +249,97 @@ export class QuestionAndAnswerDetailPage implements OnInit {
     setTimeout(() => {
       this.scrollToBottom();
     }, 10);
+  }
+
+  async getDetailQnA(id: number) {
+    // check internet
+    if (!navigator.onLine) {
+      alert(Dictionary.offline);
+      return;
+    }
+
+    this.dataQnA = null;
+    this.isLoading = true;
+
+    this.questionAndAnswerService.getDetailQnA(id).subscribe(
+      res => {
+        if (res['status'] === 200) {
+          this.dataQnA = res['data'];
+
+          // google event analytics
+          this.util.trackEvent(
+            this.constants.pageName.QnA,
+            'view_detail_tanya_jawab',
+            this.dataQnA.text,
+            1
+          );
+        }
+        this.isLoading = false;
+      },
+      err => {
+        if (err.status === 404) {
+          this.msgResponse = {
+            type: 'empty',
+            msg: Dictionary.empty
+          };
+        } else if (err.name === 'TimeoutError') {
+          this.msgResponse = {
+            type: 'offline',
+            msg: Dictionary.offline
+          };
+        } else {
+          this.msgResponse = {
+            type: 'server-error',
+            msg: Dictionary.internalError
+          };
+        }
+
+        this.isLoading = false;
+      }
+    );
+  }
+
+  getListCommentsQnA(id: number) {
+    // check internet
+    if (!navigator.onLine) {
+      return;
+    }
+
+    this.dataEmpty = false;
+
+    this.isLoading = true;
+
+    this.questionAndAnswerService.getListCommentQnA(id).subscribe(
+      res => {
+        if (res['data']['items'].length) {
+          this.dataCommentsQnA = res['data']['items'];
+
+          // save to local
+          // this.pollingService.saveLocalPolling(this.dataQnA);
+        } else {
+          this.dataEmpty = true;
+          this.msgResponse = {
+            type: 'empty',
+            msg: Dictionary.polling_empty
+          };
+        }
+        this.isLoading = false;
+      },
+      err => {
+        if (err.name === 'TimeoutError') {
+          this.msgResponse = {
+            type: 'offline',
+            msg: Dictionary.offline
+          };
+        } else {
+          this.msgResponse = {
+            type: 'server-error',
+            msg: Dictionary.internalError
+          };
+        }
+
+        this.isLoading = false;
+      }
+    );
   }
 }
