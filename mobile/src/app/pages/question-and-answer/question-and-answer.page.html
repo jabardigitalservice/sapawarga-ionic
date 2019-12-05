@@ -19,7 +19,12 @@
   <app-question-and-answer-list></app-question-and-answer-list>
 </ion-content>
 
-<ion-button shape="round" color="blues" class="btn-bottom">
+<ion-button
+  shape="round"
+  color="blues"
+  class="btn-bottom"
+  (click)="showModalAddQnA()"
+>
   <ion-icon slot="start" name="add"></ion-icon>
   Buat Pertanyaan
 </ion-button>

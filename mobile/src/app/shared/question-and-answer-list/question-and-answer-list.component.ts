@@ -20,11 +20,20 @@ export class QuestionAndAnswerListComponent implements OnInit {
   dataQnA: QuestionAndAnswer[];
   currentPage = 1;
   maximumPages: number;
+  isNewQnA = false;
+  dataNewQnA: QuestionAndAnswer;
 
   constructor(
     private questionAndAnswerService: QuestionAndAnswerService,
     private router: Router
-  ) {}
+  ) {
+    // get data user using BehaviorSubject
+    this.questionAndAnswerService.isNewQnA.subscribe(
+      (state: QuestionAndAnswer) => {
+        this.dataNewQnA = state;
+      }
+    );
+  }
 
   ngOnInit() {
     this.getListQnA();
@@ -37,12 +46,13 @@ export class QuestionAndAnswerListComponent implements OnInit {
   getListQnA(infiniteScroll?) {
     // check internet
     if (!navigator.onLine) {
+      if (infiniteScroll) {
+        infiniteScroll.target.complete();
+      }
       return;
     }
 
     this.dataEmpty = false;
-
-    this.isLoading = true;
 
     if (!infiniteScroll) {
       this.isLoading = true;
@@ -56,10 +66,6 @@ export class QuestionAndAnswerListComponent implements OnInit {
           } else {
             this.dataQnA = res['data']['items'];
           }
-
-          console.log(this.dataQnA);
-          // save to local
-          // this.pollingService.saveLocalPolling(this.dataQnA);
         } else {
           this.dataEmpty = true;
           this.msgResponse = {
@@ -95,5 +101,19 @@ export class QuestionAndAnswerListComponent implements OnInit {
 
   detailQnA(id: number) {
     this.router.navigate(['/question-and-answer', id]);
+  }
+
+  // infinite scroll
+  doInfinite(event: any) {
+    if (this.currentPage === this.maximumPages) {
+      event.target.disabled = true;
+      return;
+    }
+    // increase page
+    this.currentPage++;
+
+    setTimeout(() => {
+      this.getListQnA(event);
+    }, 2000);
   }
 }

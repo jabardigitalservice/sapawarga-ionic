@@ -77,7 +77,8 @@ export class Constants {
     onBoarding: 'has-onboarding',
     surveyData: 'data-survey',
     forceChange: 'forceChange',
-    informationPopup: 'information-popup'
+    informationPopup: 'information-popup',
+    newQnA: 'new-QnA'
   };
 
   public telpLapor = '1708';

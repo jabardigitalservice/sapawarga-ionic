@@ -96,7 +96,7 @@ export class HomeResultsPage implements OnInit {
       {
         title: 'E-samsat',
         url: '',
-        icon: 'assets/icon/SW-E-samsat.png',
+        icon: 'assets/icon/QnA.png',
         path: 'question-and-answer'
       },
       {
@@ -243,6 +243,11 @@ export class HomeResultsPage implements OnInit {
   goToLayanan(app: string, path: string) {
     switch (app) {
       case 'E-samsat':
+        // check if offline
+        if (!navigator.onLine) {
+          alert(Dictionary.offline);
+          return;
+        }
         this.navigationForward(path, 'tapped_e_Samsat');
         break;
       case 'Nomor\npenting':

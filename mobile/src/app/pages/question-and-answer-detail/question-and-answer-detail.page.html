@@ -57,7 +57,7 @@
         <ion-item>
           <img
             class="img-avatar"
-            [src]="dataQnA.user_photo_url"
+            [src]="dataQnA.user.photo_url_full"
             onError="this.src='assets/img/user.png';"
           />
           <ion-text style="font-size: 15px;">
@@ -91,13 +91,13 @@
     <div *ngIf="dataCommentsQnA">
       <ion-item-divider
         *ngFor="let data of dataCommentsQnA; let i = index"
-        [ngClass]="{ 'bg-blue': data.user_role_id === 'staffProv' }"
+        [ngClass]="{ 'bg-blue': data.user.role_label === 'staffProv' }"
       >
         <div class="pt-5 w100">
           <ion-item>
             <img
               class="img-avatar"
-              [src]="data.user_photo_url"
+              [src]="data.user.photo_url_full"
               onError="this.src='assets/img/user.png';"
             />
             <div
@@ -107,7 +107,7 @@
               <img
                 class="verified"
                 src="assets/icon/verified.png"
-                *ngIf="data.user_role_id === 'staffProv'"
+                *ngIf="data.user.role_label === 'staffProv'"
               />
               <br />
               <ion-note class="date-qna">

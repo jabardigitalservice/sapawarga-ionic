@@ -1,4 +1,5 @@
 export interface QuestionAndAnswer {
+  success: boolean;
   id: number;
   text: string;
   user: User;

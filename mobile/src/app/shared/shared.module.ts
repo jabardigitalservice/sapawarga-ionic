@@ -10,6 +10,7 @@ import { VideoListComponent } from './video-list/video-list.component';
 import { HumasJabarComponent } from './humas-jabar/humas-jabar.component';
 import { SkeletonComponent } from './skeleton/skeleton.component';
 import { QuestionAndAnswerListComponent } from './question-and-answer-list/question-and-answer-list.component';
+import { QuestionAndAnswerFormComponent } from './question-and-answer-form/question-and-answer-form.component';
 
 @NgModule({
   declarations: [
