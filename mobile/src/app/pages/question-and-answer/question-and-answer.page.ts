@@ -5,6 +5,8 @@ import { QuestionAndAnswer } from '../../interfaces/question-and-answer';
 import { Router } from '@angular/router';
 import { QuestionAndAnswerFormComponent } from '../../shared/question-and-answer-form/question-and-answer-form.component';
 import { QuestionAndAnswerService } from '../../services/question-and-answer.service';
+import { Constants } from '../../helpers/constants';
+import { UtilitiesService } from '../../services/utilities.service';
 
 @Component({
   selector: 'app-question-and-answer',
@@ -27,7 +29,9 @@ export class QuestionAndAnswerPage implements OnInit {
   constructor(
     private modalController: ModalController,
     private questionAndAnswerService: QuestionAndAnswerService,
-    private router: Router
+    private router: Router,
+    private constants: Constants,
+    private util: UtilitiesService
   ) {
     // get data user using BehaviorSubject
     this.questionAndAnswerService.isNewQnA.subscribe(
@@ -41,7 +45,18 @@ export class QuestionAndAnswerPage implements OnInit {
     this.getListQnA();
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    // google analytics
+    this.util.trackPage(this.constants.pageName.QnA);
+
+    // google analytics
+    this.util.trackEvent(
+      this.constants.pageName.QnA,
+      'view_list_general_tanya_jawab',
+      '',
+      1
+    );
+  }
 
   ionViewWillLeave() {
     this.dataEmpty = false;
@@ -147,15 +162,28 @@ export class QuestionAndAnswerPage implements OnInit {
     if (isLiked === true) {
       this.dataQnA[index].likes_count = this.dataQnA[index].likes_count - 1;
       this.dataQnA[index].is_liked = false;
+
+      // google analytics
+      this.util.trackEvent(
+        this.constants.pageName.QnA,
+        'unlike_tanya_jawab',
+        this.dataQnA[index].text,
+        1
+      );
     } else {
       this.dataQnA[index].likes_count = this.dataQnA[index].likes_count + 1;
       this.dataQnA[index].is_liked = true;
+
+      // google analytics
+      this.util.trackEvent(
+        this.constants.pageName.QnA,
+        'like_tanya_jawab',
+        this.dataQnA[index].text,
+        1
+      );
     }
 
     // save like to server
-    this.questionAndAnswerService.PostLiked(id).subscribe(
-      res => {},
-      err => {}
-    );
+    this.questionAndAnswerService.PostLiked(id).subscribe();
   }
 }

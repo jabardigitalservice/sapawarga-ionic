@@ -95,7 +95,7 @@ export class EditProfilePage implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       phone: [
         '',
-        [Validators.required, Validators.minLength(3), Validators.maxLength(12)]
+        [Validators.required, Validators.minLength(3), Validators.maxLength(13)]
       ],
       address: ['', [Validators.required, Validators.maxLength(255)]],
       kabkota_id: { value: '', disabled: true },

@@ -92,6 +92,14 @@ export class QuestionAndAnswerFormComponent implements OnInit {
               this.constants.localStorage.newQnA,
               res['data']
             );
+
+            // google event analytics
+            this.util.trackEvent(
+              this.constants.pageName.QnA,
+              'create_question_tanya_jawab',
+              this.f.description.value,
+              1
+            );
           } else {
             loader.dismiss();
             this.util.alertConfirmation(Dictionary.terjadi_kesalahan, ['OK']);
