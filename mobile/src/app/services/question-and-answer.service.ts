@@ -75,6 +75,15 @@ export class QuestionAndAnswerService {
       .pipe(catchError(this.util.handleError));
   }
 
+  PostLiked(id: number): Observable<QuestionAndAnswer> {
+    return this.http
+      .post<QuestionAndAnswer>(
+        `${environment.API_URL}/questions/likes/${id}`,
+        null
+      )
+      .pipe(catchError(this.util.handleError));
+  }
+
   /**
    * @param {string} name //name of local storage
    * @param {object} data

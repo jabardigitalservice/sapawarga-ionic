@@ -348,4 +348,20 @@ export class QuestionAndAnswerDetailPage implements OnInit {
       }
     );
   }
+
+  doLike(id: number, isLiked: boolean) {
+    if (isLiked === true) {
+      this.dataQnA.likes_count = this.dataQnA.likes_count - 1;
+      this.dataQnA.is_liked = false;
+    } else {
+      this.dataQnA.likes_count = this.dataQnA.likes_count + 1;
+      this.dataQnA.is_liked = true;
+    }
+
+    // save like to server
+    this.questionAndAnswerService.PostLiked(id).subscribe(
+      res => {},
+      err => {}
+    );
+  }
 }

@@ -70,6 +70,7 @@
           <div slot="end">
             <ion-badge color="blues">{{ dataQnA.likes_count }}</ion-badge>
             <img
+              (click)="doLike(dataQnA.id, dataQnA.is_liked)"
               class="thumb-up"
               src="assets/icon/thumb-up-{{
               dataQnA.is_liked == true ? 'blue' : 'grey'
