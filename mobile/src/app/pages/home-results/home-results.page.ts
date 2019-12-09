@@ -94,7 +94,7 @@ export class HomeResultsPage implements OnInit {
         path: 'nomor-penting'
       },
       {
-        title: 'E-samsat',
+        title: 'Tanya Gubernur',
         url: '',
         icon: 'assets/icon/QnA.png',
         path: 'question-and-answer'
@@ -242,7 +242,7 @@ export class HomeResultsPage implements OnInit {
   // Go to layanan
   goToLayanan(app: string, path: string) {
     switch (app) {
-      case 'E-samsat':
+      case 'Tanya Gubernur':
         // check if offline
         if (!navigator.onLine) {
           alert(Dictionary.offline);
