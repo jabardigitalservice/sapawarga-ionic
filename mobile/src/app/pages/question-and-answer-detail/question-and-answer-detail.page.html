@@ -1,0 +1,129 @@
+<ion-header>
+  <ion-toolbar color="light">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Detail</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content
+  class="contentBg"
+  #content
+  id="chat-parent"
+  overflow-scroll="true"
+  (ionScrollStart)="logScrollStart()"
+  (ionScroll)="logScrolling($event)"
+>
+  <div class="mto" *ngIf="isLoading && !msgResponse.type">
+    <ion-item-divider *ngFor="let key of [0, 1, 2]">
+      <div class="pt-5" style="width: 100%;">
+        <ion-item>
+          <app-skeleton
+            height="30px"
+            width="30px"
+            style="margin-right: 8px;"
+          ></app-skeleton>
+
+          <app-skeleton height="30px" style="width: 70%;"></app-skeleton>
+
+          <app-skeleton
+            slot="end"
+            height="30px"
+            style="width: 25%;"
+          ></app-skeleton>
+        </ion-item>
+
+        <div class="pb-10 pad-left-38 pr-16 mb-5">
+          <div style="margin-top: 8px; margin-bottom: 8px;">
+            <div>
+              <app-skeleton height="20px" style="width: 60%"></app-skeleton>
+              <app-skeleton height="20px" style="width: 90%"></app-skeleton>
+              <app-skeleton height="20px" style="width: 40%"></app-skeleton>
+            </div>
+          </div>
+
+          <ion-item class="section-2">
+            <app-skeleton height="20px" style="width: 70%;"></app-skeleton>
+          </ion-item>
+        </div>
+      </div>
+    </ion-item-divider>
+  </div>
+
+  <div class="mto" *ngIf="dataQnA && !isLoading">
+    <ion-item-divider>
+      <div class="pt-5 w100">
+        <ion-item>
+          <img
+            class="img-avatar"
+            [src]="dataQnA.user.photo_url_full"
+            onError="this.src='assets/img/user.png';"
+          />
+          <ion-text style="font-size: 15px;">
+            {{ dataQnA.user.name }}
+            <br />
+            <ion-note class="date-qna">
+              {{ dataQnA.created_at * 1000 | date: 'd MMMM y' }}</ion-note
+            >
+          </ion-text>
+          <div slot="end">
+            <ion-badge color="blues">{{ dataQnA.likes_count }}</ion-badge>
+            <img
+              (click)="doLike(dataQnA.id, dataQnA.is_liked)"
+              class="thumb-up"
+              src="assets/icon/thumb-up-{{
+              dataQnA.is_liked == true ? 'blue' : 'grey'
+            }}.png"
+            />
+          </div>
+        </ion-item>
+
+        <div class="pb-10 pl-16 pr-16 mb-5">
+          <div style="margin-top: 8px;">
+            <ion-text class="desc-content">
+              {{ dataQnA.text }}
+            </ion-text>
+          </div>
+        </div>
+      </div>
+    </ion-item-divider>
+
+    <div *ngIf="dataCommentsQnA">
+      <ion-item-divider
+        *ngFor="let data of dataCommentsQnA; let i = index"
+        [ngClass]="{ 'bg-blue': data.user.role_label === 'staffProv' }"
+      >
+        <div class="pt-5 w100">
+          <ion-item>
+            <img
+              class="img-avatar"
+              [src]="data.user.photo_url_full"
+              onError="this.src='assets/img/user.png';"
+            />
+            <div
+              style="font-size: 15px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"
+            >
+              {{ data.user.name }}
+              <img
+                class="verified"
+                src="assets/icon/verified.png"
+                *ngIf="data.user.role_label === 'staffProv'"
+              />
+              <br />
+              <ion-note class="date-qna">
+                {{ data.created_at * 1000 | date: 'd MMMM y' }}</ion-note
+              >
+            </div>
+          </ion-item>
+
+          <div class="pb-10 pad-left-38 pr-16 mb-5">
+            <ion-text class="desc-content">
+              {{ data.text }}
+            </ion-text>
+          </div>
+        </div>
+      </ion-item-divider>
+    </div>
+  </div>
+</ion-content>

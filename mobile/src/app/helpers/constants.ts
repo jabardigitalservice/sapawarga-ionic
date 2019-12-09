@@ -26,7 +26,8 @@ export class Constants {
     home_pages: 'Home Pages',
     forceUpdate: 'Force Update',
     saberHoax: 'Saber Hoax',
-    informationPopup: 'Informasi Popup'
+    informationPopup: 'Informasi Popup',
+    QnA: 'Tanya Jawab'
   };
 
   public inAppBrowserOptions: any = {
@@ -76,7 +77,8 @@ export class Constants {
     onBoarding: 'has-onboarding',
     surveyData: 'data-survey',
     forceChange: 'forceChange',
-    informationPopup: 'information-popup'
+    informationPopup: 'information-popup',
+    newQnA: 'new-QnA'
   };
 
   public telpLapor = '1708';

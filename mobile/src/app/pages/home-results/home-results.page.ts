@@ -94,10 +94,10 @@ export class HomeResultsPage implements OnInit {
         path: 'nomor-penting'
       },
       {
-        title: 'E-samsat',
+        title: 'Tanya Gubernur',
         url: '',
-        icon: 'assets/icon/SW-E-samsat.png',
-        path: 'e-samsat'
+        icon: 'assets/icon/QnA.png',
+        path: 'question-and-answer'
       },
       {
         title: 'Jabar Saber Hoaks',
@@ -242,7 +242,12 @@ export class HomeResultsPage implements OnInit {
   // Go to layanan
   goToLayanan(app: string, path: string) {
     switch (app) {
-      case 'E-samsat':
+      case 'Tanya Gubernur':
+        // check if offline
+        if (!navigator.onLine) {
+          alert(Dictionary.offline);
+          return;
+        }
         this.navigationForward(path, 'tapped_e_Samsat');
         break;
       case 'Nomor\npenting':

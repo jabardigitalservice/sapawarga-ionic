@@ -1,0 +1,48 @@
+<ion-header>
+  <ion-toolbar color="light">
+    <ion-icon name="arrow-back" slot="start" (click)="dismiss()"></ion-icon>
+    <ion-title>Buat Pertanyaan</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <form [formGroup]="AddQnAForm">
+    <ion-item>
+      <ion-label position="stacked">Deskripsi</ion-label>
+      <ion-textarea
+        autofocus="true"
+        formControlName="description"
+        rows="8"
+        cols="20"
+        [ngClass]="{ 'is-invalid': submitted && f.description.errors }"
+      ></ion-textarea>
+    </ion-item>
+    <div *ngIf="submitted && !!f.description.errors" class="invalid-feedback">
+      <p ion-text class="text08" *ngIf="!!f.description.errors.required">
+        <ion-text color="danger">
+          Deskripsi harus diisi
+        </ion-text>
+      </p>
+      <p ion-text class="text08" *ngIf="!!f.description.errors.maxlength">
+        <ion-text color="danger">
+          Deskripsi maximal 255 karakter
+        </ion-text>
+      </p>
+      <p ion-text class="text08" *ngIf="!!f.description.errors.minlength">
+        <ion-text color="danger">
+          Deskripsi minimal 10 karakter
+        </ion-text>
+      </p>
+    </div>
+  </form>
+
+  <ion-button
+    expand="block"
+    color="blues"
+    tappable
+    [disabled]="f.description.errors"
+    (click)="submitQna()"
+    style="margin-top: 30px"
+    >Kirim</ion-button
+  >
+</ion-content>

@@ -1,0 +1,208 @@
+:host {
+  ion-textarea {
+    --padding-top: unset !important;
+    --padding-bottom: unset !important;
+  }
+}
+#chat-parent {
+  scroll-behavior: smooth;
+}
+.header {
+  --background: #224068;
+}
+.headerColor {
+  --color: #fff;
+  color: #fff;
+}
+.line-breaker {
+  white-space: pre-line;
+}
+.input-wrap {
+  display: flex;
+  input {
+    flex: 1;
+    border: 0;
+    border-style: solid;
+    padding: 10px;
+  }
+}
+.contentBg {
+  padding-bottom: 0 !important;
+  --padding-bootm: 0 !important;
+  scroll-behavior: smooth;
+}
+.message-wrap {
+  // padding: 0 10px;
+
+  .message {
+    position: relative;
+    padding: 7px 0;
+    .user-img {
+      position: absolute;
+      object-fit: cover;
+      border-radius: 45px;
+      width: 35px;
+      height: 35px;
+      box-shadow: 0 0 2px rgba(0, 0, 0, 0.36);
+    }
+    .msg-detail {
+      width: 100%;
+      display: inline-block;
+      position: relative;
+      p {
+        margin: 0;
+        font-size: 14px;
+      }
+      .msg-info {
+        p {
+          font-size: 0.8em;
+          color: #888;
+        }
+      }
+      .msg-content {
+        position: relative;
+        border-radius: 5px;
+        padding: 8px;
+        width: auto;
+        max-width: 80%;
+
+        .line-breaker {
+          white-space: pre-line;
+          padding-left: 7px;
+        }
+      }
+    }
+  }
+  .message-left {
+    .msg-content {
+      float: left;
+      position: relative;
+      background: #fff;
+      color: #000;
+    }
+  }
+  .message-right {
+    .msg-detail {
+      // padding-right: 60px;
+      .msg-info {
+        text-align: right;
+      }
+    }
+    .user-img {
+      right: 0;
+    }
+    .msg-content {
+      float: right;
+      color: #2a2828;
+      background: #d5e9f4;
+    }
+  }
+}
+
+.lastSection {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-end;
+  height: 73%;
+  padding-top: 2px;
+}
+
+.containerFooter {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.sendBtn-icon {
+  font-size: 25px;
+}
+.send-button-parent {
+  padding: 0 6px 0 8px;
+}
+
+.inputConatiner {
+  width: 80%;
+}
+
+.footer {
+  // min-height: 70px;
+  display: flex;
+  align-items: center;
+}
+
+.inputBg {
+  background: #fff;
+}
+
+@keyframes dash {
+  from {
+    stroke-dashoffset: 1000;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+// card QnA
+:host {
+  ion-card-header {
+    padding-bottom: unset !important;
+  }
+
+  ion-item-divider {
+    --padding-start: none;
+  }
+
+  .header-md:after {
+    background-image: unset;
+  }
+
+  ion-item {
+    --border-style: none;
+  }
+
+  ion-badge {
+    --padding-end: 9px;
+    --padding-start: 9px;
+    font-size: 12px;
+    margin-right: 8px;
+  }
+}
+
+.img-avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 2px;
+  margin-right: 8px;
+}
+
+.date-qna {
+  font-size: 11px;
+  color: #333333;
+}
+
+.desc-content {
+  width: 100%;
+  color: #333333;
+}
+
+.pad-left-38 {
+  padding-left: 55px;
+}
+
+.thumb-up {
+  width: 20px;
+  height: 20px;
+}
+
+.verified {
+  width: 13px;
+  height: 13px;
+  margin: 0 0 -1px 3px;
+}
+
+.bg-blue {
+  background: rgba(105, 183, 222, 0.06);
+}
+// card Qna

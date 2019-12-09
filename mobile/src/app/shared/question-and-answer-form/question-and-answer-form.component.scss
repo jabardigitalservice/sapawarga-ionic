@@ -1,0 +1,26 @@
+:host {
+  ion-item {
+    --border-width: 0 0 0 0;
+    --full-highlight-height: none;
+    --inset-highlight-height: none;
+    --padding-start: none;
+    --inner-padding-end: none;
+  }
+
+  ion-label {
+    font-size: 18px;
+    margin-bottom: 5px;
+  }
+
+  ion-textarea {
+    border: 0.5px solid rgba(0, 0, 0, 0.33);
+    box-sizing: border-box;
+    border-radius: 4px;
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+
+  ion-icon {
+    font-size: 25px !important;
+  }
+}
