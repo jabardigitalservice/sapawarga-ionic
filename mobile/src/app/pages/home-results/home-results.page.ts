@@ -64,12 +64,6 @@ export class HomeResultsPage implements OnInit {
   ) {
     this.appPages = [
       {
-        title: 'Lapor',
-        url: '',
-        icon: 'assets/icon/SW-LAPOR.png',
-        path: 'lapor'
-      },
-      {
         title: 'Usulan',
         url: '',
         icon: 'assets/icon/SW-ASPIRASI.png',
