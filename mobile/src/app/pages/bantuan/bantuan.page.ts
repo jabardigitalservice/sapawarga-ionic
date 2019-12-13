@@ -2,6 +2,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { UtilitiesService } from '../../services/utilities.service';
 import { Constants } from '../../helpers/constants';
+import { Platform } from '@ionic/angular';
+import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 
 @Component({
   selector: 'app-bantuan',
@@ -15,7 +17,9 @@ export class BantuanPage implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private util: UtilitiesService,
-    private constants: Constants
+    private constants: Constants,
+    private platform: Platform,
+    private inAppBrowser: InAppBrowser
   ) {
     this.items = [
       {
@@ -120,5 +124,23 @@ export class BantuanPage implements OnInit {
 
   scrollToBottomOnInit() {
     this.content.scrollToBottom(500);
+  }
+
+  callAdmin() {
+    // check if the platform is ios or android, else open the web url
+    this.platform.ready().then(() => {
+      this.inAppBrowser.create(
+        `https://wa.me/${this.constants.telpAdminSapawarga}`,
+        '_system'
+      );
+
+      // event google analytics
+      this.util.trackEvent(
+        this.constants.pageName.help,
+        'tapped_view_WA_admin_Bantuan',
+        '',
+        1
+      );
+    });
   }
 }
