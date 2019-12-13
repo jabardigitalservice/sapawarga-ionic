@@ -345,6 +345,27 @@ ion-menu {
   box-sizing: border-box;
 }
 
+.dialog-section-register {
+  line-height: 25px;
+  text-align: center;
+}
+
+.alert-button.ion-focusable.ion-activatable.btn-cancel-register {
+  width: 100%;
+  -webkit-margin-end: 10px;
+  margin-inline-end: 10px;
+  -webkit-margin-start: 10px;
+  margin-inline-start: 10px;
+  margin-bottom: 10px;
+  background: var(--ion-color-blues);
+}
+
+.btn-cancel-register .alert-button-inner {
+  justify-content: center;
+  text-transform: capitalize;
+  color: #fff;
+}
+
 // tablet mode
 @media only screen and (min-width: 625px) {
   .auth-page .auth-content .logo {

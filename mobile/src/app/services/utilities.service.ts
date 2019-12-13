@@ -48,9 +48,15 @@ export class UtilitiesService {
     toast.present();
   }
 
-  async alertConfirmation(msg: string, buttons: any, header?: string) {
+  async alertConfirmation(
+    msg: string,
+    buttons: any,
+    header?: string,
+    cssClass?: string
+  ) {
     const headers = header ? header : '';
     const alert = await this.alertController.create({
+      cssClass: cssClass ? cssClass : '',
       header: headers,
       message: msg,
       buttons: buttons

@@ -284,4 +284,22 @@ export class LoginPage implements OnInit {
     });
     return await modal.present();
   }
+
+  didNotRegister() {
+    const buttons = [
+      {
+        text: 'Tutup',
+        role: 'cancel',
+        cssClass: 'btn-cancel-register',
+        handler: () => {}
+      }
+    ];
+
+    this.util.alertConfirmation(
+      Dictionary.dialogDidNotRegister,
+      buttons,
+      '',
+      'dialog-section-register'
+    );
+  }
 }
