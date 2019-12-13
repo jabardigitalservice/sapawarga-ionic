@@ -137,7 +137,7 @@ export class BantuanPage implements OnInit {
       // event google analytics
       this.util.trackEvent(
         this.constants.pageName.help,
-        'tapped_view_WA_admin_help',
+        'tapped_view_WA_admin_Bantuan',
         '',
         1
       );
