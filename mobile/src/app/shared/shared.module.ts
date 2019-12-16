@@ -9,6 +9,7 @@ import { NewsFeaturedComponent } from './news-featured/news-featured.component';
 import { VideoListComponent } from './video-list/video-list.component';
 import { HumasJabarComponent } from './humas-jabar/humas-jabar.component';
 import { SkeletonComponent } from './skeleton/skeleton.component';
+import { DidNotRegisterComponent } from './did-not-register/did-not-register.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { SkeletonComponent } from './skeleton/skeleton.component';
     NewsFeaturedComponent,
     VideoListComponent,
     HumasJabarComponent,
-    SkeletonComponent
+    SkeletonComponent,
+    DidNotRegisterComponent
   ],
   imports: [CommonModule, IonicModule],
   exports: [
@@ -28,7 +30,8 @@ import { SkeletonComponent } from './skeleton/skeleton.component';
     NewsFeaturedComponent,
     VideoListComponent,
     HumasJabarComponent,
-    SkeletonComponent
+    SkeletonComponent,
+    DidNotRegisterComponent
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
