@@ -1,0 +1,30 @@
+.modal-card .links {
+  width: 100%;
+  height: 50px;
+  line-height: 1.5em;
+  position: absolute;
+  padding: 20px 20px 0;
+  bottom: 40px;
+}
+
+.content {
+  text-align: center;
+  margin: 40px 20px 10px;
+}
+
+.modal-card ion-text {
+  font-size: 15px;
+}
+
+.tranform-text {
+  text-transform: capitalize;
+}
+
+.btn-close {
+  position: absolute;
+  right: 0;
+}
+
+.border-radius {
+  border-radius: 0px 5px 0px;
+}

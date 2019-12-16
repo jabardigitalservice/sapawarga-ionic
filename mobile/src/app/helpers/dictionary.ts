@@ -67,9 +67,5 @@ export enum Dictionary {
   success_delete_broadcast = 'Pesan berhasil dihapus',
 
   // QnA
-  question_success = 'Pertanyaan berhasil dikirim',
-
-  // login
-  // tslint:disable-next-line: max-line-length
-  dialogDidNotRegister = '<div>Untuk mendapatkan username dan password, anda dapat menghubungi nomor berikut <br/><br/>whatsapp: <a href="https://wa.me/+6281212124023"><strong>081212124023</strong></a> <br/><br/>telepon: <a href="tel:081212124023"><strong>081212124023</strong></a>  </div>'
+  question_success = 'Pertanyaan berhasil dikirim'
 }
