@@ -4,6 +4,7 @@ import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { UtilitiesService } from '../../services/utilities.service';
 import { Dictionary } from '../../helpers/dictionary';
 import { ForgotPasswordService } from '../../services/forgot-password.service';
+import { DidNotRegisterComponent } from '../did-not-register/did-not-register.component';
 
 @Component({
   selector: 'app-forgot-password',
@@ -19,7 +20,8 @@ export class ForgotPasswordComponent implements OnInit {
     private formBuilder: FormBuilder,
     private util: UtilitiesService,
     private loadingCtrl: LoadingController,
-    private forgotPasswordService: ForgotPasswordService
+    private forgotPasswordService: ForgotPasswordService,
+    private modalController: ModalController
   ) {}
 
   ngOnInit() {
@@ -93,5 +95,17 @@ export class ForgotPasswordComponent implements OnInit {
 
     this.submitted = false;
     this.forgotPasswordForm.reset();
+  }
+
+  async helper() {
+    const modal = await this.modalController.create({
+      component: DidNotRegisterComponent,
+      componentProps: {
+        message: Dictionary.helper
+      },
+      cssClass: 'popup-not-register',
+      backdropDismiss: false
+    });
+    return await modal.present();
   }
 }

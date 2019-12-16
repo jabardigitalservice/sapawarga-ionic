@@ -67,5 +67,8 @@ export enum Dictionary {
   success_delete_broadcast = 'Pesan berhasil dihapus',
 
   // QnA
-  question_success = 'Pertanyaan berhasil dikirim'
+  question_success = 'Pertanyaan berhasil dikirim',
+
+  not_register = 'Untuk mendapatkan username dan password, anda dapat menghubungi nomor berikut',
+  helper = 'Untuk mendapatkan bantuan Anda dapat menghubungi nomor pusat bantuan berikut ini'
 }

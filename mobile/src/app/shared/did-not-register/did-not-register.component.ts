@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UtilitiesService } from '../../services/utilities.service';
 import { Constants } from 'src/app/helpers/constants';
+import { NavParams } from '@ionic/angular';
 
 @Component({
   selector: 'app-did-not-register',
@@ -8,7 +9,14 @@ import { Constants } from 'src/app/helpers/constants';
   styleUrls: ['./did-not-register.component.scss']
 })
 export class DidNotRegisterComponent implements OnInit {
-  constructor(private util: UtilitiesService, private constants: Constants) {}
+  message: string;
+  constructor(
+    private util: UtilitiesService,
+    private constants: Constants,
+    private navParams: NavParams
+  ) {
+    this.message = this.navParams.get('message');
+  }
 
   ngOnInit() {}
 

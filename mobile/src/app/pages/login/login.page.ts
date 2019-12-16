@@ -289,6 +289,9 @@ export class LoginPage implements OnInit {
   async didNotRegister() {
     const modal = await this.modalController.create({
       component: DidNotRegisterComponent,
+      componentProps: {
+        message: Dictionary.not_register
+      },
       cssClass: 'popup-not-register',
       backdropDismiss: false
     });
