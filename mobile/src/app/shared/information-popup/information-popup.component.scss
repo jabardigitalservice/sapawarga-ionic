@@ -10,6 +10,8 @@
 
 .modal-card .mid-section {
   padding: 5px 15px 0;
+  overflow: auto;
+  height: 45%;
 }
 
 .modal-card ion-text {
@@ -27,10 +29,6 @@
 
 .border-radius {
   border-radius: 0px 5px 0px;
-}
-
-.img-popup {
-  height: 85%;
 }
 
 .img {
