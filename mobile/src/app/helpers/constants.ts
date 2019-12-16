@@ -56,7 +56,9 @@ export class Constants {
     termOfService:
       'https://digitalservice.jabarprov.go.id/index.php/term-of-service/',
     privacyPolicy:
-      'https://digitalservice.jabarprov.go.id/index.php/privacy-policy-2/'
+      'https://digitalservice.jabarprov.go.id/index.php/privacy-policy-2/',
+    communityGuidelines:
+      'https://digitalservice.jabarprov.go.id/index.php/panduan-komunitas-sapawarga/'
   };
 
   public trackIdGoogleAnalytics = 'UA-140018658-3';
