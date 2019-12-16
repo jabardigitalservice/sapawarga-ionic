@@ -63,18 +63,31 @@
             [ngClass]="{ 'dark-read': !checkRead(broadcast.id) }"
             >Dari: {{ broadcast.sender_name }}</ion-card-subtitle
           >
-          <ion-card-subtitle>{{
-            broadcast.updated_at * 1000 | date: 'd MMMM y h:mm'
-          }}</ion-card-subtitle>
+          <ion-card-subtitle
+            >{{ broadcast.updated_at * 1000 | date: 'd MMMM y h:mm'
+            }}</ion-card-subtitle
+          >
           <ion-card-subtitle
             [ngClass]="{ 'dark-read': !checkRead(broadcast.id) }"
             >[ {{ broadcast.category_name }} ]</ion-card-subtitle
           >
-          <ion-text [ngClass]="{ 'dark-read': !checkRead(broadcast.id) }">{{
-            broadcast.title
-          }}</ion-text>
+          <ion-text [ngClass]="{ 'dark-read': !checkRead(broadcast.id) }"
+            >{{ broadcast.title }}</ion-text
+          >
         </ion-card-header>
       </ion-card>
     </ion-item>
   </ion-list>
+
+  <ion-infinite-scroll
+    threshold="100px"
+    (ionInfinite)="doInfinite($event)"
+    *ngIf="dataBroadcast"
+  >
+    <ion-infinite-scroll-content
+      loadingSpinner="bubbles"
+      loadingText="Sedang mengambil data..."
+    >
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 </ion-content>

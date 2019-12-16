@@ -16,9 +16,9 @@ export class BroadcastService {
 
   constructor(private http: HttpClient, private util: UtilitiesService) {}
 
-  getListBroadCasts(): Observable<Broadcast[]> {
+  getListBroadCasts(page?: number): Observable<Broadcast[]> {
     return this.http
-      .get<Broadcast[]>(`${environment.API_URL}/user-messages`)
+      .get<Broadcast[]>(`${environment.API_URL}/user-messages?page=${page}`)
       .pipe(catchError(this.util.handleError));
   }
 
@@ -34,6 +34,7 @@ export class BroadcastService {
 
   // save Broadcast into local storage
   saveLocalBroadcast(data: object) {
+    localStorage.removeItem(BROADCAST);
     localStorage.setItem(BROADCAST, JSON.stringify(data));
   }
 

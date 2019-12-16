@@ -73,8 +73,10 @@ export class BroadcastsPage implements OnInit {
       msg: ''
     };
 
+    this.currentPage = 1;
+    this.maximumPages = null;
+
     this.dataRead = this.broadcastService.getBroadcast() || [];
-    this.getNomorBroadcasts();
 
     // listen and render component
     this.interval = setInterval(() => {
@@ -94,7 +96,7 @@ export class BroadcastsPage implements OnInit {
   }
 
   // get data broadcasts
-  getNomorBroadcasts() {
+  getNomorBroadcasts(infiniteScroll?: any) {
     // check internet
     if (!navigator.onLine) {
       // get local
@@ -113,10 +115,16 @@ export class BroadcastsPage implements OnInit {
 
     this.dataEmpty = false;
 
-    this.broadcastService.getListBroadCasts().subscribe(
+    this.broadcastService.getListBroadCasts(this.currentPage).subscribe(
       res => {
         if (res['data']['items'].length) {
-          this.dataBroadcast = res['data']['items'];
+          if (infiniteScroll) {
+            this.dataBroadcast = this.dataBroadcast.concat(
+              res['data']['items']
+            );
+          } else {
+            this.dataBroadcast = res['data']['items'];
+          }
 
           // add new element isChecked for identify delete broadcast
           this.dataBroadcast.forEach(key => {
@@ -149,6 +157,10 @@ export class BroadcastsPage implements OnInit {
         }
       }
     );
+
+    if (infiniteScroll) {
+      infiniteScroll.target.complete();
+    }
   }
 
   // go to detail broadcast with param id
@@ -305,5 +317,19 @@ export class BroadcastsPage implements OnInit {
     this.dataBroadcast.map(obj => {
       obj.isChecked = false;
     });
+  }
+
+  // infinite scroll
+  doInfinite(event: any) {
+    if (this.currentPage === this.maximumPages) {
+      event.target.disabled = true;
+      return;
+    }
+    // increase page
+    this.currentPage++;
+
+    setTimeout(() => {
+      this.getNomorBroadcasts(event);
+    }, 2000);
   }
 }
