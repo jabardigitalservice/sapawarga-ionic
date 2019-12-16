@@ -10,6 +10,7 @@ import { LoginPage } from './login.page';
 import { Downloader } from '@ionic-native/downloader/ngx';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { SharedModule } from '../../shared/shared.module';
+import { DidNotRegisterComponent } from 'src/app/shared/did-not-register/did-not-register.component';
 
 const routes: Routes = [
   {
@@ -28,6 +29,7 @@ const routes: Routes = [
     SharedModule
   ],
   providers: [Downloader, InAppBrowser],
-  declarations: [LoginPage]
+  declarations: [LoginPage],
+  entryComponents: [DidNotRegisterComponent]
 })
 export class LoginPageModule {}

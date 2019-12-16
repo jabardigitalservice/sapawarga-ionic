@@ -1,0 +1,31 @@
+<div class="modal-card">
+  <div class="content">
+    <ion-text>
+      Untuk mendapatkan username dan password, anda dapat menghubungi nomor
+      berikut
+      <div class="wa-section fs-17">
+        whatsapp:
+        <a href="https://wa.me/+6281212124023" (click)="callAdmin('WA')"
+          ><strong>081212124023</strong></a
+        >
+      </div>
+
+      <div class="fs-17">
+        telepon:
+        <a href="tel:+6281212124023" (click)="callAdmin('telp')"
+          ><strong>081212124023</strong></a
+        >
+      </div>
+    </ion-text>
+  </div>
+
+  <div class="links">
+    <ion-button
+      expand="block"
+      class="tranform-text"
+      color="blues"
+      (click)="dismiss()"
+      >Tutup</ion-button
+    >
+  </div>
+</div>

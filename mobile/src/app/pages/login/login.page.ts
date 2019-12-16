@@ -29,6 +29,7 @@ import { ForceUpdateService } from '../../services/force-update.service';
 import { ForceChangeProfileComponent } from 'src/app/shared/force-change-profile/force-change-profile.component';
 import { ForgotPasswordComponent } from '../../shared/forgot-password/forgot-password.component';
 import { InformationPopupService } from '../../services/information-popup.service';
+import { DidNotRegisterComponent } from 'src/app/shared/did-not-register/did-not-register.component';
 
 @Component({
   selector: 'app-login',
@@ -281,6 +282,15 @@ export class LoginPage implements OnInit {
   async showForgotPassword() {
     const modal = await this.modalController.create({
       component: ForgotPasswordComponent
+    });
+    return await modal.present();
+  }
+
+  async didNotRegister() {
+    const modal = await this.modalController.create({
+      component: DidNotRegisterComponent,
+      cssClass: 'popup-not-register',
+      backdropDismiss: false
     });
     return await modal.present();
   }
