@@ -1,7 +1,11 @@
 .btn-bottom {
   position: absolute;
-  bottom: 10px;
+  bottom: 0px;
   left: 50%;
   transform: translate(-50%, -50%);
   text-transform: capitalize;
+}
+
+.mb-90 {
+  margin-bottom: 90px;
 }
