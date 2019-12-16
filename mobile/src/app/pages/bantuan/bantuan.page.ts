@@ -143,4 +143,16 @@ export class BantuanPage implements OnInit {
       );
     });
   }
+
+  gotoCommunity() {
+    this.util.launchweb(this.constants.URL.communityGuidelines);
+
+    // event google analytics
+    this.util.trackEvent(
+      this.constants.pageName.help,
+      'tapped_view_community_guidelines_Bantuan',
+      '',
+      1
+    );
+  }
 }
