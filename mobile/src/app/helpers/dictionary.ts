@@ -70,5 +70,5 @@ export enum Dictionary {
   question_success = 'Pertanyaan berhasil dikirim',
 
   not_register = 'Untuk mendapatkan username dan password, anda dapat menghubungi nomor berikut',
-  helper = 'Untuk mendapatkan bantuan Anda dapat menghubungi nomor pusat bantuan berikut ini'
+  helper = 'Jika anda lupa email atau kata sandi, anda dapat menghubungi nomor berikut'
 }
