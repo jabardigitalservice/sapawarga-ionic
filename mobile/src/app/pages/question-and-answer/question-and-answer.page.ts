@@ -7,6 +7,8 @@ import { QuestionAndAnswerFormComponent } from '../../shared/question-and-answer
 import { QuestionAndAnswerService } from '../../services/question-and-answer.service';
 import { Constants } from '../../helpers/constants';
 import { UtilitiesService } from '../../services/utilities.service';
+import { IntroConstants } from '../../helpers/introConstants';
+import { ShowIntroService } from '../../services/show-intro.service';
 
 @Component({
   selector: 'app-question-and-answer',
@@ -31,7 +33,9 @@ export class QuestionAndAnswerPage implements OnInit {
     private questionAndAnswerService: QuestionAndAnswerService,
     private router: Router,
     private constants: Constants,
-    private util: UtilitiesService
+    private util: UtilitiesService,
+    private introConstants: IntroConstants,
+    private showIntroService: ShowIntroService
   ) {
     // get data user using BehaviorSubject
     this.questionAndAnswerService.isNewQnA.subscribe(
@@ -55,6 +59,14 @@ export class QuestionAndAnswerPage implements OnInit {
       'view_list_general_tanya_jawab',
       '',
       1
+    );
+  }
+
+  ionViewDidEnter() {
+    this.showIntroService.showIntroQnA(
+      1,
+      this.introConstants.stepQuestionAndAnswer1,
+      'app-question-and-answer'
     );
   }
 

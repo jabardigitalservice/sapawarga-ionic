@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
 import * as introJs from 'intro.js/intro.js';
+import { ModalController } from '@ionic/angular';
+import { QuestionAndAnswerFormComponent } from '../shared/question-and-answer-form/question-and-answer-form.component';
+import { UtilitiesService } from './utilities.service';
 
 export interface Steps {
   element: string;
@@ -12,7 +15,10 @@ export interface Steps {
 export class ShowIntroService {
   intro = introJs;
 
-  constructor() {}
+  constructor(
+    private modalController: ModalController,
+    private util: UtilitiesService
+  ) {}
 
   /**
    *
@@ -42,6 +48,40 @@ export class ShowIntroService {
       });
   }
 
+  showIntroQnA(
+    step: number,
+    steps: Array<Steps>,
+    pageSelector: string,
+    storageName?: string
+  ) {
+    this.intro(document.querySelector(pageSelector))
+      .setOptions({
+        steps: steps,
+        nextLabel: 'Lanjut',
+        prevLabel: 'Kembali',
+        skipLabel: 'Lewati!',
+        doneLabel: step !== 3 ? 'Lanjut' : 'Selesai',
+        showProgress: false,
+        exitOnEsc: false,
+        exitOnOverlayClick: false,
+        scrollTo: true,
+        showBullets: false,
+        showStepNumbers: false,
+        disableInteraction: true
+      })
+      .start()
+      .oncomplete(() => {
+        console.log(step);
+        if (step === 1) {
+          this.showModalAddQnA();
+        } else if (step === 2) {
+          this.util.dismissModal();
+        } else if (step === 3) {
+          localStorage.setItem(storageName, 'true');
+        }
+      });
+  }
+
   /**
    *
    *
@@ -51,5 +91,14 @@ export class ShowIntroService {
   skipIntro(storageName: string) {
     this.intro().exit();
     localStorage.setItem(storageName, 'true');
+  }
+
+  async showModalAddQnA() {
+    const modal = await this.modalController.create({
+      cssClass: 'form-qna',
+      backdropDismiss: false,
+      component: QuestionAndAnswerFormComponent
+    });
+    return await modal.present();
   }
 }

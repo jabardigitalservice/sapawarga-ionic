@@ -5,6 +5,8 @@ import { Dictionary } from '../../helpers/dictionary';
 import { UtilitiesService } from '../../services/utilities.service';
 import { QuestionAndAnswerService } from '../../services/question-and-answer.service';
 import { Constants } from '../../helpers/constants';
+import { ShowIntroService } from '../../services/show-intro.service';
+import { IntroConstants } from '../../helpers/introConstants';
 
 @Component({
   selector: 'app-question-and-answer-form',
@@ -20,7 +22,9 @@ export class QuestionAndAnswerFormComponent implements OnInit {
     private loadingCtrl: LoadingController,
     private util: UtilitiesService,
     private questionAndAnswerService: QuestionAndAnswerService,
-    private constants: Constants
+    private constants: Constants,
+    private showIntroService: ShowIntroService,
+    private introConstants: IntroConstants
   ) {}
 
   ngOnInit() {
@@ -34,6 +38,14 @@ export class QuestionAndAnswerFormComponent implements OnInit {
         ]
       ]
     });
+  }
+
+  ionViewDidEnter() {
+    this.showIntroService.showIntroQnA(
+      2,
+      this.introConstants.stepQuestionAndAnswer2,
+      'app-question-and-answer-form'
+    );
   }
 
   // convenience getter for easy access to form fields

@@ -7,7 +7,6 @@ import { IonicModule } from '@ionic/angular';
 
 import { QuestionAndAnswerPage } from './question-and-answer.page';
 import { SharedModule } from '../../shared/shared.module';
-import { QuestionAndAnswerFormComponent } from '../../shared/question-and-answer-form/question-and-answer-form.component';
 
 const routes: Routes = [
   {
@@ -25,7 +24,6 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     SharedModule
   ],
-  declarations: [QuestionAndAnswerPage, QuestionAndAnswerFormComponent],
-  entryComponents: [QuestionAndAnswerFormComponent]
+  declarations: [QuestionAndAnswerPage]
 })
 export class QuestionAndAnswerPageModule {}
