@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import * as introJs from 'intro.js/intro.js';
-import { ModalController } from '@ionic/angular';
-import { QuestionAndAnswerFormComponent } from '../shared/question-and-answer-form/question-and-answer-form.component';
 import { UtilitiesService } from './utilities.service';
+import { BehaviorSubject } from 'rxjs';
+import { QuestionAndAnswerService } from './question-and-answer.service';
 
 export interface Steps {
-  element: string;
+  element?: string;
   intro: string;
 }
 
@@ -14,9 +14,11 @@ export interface Steps {
 })
 export class ShowIntroService {
   intro = introJs;
+  // finalStepQnA = false;
+  finalStepQnA = new BehaviorSubject(false);
 
   constructor(
-    private modalController: ModalController,
+    private questionAndAnswerService: QuestionAndAnswerService,
     private util: UtilitiesService
   ) {}
 
@@ -71,13 +73,15 @@ export class ShowIntroService {
       })
       .start()
       .oncomplete(() => {
-        console.log(step);
         if (step === 1) {
-          this.showModalAddQnA();
+          this.questionAndAnswerService.showModalAddQnA();
         } else if (step === 2) {
+          this.intro().exit();
           this.util.dismissModal();
+          this.finalStepQnA.next(true);
         } else if (step === 3) {
           localStorage.setItem(storageName, 'true');
+          this.intro().exit();
         }
       });
   }
@@ -91,14 +95,5 @@ export class ShowIntroService {
   skipIntro(storageName: string) {
     this.intro().exit();
     localStorage.setItem(storageName, 'true');
-  }
-
-  async showModalAddQnA() {
-    const modal = await this.modalController.create({
-      cssClass: 'form-qna',
-      backdropDismiss: false,
-      component: QuestionAndAnswerFormComponent
-    });
-    return await modal.present();
   }
 }

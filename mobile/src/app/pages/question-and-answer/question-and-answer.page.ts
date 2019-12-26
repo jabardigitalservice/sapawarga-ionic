@@ -3,7 +3,6 @@ import { ModalController } from '@ionic/angular';
 import { Dictionary } from '../../helpers/dictionary';
 import { QuestionAndAnswer } from '../../interfaces/question-and-answer';
 import { Router } from '@angular/router';
-import { QuestionAndAnswerFormComponent } from '../../shared/question-and-answer-form/question-and-answer-form.component';
 import { QuestionAndAnswerService } from '../../services/question-and-answer.service';
 import { Constants } from '../../helpers/constants';
 import { UtilitiesService } from '../../services/utilities.service';
@@ -28,6 +27,8 @@ export class QuestionAndAnswerPage implements OnInit {
   maximumPages: number;
   isNewQnA = false;
   dataNewQnA: QuestionAndAnswer;
+  IsIntro = false;
+
   constructor(
     private modalController: ModalController,
     private questionAndAnswerService: QuestionAndAnswerService,
@@ -63,11 +64,33 @@ export class QuestionAndAnswerPage implements OnInit {
   }
 
   ionViewDidEnter() {
-    this.showIntroService.showIntroQnA(
-      1,
-      this.introConstants.stepQuestionAndAnswer1,
-      'app-question-and-answer'
+    this.IsIntro = JSON.parse(
+      localStorage.getItem(this.introConstants.introStorages.questionAndAnswer)
     );
+
+    if (!this.IsIntro) {
+      this.showIntro();
+    }
+  }
+
+  private showIntro() {
+    this.showIntroService.finalStepQnA.subscribe((state: boolean) => {
+      if (state === true) {
+        this.showIntroService.showIntroQnA(
+          3,
+          this.introConstants.stepQuestionAndAnswer3,
+          'app-question-and-answer',
+          this.introConstants.introStorages.questionAndAnswer
+        );
+        // console.log(state);
+      } else {
+        this.showIntroService.showIntroQnA(
+          1,
+          this.introConstants.stepQuestionAndAnswer1,
+          'app-question-and-answer'
+        );
+      }
+    });
   }
 
   ionViewWillLeave() {
@@ -84,10 +107,7 @@ export class QuestionAndAnswerPage implements OnInit {
   }
 
   async showModalAddQnA() {
-    const modal = await this.modalController.create({
-      component: QuestionAndAnswerFormComponent
-    });
-    return await modal.present();
+    this.questionAndAnswerService.showModalAddQnA();
   }
 
   getListQnA(infiniteScroll?) {

@@ -6,6 +6,8 @@ import { environment } from '../../environments/environment';
 import { UtilitiesService } from './utilities.service';
 import { QuestionAndAnswer } from '../interfaces/question-and-answer';
 import { Constants } from '../helpers/constants';
+import { ModalController } from '@ionic/angular';
+import { QuestionAndAnswerFormComponent } from '../shared/question-and-answer-form/question-and-answer-form.component';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +20,8 @@ export class QuestionAndAnswerService {
   constructor(
     private http: HttpClient,
     private util: UtilitiesService,
-    private constants: Constants
+    private constants: Constants,
+    private modalController: ModalController
   ) {}
 
   /**
@@ -120,5 +123,14 @@ export class QuestionAndAnswerService {
 
     // set observable to empty
     this.isNewQnA.next(null);
+  }
+
+  async showModalAddQnA() {
+    const modal = await this.modalController.create({
+      cssClass: 'form-qna',
+      backdropDismiss: false,
+      component: QuestionAndAnswerFormComponent
+    });
+    return await modal.present();
   }
 }

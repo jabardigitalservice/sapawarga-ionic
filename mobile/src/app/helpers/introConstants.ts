@@ -43,7 +43,6 @@ export class IntroConstants {
 
   public stepQuestionAndAnswer3 = [
     {
-      element: '#qna-step3',
       intro:
         'Pertanyaan yang paling banyak disukai akan muncul dipaling atas dan direspon pertanyaannya oleh Pak Gubernur'
     }

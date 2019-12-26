@@ -14,6 +14,22 @@ ion-item {
   --ion-item-background: transparent;
 }
 
+.introjs-tooltip {
+  background-color: var(--ion-color-blues) !important;
+}
+
+.introjs-arrow.bottom {
+  border-top-color: var(--ion-color-blues) !important;
+}
+
+.introjs-arrow.top {
+  border-bottom-color: var(--ion-color-blues) !important;
+}
+
+.introjs-tooltiptext {
+  color: #e6e7eb;
+}
+
 .introjs-skipbutton {
   color: black !important;
   visibility: hidden !important;
