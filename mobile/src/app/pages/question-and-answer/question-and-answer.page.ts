@@ -82,7 +82,6 @@ export class QuestionAndAnswerPage implements OnInit {
           'app-question-and-answer',
           this.introConstants.introStorages.questionAndAnswer
         );
-        // console.log(state);
       } else {
         this.showIntroService.showIntroQnA(
           1,
