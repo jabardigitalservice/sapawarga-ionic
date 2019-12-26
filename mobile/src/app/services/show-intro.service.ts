@@ -14,7 +14,6 @@ export interface Steps {
 })
 export class ShowIntroService {
   intro = introJs;
-  // finalStepQnA = false;
   finalStepQnA = new BehaviorSubject(false);
 
   constructor(
