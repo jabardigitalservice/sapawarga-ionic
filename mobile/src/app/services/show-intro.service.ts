@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import * as introJs from 'intro.js/intro.js';
 import { UtilitiesService } from './utilities.service';
 import { BehaviorSubject } from 'rxjs';
-import { QuestionAndAnswerService } from './question-and-answer.service';
 
 export interface Steps {
   element?: string;
