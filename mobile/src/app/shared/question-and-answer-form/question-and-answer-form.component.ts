@@ -129,7 +129,7 @@ export class QuestionAndAnswerFormComponent implements OnInit {
             this.util.alertConfirmation(Dictionary.terjadi_kesalahan, ['OK']);
           }
         },
-        err => {
+        _ => {
           loader.dismiss();
           this.util.alertConfirmation(Dictionary.terjadi_kesalahan, ['OK']);
         }
