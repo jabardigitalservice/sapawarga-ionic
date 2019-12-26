@@ -15,11 +15,9 @@ export interface Steps {
 export class ShowIntroService {
   intro = introJs;
   finalStepQnA = new BehaviorSubject(false);
+  isShowModal = new BehaviorSubject(false);
 
-  constructor(
-    private questionAndAnswerService: QuestionAndAnswerService,
-    private util: UtilitiesService
-  ) {}
+  constructor(private util: UtilitiesService) {}
 
   /**
    *
@@ -73,7 +71,7 @@ export class ShowIntroService {
       .start()
       .oncomplete(() => {
         if (step === 1) {
-          this.questionAndAnswerService.showModalAddQnA();
+          this.isShowModal.next(true);
         } else if (step === 2) {
           this.intro().exit();
           this.util.dismissModal();

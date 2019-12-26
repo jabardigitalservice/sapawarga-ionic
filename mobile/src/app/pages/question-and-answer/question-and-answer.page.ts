@@ -8,6 +8,7 @@ import { Constants } from '../../helpers/constants';
 import { UtilitiesService } from '../../services/utilities.service';
 import { IntroConstants } from '../../helpers/introConstants';
 import { ShowIntroService } from '../../services/show-intro.service';
+import { QuestionAndAnswerFormComponent } from '../../shared/question-and-answer-form/question-and-answer-form.component';
 
 @Component({
   selector: 'app-question-and-answer',
@@ -15,7 +16,6 @@ import { ShowIntroService } from '../../services/show-intro.service';
   styleUrls: ['./question-and-answer.page.scss']
 })
 export class QuestionAndAnswerPage implements OnInit {
-  userName = 'Agus tatto';
   dataEmpty = false;
   isLoading = false;
   msgResponse = {
@@ -90,6 +90,13 @@ export class QuestionAndAnswerPage implements OnInit {
         );
       }
     });
+
+    // listen if step 1 success & show tool tip modal form
+    this.showIntroService.isShowModal.subscribe((state: boolean) => {
+      if (state === true) {
+        this.showModalAddQnA();
+      }
+    });
   }
 
   ionViewWillLeave() {
@@ -106,7 +113,14 @@ export class QuestionAndAnswerPage implements OnInit {
   }
 
   async showModalAddQnA() {
-    this.questionAndAnswerService.showModalAddQnA();
+    // this.questionAndAnswerService.showModalAddQnA();
+
+    const modal = await this.modalController.create({
+      cssClass: 'form-qna',
+      backdropDismiss: false,
+      component: QuestionAndAnswerFormComponent
+    });
+    return await modal.present();
   }
 
   getListQnA(infiniteScroll?) {
