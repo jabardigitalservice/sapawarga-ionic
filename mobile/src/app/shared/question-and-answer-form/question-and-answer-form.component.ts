@@ -16,6 +16,8 @@ import { IntroConstants } from '../../helpers/introConstants';
 export class QuestionAndAnswerFormComponent implements OnInit {
   public AddQnAForm: FormGroup;
   submitted = false;
+  isIntro = false;
+
   constructor(
     private modalCtrl: ModalController,
     private formBuilder: FormBuilder,
@@ -41,6 +43,16 @@ export class QuestionAndAnswerFormComponent implements OnInit {
   }
 
   ionViewDidEnter() {
+    this.isIntro = JSON.parse(
+      localStorage.getItem(this.introConstants.introStorages.questionAndAnswer)
+    );
+
+    if (!this.isIntro) {
+      this.showIntro();
+    }
+  }
+
+  showIntro() {
     this.showIntroService.showIntroQnA(
       2,
       this.introConstants.stepQuestionAndAnswer2,

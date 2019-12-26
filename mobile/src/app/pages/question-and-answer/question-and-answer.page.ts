@@ -27,7 +27,7 @@ export class QuestionAndAnswerPage implements OnInit {
   maximumPages: number;
   isNewQnA = false;
   dataNewQnA: QuestionAndAnswer;
-  IsIntro = false;
+  isIntro = false;
 
   constructor(
     private modalController: ModalController,
@@ -64,11 +64,11 @@ export class QuestionAndAnswerPage implements OnInit {
   }
 
   ionViewDidEnter() {
-    this.IsIntro = JSON.parse(
+    this.isIntro = JSON.parse(
       localStorage.getItem(this.introConstants.introStorages.questionAndAnswer)
     );
 
-    if (!this.IsIntro) {
+    if (!this.isIntro) {
       this.showIntro();
     }
   }
