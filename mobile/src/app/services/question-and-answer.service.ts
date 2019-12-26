@@ -126,11 +126,11 @@ export class QuestionAndAnswerService {
   }
 
   async showModalAddQnA() {
-    const modal = await this.modalController.create({
-      cssClass: 'form-qna',
-      backdropDismiss: false,
-      component: QuestionAndAnswerFormComponent
-    });
-    return await modal.present();
+    // const modal = await this.modalController.create({
+    //   cssClass: 'form-qna',
+    //   backdropDismiss: false,
+    //   component: QuestionAndAnswerFormComponent
+    // });
+    // return await modal.present();
   }
 }
