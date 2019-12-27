@@ -322,6 +322,13 @@
   dependencies:
     "@types/cordova" latest
 
+"@ionic-native/app-version@^5.9.0":
+  version "5.18.0"
+  resolved "https://registry.yarnpkg.com/@ionic-native/app-version/-/app-version-5.18.0.tgz#1ead6c0e05e8f73ffd104ce8a6a66068a8cce8a2"
+  integrity sha512-GV3I2VeX4xi1ID2CCHahYf9VEFi5f016NnguJlTf9/5Wn612UFlE9nNAeAT1k5djuIMFxwHwLquGzA+2Pww7OA==
+  dependencies:
+    "@types/cordova" latest
+
 "@ionic-native/call-number@^5.4.0":
   version "5.5.1"
   resolved "https://registry.yarnpkg.com/@ionic-native/call-number/-/call-number-5.5.1.tgz#a450af8e04dc5c37959f0ddddcb4a911b9e4402d"
@@ -347,6 +354,13 @@
   version "5.5.1"
   resolved "https://registry.yarnpkg.com/@ionic-native/diagnostic/-/diagnostic-5.5.1.tgz#53c817560c2e9863217acb49d842a16ea2c1d7f7"
   integrity sha512-7su1qFZugsyl8g0CoI9Pxq9FhRSnZYfqvJOfaoyMZjoNIsqDKnXJA8YaD8gJFLHHlJeRlwvx0aNcdjQS+cIDZw==
+  dependencies:
+    "@types/cordova" latest
+
+"@ionic-native/downloader@^5.10.0":
+  version "5.18.0"
+  resolved "https://registry.yarnpkg.com/@ionic-native/downloader/-/downloader-5.18.0.tgz#18687720ac6b7152fafcd988142e611fa6dc8f39"
+  integrity sha512-AGXB/stmdKNiKCkB1f+lfDt9G5ZlKzaJ4AplBy7dQ7B7Bt4HT9SMiToOdgOO5AgCmqnNp81I36HsxnADMna8iQ==
   dependencies:
     "@types/cordova" latest
 
@@ -378,15 +392,29 @@
   dependencies:
     "@types/cordova" latest
 
+"@ionic-native/google-analytics@^5.12.0":
+  version "5.18.0"
+  resolved "https://registry.yarnpkg.com/@ionic-native/google-analytics/-/google-analytics-5.18.0.tgz#749ba68ec96cf905518c2f1c13dc5f4f12e73ec0"
+  integrity sha512-aWB44qYL56Ad+zfF3JvDcvZyLw5ptbsg0Y8QUvFKHLd/fdLZDhm10uX5JWlYUi284Gaai8fJJn9z4KvqWEueEg==
+  dependencies:
+    "@types/cordova" latest
+
 "@ionic-native/google-maps@^5.0.0-beta.27":
   version "5.5.0"
   resolved "https://registry.yarnpkg.com/@ionic-native/google-maps/-/google-maps-5.5.0.tgz#02537e04bb0d01d5580f936d8ccce6745188d90a"
   integrity sha512-+sCaB7cLR35ApsOyYSfwDX2ZTO2ItOI6FHkgTQ2rzOA1DVJ9rlU8HDL6jYBUhq+aDe3lhCPexSOryeBynaSvpQ==
 
-"@ionic-native/in-app-browser@^5.3.0":
-  version "5.5.1"
-  resolved "https://registry.yarnpkg.com/@ionic-native/in-app-browser/-/in-app-browser-5.5.1.tgz#3163d62674a232cfc4218ba0325ad2a8d6cee6ee"
-  integrity sha512-lRdB21N361c+vK4Eq2GGI9gstuwextRVVdDwGwblaW6HVtCmMz1zNw4BRDCMY0uzwsxZ1PrUOZLZLSGsItTy1A==
+"@ionic-native/http@^5.9.0":
+  version "5.18.0"
+  resolved "https://registry.yarnpkg.com/@ionic-native/http/-/http-5.18.0.tgz#d390f05baf2f8f83a03075cd8121739ad4e35eed"
+  integrity sha512-HeyHFS4xaxT+vXRi7OqZ/F6vaJ1Cs5UOS9j15dfEKIMIpYPi8mzOwyQEH16mRilrFRwflhXCAnX+7jRVwKS9EQ==
+  dependencies:
+    "@types/cordova" latest
+
+"@ionic-native/in-app-browser@^5.8.0":
+  version "5.18.0"
+  resolved "https://registry.yarnpkg.com/@ionic-native/in-app-browser/-/in-app-browser-5.18.0.tgz#74b97f5de1306b698037b04bcb42681102ba04d3"
+  integrity sha512-MO+uZwVRjWYj4cs+0+AbDY5HwqfGEAJenVG4VeZJ9P7APvp/RH6RxZFTKoaO6Bpd4QwrfHmoUGNk807c+nvmaw==
   dependencies:
     "@types/cordova" latest
 
@@ -404,10 +432,24 @@
   dependencies:
     "@types/cordova" latest
 
+"@ionic-native/screen-orientation@^5.8.0":
+  version "5.18.0"
+  resolved "https://registry.yarnpkg.com/@ionic-native/screen-orientation/-/screen-orientation-5.18.0.tgz#acea00b80cc249a7089fc2af91247c37bb6ebf60"
+  integrity sha512-PKs2lw5XLWjV3M+vu4I9rzFaOzgZC26gDFySNdaiigfYXbb7sbtCc+Ivsjy21pUfl7Q9wa84FRn6gN+sXJ3XzQ==
+  dependencies:
+    "@types/cordova" latest
+
 "@ionic-native/sms@^5.4.0":
   version "5.5.1"
   resolved "https://registry.yarnpkg.com/@ionic-native/sms/-/sms-5.5.1.tgz#b4758f3d2d289d6f37c346d2c754f0cd240ef33b"
   integrity sha512-sEzhfWisxT+pOWhtFNUQFRYU0UhN5CyUPEAKbSuefEUMLQbo2Fec18ALJ33uRJzu0zzhmNYiPmVY6QrAirbZ4w==
+  dependencies:
+    "@types/cordova" latest
+
+"@ionic-native/social-sharing@^5.16.0":
+  version "5.18.0"
+  resolved "https://registry.yarnpkg.com/@ionic-native/social-sharing/-/social-sharing-5.18.0.tgz#4045069e78e5e73547ea6cb08a5a92f3c5fc38f8"
+  integrity sha512-0mh3u0izMS2n4oJpRdavm5ghlO+RLt9b/iwxXBC3G9HtWvki0c4rW8/erkqPqzge0qv5wMl56X+VjE1vfFXXRw==
   dependencies:
     "@types/cordova" latest
 
@@ -422,6 +464,13 @@
   version "5.5.1"
   resolved "https://registry.yarnpkg.com/@ionic-native/status-bar/-/status-bar-5.5.1.tgz#f53cbe67661346fa3f0a65551d4762d5fec639a0"
   integrity sha512-oD+qpggnGDtYe7dq6x0bqgDFyRiCTKx4r+gQGj/RCkMys5RSDAXl9clwJ12XzhFqwpwgy5B1RS3AHGtrK1R6iw==
+  dependencies:
+    "@types/cordova" latest
+
+"@ionic-native/youtube-video-player@^5.10.0":
+  version "5.18.0"
+  resolved "https://registry.yarnpkg.com/@ionic-native/youtube-video-player/-/youtube-video-player-5.18.0.tgz#c54022001e39cc4b36826355a718c539895cbf2b"
+  integrity sha512-JRsXM6nhIWYSrpV8Lf/+F6mFe2X69C5zkwYwYB5bIbuG4eoW4UklwX1oy0p6FH/UQVUt9nDkGdCnh1y2WgqPow==
   dependencies:
     "@types/cordova" latest
 
@@ -616,6 +665,11 @@
   version "0.0.34"
   resolved "https://registry.yarnpkg.com/@types/cordova/-/cordova-0.0.34.tgz#ea7addf74ecec3d7629827a0c39e2c9addc73d04"
   integrity sha1-6nrd907Ow9dimCegw54smt3HPQQ=
+
+"@types/intro.js@^2.4.5":
+  version "2.4.5"
+  resolved "https://registry.yarnpkg.com/@types/intro.js/-/intro.js-2.4.5.tgz#9c96c0953a98d9fb2e0322809ffdd41e66c2865b"
+  integrity sha512-iBKhOzf6tgTzYsjkrkghGQJFA/pYB7WelXhg8SCbsgMHg6xeIqVzsEFpKlcBMS93WDuNfgwT0kfgyjXgCIIB5g==
 
 "@types/jasmine@*":
   version "3.3.12"
@@ -1924,10 +1978,15 @@ combined-stream@^1.0.6, combined-stream@~1.0.6:
   dependencies:
     delayed-stream "~1.0.0"
 
-commander@^2.12.1, commander@^2.19.0, commander@~2.20.0:
+commander@^2.12.1, commander@^2.19.0:
   version "2.20.0"
   resolved "https://registry.yarnpkg.com/commander/-/commander-2.20.0.tgz#d58bb2b5c1ee8f87b0d340027e9e94e222c5a422"
   integrity sha512-7j2y+40w61zy6YC2iRNpUe/NwhNyoXrYpHMrSunaMG64nRnaf96zO/KMQR4OyN/UnE5KLyEBnKHd4aG3rskjpQ==
+
+commander@~2.20.3:
+  version "2.20.3"
+  resolved "https://registry.yarnpkg.com/commander/-/commander-2.20.3.tgz#fd485e84c03eb4881c20722ba48035e8531aeb33"
+  integrity sha512-GpVkmM8vF2vQUkj2LvZmD35JxeJOLCwJ9cUkugyk2nuhbv3+mJvpLYYt+0+USMxE+oj+ey/lJEnhZw75x/OMcQ==
 
 commondir@^1.0.1:
   version "1.0.1"
@@ -1938,6 +1997,11 @@ compare-versions@^3.4.0:
   version "3.4.0"
   resolved "https://registry.yarnpkg.com/compare-versions/-/compare-versions-3.4.0.tgz#e0747df5c9cb7f054d6d3dc3e1dbc444f9e92b26"
   integrity sha512-tK69D7oNXXqUW3ZNo/z7NXTEz22TCF0pTE+YF9cxvaAM9XnkLo1fV621xCLrRR6aevJlKxExkss0vWqUCUpqdg==
+
+compare-versions@^3.5.1:
+  version "3.5.1"
+  resolved "https://registry.yarnpkg.com/compare-versions/-/compare-versions-3.5.1.tgz#26e1f5cf0d48a77eced5046b9f67b6b61075a393"
+  integrity sha512-9fGPIB7C6AyM18CJJBHt5EnCZDG3oiTJYy0NjfIAGjKpzv0tkxWko7TNQHF5ymqm7IH03tqmeuBxtvD+Izh6mg==
 
 component-bind@1.0.0:
   version "1.0.0"
@@ -2146,6 +2210,16 @@ cordova-open-native-settings@^1.5.2:
   resolved "https://registry.yarnpkg.com/cordova-open-native-settings/-/cordova-open-native-settings-1.5.2.tgz#9dadfc47ecb953630369743228f88afa452f0088"
   integrity sha512-UvcTZAH3/r3U/jred2bOqoYIXUo5Gmq0in6fgkqvwgRCcOSQtQJWnUqg4i0RlHkEd1zKDi61JdpeSyJT+K8ZRQ==
 
+cordova-plugin-advanced-http@^2.1.1:
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/cordova-plugin-advanced-http/-/cordova-plugin-advanced-http-2.3.1.tgz#8d55753ed2adf5a7bf9224d407844a63b99dd448"
+  integrity sha512-8GbxrzBN7RTCwdBsVW0g+O7NmKX3M6zALessmm/66qOA/jO+pSd1BQg+abbAMBArRnI0ITOIjEsChjwIjFS06w==
+
+cordova-plugin-app-version@0.1.9:
+  version "0.1.9"
+  resolved "https://registry.yarnpkg.com/cordova-plugin-app-version/-/cordova-plugin-app-version-0.1.9.tgz#9db0607863337a710489302e5f50a904f1449bdb"
+  integrity sha1-nbBgeGMzenEEiTAuX1CpBPFEm9s=
+
 cordova-plugin-appavailability@^0.4.2:
   version "0.4.2"
   resolved "https://registry.yarnpkg.com/cordova-plugin-appavailability/-/cordova-plugin-appavailability-0.4.2.tgz#a017aaf0f8827ee599dc778b6245dcc1350bcba8"
@@ -2181,6 +2255,11 @@ cordova-plugin-geolocation@4.0.1:
   resolved "https://registry.yarnpkg.com/cordova-plugin-geolocation/-/cordova-plugin-geolocation-4.0.1.tgz#4703fa649d2405d25a9a732c99ebf868754a2c04"
   integrity sha1-RwP6ZJ0kBdJamnMsmev4aHVKLAQ=
 
+cordova-plugin-google-analytics@1.8.6:
+  version "1.8.6"
+  resolved "https://registry.yarnpkg.com/cordova-plugin-google-analytics/-/cordova-plugin-google-analytics-1.8.6.tgz#7886bd7ac9264e4dec7355ebed64d939b274731a"
+  integrity sha512-shg8e3ris1MzmhC8roraScc2GEcfe7sVlbKkvrO3wZUAlYr31sf+4wxZr/VQB6tEcPsmTAkoNjGr1zMwoYjMeg==
+
 cordova-plugin-googlemaps@^2.6.2:
   version "2.6.2"
   resolved "https://registry.yarnpkg.com/cordova-plugin-googlemaps/-/cordova-plugin-googlemaps-2.6.2.tgz#8c73f1d3ab2f815b36e2239149c3731541e0ffe2"
@@ -2208,6 +2287,11 @@ cordova-plugin-network-information@^2.0.1:
   resolved "https://registry.yarnpkg.com/cordova-plugin-network-information/-/cordova-plugin-network-information-2.0.1.tgz#e90421f430c6ab76d409223f25fcefbbbce17690"
   integrity sha1-6QQh9DDGq3bUCSI/Jfzvu7zhdpA=
 
+cordova-plugin-screen-orientation@3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/cordova-plugin-screen-orientation/-/cordova-plugin-screen-orientation-3.0.1.tgz#75a357ce2938081e8f61d4605394b6d77463c1f8"
+  integrity sha1-daNXzik4CB6PYdRgU5S213Rjwfg=
+
 cordova-plugin-splashscreen@^5.0.2:
   version "5.0.2"
   resolved "https://registry.yarnpkg.com/cordova-plugin-splashscreen/-/cordova-plugin-splashscreen-5.0.2.tgz#747e74f56e201cd585bc62d14bca19f6867ff1ed"
@@ -2222,6 +2306,11 @@ cordova-plugin-whitelist@^1.3.3:
   version "1.3.3"
   resolved "https://registry.yarnpkg.com/cordova-plugin-whitelist/-/cordova-plugin-whitelist-1.3.3.tgz#b5e85ecdbbfe5aeded40a1bf4ee2372e67d96fb4"
   integrity sha1-tehezbv+Wu3tQKG/TuI3LmfZb7Q=
+
+cordova-plugin-x-socialsharing@^5.6.2:
+  version "5.6.3"
+  resolved "https://registry.yarnpkg.com/cordova-plugin-x-socialsharing/-/cordova-plugin-x-socialsharing-5.6.3.tgz#7a8ce277a361b6c36bf22e0a23986bce0685d2be"
+  integrity sha512-veAoIOgviGL9RCUyol9e6BxBRpyPV5OWaAmFKglbLjF2uGvj73k+jPe2+2p39ySPetxC8KERAz+1I6tfjk42Zg==
 
 cordova-registry-mapper@^1.1.8:
   version "1.1.15"
@@ -2836,6 +2925,11 @@ es-to-primitive@^1.2.0:
     is-callable "^1.1.4"
     is-date-object "^1.0.1"
     is-symbol "^1.0.2"
+
+es6-promise-plugin@4.2.2:
+  version "4.2.2"
+  resolved "https://registry.yarnpkg.com/es6-promise-plugin/-/es6-promise-plugin-4.2.2.tgz#cfa0cc1383d91f999a62a2bbf4bd97bec305e0ac"
+  integrity sha512-uoA4aVplXI9oqUYJFBAVRwAqIN9/n9JgrTAUGX3qPbnSZVE5yY1+6/MsoN5f4xsaPO62WjPHOdtts6okMN6tNA==
 
 es6-promise@^4.0.3:
   version "4.2.6"
@@ -3526,15 +3620,20 @@ graceful-fs@^4.1.11, graceful-fs@^4.1.15, graceful-fs@^4.1.2, graceful-fs@^4.1.6
   resolved "https://registry.yarnpkg.com/graceful-fs/-/graceful-fs-4.1.15.tgz#ffb703e1066e8a0eeaa4c8b80ba9253eeefbfb00"
   integrity sha512-6uHUhOPEBgQ24HM+r6b/QwWfZq+yiFcipKFrOFiBEnWdy5sdzYoi+pJeQaPI5qOLRFqWmAXUPQNsielzdLoecA==
 
+hammerjs@^2.0.8:
+  version "2.0.8"
+  resolved "https://registry.yarnpkg.com/hammerjs/-/hammerjs-2.0.8.tgz#04ef77862cff2bb79d30f7692095930222bf60f1"
+  integrity sha1-BO93hiz/K7edMPdpIJWTAiK/YPE=
+
 handle-thing@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/handle-thing/-/handle-thing-2.0.0.tgz#0e039695ff50c93fc288557d696f3c1dc6776754"
   integrity sha512-d4sze1JNC454Wdo2fkuyzCr6aHcbL6PGGuFAz0Li/NcOm1tCHGnWDRmJP85dh9IhQErTc2svWFEX5xHIOo//kQ==
 
 handlebars@^4.1.2:
-  version "4.1.2"
-  resolved "https://registry.yarnpkg.com/handlebars/-/handlebars-4.1.2.tgz#b6b37c1ced0306b221e094fc7aca3ec23b131b67"
-  integrity sha512-nvfrjqvt9xQ8Z/w0ijewdD/vvWDTOweBUm96NTr66Wfvo1mJenBLwcYmPs3TIBP5ruzYGD7Hx/DaM9RmhroGPw==
+  version "4.5.3"
+  resolved "https://registry.yarnpkg.com/handlebars/-/handlebars-4.5.3.tgz#5cf75bd8714f7605713511a56be7c349becb0482"
+  integrity sha512-3yPecJoJHK/4c6aZhSvxOyG4vJKDshV36VHp0iVCDVh7o9w2vwi3NSnL2MMPj3YdduqaBcu7cGbggJQM0br9xA==
   dependencies:
     neo-async "^2.6.0"
     optimist "^0.6.1"
@@ -3915,6 +4014,11 @@ inquirer@^6.0.0:
     strip-ansi "^5.1.0"
     through "^2.3.6"
 
+integrator-cordova-plugin-downloader@1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/integrator-cordova-plugin-downloader/-/integrator-cordova-plugin-downloader-1.1.0.tgz#6f3b893bd4ba742b5f86dc2b8645c5139bf8a1ae"
+  integrity sha512-LTXJ9ujnSSVNwl2+G2398SdttFwTBvvQ+8BiTjeKjGnE2av3IaHbi3Qp7QIV9p/sDaclJpOh4Z94nxwRvgrgeA==
+
 internal-ip@^3.0.1:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/internal-ip/-/internal-ip-3.0.1.tgz#df5c99876e1d2eb2ea2d74f520e3f669a00ece27"
@@ -3927,6 +4031,11 @@ interpret@^1.0.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/interpret/-/interpret-1.2.0.tgz#d5061a6224be58e8083985f5014d844359576296"
   integrity sha512-mT34yGKMNceBQUoVn7iCDKDntA7SC6gycMAWzGx1z/CMCTV7b2AAtXlo3nRyHZ1FelRkQbQjprHSYGwzLtkVbw==
+
+intro.js@^2.9.3:
+  version "2.9.3"
+  resolved "https://registry.yarnpkg.com/intro.js/-/intro.js-2.9.3.tgz#001d9a7bca66d8f4d2d0253c9b3345e9ae4320c3"
+  integrity sha512-hC+EXWnEuJeA3CveGMat3XHePd2iaXNFJIVfvJh2E9IzBMGLTlhWvPIVHAgKlOpO4lNayCxEqzr4N02VmHFr9Q==
 
 invariant@^2.2.2:
   version "2.2.4"
@@ -5067,6 +5176,11 @@ mkdirp@0.5.x, "mkdirp@>=0.5 0", mkdirp@^0.5.0, mkdirp@^0.5.1, mkdirp@~0.5.0:
   integrity sha1-MAV0OOrGz3+MR2fzhkjWaX11yQM=
   dependencies:
     minimist "0.0.8"
+
+moment@^2.24.0:
+  version "2.24.0"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.24.0.tgz#0d055d53f5052aa653c9f6eb68bb5d12bf5c2b5b"
+  integrity sha512-bV7f+6l2QigeBBZSM/6yTNq4P2fNpSWj/0e7jQcy87A8e7o2nAfP/34/2ky5Vw4B9S446EtIhodAzkFCcR4dQg==
 
 move-concurrently@^1.0.1:
   version "1.0.1"
@@ -7638,11 +7752,11 @@ typescript@~3.1.6:
   integrity sha512-tDMYfVtvpb96msS1lDX9MEdHrW4yOuZ4Kdc4Him9oU796XldPYF/t2+uKoX0BBa0hXXwDlqYQbXY5Rzjzc5hBA==
 
 uglify-js@^3.1.4:
-  version "3.5.12"
-  resolved "https://registry.yarnpkg.com/uglify-js/-/uglify-js-3.5.12.tgz#6b759cabc08c3e91fe82323d6387019f0c5864cd"
-  integrity sha512-KeQesOpPiZNgVwJj8Ge3P4JYbQHUdZzpx6Fahy6eKAYRSV4zhVmLXoC+JtOeYxcHCHTve8RG1ZGdTvpeOUM26Q==
+  version "3.7.3"
+  resolved "https://registry.yarnpkg.com/uglify-js/-/uglify-js-3.7.3.tgz#f918fce9182f466d5140f24bb0ff35c2d32dcc6a"
+  integrity sha512-7tINm46/3puUA4hCkKYo4Xdts+JDaVC9ZPRcG8Xw9R4nhO/gZgUM3TENq8IF4Vatk8qCig4MzP/c8G4u2BkVQg==
   dependencies:
-    commander "~2.20.0"
+    commander "~2.20.3"
     source-map "~0.6.1"
 
 ultron@~1.1.0:
