@@ -113,8 +113,6 @@ export class QuestionAndAnswerPage implements OnInit {
   }
 
   async showModalAddQnA() {
-    // this.questionAndAnswerService.showModalAddQnA();
-
     const modal = await this.modalController.create({
       cssClass: 'form-qna',
       backdropDismiss: false,
