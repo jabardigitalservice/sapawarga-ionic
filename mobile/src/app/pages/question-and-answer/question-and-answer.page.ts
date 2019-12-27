@@ -3,10 +3,12 @@ import { ModalController } from '@ionic/angular';
 import { Dictionary } from '../../helpers/dictionary';
 import { QuestionAndAnswer } from '../../interfaces/question-and-answer';
 import { Router } from '@angular/router';
-import { QuestionAndAnswerFormComponent } from '../../shared/question-and-answer-form/question-and-answer-form.component';
 import { QuestionAndAnswerService } from '../../services/question-and-answer.service';
 import { Constants } from '../../helpers/constants';
 import { UtilitiesService } from '../../services/utilities.service';
+import { IntroConstants } from '../../helpers/introConstants';
+import { ShowIntroService } from '../../services/show-intro.service';
+import { QuestionAndAnswerFormComponent } from '../../shared/question-and-answer-form/question-and-answer-form.component';
 
 @Component({
   selector: 'app-question-and-answer',
@@ -14,7 +16,6 @@ import { UtilitiesService } from '../../services/utilities.service';
   styleUrls: ['./question-and-answer.page.scss']
 })
 export class QuestionAndAnswerPage implements OnInit {
-  userName = 'Agus tatto';
   dataEmpty = false;
   isLoading = false;
   msgResponse = {
@@ -26,12 +27,16 @@ export class QuestionAndAnswerPage implements OnInit {
   maximumPages: number;
   isNewQnA = false;
   dataNewQnA: QuestionAndAnswer;
+  isIntro = false;
+
   constructor(
     private modalController: ModalController,
     private questionAndAnswerService: QuestionAndAnswerService,
     private router: Router,
     private constants: Constants,
-    private util: UtilitiesService
+    private util: UtilitiesService,
+    private introConstants: IntroConstants,
+    private showIntroService: ShowIntroService
   ) {
     // get data user using BehaviorSubject
     this.questionAndAnswerService.isNewQnA.subscribe(
@@ -58,6 +63,42 @@ export class QuestionAndAnswerPage implements OnInit {
     );
   }
 
+  ionViewDidEnter() {
+    this.isIntro = JSON.parse(
+      localStorage.getItem(this.introConstants.introStorages.questionAndAnswer)
+    );
+
+    if (!this.isIntro) {
+      this.showIntro();
+    }
+  }
+
+  private showIntro() {
+    this.showIntroService.finalStepQnA.subscribe((state: boolean) => {
+      if (state === true) {
+        this.showIntroService.showIntroQnA(
+          3,
+          this.introConstants.stepQuestionAndAnswer3,
+          'app-question-and-answer',
+          this.introConstants.introStorages.questionAndAnswer
+        );
+      } else {
+        this.showIntroService.showIntroQnA(
+          1,
+          this.introConstants.stepQuestionAndAnswer1,
+          'app-question-and-answer'
+        );
+      }
+    });
+
+    // listen if step 1 success & show tool tip modal form
+    this.showIntroService.isShowModal.subscribe((state: boolean) => {
+      if (state === true) {
+        this.showModalAddQnA();
+      }
+    });
+  }
+
   ionViewWillLeave() {
     this.dataEmpty = false;
     this.isLoading = false;
@@ -73,6 +114,8 @@ export class QuestionAndAnswerPage implements OnInit {
 
   async showModalAddQnA() {
     const modal = await this.modalController.create({
+      cssClass: 'form-qna',
+      backdropDismiss: false,
       component: QuestionAndAnswerFormComponent
     });
     return await modal.present();

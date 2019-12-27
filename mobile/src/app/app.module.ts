@@ -47,6 +47,7 @@ import localeId from '@angular/common/locales/id';
 import { InformationPopupComponent } from './shared/information-popup/information-popup.component';
 import { GestureConfig } from './helpers/GestureConfig';
 import { IntroConstants } from './helpers/introConstants';
+import { QuestionAndAnswerFormComponent } from './shared/question-and-answer-form/question-and-answer-form.component';
 
 registerLocaleData(localeId);
 @NgModule({
@@ -58,7 +59,8 @@ registerLocaleData(localeId);
     ForceChangePasswordComponent,
     ForceChangeProfileComponent,
     ForgotPasswordComponent,
-    InformationPopupComponent
+    InformationPopupComponent,
+    QuestionAndAnswerFormComponent
   ],
   imports: [
     BrowserModule,
@@ -77,7 +79,8 @@ registerLocaleData(localeId);
     ForceChangePasswordComponent,
     ForceChangeProfileComponent,
     ForgotPasswordComponent,
-    InformationPopupComponent
+    InformationPopupComponent,
+    QuestionAndAnswerFormComponent
   ],
   providers: [
     StatusBar,
