@@ -6,7 +6,6 @@ import { environment } from '../../environments/environment';
 import { UtilitiesService } from './utilities.service';
 import { QuestionAndAnswer } from '../interfaces/question-and-answer';
 import { Constants } from '../helpers/constants';
-import { ModalController } from '@ionic/angular';
 @Injectable({
   providedIn: 'root'
 })
