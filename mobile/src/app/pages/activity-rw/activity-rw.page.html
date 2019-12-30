@@ -71,9 +71,7 @@
             [src]="data.user?.photo_url_full"
             onError="this.src='assets/img/user.png';"
           />
-          <ion-text
-            style="font-size: 15px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"
-          >
+          <ion-text class="display-ellipsis max-line-1 f-size-15">
             {{data.user?.name}}
             <br />
             <ion-note class="date-rw">
