@@ -1,3 +1,6 @@
+// variabel local
+$line-height: 20px;
+
 :host {
   ion-card-header {
     padding-bottom: unset !important;
@@ -38,13 +41,6 @@
   ion-item.skeleton-like-comment {
     --padding-start: 0px;
     --inner-padding-end: 0px;
-  }
-
-  ion-item.text-content {
-    --padding-start: 0px;
-    --min-height: 0px;
-    --inner-padding-end: 0px;
-    font-size: unset;
   }
 }
 
@@ -92,15 +88,25 @@
 .text-like {
   font-size: 13px;
   margin-left: 3px;
-  margin-top: 15px;
+  margin-top: 18px;
+}
+
+.text-content {
+  line-height: $line-height;
 }
 
 .font-comment {
   margin-left: 2px;
   font-size: 13px;
+  margin-top: 2px;
 }
 
 .img-cover {
   border-radius: 4px;
   object-fit: cover;
+}
+
+.read-more {
+  color: #999999;
+  line-height: $line-height;
 }

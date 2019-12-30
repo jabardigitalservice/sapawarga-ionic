@@ -98,4 +98,8 @@ export class ActivityRwPage implements OnInit {
       this.getListUserPosts(event);
     }, 2000);
   }
+
+  showMore() {
+    console.log('show more');
+  }
 }

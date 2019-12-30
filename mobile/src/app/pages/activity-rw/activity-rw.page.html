@@ -107,19 +107,12 @@
         </ion-item>
 
         <div class="pl-16 pb-10 pr-16 color-content">
-          <ion-item class="text-content" style="line-height: 20px;">
-            <ion-text class="display-ellipsis max-line-2">
+          <ion-text>
+            <div class="text-content display-ellipsis max-line-2">
               {{ data.text}}
-            </ion-text>
-            <b class="ml-10">Selengkapnya</b>
-          </ion-item>
-
-          <!-- <div style="line-height: 20px;">
-            <ion-text>
-              <div class="display-ellipsis max-line-2">{{ data.text}}</div>
-              <b>Selengkapnya</b>
-            </ion-text>
-          </div> -->
+            </div>
+            <b *ngIf="data.text.length > 65" class="read-more">Selengkapnya</b>
+          </ion-text>
 
           <div class="mt-8" *ngIf="data.last_comment">
             <ion-text class="display-ellipsis max-line-1">
