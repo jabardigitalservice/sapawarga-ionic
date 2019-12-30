@@ -8,58 +8,108 @@
 </ion-header>
 
 <ion-content>
-  <!-- <app-message-control
+  <app-message-control
     *ngIf="msgResponse.type"
     [type]="msgResponse.type"
     [message]="msgResponse.msg"
-  ></app-message-control> -->
+  ></app-message-control>
 
-  <div class="mto">
-    <ion-item-divider>
+  <div class="mto" *ngIf="isLoading">
+    <ion-item-divider *ngFor="let key of [0, 1]">
+      <div class="pt-5" style="width: 100%;">
+        <ion-item>
+          <app-skeleton
+            height="30px"
+            width="30px"
+            style="margin-right: 8px;"
+          ></app-skeleton>
+
+          <app-skeleton height="30px" style="width: 70%;"></app-skeleton>
+        </ion-item>
+
+        <div class="pb-10 pl-16 pr-16 mb-5">
+          <div style="margin-bottom: 15px;">
+            <app-skeleton
+              slot="end"
+              height="110px"
+              style="width: 100%"
+            ></app-skeleton>
+          </div>
+
+          <ion-item class="skeleton-like-comment">
+            <app-skeleton height="30px" width="30px"></app-skeleton>
+
+            <app-skeleton
+              slot="end"
+              height="30px"
+              style="width: 30px;"
+            ></app-skeleton>
+          </ion-item>
+
+          <div style="margin-top: 8px; margin-bottom: 8px;">
+            <div>
+              <app-skeleton height="20px" style="width: 60%"></app-skeleton>
+              <app-skeleton height="20px" style="width: 90%"></app-skeleton>
+              <app-skeleton height="20px" style="width: 40%"></app-skeleton>
+            </div>
+          </div>
+
+          <div style=" margin-top: 12px;width: 50%;">
+            <app-skeleton height="20px" style="width: 40%"></app-skeleton>
+          </div>
+        </div>
+      </div>
+    </ion-item-divider>
+  </div>
+
+  <div class="mto" *ngIf="dataUserPosts && !isLoading">
+    <ion-item-divider *ngFor="let data of dataUserPosts; let i = index">
       <div class="pt-5 w100">
         <ion-item>
           <img
             class="img-avatar"
-            [src]="'assets/img/user.png'"
+            [src]="data.user?.photo_url_full"
             onError="this.src='assets/img/user.png';"
           />
           <ion-text
             style="font-size: 15px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"
           >
-            jajang
+            {{data.user?.name}}
             <br />
-            <ion-note class="date-rw"> 22/22/22</ion-note>
+            <ion-note class="date-rw">
+              {{ data.created_at * 1000 | date: 'd MMMM y' }}</ion-note
+            >
           </ion-text>
         </ion-item>
+
+        <div class="pl-16 pt-5 pr-16">
+          <img
+            class="img-cover"
+            [src]="'https://foto.co.id/wp-content/uploads/2017/01/pexels-photo-41126.jpeg'"
+            onError="this.src='assets/img/placeholder_image.png';"
+          />
+        </div>
 
         <ion-item class="section-2">
           <ion-item class="section-like">
             <ion-icon name="heart" color="danger" class="icon-heart"></ion-icon>
-            <p class="text-like">
-              10 Menyukai
+            <p class="text-like" *ngIf="data.likes_count !== 0">
+              {{data.likes_count}} Menyukai
             </p>
           </ion-item>
 
-          <!-- <div class="d-inline-f" slot="start">
-            <ion-icon name="heart" color="danger" class="icon-heart"></ion-icon>
-            <p class="text-like">
-              10 likes
-            </p>
-          </div> -->
-
           <ion-item class="section-comment" slot="end">
             <img src="assets/icon/comment.png" />
-            <ion-text class="font-comment"> 1 Komentar</ion-text>
+            <ion-text class="font-comment" *ngIf="data.comments_count !== 0">
+              {{data.comments_count}} Komentar</ion-text
+            >
           </ion-item>
         </ion-item>
 
         <div class="pl-16 pb-10 pr-16">
           <div style="line-height: 20px;">
             <ion-text class="desc-content">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. At,
-              magnam placeat magni voluptate similique eius dicta ea harum
-              ratione. Qui harum culpa quidem inventore cumque aut ipsum natus
-              velit ex!
+              {{ data.text}}
             </ion-text>
             <b class="desc-comment">Selengkapnya</b>
           </div>

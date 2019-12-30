@@ -34,6 +34,11 @@
   ion-item.section-like {
     --padding-start: 0px;
   }
+
+  ion-item.skeleton-like-comment {
+    --padding-start: 0px;
+    --inner-padding-end: 0px;
+  }
 }
 
 .btn-bottom {
@@ -96,4 +101,9 @@
 .font-comment {
   margin-left: 2px;
   font-size: 13px;
+}
+
+.img-cover {
+  border-radius: 4px;
+  object-fit: cover;
 }
