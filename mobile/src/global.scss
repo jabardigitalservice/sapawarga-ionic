@@ -166,6 +166,10 @@ hei .text-secondary {
   margin-top: 5px;
 }
 
+.mt-8 {
+  margin-top: 8px;
+}
+
 .min-mt-5 {
   margin-top: -5px;
 }
@@ -383,6 +387,21 @@ ion-menu {
 .dialog-section-register {
   line-height: 25px;
   text-align: center;
+}
+
+.display-ellipsis {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.max-line-1 {
+  -webkit-line-clamp: 1;
+}
+
+.max-line-2 {
+  -webkit-line-clamp: 2;
 }
 
 // tablet mode

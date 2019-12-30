@@ -106,16 +106,25 @@
           </ion-item>
         </ion-item>
 
-        <div class="pl-16 pb-10 pr-16">
-          <div style="line-height: 20px;">
-            <ion-text class="desc-content">
+        <div class="pl-16 pb-10 pr-16 color-content">
+          <ion-item class="text-content" style="line-height: 20px;">
+            <ion-text class="display-ellipsis max-line-2">
               {{ data.text}}
             </ion-text>
-            <b class="desc-comment">Selengkapnya</b>
-          </div>
+            <b class="ml-10">Selengkapnya</b>
+          </ion-item>
 
-          <div style="margin-top: 8px;">
-            <ion-text class="desc-comment"> <b>imam</b> mantap </ion-text>
+          <!-- <div style="line-height: 20px;">
+            <ion-text>
+              <div class="display-ellipsis max-line-2">{{ data.text}}</div>
+              <b>Selengkapnya</b>
+            </ion-text>
+          </div> -->
+
+          <div class="mt-8" *ngIf="data.last_comment">
+            <ion-text class="display-ellipsis max-line-1">
+              <b>{{data.last_comment.user.name}}</b> {{data.last_comment.text}}
+            </ion-text>
           </div>
         </div>
       </div>
@@ -128,7 +137,7 @@
   <ion-infinite-scroll
     threshold="100px"
     (ionInfinite)="doInfinite($event)"
-    *ngIf="dataQnA && !isLoading"
+    *ngIf="dataUserPosts && !isLoading"
   >
     <ion-infinite-scroll-content
       loadingSpinner="bubbles"

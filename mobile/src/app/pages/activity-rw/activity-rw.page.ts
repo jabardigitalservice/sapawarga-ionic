@@ -59,7 +59,6 @@ export class ActivityRwPage implements OnInit {
           };
         }
 
-        console.log(this.dataUserPosts);
         // set count page
         this.maximumPages = res['data']['_meta'].pageCount;
         // stop infinite scroll

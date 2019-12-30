@@ -39,6 +39,13 @@
     --padding-start: 0px;
     --inner-padding-end: 0px;
   }
+
+  ion-item.text-content {
+    --padding-start: 0px;
+    --min-height: 0px;
+    --inner-padding-end: 0px;
+    font-size: unset;
+  }
 }
 
 .btn-bottom {
@@ -61,17 +68,7 @@
   color: #333333;
 }
 
-.desc-content {
-  width: 100%;
-  color: #333333;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.desc-comment {
+.color-content {
   color: #333333;
 }
 
