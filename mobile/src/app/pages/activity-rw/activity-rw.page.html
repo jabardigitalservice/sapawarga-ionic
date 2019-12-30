@@ -1,0 +1,100 @@
+<ion-header>
+  <ion-toolbar color="light">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Kegiatan RW</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- <app-message-control
+    *ngIf="msgResponse.type"
+    [type]="msgResponse.type"
+    [message]="msgResponse.msg"
+  ></app-message-control> -->
+
+  <div class="mto">
+    <ion-item-divider>
+      <div class="pt-5 w100">
+        <ion-item>
+          <img
+            class="img-avatar"
+            [src]="'assets/img/user.png'"
+            onError="this.src='assets/img/user.png';"
+          />
+          <ion-text
+            style="font-size: 15px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"
+          >
+            jajang
+            <br />
+            <ion-note class="date-rw"> 22/22/22</ion-note>
+          </ion-text>
+        </ion-item>
+
+        <ion-item class="section-2">
+          <ion-item class="section-like">
+            <ion-icon name="heart" color="danger" class="icon-heart"></ion-icon>
+            <p class="text-like">
+              10 Menyukai
+            </p>
+          </ion-item>
+
+          <!-- <div class="d-inline-f" slot="start">
+            <ion-icon name="heart" color="danger" class="icon-heart"></ion-icon>
+            <p class="text-like">
+              10 likes
+            </p>
+          </div> -->
+
+          <ion-item class="section-comment" slot="end">
+            <img src="assets/icon/comment.png" />
+            <ion-text class="font-comment"> 1 Komentar</ion-text>
+          </ion-item>
+        </ion-item>
+
+        <div class="pl-16 pb-10 pr-16">
+          <div style="line-height: 20px;">
+            <ion-text class="desc-content">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. At,
+              magnam placeat magni voluptate similique eius dicta ea harum
+              ratione. Qui harum culpa quidem inventore cumque aut ipsum natus
+              velit ex!
+            </ion-text>
+            <b class="desc-comment">Selengkapnya</b>
+          </div>
+
+          <div style="margin-top: 8px;">
+            <ion-text class="desc-comment"> <b>imam</b> mantap </ion-text>
+          </div>
+        </div>
+      </div>
+    </ion-item-divider>
+    <br />
+  </div>
+
+  <div style="margin-bottom: 90px;"></div>
+
+  <ion-infinite-scroll
+    threshold="100px"
+    (ionInfinite)="doInfinite($event)"
+    *ngIf="dataQnA && !isLoading"
+  >
+    <ion-infinite-scroll-content
+      loadingSpinner="bubbles"
+      loadingText="Sedang mengambil data..."
+    >
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>
+
+<ion-button
+  shape="round"
+  color="blues"
+  class="btn-bottom"
+  (click)="showModalAddQnA()"
+  id="qna-step1"
+>
+  <ion-icon slot="start" name="add"></ion-icon>
+  Buat Kegiatan Baru
+</ion-button>

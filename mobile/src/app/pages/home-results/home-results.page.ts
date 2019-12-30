@@ -88,6 +88,12 @@ export class HomeResultsPage implements OnInit {
         path: 'nomor-penting'
       },
       {
+        title: 'Kegiatan RW',
+        url: '',
+        icon: 'assets/icon/QnA.png',
+        path: 'activity-rw'
+      },
+      {
         title: 'Tanya Gubernur',
         url: '',
         icon: 'assets/icon/QnA.png',
@@ -258,6 +264,9 @@ export class HomeResultsPage implements OnInit {
         break;
       case 'Survei':
         this.navigationForward(path, 'tapped_survei');
+        break;
+      case 'Kegiatan RW':
+        this.navigationForward(path, 'activity_rw');
         break;
       case 'Jabar Saber Hoaks':
         // check if offline
