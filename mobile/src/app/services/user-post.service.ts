@@ -31,4 +31,10 @@ export class UserPostService {
       )
       .pipe(catchError(this.util.handleError));
   }
+
+  PostLiked(id: number): Observable<any> {
+    return this.http
+      .post<any>(`${environment.API_URL}/user-posts/likes/${id}`, null)
+      .pipe(catchError(this.util.handleError));
+  }
 }

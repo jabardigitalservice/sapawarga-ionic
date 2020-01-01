@@ -90,7 +90,12 @@
 
         <ion-item class="section-2">
           <ion-item class="section-like">
-            <ion-icon name="heart" color="danger" class="icon-heart"></ion-icon>
+            <ion-icon
+              name="heart"
+              [color]="data.is_liked == true ? 'danger' : 'medium'"
+              class="icon-heart"
+              (click)="doLike(i, data.id, data.is_liked)"
+            ></ion-icon>
             <p class="text-like" *ngIf="data.likes_count !== 0">
               {{data.likes_count}} Menyukai
             </p>
