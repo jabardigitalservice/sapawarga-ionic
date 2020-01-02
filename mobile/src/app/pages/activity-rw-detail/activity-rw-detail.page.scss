@@ -161,8 +161,6 @@ $line-height: 20px;
   scroll-behavior: smooth;
 }
 .message-wrap {
-  // padding: 0 10px;
-
   .message {
     position: relative;
     padding: 7px 0;
@@ -212,7 +210,6 @@ $line-height: 20px;
   }
   .message-right {
     .msg-detail {
-      // padding-right: 60px;
       .msg-info {
         text-align: right;
       }
@@ -255,7 +252,6 @@ $line-height: 20px;
 }
 
 .footer {
-  // min-height: 70px;
   display: flex;
   align-items: center;
 }
