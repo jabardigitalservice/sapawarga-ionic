@@ -9,6 +9,7 @@
 
 <ion-content>
   <div class="mto" *ngIf="isLoading">
+    <!-- skeleton post user -->
     <ion-item-divider>
       <div class="pt-5" style="width: 100%;">
         <ion-item>
@@ -50,9 +51,31 @@
         </div>
       </div>
     </ion-item-divider>
+
+    <!-- skeleton comment -->
+    <div class="pt-5" style="width: 100%;">
+      <ion-item>
+        <app-skeleton
+          height="30px"
+          width="30px"
+          style="margin-right: 8px;"
+        ></app-skeleton>
+
+        <app-skeleton height="30px" style="width: 70%;"></app-skeleton>
+      </ion-item>
+
+      <div class="pb-10 pl-16 pr-16 mb-5">
+        <div style="margin-top: 8px; margin-bottom: 8px;">
+          <div>
+            <app-skeleton height="20px" style="width: 60%"></app-skeleton>
+            <app-skeleton height="20px" style="width: 90%"></app-skeleton>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <ion-item-divider *ngIf="dataUserPost">
+  <ion-item-divider *ngIf="dataUserPost && !isLoading">
     <div class="pt-5 w100">
       <ion-item>
         <img
@@ -106,30 +129,52 @@
     </div>
   </ion-item-divider>
 
-  <ion-list *ngIf="dataUserPost">
-    <div class="pt-5 w100">
-      <ion-item>
-        <img
-          class="img-avatar"
-          [src]="dataUserPost.user?.photo_url_full"
-          onError="this.src='assets/img/user.png';"
-        />
-        <ion-text class="text-username">
-          {{dataUserPost.user?.name}}
-          <br />
-          <ion-note class="date-rw">
-            {{ dataUserPost.created_at * 1000 | date: 'd MMMM y' }}</ion-note
-          >
-        </ion-text>
-      </ion-item>
+  <div *ngIf="dataUserPostComents && !isLoading">
+    <ion-list *ngFor="let data of dataUserPostComents; let i = index">
+      <div class="w100">
+        <ion-item>
+          <img
+            class="img-avatar"
+            [src]="data.user?.photo_url_full"
+            onError="this.src='assets/img/user.png';"
+          />
+          <ion-text class="text-username">
+            {{data.user?.name}}
+            <br />
+            <ion-note class="date-rw">
+              {{ data.created_at * 1000 | date: 'd MMMM y' }}</ion-note
+            >
+          </ion-text>
+        </ion-item>
 
-      <div class="pb-10 pad-left-38 pr-16 color-content fs-14">
-        <ion-text>
-          <div>
-            {{ dataUserPost.text}}
-          </div>
-        </ion-text>
+        <div class="pb-10 pad-left-38 pr-16 color-content fs-14">
+          <ion-text>
+            <div>
+              {{ data.text}}
+            </div>
+          </ion-text>
+        </div>
+      </div>
+    </ion-list>
+  </div>
+</ion-content>
+
+<ion-footer class="footer">
+  <ion-toolbar class="footerSections">
+    <div class="containerFooter">
+      <div class="inputConatiner">
+        <ion-textarea
+          class="placeholdertext inputMessage inputBg no-padding"
+          type="text"
+          placeholder="Tuliskan Komentar"
+          [(ngModel)]="inp_text"
+          autofocus="true"
+          padding-start
+        ></ion-textarea>
+      </div>
+      <div class="send-button-parent">
+        <ion-icon class="sendBtn-icon" name="send" color="blues"></ion-icon>
       </div>
     </div>
-  </ion-list>
-</ion-content>
+  </ion-toolbar>
+</ion-footer>

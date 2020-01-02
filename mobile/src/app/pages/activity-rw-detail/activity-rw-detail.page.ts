@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { UserPostService } from '../../services/user-post.service';
-import { UserPost } from 'src/app/interfaces/user-post';
-import { Dictionary } from 'src/app/helpers/dictionary';
-import { UtilitiesService } from 'src/app/services/utilities.service';
-import { Constants } from 'src/app/helpers/constants';
+import { UserPost } from '../../interfaces/user-post';
+import { Dictionary } from '../../helpers/dictionary';
+import { UtilitiesService } from '../../services/utilities.service';
+import { Constants } from '../../helpers/constants';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -13,7 +13,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class ActivityRwDetailPage implements OnInit {
   dataUserPost: UserPost;
-  // dataCommentsQnA: UserPost[];
+  dataUserPostComents: UserPost[];
   dataEmpty = false;
   isLoading = false;
   msgResponse = {
@@ -33,7 +33,7 @@ export class ActivityRwDetailPage implements OnInit {
       const id = params['id'];
 
       this.getDetailUserPost(id);
-      // this.getListCommentsQnA(id);
+      this.getListComments(id);
     });
   }
 
@@ -52,7 +52,6 @@ export class ActivityRwDetailPage implements OnInit {
         if (res['status'] === 200) {
           this.dataUserPost = res['data'];
 
-          console.log(this.dataUserPost);
           // google event analytics
           // this.util.trackEvent(
           //   this.constants.pageName.QnA,
@@ -70,6 +69,47 @@ export class ActivityRwDetailPage implements OnInit {
             msg: Dictionary.empty
           };
         } else if (err.name === 'TimeoutError') {
+          this.msgResponse = {
+            type: 'offline',
+            msg: Dictionary.offline
+          };
+        } else {
+          this.msgResponse = {
+            type: 'server-error',
+            msg: Dictionary.internalError
+          };
+        }
+
+        this.isLoading = false;
+      }
+    );
+  }
+
+  getListComments(id: number) {
+    // check internet
+    if (!navigator.onLine) {
+      return;
+    }
+
+    this.dataEmpty = false;
+
+    this.isLoading = true;
+
+    this.userPostService.getListComments(id).subscribe(
+      res => {
+        if (res['data']['items'].length) {
+          this.dataUserPostComents = res['data']['items'];
+        } else {
+          this.dataEmpty = true;
+          this.msgResponse = {
+            type: 'empty',
+            msg: Dictionary.polling_empty
+          };
+        }
+        this.isLoading = false;
+      },
+      err => {
+        if (err.name === 'TimeoutError') {
           this.msgResponse = {
             type: 'offline',
             msg: Dictionary.offline
