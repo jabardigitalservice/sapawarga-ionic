@@ -83,7 +83,7 @@
         <div class="pl-16 pt-5 pr-16" (click)="detailUserPost(data.id)">
           <img
             class="img-cover"
-            [src]="'https://foto.co.id/wp-content/uploads/2017/01/pexels-photo-41126.jpeg'"
+            [src]="data.image_path_full"
             onError="this.src='assets/img/placeholder_image.png';"
           />
         </div>

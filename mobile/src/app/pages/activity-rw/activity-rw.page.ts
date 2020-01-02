@@ -40,7 +40,9 @@ export class ActivityRwPage implements OnInit {
       '',
       1
     );
+  }
 
+  ionViewWillEnter() {
     this.getListUserPosts();
   }
 
@@ -129,6 +131,14 @@ export class ActivityRwPage implements OnInit {
 
   showMore() {}
 
+  /**
+   *
+   *
+   * @param {number} index
+   * @param {number} id
+   * @param {boolean} isLiked
+   * @memberof ActivityRwPage
+   */
   doLike(index: number, id: number, isLiked: boolean) {
     if (isLiked === true) {
       this.dataUserPosts[index].likes_count =
