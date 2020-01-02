@@ -31,4 +31,10 @@ export class UserPostService {
       )
       .pipe(catchError(this.util.handleError));
   }
+
+  getDetailUserPost(id: number): Observable<UserPost> {
+    return this.http
+      .get<UserPost>(`${environment.API_URL}/user-posts/${id}`)
+      .pipe(catchError(this.util.handleError));
+  }
 }

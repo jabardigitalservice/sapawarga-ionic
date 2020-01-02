@@ -1,0 +1,135 @@
+<ion-header>
+  <ion-toolbar color="light">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Detail Kegiatan RW</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="mto" *ngIf="isLoading">
+    <ion-item-divider>
+      <div class="pt-5" style="width: 100%;">
+        <ion-item>
+          <app-skeleton
+            height="30px"
+            width="30px"
+            style="margin-right: 8px;"
+          ></app-skeleton>
+
+          <app-skeleton height="30px" style="width: 70%;"></app-skeleton>
+        </ion-item>
+
+        <div class="pb-10 pl-16 pr-16 mb-5">
+          <div style="margin-bottom: 15px;">
+            <app-skeleton
+              slot="end"
+              height="110px"
+              style="width: 100%"
+            ></app-skeleton>
+          </div>
+
+          <ion-item class="skeleton-like-comment">
+            <app-skeleton height="30px" width="30px"></app-skeleton>
+
+            <app-skeleton
+              slot="end"
+              height="30px"
+              style="width: 30px;"
+            ></app-skeleton>
+          </ion-item>
+
+          <div style="margin-top: 8px; margin-bottom: 8px;">
+            <div>
+              <app-skeleton height="20px" style="width: 60%"></app-skeleton>
+              <app-skeleton height="20px" style="width: 90%"></app-skeleton>
+              <app-skeleton height="20px" style="width: 40%"></app-skeleton>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ion-item-divider>
+  </div>
+
+  <ion-item-divider *ngIf="dataUserPost">
+    <div class="pt-5 w100">
+      <ion-item>
+        <img
+          class="img-avatar"
+          [src]="dataUserPost.user?.photo_url_full"
+          onError="this.src='assets/img/user.png';"
+        />
+        <ion-text class="text-username">
+          {{dataUserPost.user?.name}}
+          <br />
+          <ion-note class="date-rw">
+            {{ dataUserPost.created_at * 1000 | date: 'd MMMM y' }}</ion-note
+          >
+        </ion-text>
+      </ion-item>
+
+      <div class="pl-16 pt-5 pr-16">
+        <img
+          class="img-cover"
+          [src]="'https://foto.co.id/wp-content/uploads/2017/01/pexels-photo-41126.jpeg'"
+          onError="this.src='assets/img/placeholder_image.png';"
+        />
+      </div>
+
+      <ion-item class="section-2">
+        <ion-item class="section-like">
+          <ion-icon name="heart" color="danger" class="icon-heart"></ion-icon>
+          <p class="text-like" *ngIf="dataUserPost.likes_count !== 0">
+            {{dataUserPost.likes_count}} Menyukai
+          </p>
+        </ion-item>
+
+        <ion-item class="section-comment" slot="end">
+          <img src="assets/icon/comment.png" />
+          <ion-text
+            class="font-comment"
+            *ngIf="dataUserPost.comments_count !== 0"
+          >
+            {{dataUserPost.comments_count}} Komentar</ion-text
+          >
+        </ion-item>
+      </ion-item>
+
+      <div class="pl-16 pb-10 pr-16 color-content">
+        <ion-text>
+          <div>
+            {{ dataUserPost.text}}
+          </div>
+        </ion-text>
+      </div>
+    </div>
+  </ion-item-divider>
+
+  <ion-list *ngIf="dataUserPost">
+    <div class="pt-5 w100">
+      <ion-item>
+        <img
+          class="img-avatar"
+          [src]="dataUserPost.user?.photo_url_full"
+          onError="this.src='assets/img/user.png';"
+        />
+        <ion-text class="text-username">
+          {{dataUserPost.user?.name}}
+          <br />
+          <ion-note class="date-rw">
+            {{ dataUserPost.created_at * 1000 | date: 'd MMMM y' }}</ion-note
+          >
+        </ion-text>
+      </ion-item>
+
+      <div class="pb-10 pad-left-38 pr-16 color-content fs-14">
+        <ion-text>
+          <div>
+            {{ dataUserPost.text}}
+          </div>
+        </ion-text>
+      </div>
+    </div>
+  </ion-list>
+</ion-content>
