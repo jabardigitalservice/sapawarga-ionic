@@ -31,4 +31,23 @@ export class UserPostService {
       )
       .pipe(catchError(this.util.handleError));
   }
+
+  /**
+   *
+   *
+   * @param {number} id
+   * @returns {Observable<UserPost>}
+   * @memberof UserPostService
+   */
+  getDetailUserPost(id: number): Observable<UserPost> {
+    return this.http
+      .get<UserPost>(`${environment.API_URL}/user-posts/${id}`)
+      .pipe(catchError(this.util.handleError));
+  }
+
+  getListComments(id: number): Observable<UserPost[]> {
+    return this.http
+      .get<UserPost[]>(`${environment.API_URL}/user-posts/${id}/comments`)
+      .pipe(catchError(this.util.handleError));
+  }
 }

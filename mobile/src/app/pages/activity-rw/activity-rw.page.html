@@ -65,7 +65,7 @@
   <div class="mto" *ngIf="dataUserPosts && !isLoading">
     <ion-item-divider *ngFor="let data of dataUserPosts; let i = index">
       <div class="pt-5 w100">
-        <ion-item>
+        <ion-item (click)="detailUserPost(data.id)">
           <img
             class="img-avatar"
             [src]="data.user?.photo_url_full"
@@ -80,7 +80,7 @@
           </ion-text>
         </ion-item>
 
-        <div class="pl-16 pt-5 pr-16">
+        <div class="pl-16 pt-5 pr-16" (click)="detailUserPost(data.id)">
           <img
             class="img-cover"
             [src]="'https://foto.co.id/wp-content/uploads/2017/01/pexels-photo-41126.jpeg'"
@@ -109,7 +109,12 @@
             <div class="text-content display-ellipsis max-line-2">
               {{ data.text}}
             </div>
-            <b *ngIf="data.text.length > 65" class="read-more">Selengkapnya</b>
+            <b
+              *ngIf="data.text.length > 65"
+              class="read-more"
+              (click)="detailUserPost(data.id)"
+              >Selengkapnya</b
+            >
           </ion-text>
 
           <div class="mt-8" *ngIf="data.last_comment">

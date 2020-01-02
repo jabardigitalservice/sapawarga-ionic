@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserPost } from 'src/app/interfaces/user-post';
 import { UserPostService } from '../../services/user-post.service';
 import { Dictionary } from 'src/app/helpers/dictionary';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-activity-rw',
@@ -20,7 +21,10 @@ export class ActivityRwPage implements OnInit {
   maximumPages: number;
   isNewUserPost = false;
 
-  constructor(private userPostService: UserPostService) {}
+  constructor(
+    private userPostService: UserPostService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     this.getListUserPosts();
@@ -83,6 +87,16 @@ export class ActivityRwPage implements OnInit {
         this.isLoading = false;
       }
     );
+  }
+
+  detailUserPost(id: number) {
+    // check internet
+    if (!navigator.onLine) {
+      alert(Dictionary.offline);
+      return;
+    }
+
+    this.router.navigate(['/activity-rw', id]);
   }
 
   // infinite scroll

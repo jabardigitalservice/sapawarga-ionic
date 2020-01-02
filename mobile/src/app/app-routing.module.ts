@@ -122,6 +122,11 @@ const routes: Routes = [
   {
     path: 'activity-rw',
     loadChildren: './pages/activity-rw/activity-rw.module#ActivityRwPageModule'
+  },
+  {
+    path: 'activity-rw/:id',
+    loadChildren:
+      './pages/activity-rw-detail/activity-rw-detail.module#ActivityRwDetailPageModule'
   }
 ];
 
