@@ -29,6 +29,16 @@ export class ActivityRwPage implements OnInit {
   ) {}
 
   ngOnInit() {
+    // google analytics
+    this.util.trackPage(this.constants.pageName.postRW);
+
+    this.util.trackEvent(
+      this.constants.pageName.postRW,
+      'view_list_post_rw',
+      '',
+      1
+    );
+
     this.getListUserPosts();
   }
 
@@ -105,9 +115,7 @@ export class ActivityRwPage implements OnInit {
     }, 2000);
   }
 
-  showMore() {
-    console.log('show more');
-  }
+  showMore() {}
 
   doLike(index: number, id: number, isLiked: boolean) {
     if (isLiked === true) {
@@ -116,24 +124,24 @@ export class ActivityRwPage implements OnInit {
       this.dataUserPosts[index].is_liked = false;
 
       // google analytics
-      // this.util.trackEvent(
-      //   this.constants.pageName.QnA,
-      //   'unlike_tanya_jawab',
-      //   this.dataUserPosts[index].text,
-      //   1
-      // );
+      this.util.trackEvent(
+        this.constants.pageName.postRW,
+        'unlike_post_rw',
+        this.dataUserPosts[index].text,
+        1
+      );
     } else {
       this.dataUserPosts[index].likes_count =
         this.dataUserPosts[index].likes_count + 1;
       this.dataUserPosts[index].is_liked = true;
 
       // google analytics
-      // this.util.trackEvent(
-      //   this.constants.pageName.QnA,
-      //   'like_tanya_jawab',
-      //   this.dataUserPosts[index].text,
-      //   1
-      // );
+      this.util.trackEvent(
+        this.constants.pageName.postRW,
+        'like_post_rw',
+        this.dataUserPosts[index].text,
+        1
+      );
     }
 
     // save like to server
