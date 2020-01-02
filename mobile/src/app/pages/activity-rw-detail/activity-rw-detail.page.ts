@@ -53,12 +53,12 @@ export class ActivityRwDetailPage implements OnInit {
           this.dataUserPost = res['data'];
 
           // google event analytics
-          // this.util.trackEvent(
-          //   this.constants.pageName.QnA,
-          //   'view_detail_tanya_jawab',
-          //   this.dataUserPost.text,
-          //   1
-          // );
+          this.util.trackEvent(
+            this.constants.pageName.postRW,
+            'view_detail_post_rw',
+            this.dataUserPost.text,
+            1
+          );
         }
         this.isLoading = false;
       },

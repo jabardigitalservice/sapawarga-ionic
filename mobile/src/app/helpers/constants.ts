@@ -27,7 +27,8 @@ export class Constants {
     forceUpdate: 'Force Update',
     saberHoax: 'Saber Hoax',
     informationPopup: 'Informasi Popup',
-    QnA: 'Tanya Jawab'
+    QnA: 'Tanya Jawab',
+    postRW: 'Post RW'
   };
 
   public inAppBrowserOptions: any = {
