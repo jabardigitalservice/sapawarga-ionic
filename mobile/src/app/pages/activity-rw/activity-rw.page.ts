@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserPost } from '../../interfaces/user-post';
 import { UserPostService } from '../../services/user-post.service';
+import { Router } from '@angular/router';
 import { Dictionary } from '../../helpers/dictionary';
 import { Constants } from '../../helpers/constants';
 import { UtilitiesService } from '../../services/utilities.service';
@@ -25,7 +26,8 @@ export class ActivityRwPage implements OnInit {
   constructor(
     private userPostService: UserPostService,
     private constants: Constants,
-    private util: UtilitiesService
+    private util: UtilitiesService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -99,6 +101,16 @@ export class ActivityRwPage implements OnInit {
         this.isLoading = false;
       }
     );
+  }
+
+  detailUserPost(id: number) {
+    // check internet
+    if (!navigator.onLine) {
+      alert(Dictionary.offline);
+      return;
+    }
+
+    this.router.navigate(['/activity-rw', id]);
   }
 
   // infinite scroll
