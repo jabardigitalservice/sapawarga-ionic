@@ -125,4 +125,40 @@ export class ActivityRwDetailPage implements OnInit {
       }
     );
   }
+
+  /**
+   *
+   *
+   * @param {number} id
+   * @param {boolean} isLiked
+   * @memberof ActivityRwDetailPage
+   */
+  doLike(id: number, isLiked: boolean) {
+    if (isLiked === true) {
+      this.dataUserPost.likes_count = this.dataUserPost.likes_count - 1;
+      this.dataUserPost.is_liked = false;
+
+      // google analytics
+      this.util.trackEvent(
+        this.constants.pageName.postRW,
+        'unlike_post_rw',
+        this.dataUserPost.text,
+        1
+      );
+    } else {
+      this.dataUserPost.likes_count = this.dataUserPost.likes_count + 1;
+      this.dataUserPost.is_liked = true;
+
+      // google analytics
+      this.util.trackEvent(
+        this.constants.pageName.postRW,
+        'like_post_rw',
+        this.dataUserPost.text,
+        1
+      );
+    }
+
+    // save like to server
+    this.userPostService.PostLiked(id).subscribe();
+  }
 }

@@ -95,14 +95,19 @@
       <div class="pl-16 pt-5 pr-16">
         <img
           class="img-cover"
-          [src]="'https://foto.co.id/wp-content/uploads/2017/01/pexels-photo-41126.jpeg'"
+          [src]="dataUserPost.image_path_full"
           onError="this.src='assets/img/placeholder_image.png';"
         />
       </div>
 
       <ion-item class="section-2">
         <ion-item class="section-like">
-          <ion-icon name="heart" color="danger" class="icon-heart"></ion-icon>
+          <ion-icon
+            name="heart"
+            [color]="dataUserPost.is_liked == true ? 'danger' : 'medium'"
+            class="icon-heart"
+            (click)="doLike(dataUserPost.id, dataUserPost.is_liked)"
+          ></ion-icon>
           <p class="text-like" *ngIf="dataUserPost.likes_count !== 0">
             {{dataUserPost.likes_count}} Menyukai
           </p>
@@ -167,7 +172,6 @@
           class="placeholdertext inputMessage inputBg no-padding"
           type="text"
           placeholder="Tuliskan Komentar"
-          [(ngModel)]="inp_text"
           autofocus="true"
           padding-start
         ></ion-textarea>

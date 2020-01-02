@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { UserPost } from 'src/app/interfaces/user-post';
+import { UserPost } from '../../interfaces/user-post';
 import { UserPostService } from '../../services/user-post.service';
-import { Dictionary } from 'src/app/helpers/dictionary';
 import { Router } from '@angular/router';
+import { Dictionary } from '../../helpers/dictionary';
+import { Constants } from '../../helpers/constants';
+import { UtilitiesService } from '../../services/utilities.service';
 
 @Component({
   selector: 'app-activity-rw',
@@ -23,10 +25,24 @@ export class ActivityRwPage implements OnInit {
 
   constructor(
     private userPostService: UserPostService,
+    private constants: Constants,
+    private util: UtilitiesService,
     private router: Router
   ) {}
 
   ngOnInit() {
+    // google analytics
+    this.util.trackPage(this.constants.pageName.postRW);
+
+    this.util.trackEvent(
+      this.constants.pageName.postRW,
+      'view_list_post_rw',
+      '',
+      1
+    );
+  }
+
+  ionViewWillEnter() {
     this.getListUserPosts();
   }
 
@@ -113,7 +129,44 @@ export class ActivityRwPage implements OnInit {
     }, 2000);
   }
 
-  showMore() {
-    console.log('show more');
+  showMore() {}
+
+  /**
+   *
+   *
+   * @param {number} index
+   * @param {number} id
+   * @param {boolean} isLiked
+   * @memberof ActivityRwPage
+   */
+  doLike(index: number, id: number, isLiked: boolean) {
+    if (isLiked === true) {
+      this.dataUserPosts[index].likes_count =
+        this.dataUserPosts[index].likes_count - 1;
+      this.dataUserPosts[index].is_liked = false;
+
+      // google analytics
+      this.util.trackEvent(
+        this.constants.pageName.postRW,
+        'unlike_post_rw',
+        this.dataUserPosts[index].text,
+        1
+      );
+    } else {
+      this.dataUserPosts[index].likes_count =
+        this.dataUserPosts[index].likes_count + 1;
+      this.dataUserPosts[index].is_liked = true;
+
+      // google analytics
+      this.util.trackEvent(
+        this.constants.pageName.postRW,
+        'like_post_rw',
+        this.dataUserPosts[index].text,
+        1
+      );
+    }
+
+    // save like to server
+    this.userPostService.PostLiked(id).subscribe();
   }
 }
