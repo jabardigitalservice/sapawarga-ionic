@@ -67,7 +67,7 @@
               {{ dataQnA.created_at * 1000 | date: 'd MMMM y' }}</ion-note
             >
           </ion-text>
-          <div slot="end">
+          <div slot="end" *ngIf="dataQnA.is_flagged === 0">
             <ion-badge color="blues">{{ dataQnA.likes_count }}</ion-badge>
             <img
               (click)="doLike(dataQnA.id, dataQnA.is_liked)"

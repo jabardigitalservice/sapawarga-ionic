@@ -52,9 +52,13 @@ export class UserPostService {
    * @returns {Observable<UserPost[]>}
    * @memberof UserPostService
    */
-  getListComments(id: number): Observable<UserPost[]> {
+  getListComments(id: number, page?: number): Observable<UserPost[]> {
     return this.http
-      .get<UserPost[]>(`${environment.API_URL}/user-posts/${id}/comments`)
+      .get<UserPost[]>(
+        `${environment.API_URL}/user-posts/${id}/comments?page=${
+          page ? page : null
+        }`
+      )
       .pipe(catchError(this.util.handleError));
   }
 
@@ -68,6 +72,15 @@ export class UserPostService {
   PostLiked(id: number): Observable<any> {
     return this.http
       .post<any>(`${environment.API_URL}/user-posts/likes/${id}`, null)
+      .pipe(catchError(this.util.handleError));
+  }
+
+  PostComment(data: any): Observable<any> {
+    return this.http
+      .post<any>(
+        `${environment.API_URL}/user-posts/${data.user_post_id}/comments`,
+        data
+      )
       .pipe(catchError(this.util.handleError));
   }
 }

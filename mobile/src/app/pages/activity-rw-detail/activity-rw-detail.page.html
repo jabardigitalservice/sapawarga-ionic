@@ -7,7 +7,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content #content>
   <div class="mto" *ngIf="isLoading">
     <!-- skeleton post user -->
     <ion-item-divider>
@@ -162,6 +162,18 @@
       </div>
     </ion-list>
   </div>
+
+  <ion-infinite-scroll
+    threshold="100px"
+    (ionInfinite)="doInfinite($event)"
+    *ngIf="dataUserPostComents && !isLoading"
+  >
+    <ion-infinite-scroll-content
+      loadingSpinner="bubbles"
+      loadingText="Sedang mengambil data..."
+    >
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 </ion-content>
 
 <ion-footer class="footer">
@@ -173,11 +185,17 @@
           type="text"
           placeholder="Tuliskan Komentar"
           autofocus="true"
+          [(ngModel)]="inputComment"
           padding-start
         ></ion-textarea>
       </div>
       <div class="send-button-parent">
-        <ion-icon class="sendBtn-icon" name="send" color="blues"></ion-icon>
+        <ion-icon
+          class="sendBtn-icon"
+          name="send"
+          [color]="inputComment ? 'blues' : 'medium'"
+          (click)="sendComment()"
+        ></ion-icon>
       </div>
     </div>
   </ion-toolbar>
