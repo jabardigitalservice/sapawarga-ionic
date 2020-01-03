@@ -5,7 +5,7 @@ export interface UserPost {
   likes_count: number;
   comments_count: number;
   last_user_post_comment_id: null;
-  last_comment: Last_comment;
+  last_comment: LastComment;
   status: number;
   status_label: string;
   created_at: number;
@@ -25,7 +25,7 @@ export interface User {
   kecamatan: string;
 }
 
-export interface Last_comment {
+export interface LastComment {
   id: number;
   user_post_id: string;
   text: string;
