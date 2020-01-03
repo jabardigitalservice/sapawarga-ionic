@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { UserPostService } from '../../services/user-post.service';
 import { UserPost } from '../../interfaces/user-post';
 import { Dictionary } from '../../helpers/dictionary';
 import { UtilitiesService } from '../../services/utilities.service';
 import { Constants } from '../../helpers/constants';
 import { ActivatedRoute } from '@angular/router';
+import { Profile } from '../../interfaces/profile';
+import { ProfileService } from '../../services/profile.service';
 
 @Component({
   selector: 'app-activity-rw-detail',
@@ -12,28 +14,40 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./activity-rw-detail.page.scss']
 })
 export class ActivityRwDetailPage implements OnInit {
+  @ViewChild('content') private content: any;
   dataUserPost: UserPost;
   dataUserPostComents: UserPost[];
+  dataProfile: Profile;
   dataEmpty = false;
   isLoading = false;
   msgResponse = {
     type: '',
     msg: ''
   };
+  inputComment: string;
+
+  currentPage = 1;
+  maximumPages: number;
+  idUserPost: number;
 
   constructor(
     private userPostService: UserPostService,
     private route: ActivatedRoute,
     private util: UtilitiesService,
-    private constants: Constants
-  ) {}
+    private constants: Constants,
+    private profileService: ProfileService
+  ) {
+    this.profileService.currentUser.subscribe((state: Profile) => {
+      this.dataProfile = state;
+    });
+  }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
-      const id = params['id'];
+      this.idUserPost = params['id'];
 
-      this.getDetailUserPost(id);
-      this.getListComments(id);
+      this.getDetailUserPost(this.idUserPost);
+      this.getListComments(this.idUserPost);
     });
   }
 
@@ -85,26 +99,44 @@ export class ActivityRwDetailPage implements OnInit {
     );
   }
 
-  getListComments(id: number) {
+  getListComments(id: number, infiniteScroll?) {
     // check internet
     if (!navigator.onLine) {
+      if (infiniteScroll) {
+        infiniteScroll.target.complete();
+      }
       return;
     }
 
-    this.dataEmpty = false;
+    if (!infiniteScroll) {
+      this.isLoading = true;
+    } else {
+      this.dataEmpty = false;
+    }
 
-    this.isLoading = true;
-
-    this.userPostService.getListComments(id).subscribe(
+    this.userPostService.getListComments(id, this.currentPage).subscribe(
       res => {
         if (res['data']['items'].length) {
-          this.dataUserPostComents = res['data']['items'];
+          if (infiniteScroll) {
+            this.dataUserPostComents = this.dataUserPostComents.concat(
+              res['data']['items']
+            );
+          } else {
+            this.dataUserPostComents = res['data']['items'];
+          }
         } else {
           this.dataEmpty = true;
           this.msgResponse = {
             type: 'empty',
             msg: Dictionary.polling_empty
           };
+        }
+
+        // set count page
+        this.maximumPages = res['data']['_meta'].pageCount;
+        // stop infinite scroll
+        if (infiniteScroll) {
+          infiniteScroll.target.complete();
         }
         this.isLoading = false;
       },
@@ -160,5 +192,72 @@ export class ActivityRwDetailPage implements OnInit {
 
     // save like to server
     this.userPostService.PostLiked(id).subscribe();
+  }
+
+  sendComment() {
+    if (!this.inputComment) {
+      return;
+    }
+
+    // data send to server
+    const bodyPost = {
+      user_post_id: this.dataUserPost.id,
+      text: this.inputComment,
+      status: 10
+    };
+
+    // data local
+    const dataNewComment: any = {
+      id: this.dataUserPost.id,
+      text: this.inputComment,
+      user: {
+        id: this.dataProfile.id,
+        name: this.dataProfile.name,
+        photo_url_full: this.dataProfile.photo_url
+      },
+      created_at: Date.now().valueOf() / 1000
+    };
+
+    // insert new comment to list comments
+    this.dataUserPostComents.push(dataNewComment);
+
+    // set null input text
+    this.inputComment = null;
+    setTimeout(() => {
+      this.content.scrollToBottom(100);
+    }, 10);
+
+    this.userPostService.PostComment(bodyPost).subscribe(
+      res => {
+        if (res['success'] === true) {
+          // google event analytics
+          this.util.trackEvent(
+            this.constants.pageName.postRW,
+            'create_comment_post_rw',
+            `${this.dataProfile.name}: ${this.inputComment}`,
+            1
+          );
+        } else {
+          this.util.alertConfirmation(Dictionary.terjadi_kesalahan, ['OK']);
+        }
+      },
+      _ => {
+        this.util.alertConfirmation(Dictionary.terjadi_kesalahan, ['OK']);
+      }
+    );
+  }
+
+  // infinite scroll
+  doInfinite(event: any) {
+    if (this.currentPage === this.maximumPages) {
+      event.target.disabled = true;
+      return;
+    }
+    // increase page
+    this.currentPage++;
+
+    setTimeout(() => {
+      this.getListComments(this.idUserPost, event);
+    }, 2000);
   }
 }
