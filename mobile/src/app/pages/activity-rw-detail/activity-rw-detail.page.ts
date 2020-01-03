@@ -231,12 +231,12 @@ export class ActivityRwDetailPage implements OnInit {
       res => {
         if (res['success'] === true) {
           // google event analytics
-          // this.util.trackEvent(
-          //   this.constants.pageName.QnA,
-          //   'create_question_tanya_jawab',
-          //   this.f.description.value,
-          //   1
-          // );
+          this.util.trackEvent(
+            this.constants.pageName.postRW,
+            'create_comment_post_rw',
+            `${this.dataProfile.name}: ${this.inputComment}`,
+            1
+          );
         } else {
           this.util.alertConfirmation(Dictionary.terjadi_kesalahan, ['OK']);
         }
