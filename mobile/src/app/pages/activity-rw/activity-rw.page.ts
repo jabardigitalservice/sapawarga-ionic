@@ -5,6 +5,16 @@ import { Router } from '@angular/router';
 import { Dictionary } from '../../helpers/dictionary';
 import { Constants } from '../../helpers/constants';
 import { UtilitiesService } from '../../services/utilities.service';
+import { LoadingController } from '@ionic/angular';
+import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
+import {
+  FileTransfer,
+  FileUploadOptions,
+  FileTransferObject
+} from '@ionic-native/file-transfer/ngx';
+import { environment } from 'src/environments/environment';
+
+const TOKEN_KEY = 'auth-token';
 
 @Component({
   selector: 'app-activity-rw',
@@ -22,12 +32,16 @@ export class ActivityRwPage implements OnInit {
   currentPage = 1;
   maximumPages: number;
   isNewUserPost = false;
+  imageData: any;
 
   constructor(
     private userPostService: UserPostService,
     private constants: Constants,
     private util: UtilitiesService,
-    private router: Router
+    private router: Router,
+    private loadingCtrl: LoadingController,
+    private camera: Camera,
+    private transfer: FileTransfer
   ) {}
 
   ngOnInit() {
@@ -168,5 +182,124 @@ export class ActivityRwPage implements OnInit {
 
     // save like to server
     this.userPostService.PostLiked(id).subscribe();
+  }
+
+  async addPostRW() {
+    const buttons = [
+      {
+        text: 'Ambil foto',
+        role: 'destructive',
+        icon: 'camera',
+        handler: () => {
+          this.getImage(1);
+        }
+      },
+      {
+        text: 'Ambil dari gallery',
+        icon: 'images',
+        handler: () => {
+          this.getImage(0);
+        }
+      },
+      {
+        text: 'Batal',
+        icon: 'close',
+        role: 'cancel',
+        handler: () => {}
+      }
+    ];
+
+    this.util.actionSheet(buttons, 'Pilihan');
+  }
+
+  // get native camera / gallery
+  getImage(sourceType: number) {
+    const options: CameraOptions = {
+      quality: 40,
+      destinationType: this.camera.DestinationType.FILE_URI,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE,
+      correctOrientation: true,
+      sourceType: sourceType
+    };
+
+    this.camera.getPicture(options).then(
+      imageData => {
+        // check internet
+        if (!navigator.onLine) {
+          this.util.showToast(Dictionary.offline);
+          return;
+        }
+
+        this.imageData = imageData;
+        console.log(this.imageData);
+        this.uploadImage(imageData);
+      },
+      err => {}
+    );
+  }
+
+  // upload image to server
+  async uploadImage(imageData) {
+    const loading = await this.loadingCtrl.create({
+      message: 'Uploading...'
+    });
+    await loading.present();
+
+    const fileTransfer: FileTransferObject = this.transfer.create();
+
+    // format file name using regex
+    const fileNameFormat = imageData
+      .substr(imageData.lastIndexOf('/') + 1)
+      .split(/[?#]/)[0];
+
+    const options: FileUploadOptions = {
+      fileKey: 'file',
+      fileName: fileNameFormat,
+      chunkedMode: false,
+      mimeType: 'image/jpeg',
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem(TOKEN_KEY)}`
+      }
+    };
+
+    options.params = {
+      type: 'user_post_photo'
+    };
+
+    fileTransfer
+      .upload(imageData, `${environment.API_URL}/attachments`, options)
+      .then(
+        data => {
+          const response = JSON.parse(data.response);
+          // success
+          loading.dismiss();
+          if (response['success'] === true) {
+            const image = {
+              type: 'photo',
+              path: response['data']['path'],
+              url: response['data']['url']
+            };
+
+            console.log(image);
+
+            // this.images.push(image);
+
+            // insert array images to form attachments
+            // this.f.attachments.setValue(this.images);
+          } else {
+            this.util.showToast(Dictionary.max_upload_photo);
+          }
+        },
+        err => {
+          loading.dismiss();
+          const data = JSON.parse(err.body);
+          if (data.data.file[0]) {
+            this.util.showToast(data.data.file[0]);
+          } else {
+            this.util.showToast(Dictionary.check_internal);
+          }
+        }
+      );
   }
 }
