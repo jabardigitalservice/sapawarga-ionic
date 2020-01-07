@@ -110,7 +110,7 @@
     </p>
   </div>
 
-  <ion-text class="text-buttom">
+  <ion-text class="text-buttom" *ngIf="!isKeyboardOpen">
     <p class="min-mb-5">
       <a (click)="launchweb('tos')">Term of Service </a>
       &nbsp;&nbsp;|&nbsp;&nbsp;
@@ -123,7 +123,7 @@
   </ion-text>
 </ion-content>
 
-<ion-footer>
+<ion-footer *ngIf="!isKeyboardOpen">
   <ion-toolbar>
     <ion-text color="dark">
       <p>Versi {{ app_version }}</p>
