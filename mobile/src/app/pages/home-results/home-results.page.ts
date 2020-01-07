@@ -266,6 +266,12 @@ export class HomeResultsPage implements OnInit {
         this.navigationForward(path, 'tapped_survei');
         break;
       case 'Kegiatan RW':
+        // check if offline
+        if (!navigator.onLine) {
+          alert(Dictionary.offline);
+          return;
+        }
+
         this.navigationForward(path, 'activity_rw');
         break;
       case 'Jabar Saber Hoaks':
