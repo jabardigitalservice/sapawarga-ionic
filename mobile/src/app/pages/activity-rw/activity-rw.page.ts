@@ -187,6 +187,8 @@ export class ActivityRwPage implements OnInit {
   }
 
   async addPostRW() {
+    this.showForm('asd');
+    return;
     const buttons = [
       {
         text: 'Ambil foto',
@@ -306,10 +308,17 @@ export class ActivityRwPage implements OnInit {
   }
 
   async showForm(image: any) {
+    const imagess = {
+      type: 'photo',
+      path: 'general/asdsa.png',
+      url:
+        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwW_3ZEVJMdc1sBRD11aN5SgzqP53zj5vW3qvxTZRTxflSzB7_oQ&s'
+    };
+
     const modal = await this.modalController.create({
       component: ActivityRwFormComponent,
       componentProps: {
-        image: image
+        image: imagess
       },
       backdropDismiss: false
     });

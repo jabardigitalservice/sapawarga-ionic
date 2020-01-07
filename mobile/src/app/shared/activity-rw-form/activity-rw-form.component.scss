@@ -1,0 +1,44 @@
+:host {
+  ion-textarea {
+    padding-inline-start: 0px;
+    --padding-bottom: 0px;
+  }
+
+  ion-icon.icon-back {
+    font-size: 25px !important;
+    padding-left: 5px;
+  }
+}
+
+.bg-image {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+}
+
+.containerFooter {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.sendBtn-icon {
+  font-size: 25px;
+}
+
+.send-button-parent {
+  padding: 0 6px 0 15px;
+}
+
+.inputConatiner {
+  width: 85%;
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+}
+
+.inputBg {
+  background: #fff;
+}

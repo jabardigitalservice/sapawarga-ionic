@@ -1,3 +1,39 @@
-<p>
-  activity-rw-form works!
-</p>
+<ion-header>
+  <ion-toolbar color="light">
+    <ion-icon
+      class="icon-back"
+      name="arrow-back"
+      slot="start"
+      (click)="dismiss()"
+    ></ion-icon>
+    <ion-title>Buat Kegiatan RW</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div [ngStyle]="{ 'background-image': getUrl() }" class="bg-image"></div>
+</ion-content>
+
+<ion-footer class="footer">
+  <ion-toolbar class="footerSections">
+    <div class="containerFooter">
+      <div class="inputConatiner">
+        <ion-textarea
+          class="placeholdertext inputMessage inputBg no-padding"
+          type="text"
+          placeholder="Tuliskan Komentar"
+          [(ngModel)]="aaa"
+          padding-start
+        ></ion-textarea>
+      </div>
+      <div class="send-button-parent">
+        <ion-icon
+          class="sendBtn-icon"
+          name="send"
+          [color]="aaa ? 'blues' : 'medium'"
+          (click)="sendPost()"
+        ></ion-icon>
+      </div>
+    </div>
+  </ion-toolbar>
+</ion-footer>
