@@ -46,6 +46,8 @@ export class LoginPage implements OnInit {
   token_fcm: string;
   hakCipta = Dictionary.hak_cipta;
 
+  isKeyboardOpen: boolean;
+
   public app_version = null;
   constructor(
     public navCtrl: NavController,
@@ -73,6 +75,16 @@ export class LoginPage implements OnInit {
         this.app_version = res;
       })
       .catch(err => {});
+
+    // listen keyboard
+    window.addEventListener('keyboardDidShow', () => {
+      console.log('Keyboard is Shown');
+      this.isKeyboardOpen = true;
+    });
+    window.addEventListener('keyboardDidHide', () => {
+      console.log('Keyboard is Hidden');
+      this.isKeyboardOpen = false;
+    });
   }
 
   public showPassword() {
