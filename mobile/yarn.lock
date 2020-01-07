@@ -322,6 +322,13 @@
   dependencies:
     "@types/cordova" latest
 
+"@ionic-native/app-version@^5.9.0":
+  version "5.16.0"
+  resolved "https://registry.yarnpkg.com/@ionic-native/app-version/-/app-version-5.16.0.tgz#35b2b7da8389a122d35a1b20c05bec6a966f47be"
+  integrity sha512-kuSgO+wErW7XVDszAA7tasVwB28kd0+SKUdHkgT/n20PHBQid0KFewQT71geYe+ZDYCzzl4RGPEqVCazDqzTfg==
+  dependencies:
+    "@types/cordova" latest
+
 "@ionic-native/call-number@^5.4.0":
   version "5.5.1"
   resolved "https://registry.yarnpkg.com/@ionic-native/call-number/-/call-number-5.5.1.tgz#a450af8e04dc5c37959f0ddddcb4a911b9e4402d"
@@ -347,6 +354,13 @@
   version "5.5.1"
   resolved "https://registry.yarnpkg.com/@ionic-native/diagnostic/-/diagnostic-5.5.1.tgz#53c817560c2e9863217acb49d842a16ea2c1d7f7"
   integrity sha512-7su1qFZugsyl8g0CoI9Pxq9FhRSnZYfqvJOfaoyMZjoNIsqDKnXJA8YaD8gJFLHHlJeRlwvx0aNcdjQS+cIDZw==
+  dependencies:
+    "@types/cordova" latest
+
+"@ionic-native/downloader@^5.10.0":
+  version "5.16.0"
+  resolved "https://registry.yarnpkg.com/@ionic-native/downloader/-/downloader-5.16.0.tgz#0e5968a012edcc222f52e14c2d660c5a536783da"
+  integrity sha512-9Jcg9ouJZXJ7syWBsI/D+SXU4GB6lxG56qqp8WFyV+ydxNhvyRAJsx3CKC9rYbzbX5Y9IcWbRH/R1bu0L+XnVQ==
   dependencies:
     "@types/cordova" latest
 
@@ -378,15 +392,29 @@
   dependencies:
     "@types/cordova" latest
 
+"@ionic-native/google-analytics@^5.12.0":
+  version "5.16.0"
+  resolved "https://registry.yarnpkg.com/@ionic-native/google-analytics/-/google-analytics-5.16.0.tgz#b42031093938b09269ea41e94a46bb777cfafaa3"
+  integrity sha512-zie9ZL8b+sCvSls3vRSZjuANGG+fLhcJ/zmJ4UBSW2BumReT21jeP+8eOCJbArb7T308E285l8XI3xdpCsMSgw==
+  dependencies:
+    "@types/cordova" latest
+
 "@ionic-native/google-maps@^5.0.0-beta.27":
   version "5.5.0"
   resolved "https://registry.yarnpkg.com/@ionic-native/google-maps/-/google-maps-5.5.0.tgz#02537e04bb0d01d5580f936d8ccce6745188d90a"
   integrity sha512-+sCaB7cLR35ApsOyYSfwDX2ZTO2ItOI6FHkgTQ2rzOA1DVJ9rlU8HDL6jYBUhq+aDe3lhCPexSOryeBynaSvpQ==
 
-"@ionic-native/in-app-browser@^5.3.0":
-  version "5.5.1"
-  resolved "https://registry.yarnpkg.com/@ionic-native/in-app-browser/-/in-app-browser-5.5.1.tgz#3163d62674a232cfc4218ba0325ad2a8d6cee6ee"
-  integrity sha512-lRdB21N361c+vK4Eq2GGI9gstuwextRVVdDwGwblaW6HVtCmMz1zNw4BRDCMY0uzwsxZ1PrUOZLZLSGsItTy1A==
+"@ionic-native/http@^5.9.0":
+  version "5.16.0"
+  resolved "https://registry.yarnpkg.com/@ionic-native/http/-/http-5.16.0.tgz#1cd6871a7131f29da89c942a3b7feeaf3d98be36"
+  integrity sha512-AbulyEu4ZPN/J6uAAKXcxuv2TGMycmBIdLdSBOHVjfy2oZbHcNJ18UV5b9u13YT1mU0dRN0638PS9kl+hraLFg==
+  dependencies:
+    "@types/cordova" latest
+
+"@ionic-native/in-app-browser@^5.8.0":
+  version "5.16.0"
+  resolved "https://registry.yarnpkg.com/@ionic-native/in-app-browser/-/in-app-browser-5.16.0.tgz#13dc345e25bce297501a53f0d5ee609884478d7c"
+  integrity sha512-OgrHGzY6Mf4mZCqMTdH4N+Z+SGMKPmvbnFokGFl/kmpLL83tSfO26E7PbSFMCCJPxsnI4X9bm9EXuzTrUPzhtg==
   dependencies:
     "@types/cordova" latest
 
@@ -401,6 +429,13 @@
   version "5.5.1"
   resolved "https://registry.yarnpkg.com/@ionic-native/open-native-settings/-/open-native-settings-5.5.1.tgz#4eee902532309af8095c6b28d0ed429c4d645a4b"
   integrity sha512-wcLFFXbDQ1MyZd0izObYzWY0aP9Yn6VmPuWDeoP5j04srxV7luTMzbjRiCxFTxKzTud3XrkfkxhgQw6MCHYqrw==
+  dependencies:
+    "@types/cordova" latest
+
+"@ionic-native/screen-orientation@^5.8.0":
+  version "5.16.0"
+  resolved "https://registry.yarnpkg.com/@ionic-native/screen-orientation/-/screen-orientation-5.16.0.tgz#1b84efd83d1f68c16c71a123e7c5f1317d7deacf"
+  integrity sha512-R8fmkiaC7TpKIuO4M7CkzEp3qQtx005m8sKHFD/XRisG6vIEc9ibH4TP1JL+GEsv/mFUfLEGfxMLMSaOyuVwZQ==
   dependencies:
     "@types/cordova" latest
 
@@ -422,6 +457,13 @@
   version "5.5.1"
   resolved "https://registry.yarnpkg.com/@ionic-native/status-bar/-/status-bar-5.5.1.tgz#f53cbe67661346fa3f0a65551d4762d5fec639a0"
   integrity sha512-oD+qpggnGDtYe7dq6x0bqgDFyRiCTKx4r+gQGj/RCkMys5RSDAXl9clwJ12XzhFqwpwgy5B1RS3AHGtrK1R6iw==
+  dependencies:
+    "@types/cordova" latest
+
+"@ionic-native/youtube-video-player@^5.10.0":
+  version "5.16.0"
+  resolved "https://registry.yarnpkg.com/@ionic-native/youtube-video-player/-/youtube-video-player-5.16.0.tgz#928c248049256fd57629e553fe05f4a0c465d7d5"
+  integrity sha512-3YdIszQ3CPewXxFuAc5a3jicq65nmpptnKXBGjeOjrNbpDq8cKQZ852xT2c2gtsNO7pbf79wFTkmPl9GQTpvfA==
   dependencies:
     "@types/cordova" latest
 
@@ -1939,6 +1981,11 @@ compare-versions@^3.4.0:
   resolved "https://registry.yarnpkg.com/compare-versions/-/compare-versions-3.4.0.tgz#e0747df5c9cb7f054d6d3dc3e1dbc444f9e92b26"
   integrity sha512-tK69D7oNXXqUW3ZNo/z7NXTEz22TCF0pTE+YF9cxvaAM9XnkLo1fV621xCLrRR6aevJlKxExkss0vWqUCUpqdg==
 
+compare-versions@^3.5.1:
+  version "3.5.1"
+  resolved "https://registry.yarnpkg.com/compare-versions/-/compare-versions-3.5.1.tgz#26e1f5cf0d48a77eced5046b9f67b6b61075a393"
+  integrity sha512-9fGPIB7C6AyM18CJJBHt5EnCZDG3oiTJYy0NjfIAGjKpzv0tkxWko7TNQHF5ymqm7IH03tqmeuBxtvD+Izh6mg==
+
 component-bind@1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/component-bind/-/component-bind-1.0.0.tgz#00c608ab7dcd93897c0009651b1d3a8e1e73bbd1"
@@ -2146,6 +2193,11 @@ cordova-open-native-settings@^1.5.2:
   resolved "https://registry.yarnpkg.com/cordova-open-native-settings/-/cordova-open-native-settings-1.5.2.tgz#9dadfc47ecb953630369743228f88afa452f0088"
   integrity sha512-UvcTZAH3/r3U/jred2bOqoYIXUo5Gmq0in6fgkqvwgRCcOSQtQJWnUqg4i0RlHkEd1zKDi61JdpeSyJT+K8ZRQ==
 
+cordova-plugin-app-version@0.1.9:
+  version "0.1.9"
+  resolved "https://registry.yarnpkg.com/cordova-plugin-app-version/-/cordova-plugin-app-version-0.1.9.tgz#9db0607863337a710489302e5f50a904f1449bdb"
+  integrity sha1-nbBgeGMzenEEiTAuX1CpBPFEm9s=
+
 cordova-plugin-appavailability@^0.4.2:
   version "0.4.2"
   resolved "https://registry.yarnpkg.com/cordova-plugin-appavailability/-/cordova-plugin-appavailability-0.4.2.tgz#a017aaf0f8827ee599dc778b6245dcc1350bcba8"
@@ -2181,6 +2233,11 @@ cordova-plugin-geolocation@4.0.1:
   resolved "https://registry.yarnpkg.com/cordova-plugin-geolocation/-/cordova-plugin-geolocation-4.0.1.tgz#4703fa649d2405d25a9a732c99ebf868754a2c04"
   integrity sha1-RwP6ZJ0kBdJamnMsmev4aHVKLAQ=
 
+cordova-plugin-google-analytics@1.8.6:
+  version "1.8.6"
+  resolved "https://registry.yarnpkg.com/cordova-plugin-google-analytics/-/cordova-plugin-google-analytics-1.8.6.tgz#7886bd7ac9264e4dec7355ebed64d939b274731a"
+  integrity sha512-shg8e3ris1MzmhC8roraScc2GEcfe7sVlbKkvrO3wZUAlYr31sf+4wxZr/VQB6tEcPsmTAkoNjGr1zMwoYjMeg==
+
 cordova-plugin-googlemaps@^2.6.2:
   version "2.6.2"
   resolved "https://registry.yarnpkg.com/cordova-plugin-googlemaps/-/cordova-plugin-googlemaps-2.6.2.tgz#8c73f1d3ab2f815b36e2239149c3731541e0ffe2"
@@ -2208,6 +2265,11 @@ cordova-plugin-network-information@^2.0.1:
   resolved "https://registry.yarnpkg.com/cordova-plugin-network-information/-/cordova-plugin-network-information-2.0.1.tgz#e90421f430c6ab76d409223f25fcefbbbce17690"
   integrity sha1-6QQh9DDGq3bUCSI/Jfzvu7zhdpA=
 
+cordova-plugin-screen-orientation@3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/cordova-plugin-screen-orientation/-/cordova-plugin-screen-orientation-3.0.1.tgz#75a357ce2938081e8f61d4605394b6d77463c1f8"
+  integrity sha1-daNXzik4CB6PYdRgU5S213Rjwfg=
+
 cordova-plugin-splashscreen@^5.0.2:
   version "5.0.2"
   resolved "https://registry.yarnpkg.com/cordova-plugin-splashscreen/-/cordova-plugin-splashscreen-5.0.2.tgz#747e74f56e201cd585bc62d14bca19f6867ff1ed"
@@ -2222,6 +2284,11 @@ cordova-plugin-whitelist@^1.3.3:
   version "1.3.3"
   resolved "https://registry.yarnpkg.com/cordova-plugin-whitelist/-/cordova-plugin-whitelist-1.3.3.tgz#b5e85ecdbbfe5aeded40a1bf4ee2372e67d96fb4"
   integrity sha1-tehezbv+Wu3tQKG/TuI3LmfZb7Q=
+
+cordova-plugin-youtube-video-player@2.3.0:
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/cordova-plugin-youtube-video-player/-/cordova-plugin-youtube-video-player-2.3.0.tgz#cf773c9b9ffc89b97c40efa95c170c458dcf8ca0"
+  integrity sha512-vVTi5F3mdfqE1+vXX4bsa8r5fu/kHx8mFs5FSHlm/nbptRzWxCSpyN04sl4KMPBGYyPajEU8LT7Kt+fGJD71bg==
 
 cordova-registry-mapper@^1.1.8:
   version "1.1.15"
@@ -2836,6 +2903,11 @@ es-to-primitive@^1.2.0:
     is-callable "^1.1.4"
     is-date-object "^1.0.1"
     is-symbol "^1.0.2"
+
+es6-promise-plugin@4.2.2:
+  version "4.2.2"
+  resolved "https://registry.yarnpkg.com/es6-promise-plugin/-/es6-promise-plugin-4.2.2.tgz#cfa0cc1383d91f999a62a2bbf4bd97bec305e0ac"
+  integrity sha512-uoA4aVplXI9oqUYJFBAVRwAqIN9/n9JgrTAUGX3qPbnSZVE5yY1+6/MsoN5f4xsaPO62WjPHOdtts6okMN6tNA==
 
 es6-promise@^4.0.3:
   version "4.2.6"
@@ -3526,6 +3598,11 @@ graceful-fs@^4.1.11, graceful-fs@^4.1.15, graceful-fs@^4.1.2, graceful-fs@^4.1.6
   resolved "https://registry.yarnpkg.com/graceful-fs/-/graceful-fs-4.1.15.tgz#ffb703e1066e8a0eeaa4c8b80ba9253eeefbfb00"
   integrity sha512-6uHUhOPEBgQ24HM+r6b/QwWfZq+yiFcipKFrOFiBEnWdy5sdzYoi+pJeQaPI5qOLRFqWmAXUPQNsielzdLoecA==
 
+hammerjs@^2.0.8:
+  version "2.0.8"
+  resolved "https://registry.yarnpkg.com/hammerjs/-/hammerjs-2.0.8.tgz#04ef77862cff2bb79d30f7692095930222bf60f1"
+  integrity sha1-BO93hiz/K7edMPdpIJWTAiK/YPE=
+
 handle-thing@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/handle-thing/-/handle-thing-2.0.0.tgz#0e039695ff50c93fc288557d696f3c1dc6776754"
@@ -3914,6 +3991,11 @@ inquirer@^6.0.0:
     string-width "^2.1.0"
     strip-ansi "^5.1.0"
     through "^2.3.6"
+
+integrator-cordova-plugin-downloader@1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/integrator-cordova-plugin-downloader/-/integrator-cordova-plugin-downloader-1.1.0.tgz#6f3b893bd4ba742b5f86dc2b8645c5139bf8a1ae"
+  integrity sha512-LTXJ9ujnSSVNwl2+G2398SdttFwTBvvQ+8BiTjeKjGnE2av3IaHbi3Qp7QIV9p/sDaclJpOh4Z94nxwRvgrgeA==
 
 internal-ip@^3.0.1:
   version "3.0.1"
@@ -5046,9 +5128,9 @@ mississippi@^3.0.0:
     through2 "^2.0.0"
 
 mixin-deep@^1.2.0:
-  version "1.3.1"
-  resolved "https://registry.yarnpkg.com/mixin-deep/-/mixin-deep-1.3.1.tgz#a49e7268dce1a0d9698e45326c5626df3543d0fe"
-  integrity sha512-8ZItLHeEgaqEvd5lYBXfm4EZSFCX29Jb9K+lAHhDKzReKBQKj3R+7NOF6tjqYi9t4oI8VUfaWITJQm86wnXGNQ==
+  version "1.3.2"
+  resolved "https://registry.yarnpkg.com/mixin-deep/-/mixin-deep-1.3.2.tgz#1120b43dc359a785dce65b55b82e257ccf479566"
+  integrity sha512-WRoDn//mXBiJ1H40rqa3vH0toePwSsGb45iInWlTySa+Uu4k3tYUSxa2v1KqAiLtvlrSzaExqS1gtk96A9zvEA==
   dependencies:
     for-in "^1.0.2"
     is-extendable "^1.0.1"
@@ -5067,6 +5149,11 @@ mkdirp@0.5.x, "mkdirp@>=0.5 0", mkdirp@^0.5.0, mkdirp@^0.5.1, mkdirp@~0.5.0:
   integrity sha1-MAV0OOrGz3+MR2fzhkjWaX11yQM=
   dependencies:
     minimist "0.0.8"
+
+moment@^2.24.0:
+  version "2.24.0"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.24.0.tgz#0d055d53f5052aa653c9f6eb68bb5d12bf5c2b5b"
+  integrity sha512-bV7f+6l2QigeBBZSM/6yTNq4P2fNpSWj/0e7jQcy87A8e7o2nAfP/34/2ky5Vw4B9S446EtIhodAzkFCcR4dQg==
 
 move-concurrently@^1.0.1:
   version "1.0.1"
