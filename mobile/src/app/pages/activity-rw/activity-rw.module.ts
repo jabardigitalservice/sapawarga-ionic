@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { ActivityRwPage } from './activity-rw.page';
 import { SharedModule } from '../../shared/shared.module';
+import { ActivityRwFormComponent } from '../../shared/activity-rw-form/activity-rw-form.component';
 
 const routes: Routes = [
   {
@@ -23,6 +24,7 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     SharedModule
   ],
+  entryComponents: [ActivityRwFormComponent],
   declarations: [ActivityRwPage]
 })
 export class ActivityRwPageModule {}

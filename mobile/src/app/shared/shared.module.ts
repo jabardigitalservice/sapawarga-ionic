@@ -10,6 +10,7 @@ import { VideoListComponent } from './video-list/video-list.component';
 import { HumasJabarComponent } from './humas-jabar/humas-jabar.component';
 import { SkeletonComponent } from './skeleton/skeleton.component';
 import { DidNotRegisterComponent } from './did-not-register/did-not-register.component';
+import { ActivityRwFormComponent } from './activity-rw-form/activity-rw-form.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { DidNotRegisterComponent } from './did-not-register/did-not-register.com
     VideoListComponent,
     HumasJabarComponent,
     SkeletonComponent,
-    DidNotRegisterComponent
+    DidNotRegisterComponent,
+    ActivityRwFormComponent
   ],
   imports: [CommonModule, IonicModule],
   exports: [

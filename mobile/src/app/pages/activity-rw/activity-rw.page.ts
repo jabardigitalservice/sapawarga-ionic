@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { Dictionary } from '../../helpers/dictionary';
 import { Constants } from '../../helpers/constants';
 import { UtilitiesService } from '../../services/utilities.service';
-import { LoadingController } from '@ionic/angular';
+import { LoadingController, ModalController } from '@ionic/angular';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import {
   FileTransfer,
@@ -13,6 +13,7 @@ import {
   FileTransferObject
 } from '@ionic-native/file-transfer/ngx';
 import { environment } from 'src/environments/environment';
+import { ActivityRwFormComponent } from 'src/app/shared/activity-rw-form/activity-rw-form.component';
 
 const TOKEN_KEY = 'auth-token';
 
@@ -41,7 +42,8 @@ export class ActivityRwPage implements OnInit {
     private router: Router,
     private loadingCtrl: LoadingController,
     private camera: Camera,
-    private transfer: FileTransfer
+    private transfer: FileTransfer,
+    private modalController: ModalController
   ) {}
 
   ngOnInit() {
@@ -301,5 +303,16 @@ export class ActivityRwPage implements OnInit {
           }
         }
       );
+  }
+
+  async showForm(image: any) {
+    const modal = await this.modalController.create({
+      component: ActivityRwFormComponent,
+      componentProps: {
+        image: image
+      },
+      backdropDismiss: false
+    });
+    return await modal.present();
   }
 }
