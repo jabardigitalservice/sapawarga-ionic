@@ -9,8 +9,10 @@ import { LoginPage } from './login.page';
 // plugin
 import { Downloader } from '@ionic-native/downloader/ngx';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
+import { Keyboard } from '@ionic-native/keyboard/ngx';
+
 import { SharedModule } from '../../shared/shared.module';
-import { DidNotRegisterComponent } from 'src/app/shared/did-not-register/did-not-register.component';
+import { DidNotRegisterComponent } from '../../shared/did-not-register/did-not-register.component';
 
 const routes: Routes = [
   {
@@ -28,7 +30,7 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     SharedModule
   ],
-  providers: [Downloader, InAppBrowser],
+  providers: [Downloader, InAppBrowser, Keyboard],
   declarations: [LoginPage],
   entryComponents: [DidNotRegisterComponent]
 })
